@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>THP Inter Companion | คู่มือรับฝากระหว่างประเทศ ปณท (อัปเดต พ.ย. 69)</title>
+  <title>คู่มือรับฝาก ปณก. | บริการในประเทศ & บริการระหว่างประเทศ (อัปเดต พ.ย. 69)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -619,6 +619,101 @@
       margin: 8px 0;
     }
 
+    /* Top-Level Gateway Mode Switcher (ทางเข้าแรก: บริการในประเทศ | บริการระหว่างประเทศ) */
+    .mode-gateway-bar {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+      background: rgba(0, 0, 0, 0.22);
+      padding: 5px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    .mode-gateway-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.18s ease;
+    }
+
+    .mode-gateway-btn .sub-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    .mode-gateway-btn.active {
+      background: #FFFFFF;
+      color: var(--thp-red-dark);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+    }
+
+    .mode-gateway-btn.active .sub-pill {
+      background: var(--thp-red-light);
+      color: var(--thp-red);
+    }
+
+    /* Gateway Hero Banner inside Container */
+    .gateway-hero-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .gateway-card {
+      background: #FFFFFF;
+      border: 2px solid #CBD5E1;
+      border-radius: 14px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+    }
+
+    .gateway-card.active {
+      border-color: var(--thp-red);
+      background: linear-gradient(180deg, #FFF5F5 0%, #FFFFFF 100%);
+      box-shadow: 0 4px 14px rgba(217, 25, 32, 0.12);
+    }
+
+    .gateway-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .gateway-card.active .gateway-card-title {
+      color: var(--thp-red-dark);
+    }
+
+    .gateway-card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
     /* Desktop & Tablet Responsive Layout (ทำงานได้ดีทั้งบนมือถือส่วนตัวและคอมหน้าเคาน์เตอร์) */
     @media (min-width: 900px) {
       body {
@@ -701,13 +796,27 @@
 
   <!-- Header -->
   <header class="app-header">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <!-- ทางเข้าแรก (Gateway Switcher): บริการในประเทศ vs บริการระหว่างประเทศ -->
+      <div class="mode-gateway-bar" id="topGatewayBar">
+        <button type="button" class="mode-gateway-btn active" data-mode="domestic">
+          <span>🇹🇭 บริการในประเทศ</span>
+          <span class="sub-pill">4 หมวดหลัก</span>
+        </button>
+        <button type="button" class="mode-gateway-btn" data-mode="inter">
+          <span>🌐 บริการระหว่างประเทศ</span>
+          <span class="sub-pill">ครบทุกโซน</span>
+        </button>
+      </div>
+    </div>
+
     <div class="header-inner">
       <div class="header-top">
         <div class="brand-title">
           <div class="brand-icon">ปณก.</div>
           <div class="brand-text">
-            <h1>คู่มือบริการระหว่างประเทศ</h1>
-            <p>ฉบับพกพาบนมือถือ & เว็บหน้าเคาน์เตอร์ (อัปเดต พ.ย. 69)</p>
+            <h1 id="headerMainTitle">คู่มือบริการในประเทศ & ระหว่างประเทศ</h1>
+            <p id="headerSubTitle">ฉบับพกพาบนมือถือ & เว็บหน้าเคาน์เตอร์ (อัปเดต พ.ย. 69)</p>
           </div>
         </div>
         <span class="update-pill" id="lastUpdatedBadge">อัปเดต พ.ย. 69</span>
@@ -715,51 +824,220 @@
 
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="globalSearchInput" placeholder="ค้นหาด่วน: ชื่อประเทศ, แบบพิมพ์, LOA, อาหาร, PID, ส่วนลด..." autocomplete="off" />
+        <input type="text" id="globalSearchInput" placeholder="ค้นหาได้ทั้งในประเทศ & ตปท.: ตราสิน, ไม่มีจ่าหน้า, พัสดุ, จดหมาย, เกาหลี, PID..." autocomplete="off" />
         <button class="clear-search" id="clearSearchBtn" title="ล้างคำค้น">✕</button>
       </div>
     </div>
   </header>
 
   <!-- Navigation Bar (Bottom on Mobile / Sticky Top Bar on Desktop Web) -->
-  <nav class="bottom-nav">
+  <nav class="bottom-nav" id="mainBottomNav">
     <button class="nav-btn active" data-tab="tab-quick">
       <span class="icon">⚡</span>
-      <span>เช็คด่วน</span>
+      <span id="navLabelQuick">เช็คด่วน</span>
     </button>
     <button class="nav-btn" data-tab="tab-services">
       <span class="icon">📦</span>
-      <span>บริการ</span>
+      <span id="navLabelServices">4 บริการหลัก</span>
     </button>
     <button class="nav-btn" data-tab="tab-forms">
       <span class="icon">🖨️</span>
-      <span>แบบพิมพ์</span>
+      <span id="navLabelForms">แบบพิมพ์</span>
     </button>
-    <button class="nav-btn" data-tab="tab-destinations">
+    <button class="nav-btn" data-tab="tab-destinations" id="navBtnDest">
       <span class="icon">🌍</span>
       <span>ประเทศ</span>
     </button>
-    <button class="nav-btn" data-tab="tab-prohibited">
+    <button class="nav-btn" data-tab="tab-prohibited" id="navBtnProhib">
       <span class="icon">🚫</span>
       <span>ของต้องห้าม</span>
     </button>
     <button class="nav-btn" data-tab="tab-promos">
       <span class="icon">🏷️</span>
-      <span>ส่วนลด/คำนวณ</span>
+      <span id="navLabelPromos">ส่วนลด/คำนวณ</span>
     </button>
   </nav>
 
   <!-- Main Content -->
   <main class="container">
 
+    <!-- ทางเข้าหลัก (Gateway Cards) ให้สลับโหมดได้ชัดเจนตลอดเวลา -->
+    <div class="gateway-hero-cards" id="gatewayHeroCards">
+      <button type="button" class="gateway-card active" data-mode="domestic">
+        <div class="gateway-card-title">
+          <span>🇹🇭 1. บริการในประเทศ</span>
+          <span class="badge badge-red" id="gwBadgeDom">กำลังเปิดดู</span>
+        </div>
+        <div class="gateway-card-desc">
+          1. จดหมาย & สิ่งตีพิมพ์ (R/e-AR) • 2. หนังสือพิมพ์ตราสิน (ป.244) • 3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail) • 4. พัสดุ (P / eCo / EMS)
+        </div>
+      </button>
+      <button type="button" class="gateway-card" data-mode="inter">
+        <div class="gateway-card-title">
+          <span>🌐 2. บริการระหว่างประเทศ</span>
+          <span class="badge badge-slate" id="gwBadgeInter">กดเพื่อสลับ</span>
+        </div>
+        <div class="gateway-card-desc">
+          ePacket DDP ยุโรป 27 ปท. (LE) • ePacket US (LA/LI) • Courier Post Plus • EMS World • รหัส PID • ใบ LOA
+        </div>
+      </button>
+    </div>
+
     <!-- Search Results View (Hidden unless searching) -->
     <section id="searchResultsSection" style="display: none;">
       <div class="section-heading">
-        <span>🔎 ผลการค้นหาด่วน</span>
+        <span>🔎 ผลการค้นหาด่วน (ค้นหาทั้งในประเทศ & ระหว่างประเทศ)</span>
         <button class="btn-secondary" id="closeSearchBtn" style="margin-left:auto;">กลับหน้าหลัก</button>
       </div>
       <div id="searchResultsContainer"></div>
     </section>
+
+    <!-- =================================================================== -->
+    <!-- 🇹🇭 โหมดที่ 1: บริการในประเทศ (DOMESTIC MODE CONTAINER)             -->
+    <!-- =================================================================== -->
+    <div id="mode-domestic-wrapper">
+
+      <!-- DOMESTIC TAB 1: เช็คด่วน & ตัวช่วยคำนวณเรทในประเทศ -->
+      <section id="dom-tab-quick" class="tab-section active">
+        <div class="urgent-banner">
+          <h3>🇹🇭 สรุปไฮไลท์บริการในประเทศ (อัปเดตล่าสุด พฤศจิกายน 2569)</h3>
+          <p>
+            • <strong>1. จดหมาย & สิ่งตีพิมพ์:</strong> ซองพลาสติกทุกกรณี / ซองโป่งนูน / ซองขยายข้าง (ก+ย+ส &gt; 60 ซม.) <strong>ต้องคิดเรท "หีบห่อ" เสมอ!</strong> (ธรรมดาเริ่ม 34 บ. / ลงทะเบียน R เริ่ม 49 บ.) | ของตีพิมพ์ส่งหนังสือได้สูงสุด 5 กก.<br>
+            • <strong>2. หนังสือพิมพ์ตราสิน (ป.244):</strong> ลดสูงสุด 50% ของเรทของตีพิมพ์! <strong>ต้องส่ง ณ ปณ.ที่ระบุในใบอนุญาตเท่านั้น (ขั้นต่ำ 100 ชิ้น/ครั้ง)</strong> แนบตัวอย่างจริง 2 ฉบับทุกครั้ง<br>
+            • <strong>3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail):</strong> เรทเหมาจ่ายตั้งแต่ชิ้นแรกตามปริมาณงาน (3.50 บ. เหลือต่ำสุด 2.50 บ./ชิ้น) | <strong>พิเศษ! สื่อหาเสียงเลือกตั้งทุกประเภท (≤50ก.) เหมาจ่าย 2.50 บ./ชิ้น ไม่มีขั้นต่ำ!</strong><br>
+            • <strong>4. พัสดุ (P) / eCo-Post / EMS:</strong> พัสดุ (P) กก.แรก 25 บ. + กก.ละ 20 บ. (สูงสุด 20 กก. <em>เช็คสถานะออนไลน์ไม่ได้</em>) | <strong>Fuel Surcharge +3 บ./ชิ้น</strong> เฉพาะ EMS และ eCo-Post | <strong>พื้นที่เกาะ/ห่างไกล/ท่องเที่ยว 85 พื้นที่ +20 บ./ชิ้น</strong>
+          </p>
+        </div>
+
+        <!-- Domestic Interactive Decision Wizard -->
+        <div class="wizard-box">
+          <div class="wizard-title">🧭 ตัวช่วยเลือกบริการ & เช็คกฎรับฝากในประเทศ (3 วินาที)</div>
+          <div class="form-group">
+            <label class="form-label">เลือกหมวดบริการในประเทศที่ลูกค้าต้องการฝากส่ง:</label>
+            <div class="pill-selector" id="domWizGroup">
+              <button class="pill-btn active" data-dom-srv="letter">✉️ 1. จดหมาย / สิ่งตีพิมพ์</button>
+              <button class="pill-btn" data-dom-srv="trasin">📰 2. หนังสือพิมพ์ตราสิน</button>
+              <button class="pill-btn" data-dom-srv="admail">📢 3. ไม่มีจ่าหน้า (Admail)</button>
+              <button class="pill-btn" data-dom-srv="parcel">📦 4. พัสดุ / eCo / EMS</button>
+            </div>
+          </div>
+          <div class="wizard-result" id="domWizardOutput"></div>
+        </div>
+
+        <!-- ตารางเปรียบเทียบเรทด่วนในประเทศ -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📊 ตารางโพยเรทราคาในประเทศ (จดหมาย / ลงทะเบียน R / ของตีพิมพ์ / พัสดุ P / eCo / EMS)</div>
+            <span class="badge badge-red">โพยติดเคาน์เตอร์</span>
+          </div>
+          <div class="spec-grid">
+            <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
+              <span class="spec-label" style="color:#1D4ED8;">1. จดหมายซอง (ก+ย+ส ≤ 60 ซม.) vs ลงทะเบียนซอง (R บวก +13 บ.)</span>
+              <span class="spec-value">
+                • <strong>ไม่เกิน 10 กรัม:</strong> ธรรมดา <strong>5 บ.</strong> | ลงทะเบียน (R) <strong>18 บ.</strong> (+ตอบรับ AR 3 บ. = <strong>21 บ.</strong>)<br>
+                • <strong>เกิน 10 – 20 กรัม:</strong> ธรรมดา <strong>6 บ.</strong> | ลงทะเบียน (R) <strong>19 บ.</strong> (+AR = <strong>22 บ.</strong>)<br>
+                • <strong>เกิน 20 – 100 กรัม:</strong> ธรรมดา <strong>11 บ.</strong> | ลงทะเบียน (R) <strong>24 บ.</strong> (+AR = <strong>27 บ.</strong>)<br>
+                • <strong>เกิน 100 – 250 กรัม:</strong> ธรรมดา <strong>17 บ.</strong> | ลงทะเบียน (R) <strong>30 บ.</strong> (+AR = <strong>33 บ.</strong>)<br>
+                • <strong>เกิน 250 – 500 กรัม:</strong> ธรรมดา <strong>23 บ.</strong> | ลงทะเบียน (R) <strong>36 บ.</strong> (+AR = <strong>39 บ.</strong>)<br>
+                • <strong>เกิน 500 – 1,000 กรัม:</strong> ธรรมดา <strong>40 บ.</strong> | ลงทะเบียน (R) <strong>53 บ.</strong> (+AR = <strong>56 บ.</strong>)<br>
+                • <strong>เกิน 1,000 – 2,000 กรัม:</strong> ธรรมดา <strong>62 บ.</strong> | ลงทะเบียน (R) <strong>75 บ.</strong> (+AR = <strong>78 บ.</strong>)
+              </span>
+            </div>
+            <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
+              <span class="spec-label" style="color:#B91C1C;">2. จดหมายหีบห่อ (ซองพลาสติกทุกกรณี / ซองโป่งนูน / ซองขยายข้าง ก+ย+ส &gt; 60 ซม. / กล่องเล็ก) vs ลงทะเบียนหีบห่อ (R บวก +15 บ.)</span>
+              <span class="spec-value">
+                • <strong>ไม่เกิน 500 กรัม:</strong> ธรรมดา <strong>34 บ.</strong> | ลงทะเบียนหีบห่อ (R) <strong>49 บ.</strong> (+AR 3 บ. = <strong>52 บ.</strong>)<br>
+                • <strong>เกิน 500 – 1,000 กรัม:</strong> ธรรมดา <strong>45 บ.</strong> | ลงทะเบียนหีบห่อ (R) <strong>60 บ.</strong> (+AR 3 บ. = <strong>63 บ.</strong>)<br>
+                • <strong>เกิน 1,000 – 2,000 กรัม:</strong> ธรรมดา <strong>62 บ.</strong> | ลงทะเบียนหีบห่อ (R) <strong>77 บ.</strong> (+AR 3 บ. = <strong>80 บ.</strong>)
+              </span>
+            </div>
+            <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
+              <span class="spec-label" style="color:#047857;">3. ของตีพิมพ์ / สิ่งพิมพ์ (สูงสุด 5 กก. — ลงทะเบียนสิ่งพิมพ์ บวก +13 บ.)</span>
+              <span class="spec-value">
+                • <strong>≤50ก. = 4 บ.</strong> | <strong>51–100ก. = 5 บ.</strong> | <strong>101–250ก. = 8 บ.</strong> | <strong>251–500ก. = 11 บ.</strong> | <strong>501–1,000ก. = 17 บ.</strong> | <strong>1,001–2,000ก. = 33 บ.</strong><br>
+                • <strong>ส่วนที่เกิน 2,000 กรัม (หนังสือส่งได้ถึง 5 กก.):</strong> บวกเพิ่ม กก.ละ <strong>16 บาท</strong> (เศษของ กก. คิดเป็น 1 กก. ➔ ≤3กก.=<strong>49 บ.</strong>, ≤4กก.=<strong>65 บ.</strong>, ≤5กก.=<strong>81 บ.</strong>)
+              </span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label" style="color:#4338CA;">4. พัสดุไปรษณีย์ (P) vs eCo-Post (O) vs EMS ในประเทศ (E)</span>
+              <span class="spec-value">
+                • <strong>📦 พัสดุไปรษณีย์ (P - สูงสุด 20 กก.):</strong> กก.แรก <strong>25 บ.</strong> + กก.ต่อไป กก.ละ <strong>20 บ.</strong> (เช่น 2กก.=45บ., 3กก.=65บ., 5กก.=105บ., 10กก.=205บ., 20กก.=405บ.) *ไม่เสีย Fuel +3 บ. แต่เช็คสถานะออนไลน์ไม่ได้ ชดใช้สูงสุด 1,000 บ.*<br>
+                • <strong>📬 eCo-Post (O - สูงสุด 10 กก. ราคารวม Fuel +3 บ.แล้ว):</strong> ≤20ก.=<strong>23บ.</strong> | ≤100ก.=<strong>25บ.</strong> | ≤250ก.=<strong>29บ.</strong> | ≤500ก.=<strong>33บ.</strong> | ≤1กก.=<strong>43บ.</strong> | ≤2กก.=<strong>63บ.</strong> | ≤4กก.=<strong>83บ.</strong> | ≤6กก.=<strong>123บ.</strong> | ≤10กก.=<strong>163บ.</strong> *เช็คต้นทาง-ปลายทางได้ ชดใช้สูงสุด 1,500 บ.*<br>
+                • <strong>⚡ EMS ในประเทศ (E - สูงสุด 30 กก. ราคารวม Fuel +3 บ.แล้ว):</strong> ≤20ก.=<strong>35บ.</strong> | ≤100ก.=<strong>40บ.</strong> | ≤250ก.=<strong>45บ.</strong> | ≤500ก.=<strong>55บ.</strong> | ≤1กก.=<strong>70บ.</strong> | ≤1.5กก.=<strong>85บ.</strong> | ≤2กก.=<strong>100บ.</strong> | ≤2.5กก.=<strong>103บ.</strong> | ≤3กก.=<strong>108บ.</strong> | ≤3.5กก.=<strong>113บ.</strong> | ≤4–5กก.=<strong>123บ.</strong> *เช็คได้ทุกขั้นตอน ชดใช้สูงสุด 2,000 บ.*
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DOMESTIC TAB 2: รายละเอียด 4 บริการหลักในประเทศครบทุกแง่มุม -->
+      <section id="dom-tab-services" class="tab-section">
+        <div class="section-heading">🇹🇭 ข้อมูลบริการในประเทศทั้ง 4 หมวดหลัก (แบบพิมพ์ • ส่วนลด • คัมภีร์เอาตัวรอด)</div>
+        <div id="domServicesListContainer" class="grid-2col"></div>
+      </section>
+
+      <!-- DOMESTIC TAB 3: แบบพิมพ์ประกอบการรับฝากในประเทศ -->
+      <section id="dom-tab-forms" class="tab-section">
+        <div class="urgent-banner" style="background:#ECFDF5; border-left-color:#059669;">
+          <h3 style="color:#065F46;">🖨️ ศูนย์รวมแบบพิมพ์ & ตารางอัตราค่าบริการในประเทศ (สั่งพิมพ์ A4 / ดาวน์โหลด / แชร์)</h3>
+          <p style="color:#047857;">
+            รวมแบบฟอร์มใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail), แบบคำขอฝากส่งหนังสือพิมพ์ตราสิน (ป.244), ใบนำส่งรับฝากรวม (RC/พัสดุ/EMS) และตารางอัตราค่าบริการในประเทศปี 2569 สำหรับ <strong>กดสั่งพิมพ์ออกเครื่องปริ้นท์ A4 ทันที</strong>, <strong>ดาวน์โหลด PDF/รูปภาพ</strong> หรือ <strong>แชร์ส่ง LINE ให้ลูกค้า</strong>
+          </p>
+        </div>
+        <div id="domFormsHubContainer" class="grid-2col"></div>
+      </section>
+
+      <!-- DOMESTIC TAB 6: ส่วนลดในประเทศ + เครื่องคำนวณค่าส่งในประเทศอัตโนมัติ -->
+      <section id="dom-tab-promos" class="tab-section">
+        <div id="domPromoClockBanner" class="urgent-banner" style="background:#EFF6FF; border-left-color:#2563EB; margin-bottom:14px;"></div>
+
+        <!-- เครื่องคำนวณค่าบริการในประเทศอัตโนมัติ (Domestic Rate & Admail Calculator) -->
+        <div class="section-heading">🧮 เครื่องคำนวณค่าส่งไปรษณีย์ในประเทศอัตโนมัติ (เทียบทุกบริการ + คำนวณ Admail/ตราสิน)</div>
+        <div class="card" style="border: 2px solid #2563EB;">
+          <div class="card-title" style="margin-bottom:10px; color:#1E40AF;">ใส่พิกัดน้ำหนัก หรือจำนวนชิ้น เพื่อคำนวณค่าส่งในประเทศทันที</div>
+          <div class="calc-input-grid">
+            <div>
+              <label class="form-label">น้ำหนักต่อชิ้น (กรัม)</label>
+              <input type="number" id="domCalcWeightG" placeholder="เช่น 350 หรือ 2500" value="250" />
+            </div>
+            <div>
+              <label class="form-label">ลักษณะซอง/กล่อง</label>
+              <select id="domCalcPackType">
+                <option value="env">ซองกระดาษปกติ (ก+ย+ส ≤ 60 ซม.)</option>
+                <option value="pack">ซองพลาสติก / ซองป่อง / กล่องหีบห่อ</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">จำนวนชิ้น (สำหรับ Admail/ตราสิน)</label>
+              <input type="number" id="domCalcQty" placeholder="เช่น 1 หรือ 5000" value="1" />
+            </div>
+            <div>
+              <label class="form-label">พื้นที่ปลายทาง & ตอบรับ</label>
+              <select id="domCalcAddon">
+                <option value="none">พื้นที่ทั่วไป (ไม่เอาตอบรับ)</option>
+                <option value="ar">พื้นที่ทั่วไป + ใบตอบรับ (AR)</option>
+                <option value="remote">พื้นที่ห่างไกล/เกาะ 85 พื้นที่ (+20 บ.)</option>
+                <option value="remote_ar">พื้นที่ห่างไกล (+20 บ.) + ตอบรับ (AR)</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn-primary" id="runDomCalcBtn">⚡ คำนวณเปรียบเทียบค่าส่งในประเทศทันที</button>
+          <div id="domCalcResultBox" style="margin-top:12px;"></div>
+        </div>
+
+        <div class="section-heading" style="margin-top:20px;">🟢 1. ส่วนลด / อัตราเหมาจ่าย / สิทธิพิเศษในประเทศที่【ใช้ได้ตอนนี้】</div>
+        <div id="domActivePromosContainer" class="grid-2col"></div>
+
+        <div class="section-heading" style="margin-top:24px; color:#991B1B;">🔴 2. อัตราเดิมที่【ยกเลิก/เปลี่ยนแปลงแล้ว — ระวังจำสับสน!】</div>
+        <div id="domExpiredPromosContainer" class="grid-2col"></div>
+      </section>
+
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- 🌐 โหมดที่ 2: บริการระหว่างประเทศ (INTERNATIONAL MODE CONTAINER)     -->
+    <!-- =================================================================== -->
+    <div id="mode-inter-wrapper" style="display: none;">
 
     <!-- TAB 1: ตัวช่วยตัดสินใจด่วนหน้าเคาน์เตอร์ (Quick Check) -->
     <section id="tab-quick" class="tab-section active">
@@ -929,6 +1207,8 @@
       <div class="section-heading" style="margin-top:24px;">📞 เบอร์ติดต่อด่วนสำหรับเจ้าหน้าที่ ปณท</div>
       <div id="contactsContainer"></div>
     </section>
+
+    </div><!-- End #mode-inter-wrapper -->
 
   </main>
 

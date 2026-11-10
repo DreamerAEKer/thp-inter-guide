@@ -20,11 +20,15 @@
     { name: "กล่องเบอร์ 6", size: "45 × 55 × 40 ซม.", sum: 140, price: "95 บาท", epacketUsEu: false, note: "ผลรวม 140 ซม. เกินเกณฑ์ ePacket ทุกประเภท" }
   ];
 
-  // State สำหรับตัวช่วยตัดสินใจ 3 วินาที
+  // State สำหรับตัวช่วยตัดสินใจ 3 วินาที (ระหว่างประเทศ)
   let wizardState = {
     dest: "eu",
     item: "general"
   };
+
+  // State โหมดหลักของแอป ("domestic" | "inter") และหมวดเช็คด่วนในประเทศ
+  let currentMode = "domestic";
+  let domWizSrv = "letter";
 
   function escapeHtml(str) {
     if (!str) return "";
@@ -852,7 +856,8 @@
       clearBtn.style.display = "none";
       searchSection.style.display = "none";
       const activeNav = document.querySelector(".nav-btn.active");
-      const activeTabId = activeNav ? activeNav.getAttribute("data-tab") : "tab-quick";
+      const rawTab = activeNav ? activeNav.getAttribute("data-tab") : "tab-quick";
+      const activeTabId = currentMode === "domestic" ? "dom-" + rawTab : rawTab;
       tabSections.forEach((sec) => {
         sec.classList.toggle("active", sec.id === activeTabId);
       });
@@ -873,6 +878,83 @@
       searchSection.style.display = "block";
 
       const matches = [];
+
+      // 00. ค้นหาในบริการในประเทศ (Domestic Services)
+      if (DATA.domestic && DATA.domestic.services) {
+        DATA.domestic.services.forEach((srv) => {
+          const hay = [
+            "ในประเทศ",
+            srv.name,
+            srv.prefix,
+            srv.category,
+            srv.posMode || "",
+            srv.maxWeight,
+            srv.maxSize,
+            srv.rateSummary,
+            srv.indemnity,
+            ...(srv.requiredForms || []),
+            ...(srv.survivalGuide || []),
+            ...(srv.criticalNotes || [])
+          ]
+            .join(" ")
+            .toLowerCase();
+
+          if (hay.includes(q)) {
+            const allNotes = [
+              ...(srv.requiredForms || []),
+              ...(srv.survivalGuide || []),
+              ...(srv.criticalNotes || [])
+            ];
+            const matchedNotes = allNotes.filter((n) => n.toLowerCase().includes(q));
+            const notesToShow = matchedNotes.length > 0 ? matchedNotes : allNotes.slice(0, 5);
+            matches.push(`
+              <div class="card" style="border: 2px solid #D91920;">
+                <div class="card-header">
+                  <div>
+                    <span class="prefix-tag" style="background:#D91920; color:#FFF;">🇹🇭 บริการในประเทศ • ${escapeHtml(srv.prefix)}</span>
+                    <div class="card-title">${escapeHtml(srv.name)}</div>
+                  </div>
+                  <span class="badge badge-${escapeHtml(srv.badgeColor || "red")}">${escapeHtml(srv.badge)}</span>
+                </div>
+                ${
+                  srv.posMode
+                    ? `<div style="background:#FFFBEB; border:1px solid #F59E0B; border-radius:8px; padding:8px; margin-bottom:8px; font-size:13px; color:#92400E; font-weight:600;">💻 <strong>วิธีทำรายการหน้าเคาน์เตอร์:</strong> ${escapeHtml(srv.posMode)}</div>`
+                    : ""
+                }
+                <div class="spec-grid">
+                  <div class="spec-item"><span class="spec-label">⚖️ น้ำหนักสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxWeight)}</span></div>
+                  <div class="spec-item"><span class="spec-label">📏 ขนาดสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxSize)}</span></div>
+                  <div class="spec-item"><span class="spec-label">💰 สรุปอัตราค่าบริการ:</span> <span class="spec-value">${escapeHtml(srv.rateSummary)}</span></div>
+                  <div class="spec-item"><span class="spec-label">🛡️ อัตราชดใช้:</span> <span class="spec-value">${escapeHtml(srv.indemnity)}</span></div>
+                </div>
+                <ul class="notes-list">
+                  ${notesToShow.map((n) => `<li class="${n.includes("🚨") || n.includes("⚠️") || n.includes("ห้าม") ? "critical" : "good"}">${escapeHtml(n)}</li>`).join("")}
+                </ul>
+              </div>
+            `);
+          }
+        });
+      }
+
+      // 00b. ค้นหาในส่วนลดและอัตราพิเศษในประเทศ (Domestic Promotions)
+      if (DATA.domestic && DATA.domestic.promotions) {
+        [...(DATA.domestic.promotions.active || []), ...(DATA.domestic.promotions.expired || [])].forEach((p) => {
+          const hay = ["ในประเทศ", p.title, p.period, p.target || "", p.posButton || "", p.reason || "", ...(p.services || []), ...(p.conditions || [])].join(" ").toLowerCase();
+          if (hay.includes(q)) {
+            matches.push(buildPromoCardHtml(p));
+          }
+        });
+      }
+
+      // 00c. ค้นหาในแบบพิมพ์ในประเทศ (Domestic Printable Docs)
+      if (DATA.domestic && DATA.domestic.printableDocs) {
+        DATA.domestic.printableDocs.forEach((doc) => {
+          const hay = ["ในประเทศ", doc.title, doc.category, doc.serviceTag, doc.description, doc.updated].join(" ").toLowerCase();
+          if (hay.includes(q)) {
+            matches.push(buildDocCardHtml(doc));
+          }
+        });
+      }
 
       // 0. ค้นหาในฐานข้อมูลรายประเทศโดยตรง (Country Directory - รองรับทั้งชื่ออังกฤษ ชื่อไทย และรหัส 2 ตัวอักษร เช่น Korea, KR, เกาหลี, Japan, JP, UK, US, Germany)
       (DATA.countryDirectory || []).forEach((cty) => {
@@ -1303,6 +1385,225 @@
       </body></html>`;
     }
 
+    if (templateType === "DOM_ADMAIL_FORM") {
+      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>ใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail) เอกสารหมายเลข 1 และ 2</title>${baseStyle}</head><body>
+        <div class="no-print" style="background:#ECFDF5; padding:10px; border:1px solid #059669; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+          <span><strong>พร้อมพิมพ์ A4 (2 ฉบับ):</strong> ใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (เอกสารหมายเลข 1) และตัวอย่างใบปะหน้าห่อ (เอกสารหมายเลข 2) ตามระเบียบ ปณท ฉบับที่ 215</span>
+          <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์ใบนำส่ง Admail (A4)</button>
+        </div>
+        <div style="text-align:right; font-weight:700; font-size:13px;">เอกสารหมายเลข 1 (จัดทำ 2 ฉบับ: ปณ.รับฝากเก็บ 1 ฉบับ / คืนผู้ฝากส่ง 1 ฉบับ)</div>
+        <h1>บริษัท ไปรษณีย์ไทย จำกัด — ใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (Advertising Mail / Admail)</h1>
+        <h2>อ้างอิง: ระเบียบ ปณท ว่าด้วยบริการไปรษณียภัณฑ์ไม่มีจ่าหน้า (ฉบับที่ 215) พ.ศ. 2557 และอัตราค่าบริการใหม่ (เริ่ม 1 ม.ค. 2568)</h2>
+        <table>
+          <tr>
+            <td style="width:55%;">
+              <strong>ชื่อผู้ฝากส่ง / บริษัท / ผู้สมัครรับเลือกตั้ง:</strong> ........................................................................................<br>
+              <strong>ที่อยู่:</strong> ................................................................................................................................................<br>
+              <strong>โทรศัพท์:</strong> ........................................................ <strong>วันที่ฝากส่ง:</strong> ............ / ........................ / 2569
+            </td>
+            <td style="width:45%;">
+              <strong>ฝากส่ง ณ ที่ทำการไปรษณีย์:</strong> ....................................................................<br>
+              <strong>ประเภทสื่อที่ฝากส่ง:</strong> ☐ แผ่นพับ/ใบปลิวโฆษณา &nbsp; ☐ แค็ตตาล็อก/ตัวอย่างสินค้า<br>
+              ☐ <strong>สื่อรณรงค์หาเสียงเลือกตั้ง (≤50 กรัม อัตรา 2.50 บาท/ชิ้น ไม่มีขั้นต่ำ)</strong><br>
+              <strong>กำหนดวันที่ต้องการให้นำจ่ายถึงผู้รับ:</strong> ......................................................
+            </td>
+          </tr>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:32px;">ลำดับ</th>
+              <th>ที่ทำการไปรษณีย์ปลายทาง / รหัสไปรษณีย์</th>
+              <th>กลุ่มเป้าหมาย / โซนพื้นที่นำจ่าย<br>(เช่น บ้านพักอาศัย, อาคารชุด, สำนักงาน, หมู่บ้าน/ตำบล)</th>
+              <th style="width:85px;">น้ำหนัก/ชิ้น<br>(กรัม)</th>
+              <th style="width:95px;">จำนวนชิ้น<br>(ฉบับ)</th>
+              <th style="width:95px;">อัตรา/ชิ้น*<br>(บาท)</th>
+              <th style="width:110px;">จำนวนเงินรวม<br>(บาท)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>2</td><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>3</td><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>4</td><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>5</td><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>6</td><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td colspan="4" style="text-align:right; font-weight:700;">รวมทั้งสิ้น (Total)</td><td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:11.5px; margin:4px 0;">
+          <strong>*ตารางอัตราค่าบริการเหมาจ่ายตั้งแต่ชิ้นแรก (ตามปริมาณฝากส่งรวมต่อครั้ง):</strong>
+          • <strong>≤3,000 ชิ้น:</strong> ≤50ก.=3.50บ. | ≤100ก.=4.50บ. | ≤250ก.=7.50บ. | ≤500ก.=10.50บ.
+          • <strong>3,001–10,000 ชิ้น:</strong> 3.40 / 4.40 / 7.40 / 10.40 บ.
+          • <strong>10,001–20,000 ชิ้น:</strong> 3.30 / 4.30 / 7.30 / 10.30 บ.
+          • <strong>20,001–30,000 ชิ้น:</strong> 3.15 / 4.15 / 7.15 / 10.15 บ.
+          • <strong>30,001–50,000 ชิ้น:</strong> 3.00 / 4.00 / 7.00 / 10.00 บ.
+          • <strong>50,001–100,000 ชิ้น:</strong> 2.85 / 3.85 / 6.85 / 9.85 บ.
+          • <strong>100,001–200,000 ชิ้น:</strong> 2.70 / 3.70 / 6.70 / 9.70 บ.
+          • <strong>≥200,001 ชิ้น:</strong> 2.50 / 3.50 / 6.50 / 9.50 บ.
+        </p>
+        <div class="sig-row" style="margin-top:12px;">
+          <div class="sig-box">
+            <strong>สำหรับผู้ฝากส่ง</strong><br>
+            ข้าพเจ้ารับรองว่าสิ่งของที่ฝากส่งไม่ขัดต่อกฎหมายและระเบียบ ปณท พร้อมได้มอบตัวอย่างจริงให้ ปณ.รับฝากแล้ว<br><br>
+            ลงชื่อผู้ฝากส่ง: ........................................................................
+          </div>
+          <div class="sig-box">
+            <strong>สำหรับเจ้าหน้าที่รับฝาก ปณท</strong><br>
+            ☐ ตรวจสอบตัวอย่างจริงและจำนวนมัดครบถ้วนแล้ว<br>
+            ☐ รับชำระเงินตามใบเสร็จรับเงินเลขที่: ..........................................<br><br>
+            ลงชื่อเจ้าหน้าที่รับฝาก: ............................................................
+          </div>
+        </div>
+        <hr style="border:1px dashed #64748B; margin:16px 0;" />
+        <div style="font-weight:700; font-size:13.5px; color:#B91C1C; margin-bottom:6px;">✂️ ส่วนสำหรับตัดแปะหน้ามัด/ห่อ (เอกสารหมายเลข 2: มัดละ 50 หรือ 100 ชิ้น แยกตามรหัสไปรษณีย์ปลายทาง)</div>
+        <table>
+          <tr>
+            <td style="width:50%; padding:10px;">
+              <div style="font-size:15px; font-weight:700; color:#B91C1C;">ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail)</div>
+              <strong>ส่งถึง ปณ.ปลายทาง:</strong> ..................................................... <strong>รหัสไปรษณีย์:</strong> .........................<br>
+              <strong>กลุ่มเป้าหมาย/พื้นที่นำจ่าย:</strong> ...........................................................................................<br>
+              <strong>จำนวนในมัดนี้:</strong> ........................ ชิ้น (มัดที่ ........ / ........) | <strong>วันที่ต้องการให้นำจ่าย:</strong> .........................<br>
+              <strong>ชื่อผู้ฝากส่ง:</strong> ............................................................. <strong>ปณ.ต้นทาง:</strong> ....................................
+            </td>
+            <td style="width:50%; padding:10px;">
+              <div style="font-size:15px; font-weight:700; color:#B91C1C;">ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail)</div>
+              <strong>ส่งถึง ปณ.ปลายทาง:</strong> ..................................................... <strong>รหัสไปรษณีย์:</strong> .........................<br>
+              <strong>กลุ่มเป้าหมาย/พื้นที่นำจ่าย:</strong> ...........................................................................................<br>
+              <strong>จำนวนในมัดนี้:</strong> ........................ ชิ้น (มัดที่ ........ / ........) | <strong>วันที่ต้องการให้นำจ่าย:</strong> .........................<br>
+              <strong>ชื่อผู้ฝากส่ง:</strong> ............................................................. <strong>ปณ.ต้นทาง:</strong> ....................................
+            </td>
+          </tr>
+        </table>
+      </body></html>`;
+    }
+
+    if (templateType === "DOM_TRASIN_FORM") {
+      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>แบบคำขอฝากส่งหนังสือพิมพ์ตราสิน (ป.244) และตัวอย่างกรอบตรา 2x4 ซม.</title>${baseStyle}</head><body>
+        <div class="no-print" style="background:#EFF6FF; padding:10px; border:1px solid #2563EB; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+          <span><strong>พร้อมพิมพ์ A4:</strong> แบบจำลองใบนำส่งหนังสือพิมพ์ตราสิน (ป.244 ตอนที่ 1–4) + ตัวอย่างกรอบตรา "หนังสือพิมพ์ตราสิน" ขนาด 2×4 ซม.</span>
+          <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์แบบ ป.244 & ตัวอย่างกรอบตรา</button>
+        </div>
+        <h1>แบบคำขอฝากส่งหนังสือพิมพ์ตราสิน (แบบ ป.244) & คู่มือตรวจสอบหน้าเคาน์เตอร์</h1>
+        <h2>อ้างอิง: ระเบียบ ปณท ว่าด้วยบริการหนังสือพิมพ์ตราสิน (ฉบับที่ 234) พ.ศ. 2558</h2>
+        <table>
+          <tr>
+            <td style="width:62%;">
+              <strong>ชื่อหนังสือพิมพ์/สิ่งพิมพ์ตราสิน:</strong> ........................................................................................................<br>
+              <strong>ใบอนุญาตเลขที่:</strong> ............................................... <strong>ออกให้ ณ วันที่:</strong> .....................................................<br>
+              <strong>วันหมดอายุใบอนุญาต:</strong> ....................................... <em>(ต้องต่ออายุล่วงหน้าอย่างน้อย 15 วัน ค่าธรรมเนียม 100 บ./ปี)</em><br>
+              <strong>ฝากส่ง ณ ที่ทำการไปรษณีย์ (ต้องตรงกับที่ระบุในใบอนุญาตเท่านั้น):</strong> ....................................................<br>
+              <strong>ประจำฉบับที่ / วัน-เดือน-ปีที่ออก:</strong> .....................................................................................................
+            </td>
+            <td style="width:38%; text-align:center; vertical-align:middle;">
+              <div style="font-size:12px; font-weight:700; margin-bottom:4px;">ตัวอย่างกรอบข้อความที่ต้องพิมพ์มุมขวาบนของซอง/ปก<br>(ขนาดไม่น้อยกว่า 2 × 4 ซม.)</div>
+              <div style="border:2.5px solid #0F172A; width:160px; height:76px; margin:0 auto; display:flex; flex-direction:column; justify-content:center; align-items:center; font-weight:700; font-size:13.5px; line-height:1.35;">
+                <span>หนังสือพิมพ์ตราสิน</span>
+                <span>ชำระค่าฝากส่งเป็นรายเดือน</span>
+                <span style="font-size:12px;">ใบอนุญาตที่ ........../..........</span>
+              </div>
+              <div style="font-size:11px; color:#B91C1C; margin-top:4px;">*แม้พิมพ์ว่า "ชำระค่าฝากส่งเป็นรายเดือน" แต่ต้องชำระเงินสดทุกครั้งที่ฝากส่ง!</div>
+            </td>
+          </tr>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>รายละเอียดการฝากส่งในครั้งนี้ (ต้องฝากส่งไม่ต่ำกว่า 100 ฉบับ/ครั้ง และขนาด/น้ำหนักเท่ากันทุกฉบับ)</th>
+              <th style="width:110px;">น้ำหนักต่อฉบับ (กรัม)</th>
+              <th style="width:110px;">จำนวนฉบับที่ส่ง</th>
+              <th style="width:130px;">อัตราค่าบริการ/ฉบับ (บาท)</th>
+              <th style="width:130px;">รวมเป็นเงินทั้งสิ้น (บาท)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="height:36px;">หนังสือพิมพ์ตราสิน (ลดสูงสุด 50% จากอัตราของตีพิมพ์ปกติ)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td colspan="4" style="text-align:right; font-weight:700;">รวมเงินที่ต้องชำระ (ปัดเศษสตางค์ขึ้นเป็น .25 / .50 / .75 / 1.00 บาท)</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="box-choice" style="background:#FFFBEB; border-color:#D97706; font-size:12.5px;">
+          <strong>🛡️ เช็คลิสต์บังคับสำหรับเจ้าหน้าที่รับฝาก (ตามระเบียบฉบับที่ 234):</strong><br>
+          ☐ 1. ตรวจสอบว่าเป็น ปณ.เดียวกับที่ระบุในใบอนุญาต (ห้ามรับฝากข้าม ปณ. เด็ดขาด) และใบอนุญาตยังไม่หมดอายุ<br>
+          ☐ 2. ผู้ฝากส่งส่งมอบ <strong>ตัวอย่างหนังสือพิมพ์ฉบับที่ฝากส่งจริง จำนวน 2 ฉบับ</strong> (เก็บไว้ที่ ปณ.รับฝาก 1 ฉบับ + ส่งไปส่วนบริการสื่อสารบริการธุรกิจ 1 ฉบับ)<br>
+          ☐ 3. จำนวนฝากส่งครบ <strong>100 ฉบับขึ้นไป</strong> และมัดแยกตามรหัสไปรษณีย์/จังหวัดปลายทางเรียบร้อยแล้ว<br>
+          ☐ 4. การแยกแบบ <strong>ป.244 ทั้ง 4 ตอน</strong> หลังรับชำระเงินสดและประทับตราประจำวันแล้ว:
+          <strong>ตอนที่ 1</strong> ส่งฝ่ายการเงินฯ | <strong>ตอนที่ 2</strong> แนบส่งไปกับถุงหนังสือพิมพ์ | <strong>ตอนที่ 3</strong> มอบให้ผู้ฝากส่งเป็นใบเสร็จรับเงิน | <strong>ตอนที่ 4</strong> เก็บไว้เป็นหลักฐานที่ ปณ.รับฝาก
+        </div>
+        <div class="sig-row">
+          <div class="sig-box">
+            <strong>ลงชื่อผู้ฝากส่ง / ผู้รับมอบอำนาจ</strong><br><br><br>
+            ลงชื่อ: .....................................................................................<br>
+            วันที่: ............ / ........................ / 2569
+          </div>
+          <div class="sig-box">
+            <strong>ลงชื่อเจ้าหน้าที่รับฝาก ปณท</strong><br><br>
+            ☐ ได้รับตัวอย่างหนังสือพิมพ์จริง 2 ฉบับ และรับชำระเงินสดครบถ้วนแล้ว<br><br>
+            ลงชื่อ: ......................................................... ปณ.: .................................
+          </div>
+        </div>
+      </body></html>`;
+    }
+
+    if (templateType === "DOM_BULK_DEPOSIT_FORM") {
+      let rows = "";
+      for (let i = 1; i <= 20; i++) {
+        rows += `<tr><td style="text-align:center;">${i}</td><td style="height:21px;"></td><td></td><td></td><td></td><td></td><td></td></tr>`;
+      }
+      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>ใบนำส่งสิ่งของฝากส่งทางไปรษณีย์เป็นจำนวนมาก (ในประเทศ 20 รายการ)</title>${baseStyle}</head><body>
+        <div class="no-print" style="background:#EFF6FF; padding:10px; border:1px solid #2563EB; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+          <span><strong>พร้อมพิมพ์ A4:</strong> ใบนำส่งรับฝากรวมในประเทศ 20 รายการ (ใช้ได้ทั้ง ลงทะเบียน R, EMS ในประเทศ, eCo-Post และ พัสดุไปรษณีย์ P)</span>
+          <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์ใบนำส่ง 20 รายการ</button>
+        </div>
+        <h1>บริษัท ไปรษณีย์ไทย จำกัด — ใบนำส่งสิ่งของฝากส่งทางไปรษณีย์ในประเทศ</h1>
+        <h2>สำหรับ: ☐ ลงทะเบียนในประเทศ (R) &nbsp;&nbsp; ☐ EMS ในประเทศ (E) &nbsp;&nbsp; ☐ eCo-Post (O) &nbsp;&nbsp; ☐ พัสดุไปรษณีย์ (P) &nbsp;&nbsp; ☐ บริการรับประกัน</h2>
+        <p style="margin:4px 0;">
+          <strong>ชื่อผู้ฝากส่ง / หน่วยงาน:</strong> ................................................................................................. <strong>โทรศัพท์:</strong> .................................................<br>
+          <strong>ฝากส่ง ณ ปณ.:</strong> ......................................................................................... <strong>ประจำวันที่:</strong> ............ / ........................ / 2569 (แผ่นที่ ........ / ........)
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:34px; text-align:center;">ลำดับ</th>
+              <th>ชื่อผู้รับปลายทาง</th>
+              <th style="width:95px;">รหัสไปรษณีย์<br>/ ปลายทาง</th>
+              <th style="width:155px;">เลขที่บาร์โค้ด 13 หลัก<br>(R / E / O / P ... TH)</th>
+              <th style="width:70px;">น้ำหนัก<br>(กรัม)</th>
+              <th style="width:75px;">ค่าฝากส่ง<br>(บาท)</th>
+              <th style="width:95px;">บริการเสริม<br>(AR / รับประกัน)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows}
+            <tr>
+              <td colspan="4" style="text-align:right; font-weight:700;">รวมทั้งสิ้น (Total)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="sig-row" style="margin-top:12px;">
+          <div class="sig-box">
+            <strong>ลงชื่อผู้ฝากส่ง:</strong> ..............................................................................<br>
+            จำนวนรวมทั้งสิ้น ......................... ชิ้น
+          </div>
+          <div class="sig-box">
+            <strong>ลงชื่อเจ้าหน้าที่รับฝาก:</strong> .....................................................................<br>
+            (ประทับตราประจำวัน ปณ.รับฝาก)
+          </div>
+        </div>
+      </body></html>`;
+    }
+
     return "";
   }
 
@@ -1421,7 +1722,545 @@
     attachDocActionEvents(container);
   }
 
-  // 8. ระบบสลับแท็บด้านล่าง (Bottom Tab Navigation)
+  // =========================================================================
+  // 🇹🇭 ส่วนฟังก์ชันสำหรับบริการในประเทศ (DOMESTIC SERVICES MODULE)
+  // =========================================================================
+  function renderDomWizardOutput() {
+    const out = document.getElementById("domWizardOutput");
+    if (!out) return;
+
+    let html = "";
+    if (domWizSrv === "letter") {
+      html = `
+        <div style="color:#1E40AF; font-weight:700; font-size:15px; margin-bottom:8px;">
+          ✉️ 1. จดหมาย (ซอง/หีบห่อ), ของตีพิมพ์ และลงทะเบียนในประเทศ (R / AR / e-AR)
+        </div>
+        <ul class="notes-list" style="margin-top:0;">
+          <li class="critical"><strong>🚨 กฎเหล็กแยก "ซอง" กับ "หีบห่อ" (ห้ามคิดเรทผิดเด็ดขาด!):</strong>
+            <br>• <strong>ซองพลาสติกทุกกรณี</strong>, <strong>ซองกระดาษที่โป่งนูน</strong>, หรือ <strong>ซองขยายข้างที่ ก+ย+ส เกิน 60 ซม.</strong> ➔ <strong>ต้องคิดเรท "จดหมายหีบห่อ" เสมอ!</strong>
+            <br>• เรทหีบห่อ: <strong>≤500ก. = 34 บ. (ลงทะเบียน R = 49 บ.)</strong> | <strong>≤1กก. = 45 บ. (R = 60 บ.)</strong> | <strong>≤2กก. = 62 บ. (R = 77 บ.)</strong>
+          </li>
+          <li class="good"><strong>✅ เรทจดหมายซองกระดาษปกติ (ก+ย+ส ≤ 60 ซม.):</strong>
+            <br>• <strong>≤10ก. = 5 บ. (R 18 บ.)</strong> | <strong>≤20ก. = 6 บ. (R 19 บ.)</strong> | <strong>≤100ก. = 11 บ. (R 24 บ.)</strong> | <strong>≤250ก. = 17 บ. (R 30 บ.)</strong> | <strong>≤500ก. = 23 บ. (R 36 บ.)</strong> | <strong>≤1กก. = 40 บ. (R 53 บ.)</strong> | <strong>≤2กก. = 62 บ. (R 75 บ.)</strong>
+          </li>
+          <li class="good"><strong>📚 เรทของตีพิมพ์ / สิ่งพิมพ์ (หนังสือส่งได้สูงสุด 5 กก.!):</strong>
+            <br>• ≤50ก.=<strong>4 บ.</strong> | ≤100ก.=<strong>5 บ.</strong> | ≤250ก.=<strong>8 บ.</strong> | ≤500ก.=<strong>11 บ.</strong> | ≤1กก.=<strong>17 บ.</strong> | ≤2กก.=<strong>33 บ.</strong> | เกิน 2 กก. คิดเพิ่ม กก.ละ <strong>16 บ.</strong> (≤3กก.=49บ., ≤4กก.=65บ., ≤5กก.=81บ.)
+            <br>• ต้องหุ้มห่อแบบเปิดตรวจได้ และระบุคำว่า <strong>"ของตีพิมพ์" / "สิ่งพิมพ์"</strong> มุมซอง (ลงทะเบียนสิ่งพิมพ์ บวก +13 บ.)
+          </li>
+          <li class="critical"><strong>📋 แบบพิมพ์ & บริการเสริมตอบรับ:</strong>
+            <br>• สติกเกอร์บาร์โค้ด <strong>R...TH</strong> | ใบตอบรับในประเทศ <strong>ป.133 (ก)</strong> (+3 บ. หรือแบบมีเลข +8 บ. สำหรับ R / +12 บ. สำหรับ EMS) | หรือแนะนำใช้ <strong>e-AR (ระบบตอบรับอิเล็กทรอนิกส์)</strong>
+            <br>• ชดใช้ค่าเสียหายลงทะเบียนในประเทศ: <strong>ซองสูงสุด 300 บ. / หีบห่อสูงสุด 500 บ.</strong> (ห้ามส่งเงินสด/ทอง/ของมีค่า!)
+          </li>
+        </ul>
+      `;
+    } else if (domWizSrv === "trasin") {
+      html = `
+        <div style="color:#065F46; font-weight:700; font-size:15px; margin-bottom:8px;">
+          📰 2. บริการหนังสือพิมพ์ตราสิน (ระเบียบ ปณท ฉบับที่ 234 พ.ศ. 2558 — แบบ ป.244)
+        </div>
+        <ul class="notes-list" style="margin-top:0;">
+          <li class="good"><strong>🎁 ส่วนลดพิเศษ:</strong> ได้รับส่วนลดสูงสุดถึง <strong>50% จากอัตราค่าบริการของตีพิมพ์ปกติ</strong>! (คำนวณยอดรวมต่อครั้ง หากมีเศษสตางค์ให้ปัดขึ้นเป็น <strong>.25 / .50 / .75 / 1.00 บาท</strong>)</li>
+          <li class="critical"><strong>🚨 กฎเหล็กหน้าเคาน์เตอร์ (ห้ามรับฝากผิดเงื่อนไข!):</strong>
+            <br>1. <strong>ต้องฝากส่ง ณ ที่ทำการไปรษณีย์แห่งเดียวที่ระบุไว้ในใบอนุญาตเท่านั้น!</strong> (ห้ามรับฝากข้าม ปณ. เด็ดขาด)
+            <br>2. ต้องฝากส่งครั้งละ <strong>ไม่ต่ำกว่า 100 ฉบับ</strong> โดยทุกฉบับต้องมีขนาดและน้ำหนักเท่ากัน และคัดแยกมัดตามรหัสไปรษณีย์ปลายทาง
+            <br>3. มุมขวาบนของซอง/ปกต้องมีกรอบสี่เหลี่ยมขนาดไม่น้อยกว่า <strong>2 × 4 ซม.</strong> พิมพ์คำว่า <code>หนังสือพิมพ์ตราสิน / ชำระค่าฝากส่งเป็นรายเดือน / ใบอนุญาตที่ .../...</code>
+            <br>4. <strong>ต้องชำระค่าฝากส่งเป็นเงินสดทุกครั้งที่ฝากส่ง!</strong> พร้อมยื่น <strong>แบบ ป.244 (ครบ 4 ตอน)</strong> และมอบ <strong>ตัวอย่างหนังสือพิมพ์ฉบับที่ฝากส่งจริง จำนวน 2 ฉบับ</strong> ทุกครั้ง (เก็บที่ ปณ. 1 ฉบับ + ส่งส่วนบริการสื่อสารบริการธุรกิจ 1 ฉบับ)
+            <br>5. <strong>ระวังใบอนุญาตขาด/ถูกระงับ:</strong> ค่าธรรมเนียมออกใบอนุญาต/ต่ออายุรายปี <strong>100 บาท/ปี</strong> (ต้องยื่นต่ออายุล่วงหน้าอย่างน้อย <strong>15 วัน</strong> ก่อนสิ้นปี) และหากขาดส่งเกิน 5 คราวติดต่อกัน (รายวัน) หรือเกิน 3 คราว (รายสัปดาห์) สิทธิจะถูกระงับทันที!
+          </li>
+        </ul>
+      `;
+    } else if (domWizSrv === "admail") {
+      html = `
+        <div style="color:#9A3412; font-weight:700; font-size:15px; margin-bottom:8px;">
+          📢 3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Advertising Mail / Admail — ระเบียบฉบับที่ 215 & เรทใหม่ 2568–2569)
+        </div>
+        <ul class="notes-list" style="margin-top:0;">
+          <li class="good"><strong>💰 ตารางอัตราเหมาจ่ายตั้งแต่ชิ้นแรก (ลดตามปริมาณรวมต่อครั้ง):</strong>
+            <br>• <strong>ไม่เกิน 3,000 ชิ้น:</strong> ≤50ก. = <strong>3.50 บ.</strong> | 51–100ก. = <strong>4.50 บ.</strong> | 101–250ก. = <strong>7.50 บ.</strong> | 251–500ก. = <strong>10.50 บ.</strong>
+            <br>• <strong>3,001 – 10,000 ชิ้น:</strong> 3.40 / 4.40 / 7.40 / 10.40 บ. &nbsp;|&nbsp; <strong>10,001 – 20,000 ชิ้น:</strong> 3.30 / 4.30 / 7.30 / 10.30 บ.
+            <br>• <strong>20,001 – 30,000 ชิ้น:</strong> 3.15 / 4.15 / 7.15 / 10.15 บ. &nbsp;|&nbsp; <strong>30,001 – 50,000 ชิ้น:</strong> 3.00 / 4.00 / 7.00 / 10.00 บ.
+            <br>• <strong>50,001 – 100,000 ชิ้น:</strong> 2.85 / 3.85 / 6.85 / 9.85 บ. &nbsp;|&nbsp; <strong>100,001 – 200,000 ชิ้น:</strong> 2.70 / 3.70 / 6.70 / 9.70 บ.
+            <br>• <strong>ตั้งแต่ 200,001 ชิ้นขึ้นไป:</strong> <strong>2.50 / 3.50 / 6.50 / 9.50 บ.</strong>
+          </li>
+          <li class="good" style="background:#ECFDF5; border-left-color:#059669;"><strong>🗳️ สิทธิพิเศษ "สื่อรณรงค์หาเสียงเลือกตั้งทุกประเภท" (อบต. / อบจ. / เทศบาล / สส. / สว.):</strong>
+            <br>พิกัดน้ำหนักไม่เกิน 50 กรัม คิดอัตราพิเศษ <strong>2.50 บาท/ชิ้น ตั้งแต่ชิ้นแรก โดยไม่กำหนดจำนวนขั้นต่ำ!</strong>
+          </li>
+          <li class="critical"><strong>📋 แบบพิมพ์ & การเตรียมงานรับฝาก:</strong>
+            <br>• ต้องยื่น <strong>ใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (เอกสารหมายเลข 1)</strong> 2 ฉบับ + แนบตัวอย่างสื่อจริง
+            <br>• ลูกค้าต้องมัดเป็นห่อ <strong>ห่อละ 50 หรือ 100 ชิ้น</strong> แยกตาม ปณ.ปลายทาง พร้อมแปะ <strong>ใบปะหน้าห่อ (เอกสารหมายเลข 2)</strong>
+            <br>• การปิดถุงส่งต่อ: ต้องผูกป้ายปากถุงระบุชัดเจนว่า <strong>"ไปรษณียภัณฑ์ไม่มีจ่าหน้า"</strong> พร้อมจำนวนชิ้นและวันที่ต้องการให้นำจ่าย
+          </li>
+        </ul>
+      `;
+    } else {
+      html = `
+        <div style="color:#B91C1C; font-weight:700; font-size:15px; margin-bottom:8px;">
+          📦 4. พัสดุไปรษณีย์ (P) vs eCo-Post (O) vs EMS ในประเทศ (E) — กฎใหม่ปี 2569!
+        </div>
+        <ul class="notes-list" style="margin-top:0;">
+          <li class="good"><strong>📦 พัสดุไปรษณีย์ในประเทศ (รหัส P...TH — สูงสุด 20 กก.):</strong>
+            <br>• <strong>สูตรจำง่าย:</strong> กก.แรก <strong>25 บาท</strong> + กก.ต่อไป กก.ละ <strong>20 บาท</strong> (เศษของ กก. คิดเป็น 1 กก. เช่น 2กก.=45บ., 3กก.=65บ., 5กก.=105บ., 10กก.=205บ., 20กก.=405บ.)
+            <br>• <strong>ข้อดี:</strong> ประหยัดสำหรับของหนัก และ <strong>ไม่ถูกเก็บค่า Fuel Surcharge +3 บาท!</strong>
+            <br>• <strong>⚠️ คำเตือนที่ต้องแจ้งลูกค้าทุกครั้ง:</strong> บาร์โค้ด <code>P...TH</code> <strong>ไม่สามารถเช็คสถานะออนไลน์ระหว่างทางในเว็บ Track & Trace ได้!</strong> (ตรวจสอบได้เฉพาะที่ ปณ. และชดใช้สูงสุด <strong>1,000 บาท</strong>)
+          </li>
+          <li class="critical"><strong>⛽ ค่าธรรมเนียมน้ำมัน (Fuel Surcharge +3 บาท/ชิ้น) & พื้นที่เกาะ/ห่างไกล 85 พื้นที่ (+20 บาท/ชิ้น):</strong>
+            <br>• <strong>Fuel Surcharge +3 บาท/ชิ้น:</strong> เก็บเฉพาะบริการ <strong>EMS ในประเทศ</strong> และ <strong>eCo-Post</strong> (ลูกค้าเงินสดและสมาชิก POST Family โดนเก็บ +3 บ./ชิ้น ตั้งแต่วันที่ 16 เม.ย. 69)
+            <br>• <strong>พื้นที่ท่องเที่ยว/เกาะ/พื้นที่ห่างไกล 85 รหัสไปรษณีย์:</strong> ปรับเพิ่มจาก 15 บาท เป็น <strong>+20 บาท/ชิ้น</strong> (เริ่ม 1 ม.ค. 69)
+          </li>
+          <li class="good"><strong>🛡️ บริการรับประกันในประเทศ (เริ่ม 20 ก.ค. 69):</strong>
+            <br>• วงเงินคุ้มครองสูงสุด <strong>50,000 บาท/ชิ้น</strong> (ค่าธรรมเนียมขั้นต่ำ 15 บ. + ร้อยละ 1 ของวงเงิน สำหรับ 100–25,000 บ. / ร้อยละ 1.5 สำหรับ 25,001–50,000 บ.) *ต้องปิดผนึกด้วยเทปกาวกระดาษและลงนามคร่อมรอยต่อทุกด้าน!*
+          </li>
+        </ul>
+      `;
+    }
+
+    out.innerHTML = html;
+  }
+
+  function setupDomWizardEvents() {
+    const btns = document.querySelectorAll("#domWizGroup .pill-btn");
+    btns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        btns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        domWizSrv = btn.getAttribute("data-dom-srv") || "letter";
+        renderDomWizardOutput();
+      });
+    });
+    renderDomWizardOutput();
+  }
+
+  function renderDomServices() {
+    const container = document.getElementById("domServicesListContainer");
+    if (!container || !DATA.domestic || !DATA.domestic.services) return;
+
+    const srvHtml = DATA.domestic.services
+      .map((srv) => {
+        const formsHtml = (srv.requiredForms || [])
+          .map((f) => `<li class="good" style="background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A;">${escapeHtml(f)}</li>`)
+          .join("");
+
+        const survivalHtml = (srv.survivalGuide || [])
+          .map((s) => `<li class="critical">${escapeHtml(s)}</li>`)
+          .join("");
+
+        const notesHtml = (srv.criticalNotes || [])
+          .map((n) => {
+            let cls = "good";
+            if (n.includes("🚨") || n.includes("⚠️") || n.includes("ห้าม")) cls = "critical";
+            return `<li class="${cls}">${escapeHtml(n)}</li>`;
+          })
+          .join("");
+
+        return `
+          <div class="card" id="dom-service-${escapeHtml(srv.id)}">
+            <div class="card-header">
+              <div>
+                <span class="prefix-tag" style="background:#D91920; color:#FFFFFF;">${escapeHtml(srv.prefix)}</span>
+                <div class="card-title">${escapeHtml(srv.name)}</div>
+              </div>
+              <span class="badge badge-${escapeHtml(srv.badgeColor || "red")}">${escapeHtml(srv.badge)}</span>
+            </div>
+
+            ${
+              srv.posMode
+                ? `<div style="background:#FFFBEB; border:1.5px solid #F59E0B; border-radius:10px; padding:10px 12px; margin-bottom:12px; font-size:13.5px; font-weight:600; color:#92400E;">
+                    💻 <strong>การทำรายการในระบบ New CA POS / จุดรับฝาก:</strong><br>${escapeHtml(srv.posMode)}
+                  </div>`
+                : ""
+            }
+
+            ${
+              formsHtml
+                ? `<div style="font-size:14px; font-weight:700; color:#1E3A8A; margin-bottom:6px;">
+                    📋 แบบพิมพ์ / ใบนำส่ง / ตราประทับที่ต้องใช้ในการรับฝาก:
+                  </div>
+                  <ul class="notes-list" style="margin-bottom:12px;">${formsHtml}</ul>`
+                : ""
+            }
+
+            ${
+              survivalHtml
+                ? `<div style="font-size:14px; font-weight:700; color:#991B1B; margin-bottom:6px;">
+                    🛡️ คัมภีร์เอาตัวรอดของเจ้าหน้าที่รับฝาก (ป้องกันคิดเงินผิด/ของตีกลับ/ถูกร้องเรียน):
+                  </div>
+                  <ul class="notes-list" style="margin-bottom:12px;">${survivalHtml}</ul>`
+                : ""
+            }
+
+            <div class="spec-grid">
+              <div class="spec-item">
+                <span class="spec-label">⚖️ พิกัดน้ำหนักสูงสุด</span>
+                <span class="spec-value">${escapeHtml(srv.maxWeight)}</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">📏 ขนาดสูงสุด / เงื่อนไขหุ้มห่อ</span>
+                <span class="spec-value">${escapeHtml(srv.maxSize)}</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">💰 สรุปอัตราค่าบริการ & ส่วนลด</span>
+                <span class="spec-value" style="font-weight:600; color:#047857;">${escapeHtml(srv.rateSummary)}</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">🛡️ อัตราชดใช้ค่าเสียหาย</span>
+                <span class="spec-value">${escapeHtml(srv.indemnity)}</span>
+              </div>
+            </div>
+
+            <div style="font-size:14px; font-weight:700; color:var(--thp-navy); margin-bottom:6px;">
+              📌 รายละเอียดอัตราค่าบริการ & ข้อสังเกตสำคัญ:
+            </div>
+            <ul class="notes-list">${notesHtml}</ul>
+
+            <div class="ref-foot">📄 อ้างอิงระเบียบ/บันทึก: ${escapeHtml(srv.ref)}</div>
+          </div>
+        `;
+      })
+      .join("");
+
+    // เพิ่มการ์ดราคากล่อง ซอง และค่าบริการหุ้มห่อในประเทศ
+    const boxDomHtml = `
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📦 ตารางราคากล่อง ซอง และค่าบริการหุ้มห่อสิ่งของ (สำหรับเคาน์เตอร์ในประเทศ)</div>
+          <span class="badge badge-blue">โพยราคาหุ้มห่อ</span>
+        </div>
+        <div class="spec-grid">
+          <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:6px;">
+            <span class="spec-label">1. ราคากล่องสำเร็จรูป ปณท (ไม่รวมค่าบริการหุ้มห่อ)</span>
+            <span class="spec-value">
+              • <strong>กล่อง AA</strong> (13×17×7 ซม.) = <strong>9 บ.</strong> | <strong>กล่อง ก</strong> (14×20×6 ซม.) = <strong>12 บ.</strong> | <strong>กล่อง ข</strong> (17×25×9 ซม.) = <strong>15 บ.</strong><br>
+              • <strong>กล่อง ค</strong> (20×30×11 ซม.) = <strong>20 บ.</strong> | <strong>กล่อง ง</strong> (22×35×14 ซม.) = <strong>25 บ.</strong> | <strong>กล่อง จ</strong> (24×40×17 ซม.) = <strong>32 บ.</strong> | <strong>กล่อง ฉ</strong> (30×45×20 ซม.) = <strong>45 บ.</strong><br>
+              • <strong>กล่องเบอร์ 1 (ยาว)</strong> = <strong>20 บ.</strong> | <strong>กล่องเบอร์ 2</strong> = <strong>30 บ.</strong> | <strong>กล่องเบอร์ 3</strong> = <strong>35 บ.</strong> | <strong>กล่องเบอร์ 4</strong> = <strong>65 บ.</strong> | <strong>กล่องเบอร์ 5</strong> = <strong>65 บ.</strong> | <strong>กล่องเบอร์ 6</strong> = <strong>95 บ.</strong>
+            </span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">2. ค่าบริการหุ้มห่อพร้อมอุปกรณ์กันกระแทก (กรณีให้เจ้าหน้าที่หุ้มห่อให้)</span>
+            <span class="spec-value">
+              • หุ้มห่อซอง/กล่องขนาดเล็ก (AA, ก, ข, ค): ค่าบริการหุ้มห่อตามเกณฑ์มาตรฐาน ปณท (ตรวจสอบดูภาพตารางเต็มได้ในเมนู <strong>🖨️ แบบพิมพ์</strong>)
+            </span>
+          </div>
+        </div>
+        <div class="ref-foot">📄 อ้างอิง: แผ่นภาพราคากล่อง ซอง และค่าบริการหุ้มห่อ ไปรษณีย์ไทย</div>
+      </div>
+    `;
+
+    container.innerHTML = srvHtml + boxDomHtml;
+  }
+
+  function renderDomFormsHub() {
+    const container = document.getElementById("domFormsHubContainer");
+    if (!container || !DATA.domestic || !DATA.domestic.printableDocs) return;
+
+    container.innerHTML = DATA.domestic.printableDocs.map((doc) => buildDocCardHtml(doc)).join("");
+    attachDocActionEvents(container);
+  }
+
+  function renderDomPromos() {
+    const clockBanner = document.getElementById("domPromoClockBanner");
+    const activeContainer = document.getElementById("domActivePromosContainer");
+    const expiredContainer = document.getElementById("domExpiredPromosContainer");
+    if (!DATA.domestic || !DATA.domestic.promotions) return;
+
+    if (clockBanner) {
+      const now = new Date();
+      const thaiDateStr = now.toLocaleDateString("th-TH", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
+      clockBanner.innerHTML = `
+        <h3 style="color:#1E40AF;">🕒 สถานะส่วนลด อัตราพิเศษ และค่าธรรมเนียมในประเทศ (วันนี้: ${escapeHtml(thaiDateStr)})</h3>
+        <p style="color:#1E3A8A;">
+          • <strong>🟢 กรอบสีเขียวเข้ม (มีให้ใช้อยู่ตอนนี้):</strong> ส่วนลดตามปริมาณงาน Admail, สื่อเลือกตั้ง 2.50 บ., หนังสือพิมพ์ตราสินลด 50%, เรทส่งยา รพ. และเกณฑ์ Fuel Surcharge +3 บ. / พื้นที่ห่างไกล +20 บ.<br>
+          • <strong>🔴 กรอบสีเทาจาง + แถบสีแดงขีดฆ่า (ยกเลิก/เปลี่ยนแปลงแล้ว):</strong> อัตราเก่าที่ยกเลิกแล้ว แสดงแบบสีจางเพื่อป้องกันจำสับสน
+        </p>
+      `;
+    }
+
+    const activePromos = DATA.domestic.promotions.active || [];
+    const expiredPromos = DATA.domestic.promotions.expired || [];
+
+    if (activeContainer) {
+      activeContainer.innerHTML = activePromos.map((p) => buildPromoCardHtml(p)).join("");
+    }
+    if (expiredContainer) {
+      expiredContainer.innerHTML = expiredPromos.map((p) => buildPromoCardHtml(p)).join("");
+    }
+  }
+
+  // เครื่องคำนวณค่าบริการในประเทศอัตโนมัติ (Domestic Rate & Admail/Trasin Calculator)
+  function setupDomCalculator() {
+    const btn = document.getElementById("runDomCalcBtn");
+    const out = document.getElementById("domCalcResultBox");
+    if (!btn || !out) return;
+
+    function calculateDomRates() {
+      const wG = parseFloat(document.getElementById("domCalcWeightG").value) || 0;
+      const packType = document.getElementById("domCalcPackType").value; // "env" | "pack"
+      const qty = Math.max(1, parseInt(document.getElementById("domCalcQty").value, 10) || 1);
+      const addon = document.getElementById("domCalcAddon").value; // "none" | "ar" | "remote" | "remote_ar"
+
+      if (wG <= 0) {
+        out.innerHTML = `<div style="color:#B91C1C; font-weight:600;">กรุณากรอกน้ำหนักต่อชิ้น (กรัม) เช่น 50, 250, 1500</div>`;
+        return;
+      }
+
+      const hasAr = addon === "ar" || addon === "remote_ar";
+      const isRemote = addon === "remote" || addon === "remote_ar";
+      const remoteFee = isRemote ? 20 : 0;
+
+      // 1. จดหมาย & ลงทะเบียน (R)
+      let letterRate = null;
+      let regRate = null;
+      let letterTypeLabel = "";
+      if (wG <= 2000) {
+        if (packType === "env") {
+          letterTypeLabel = "จดหมายซอง (ก+ย+ส ≤ 60 ซม.)";
+          if (wG <= 10) letterRate = 5;
+          else if (wG <= 20) letterRate = 6;
+          else if (wG <= 100) letterRate = 11;
+          else if (wG <= 250) letterRate = 17;
+          else if (wG <= 500) letterRate = 23;
+          else if (wG <= 1000) letterRate = 40;
+          else letterRate = 62;
+          regRate = letterRate + 13; // ลงทะเบียนซอง +13 บ.
+        } else {
+          letterTypeLabel = "จดหมายหีบห่อ (ซองพลาสติก/ซองป่อง/กล่องเล็ก)";
+          if (wG <= 500) letterRate = 34;
+          else if (wG <= 1000) letterRate = 45;
+          else letterRate = 62;
+          regRate = letterRate + 15; // ลงทะเบียนหีบห่อ +15 บ.
+        }
+      }
+
+      // 2. ของตีพิมพ์ & หนังสือพิมพ์ตราสิน (ลด 50%)
+      let printedRate = null;
+      if (wG <= 5000) {
+        if (wG <= 50) printedRate = 4;
+        else if (wG <= 100) printedRate = 5;
+        else if (wG <= 250) printedRate = 8;
+        else if (wG <= 500) printedRate = 11;
+        else if (wG <= 1000) printedRate = 17;
+        else if (wG <= 2000) printedRate = 33;
+        else {
+          const extraKg = Math.ceil((wG - 2000) / 1000);
+          printedRate = 33 + extraKg * 16;
+        }
+      }
+
+      // คำนวณหนังสือพิมพ์ตราสิน (ลด 50% จากของตีพิมพ์ ปัดเศษขึ้นเป็น .25 / .50 / .75 / 1.00)
+      let trasinTotal = null;
+      let trasinPerPiece = null;
+      if (printedRate !== null) {
+        trasinPerPiece = printedRate * 0.5;
+        const rawTotal = trasinPerPiece * qty;
+        trasinTotal = Math.ceil(rawTotal * 4) / 4;
+      }
+
+      // 3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail) - สูงสุด 500 กรัม
+      let admailRatePerPc = null;
+      let admailTierName = "";
+      if (wG <= 500) {
+        let wIdx = 0;
+        if (wG <= 50) wIdx = 0;
+        else if (wG <= 100) wIdx = 1;
+        else if (wG <= 250) wIdx = 2;
+        else wIdx = 3;
+
+        const admailMatrix = [
+          { max: 3000, label: "ไม่เกิน 3,000 ชิ้น", rates: [3.5, 4.5, 7.5, 10.5] },
+          { max: 10000, label: "3,001 – 10,000 ชิ้น", rates: [3.4, 4.4, 7.4, 10.4] },
+          { max: 20000, label: "10,001 – 20,000 ชิ้น", rates: [3.3, 4.3, 7.3, 10.3] },
+          { max: 30000, label: "20,001 – 30,000 ชิ้น", rates: [3.15, 4.15, 7.15, 10.15] },
+          { max: 50000, label: "30,001 – 50,000 ชิ้น", rates: [3.0, 4.0, 7.0, 10.0] },
+          { max: 100000, label: "50,001 – 100,000 ชิ้น", rates: [2.85, 3.85, 6.85, 9.85] },
+          { max: 200000, label: "100,001 – 200,000 ชิ้น", rates: [2.7, 3.7, 6.7, 9.7] },
+          { max: Infinity, label: "200,001 ชิ้นขึ้นไป", rates: [2.5, 3.5, 6.5, 9.5] }
+        ];
+
+        const tier = admailMatrix.find((t) => qty <= t.max);
+        admailRatePerPc = tier.rates[wIdx];
+        admailTierName = tier.label;
+      }
+
+      // 4. พัสดุไปรษณีย์ (P) - สูงสุด 20 กก. (20,000 กรัม)
+      let parcelRate = null;
+      if (wG <= 20000) {
+        const kgCeil = Math.max(1, Math.ceil(wG / 1000));
+        parcelRate = 25 + (kgCeil - 1) * 20;
+      }
+
+      // 5. eCo-Post (O) - สูงสุด 10 กก. (+Fuel 3 บ. +Remote 20 บ.)
+      let ecoBase = null;
+      if (wG <= 10000) {
+        if (wG <= 20) ecoBase = 20;
+        else if (wG <= 100) ecoBase = 22;
+        else if (wG <= 250) ecoBase = 26;
+        else if (wG <= 500) ecoBase = 30;
+        else if (wG <= 1000) ecoBase = 40;
+        else if (wG <= 2000) ecoBase = 60;
+        else if (wG <= 3000) ecoBase = 70;
+        else if (wG <= 4000) ecoBase = 80;
+        else if (wG <= 5000) ecoBase = 100;
+        else if (wG <= 6000) ecoBase = 120;
+        else if (wG <= 7000) ecoBase = 130;
+        else if (wG <= 8000) ecoBase = 140;
+        else if (wG <= 9000) ecoBase = 150;
+        else ecoBase = 160;
+      }
+
+      // 6. EMS ในประเทศ (E) - สูงสุด 30 กก. (+Fuel 3 บ. +Remote 20 บ.)
+      let emsBase = null;
+      if (wG <= 30000) {
+        if (wG <= 20) emsBase = 32;
+        else if (wG <= 100) emsBase = 37;
+        else if (wG <= 250) emsBase = 42;
+        else if (wG <= 500) emsBase = 52;
+        else if (wG <= 1000) emsBase = 67;
+        else if (wG <= 1500) emsBase = 82;
+        else if (wG <= 2000) emsBase = 97;
+        else if (wG <= 2500) emsBase = 100;
+        else if (wG <= 3000) emsBase = 105;
+        else if (wG <= 3500) emsBase = 110;
+        else if (wG <= 5000) emsBase = 120;
+        else if (wG <= 6000) emsBase = 140;
+        else if (wG <= 7000) emsBase = 160;
+        else if (wG <= 8000) emsBase = 180;
+        else if (wG <= 9000) emsBase = 200;
+        else if (wG <= 10000) emsBase = 220;
+        else {
+          const extraKg = Math.ceil((wG - 10000) / 1000);
+          emsBase = 220 + extraKg * 20;
+        }
+      }
+
+      out.innerHTML = `
+        <div class="spec-grid" style="background:#EFF6FF; border-color:#93C5FD;">
+          <div class="spec-item" style="border-bottom:1px solid #BFDBFE; padding-bottom:6px;">
+            <span class="spec-label" style="color:#1E40AF;">✉️ 1. ${escapeHtml(letterTypeLabel || "จดหมาย & ลงทะเบียน (R)")}</span>
+            <span class="spec-value">
+              ${
+                letterRate !== null
+                  ? `• ส่งธรรมดา: <strong>${letterRate} บาท/ชิ้น</strong> | ลงทะเบียนในประเทศ (R): <strong>${regRate}${hasAr ? " + ตอบรับ AR 3 บ. = " + (regRate + 3) : ""} บาท/ชิ้น</strong>`
+                  : `❌ น้ำหนัก ${wG.toLocaleString()} กรัม เกินพิกัดสูงสุดของจดหมาย/ลงทะเบียน (รับได้สูงสุด 2,000 กรัม)`
+              }
+            </span>
+          </div>
+          <div class="spec-item" style="border-bottom:1px solid #BFDBFE; padding-bottom:6px;">
+            <span class="spec-label" style="color:#047857;">📚 2. ของตีพิมพ์ & หนังสือพิมพ์ตราสิน (ป.244 ลด 50%)</span>
+            <span class="spec-value">
+              ${
+                printedRate !== null
+                  ? `• ของตีพิมพ์ปกติ: <strong>${printedRate} บาท/ชิ้น</strong> (ลงทะเบียนสิ่งพิมพ์ R = <strong>${printedRate + 13} บาท</strong>)<br>
+                     • 📰 <strong>หนังสือพิมพ์ตราสิน (ลด 50%):</strong> เหลือฉบับละ <strong>${trasinPerPiece.toFixed(2)} บาท</strong> ➔ จำนวน ${qty.toLocaleString()} ฉบับ = รวมชำระจริง <strong>${trasinTotal.toLocaleString("th-TH", { minimumFractionDigits: 2 })} บาท</strong> ${qty < 100 ? "<span style='color:#B91C1C; font-weight:700;'>(⚠️ ตราสินต้องส่งขั้นต่ำ 100 ฉบับ/ครั้ง)</span>" : "✅ ผ่านเกณฑ์ขั้นต่ำ 100 ฉบับ"}`
+                  : `❌ น้ำหนักเกินพิกัดของตีพิมพ์ (รับได้สูงสุด 5,000 กรัม เฉพาะหนังสือ)`
+              }
+            </span>
+          </div>
+          <div class="spec-item" style="border-bottom:1px solid #BFDBFE; padding-bottom:6px;">
+            <span class="spec-label" style="color:#9A3412;">📢 3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail — คำนวณจากจำนวน ${qty.toLocaleString()} ชิ้น)</span>
+            <span class="spec-value">
+              ${
+                admailRatePerPc !== null
+                  ? `• เรทปกติ (ขั้นปริมาณ <em>${admailTierName}</em>): ชิ้นละ <strong>${admailRatePerPc.toFixed(2)} บาท</strong> ➔ รวมทั้งสิ้น <strong>${(admailRatePerPc * qty).toLocaleString("th-TH", { minimumFractionDigits: 2 })} บาท</strong><br>
+                     ${wG <= 50 ? `• 🗳️ <strong>กรณีสื่อหาเสียงเลือกตั้ง (≤50ก. ไม่มีขั้นต่ำ):</strong> ชิ้นละ <strong>2.50 บาท</strong> ➔ รวมทั้งสิ้น <strong>${(2.5 * qty).toLocaleString("th-TH", { minimumFractionDigits: 2 })} บาท</strong>` : ""}`
+                  : `❌ น้ำหนักเกินพิกัด Admail (รับได้สูงสุดไม่เกิน 500 กรัม/ชิ้น)`
+              }
+            </span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label" style="color:#B91C1C;">📦 4. พัสดุไปรษณีย์ (P) vs eCo-Post (O) vs EMS ในประเทศ (E)</span>
+            <span class="spec-value">
+              • <strong>พัสดุไปรษณีย์ (P):</strong> ${parcelRate !== null ? `<strong>${parcelRate + (hasAr ? 3 : 0)} บาท/ชิ้น</strong> (ไม่เสีย Fuel +3 บ. / เช็คสถานะออนไลน์ไม่ได้ / ชดใช้สูงสุด 1,000 บ.)` : "❌ เกิน 20 กก."}<br>
+              • <strong>eCo-Post (O):</strong> ${ecoBase !== null ? `<strong>${ecoBase + 3 + remoteFee} บาท/ชิ้น</strong> (ค่าส่ง ${ecoBase} + Fuel 3 บ.${isRemote ? " + พื้นที่ห่างไกล 20 บ." : ""})` : "❌ เกิน 10 กก."}<br>
+              • <strong>EMS ในประเทศ (E):</strong> ${emsBase !== null ? `<strong>${emsBase + 3 + remoteFee + (hasAr ? 12 : 0)} บาท/ชิ้น</strong> (ค่าส่ง ${emsBase} + Fuel 3 บ.${isRemote ? " + พื้นที่ห่างไกล 20 บ." : ""}${hasAr ? " + ตอบรับ EMS 12 บ." : ""})` : "❌ เกิน 30 กก. (แนะนำใช้ EMS Jumbo 30–200 กก.)"}
+            </span>
+          </div>
+        </div>
+      `;
+    }
+
+    btn.addEventListener("click", calculateDomRates);
+    calculateDomRates();
+  }
+
+  // 8. ระบบสลับโหมดทางเข้าแรก (Domestic vs International) & สลับแท็บด้านล่าง
+  function switchAppMode(mode) {
+    currentMode = mode === "inter" ? "inter" : "domestic";
+
+    const domWrapper = document.getElementById("mode-domestic-wrapper");
+    const interWrapper = document.getElementById("mode-inter-wrapper");
+    const navBtnDest = document.getElementById("navBtnDest");
+    const navBtnProhib = document.getElementById("navBtnProhib");
+    const navLabelServices = document.getElementById("navLabelServices");
+    const gwBadgeDom = document.getElementById("gwBadgeDom");
+    const gwBadgeInter = document.getElementById("gwBadgeInter");
+
+    // อัปเดตปุ่มบน Header และการ์ดทางเข้าหลัก
+    document.querySelectorAll("[data-mode]").forEach((el) => {
+      el.classList.toggle("active", el.getAttribute("data-mode") === currentMode);
+    });
+
+    if (gwBadgeDom && gwBadgeInter) {
+      if (currentMode === "domestic") {
+        gwBadgeDom.className = "badge badge-red";
+        gwBadgeDom.textContent = "กำลังเปิดดู";
+        gwBadgeInter.className = "badge badge-slate";
+        gwBadgeInter.textContent = "กดเพื่อสลับ";
+      } else {
+        gwBadgeInter.className = "badge badge-red";
+        gwBadgeInter.textContent = "กำลังเปิดดู";
+        gwBadgeDom.className = "badge badge-slate";
+        gwBadgeDom.textContent = "กดเพื่อสลับ";
+      }
+    }
+
+    if (domWrapper) domWrapper.style.display = currentMode === "domestic" ? "block" : "none";
+    if (interWrapper) interWrapper.style.display = currentMode === "inter" ? "block" : "none";
+
+    // ซ่อน/แสดงปุ่มประเทศและของต้องห้ามเฉพาะโหมดระหว่างประเทศ
+    if (navBtnDest) navBtnDest.style.display = currentMode === "inter" ? "flex" : "none";
+    if (navBtnProhib) navBtnProhib.style.display = currentMode === "inter" ? "flex" : "none";
+    if (navLabelServices) {
+      navLabelServices.textContent = currentMode === "domestic" ? "4 บริการในปท." : "บริการตปท.";
+    }
+
+    // หากสลับมาโหมดในประเทศแต่แท็บเดิมอยู่ที่ ประเทศ/ของต้องห้าม ให้เด้งกลับมาที่ เช็คด่วน
+    let activeNav = document.querySelector(".bottom-nav .nav-btn.active");
+    let rawTab = activeNav ? activeNav.getAttribute("data-tab") : "tab-quick";
+    if (currentMode === "domestic" && (rawTab === "tab-destinations" || rawTab === "tab-prohibited")) {
+      rawTab = "tab-quick";
+      document.querySelectorAll(".bottom-nav .nav-btn").forEach((b) => {
+        b.classList.toggle("active", b.getAttribute("data-tab") === "tab-quick");
+      });
+    }
+
+    const targetSectionId = currentMode === "domestic" ? "dom-" + rawTab : rawTab;
+    document.querySelectorAll(".tab-section").forEach((sec) => {
+      sec.classList.toggle("active", sec.id === targetSectionId);
+    });
+
+    // ปิดหน้าค้นหาหากเปิดค้างไว้
+    const searchSection = document.getElementById("searchResultsSection");
+    const searchInput = document.getElementById("globalSearchInput");
+    const clearBtn = document.getElementById("clearSearchBtn");
+    if (searchSection) searchSection.style.display = "none";
+    if (searchInput) searchInput.value = "";
+    if (clearBtn) clearBtn.style.display = "none";
+  }
+
+  function setupModeGateway() {
+    document.querySelectorAll("[data-mode]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const mode = btn.getAttribute("data-mode");
+        switchAppMode(mode);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+  }
+
   function setupTabNavigation() {
     const navBtns = document.querySelectorAll(".bottom-nav .nav-btn");
     const tabSections = document.querySelectorAll(".tab-section");
@@ -1431,7 +2270,8 @@
 
     navBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
-        const targetId = btn.getAttribute("data-tab");
+        const rawTab = btn.getAttribute("data-tab");
+        const targetId = currentMode === "domestic" ? "dom-" + rawTab : rawTab;
 
         // ปิดหน้าค้นหาหากเปิดอยู่
         if (searchSection) searchSection.style.display = "none";
@@ -1457,6 +2297,14 @@
       badge.textContent = "อัปเดต " + DATA.lastUpdated;
     }
 
+    // โหลดข้อมูลโหมดในประเทศ (Domestic)
+    setupDomWizardEvents();
+    renderDomServices();
+    renderDomFormsHub();
+    renderDomPromos();
+    setupDomCalculator();
+
+    // โหลดข้อมูลโหมดระหว่างประเทศ (International)
     setupWizardEvents();
     renderServices();
     renderFormsHub();
@@ -1464,7 +2312,11 @@
     renderProhibited();
     renderPromosAndContacts();
     setupCalculator();
+
+    // ระบบค้นหารวม + สลับโหมดทางเข้าแรก + แท็บเมนู
     setupGlobalSearch();
+    setupModeGateway();
     setupTabNavigation();
+    switchAppMode("domestic");
   });
 })();
