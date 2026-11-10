@@ -882,6 +882,7 @@
     /* ตารางข้อมูลแบบยิบยับ อ่านง่าย สบายตา (Ultra-Readable Dense Matrix Tables) */
     .dense-table-wrap {
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       margin: 8px 0 12px;
       border-radius: 10px;
       border: 1.5px solid #CBD5E1;
@@ -915,6 +916,233 @@
     .dense-table tr.highlight-row td {
       background: #FEF9C3;
       font-weight: 700;
+    }
+    /* ปักหมุดคอลัมน์แรกของตารางเวลาปัดซ้าย-ขวาบนมือถือ */
+    .dense-table th:first-child,
+    .dense-table td:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 2;
+      box-shadow: 2px 0 5px rgba(15, 23, 42, 0.06);
+    }
+    .dense-table th:first-child {
+      background: #0F172A;
+      z-index: 3;
+    }
+    .dense-table td:first-child {
+      background: #FFFBEB;
+      font-weight: 700;
+      min-width: 110px;
+    }
+    .dense-table tr:nth-child(even) td:first-child {
+      background: #FEF3C7;
+    }
+
+    /* =================================================================== */
+    /* 📱 MOBILE OPTIMIZATION (ปรับแต่งการแสดงผลบนมือถือให้กระชับ ลื่นไหล 100%) */
+    /* =================================================================== */
+    @media (max-width: 768px) {
+      body {
+        padding-bottom: 82px;
+      }
+
+      /* 1. ย่อ Header บนมือถือให้กะทัดรัด ไม่กินพื้นที่ครึ่งจอเวลาเลื่อนอ่าน */
+      .app-header {
+        padding: 10px 12px 12px;
+      }
+
+      .mode-gateway-bar {
+        padding: 4px;
+        gap: 6px;
+        margin-bottom: 8px;
+        border-radius: 11px;
+      }
+
+      .mode-gateway-btn {
+        padding: 8px 8px;
+        font-size: 13.5px;
+        gap: 5px;
+        border-radius: 8px;
+      }
+
+      .mode-gateway-btn .sub-pill {
+        display: none; /* ซ่อนป้ายย่อยบนมือถือเพื่อให้ชื่อปุ่มหลักเต็มตา ไม่เบียดตกบรรทัด */
+      }
+
+      .header-top {
+        margin-bottom: 8px;
+        gap: 8px;
+      }
+
+      .brand-icon {
+        min-width: 40px;
+        height: 34px;
+        font-size: 14.5px;
+        border-radius: 9px;
+      }
+
+      .brand-text h1 {
+        font-size: 15.5px;
+      }
+
+      .brand-text p {
+        display: none; /* ซ่อนบรรทัดรองบนมือถือเพื่อประหยัดพื้นที่แนวตั้ง */
+      }
+
+      .update-pill {
+        font-size: 10.5px;
+        padding: 3px 8px;
+      }
+
+      .search-box input {
+        padding: 9px 34px 9px 36px;
+        font-size: 14px;
+        border-radius: 10px;
+      }
+
+      .search-icon {
+        left: 11px;
+        font-size: 15px;
+      }
+
+      /* 2. ซ่อนการ์ดทางเข้าซ้ำซ้อนบนมือถือ (เพราะมีปุ่มสลับโหมดสีทอง/สีน้ำเงินด้านบนสุดอยู่แล้ว) */
+      .gateway-hero-cards {
+        display: none;
+      }
+
+      .container {
+        padding: 10px;
+      }
+
+      .urgent-banner {
+        padding: 10px 12px;
+        margin-bottom: 12px;
+      }
+
+      .urgent-banner h3 {
+        font-size: 13.5px;
+      }
+
+      .urgent-banner p {
+        font-size: 12.5px;
+        line-height: 1.5;
+      }
+
+      /* 3. ปุ่มเลือกหมวด 9 หมวดบนมือถือ: จัดเรียงให้อ่านง่าย ไม่โดนบีบคำขาด */
+      .wizard-box {
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+
+      .wizard-title {
+        font-size: 14.5px;
+        margin-bottom: 8px;
+      }
+
+      .pill-selector {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+
+      .pill-btn {
+        padding: 9px 9px;
+        font-size: 12.5px;
+        line-height: 1.3;
+        border-radius: 9px;
+        gap: 4px;
+      }
+
+      .wizard-result {
+        margin-top: 10px;
+        padding: 11px;
+      }
+
+      /* 4. การ์ดบริการ & ตารางข้อมูลบนมือถือ */
+      .card {
+        padding: 12px;
+        margin-bottom: 12px;
+        border-radius: 13px;
+      }
+
+      .srv-theme-banner {
+        padding: 11px 12px;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .srv-theme-banner .card-title {
+        font-size: 15.5px;
+        line-height: 1.35;
+      }
+
+      .srv-theme-banner .prefix-tag {
+        font-size: 11.5px;
+        white-space: normal;
+        line-height: 1.35;
+        display: block;
+      }
+
+      .srv-theme-banner .badge {
+        align-self: flex-start;
+        font-size: 11px;
+        padding: 3px 9px;
+      }
+
+      .srv-theme-body {
+        padding: 12px;
+      }
+
+      .prefix-tag {
+        white-space: normal;
+        word-break: break-word;
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .notes-list li {
+        font-size: 13px;
+        padding: 7px 9px;
+        line-height: 1.48;
+      }
+
+      .rate-line-item {
+        font-size: 12.5px;
+        padding: 6px 8px;
+        line-height: 1.45;
+      }
+
+      .dense-table {
+        font-size: 12px;
+      }
+
+      .dense-table th,
+      .dense-table td {
+        padding: 6px 8px;
+      }
+
+      /* 5. ช่องกรอกเครื่องคำนวณและปุ่มกดดาวน์โหลด/พิมพ์บนมือถือ */
+      .calc-input-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .doc-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+
+      .doc-btn.print {
+        grid-column: 1 / -1;
+        padding: 10px;
+        font-size: 13.5px;
+      }
+
+      .doc-btn {
+        font-size: 12px;
+        padding: 8px 8px;
+        min-width: 0;
+      }
     }
     .price-chip {
       display: inline-block;
