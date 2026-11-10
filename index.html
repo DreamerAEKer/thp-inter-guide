@@ -489,11 +489,54 @@
       display: block;
     }
 
-    /* Expired Card Styling */
+    /* Promo Status Cards & Banners (Active / Upcoming / Expired) */
+    .promo-status-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .promo-status-banner.active {
+      background: #D1FAE5;
+      color: #065F46;
+      border: 1.5px solid #10B981;
+    }
+
+    .promo-status-banner.upcoming {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1.5px solid #EF4444;
+    }
+
+    .promo-status-banner.expired {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1.5px solid #EF4444;
+    }
+
+    .upcoming-card {
+      background: #FFFDF9;
+      border: 2px dashed #F59E0B;
+      opacity: 0.86;
+    }
+
     .expired-card {
-      background: #F8FAFC;
-      border: 1.5px dashed #94A3B8;
-      opacity: 0.88;
+      background: #F1F5F9;
+      border: 1.5px dashed #EF4444;
+      opacity: 0.62;
+      filter: grayscale(35%);
+      transition: opacity 0.2s ease, filter 0.2s ease;
+    }
+
+    .expired-card:hover {
+      opacity: 0.92;
+      filter: grayscale(0%);
     }
 
     .pos-btn-badge {
@@ -847,8 +890,13 @@
 
     <!-- TAB 6: ส่วนลด/โปรโมชั่น (กรองเฉพาะที่ใช้ได้จริง พ.ย. 69) + เครื่องคำนวณ -->
     <section id="tab-promos" class="tab-section">
-      <div class="section-heading">🏷️ ส่วนลดและแคมเปญที่มีผลปัจจุบัน (พ.ย. 2569)</div>
+      <div id="promoTodayClockBanner" class="urgent-banner" style="background:#EFF6FF; border-left-color:#2563EB; margin-bottom:14px;"></div>
+
+      <div class="section-heading">🟢 1. ส่วนลดและแคมเปญที่【ใช้ได้ตอนนี้】</div>
       <div id="activePromosContainer" class="grid-2col"></div>
+
+      <div class="section-heading" style="margin-top:24px; color:#B91C1C;">⏳ 2. แคมเปญที่【ยังไม่เริ่ม — ห้ามเพิ่งกดตอนนี้!】</div>
+      <div id="upcomingPromosContainer" class="grid-2col"></div>
 
       <div class="section-heading" style="margin-top:24px;">🧮 เครื่องคำนวณขนาด & น้ำหนักปริมาตร (Courier Post Plus / ตปท.)</div>
       <div class="card">
@@ -875,7 +923,7 @@
         <div id="calcResultBox" style="margin-top:12px; display:none;"></div>
       </div>
 
-      <div class="section-heading" style="margin-top:24px; color:#64748B;">🗑️ บันทึก/โปรโมชั่นที่หมดอายุแล้ว (ตัดออกเพื่อกันสับสน)</div>
+      <div class="section-heading" style="margin-top:24px; color:#991B1B;">🔴 3. บันทึก/โปรโมชั่นที่【หมดอายุแล้ว — ห้ามกดให้ลูกค้าเด็ดขาด!】</div>
       <div id="expiredPromosContainer" class="grid-2col"></div>
 
       <div class="section-heading" style="margin-top:24px;">📞 เบอร์ติดต่อด่วนสำหรับเจ้าหน้าที่ ปณท</div>

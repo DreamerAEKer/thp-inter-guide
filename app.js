@@ -509,62 +509,190 @@
     `;
   }
 
-  // 5. Render โปรโมชั่นที่ยังมีผลบังคับใช้ vs ที่หมดอายุแล้ว + เบอร์ติดต่อ
+  // 5. ระบบคำนวณสถานะวันเวลาโปรโมชั่นอัตโนมัติ (ใช้งานอยู่ / ยังไม่ถึงวันเริ่ม / หมดอายุแล้ว)
+  function evaluatePromoTiming(p) {
+    const now = new Date();
+    const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    const start = p.startDate ? new Date(p.startDate + "T00:00:00") : null;
+    const end = p.endDate ? new Date(p.endDate + "T23:59:59") : null;
+    const endMidnight = p.endDate ? new Date(p.endDate + "T00:00:00") : null;
+
+    if (start && todayMidnight < start) {
+      const daysUntil = Math.ceil((start - todayMidnight) / (1000 * 60 * 60 * 24));
+      return {
+        state: "UPCOMING",
+        bannerText: `⏳ ยังไม่ถึงเวลาเริ่มแคมเปญ! (อีก ${daysUntil} วัน — เริ่มใช้ได้ ${p.period})`,
+        subWarning: "🚫 ห้ามกดปุ่มส่วนลดนี้ให้ลูกค้าในตอนนี้เด็ดขาด!",
+        badgeText: `⏳ ยังไม่เริ่ม (อีก ${daysUntil} วัน)`,
+        badgeClass: "badge-red"
+      };
+    }
+
+    if (end && now > end) {
+      const daysAgo = Math.floor((todayMidnight - endMidnight) / (1000 * 60 * 60 * 24));
+      return {
+        state: "EXPIRED",
+        bannerText: `🔴 หมดอายุแล้ว! (สิ้นสุดเมื่อ ${p.period}${daysAgo > 0 ? ` — ผ่านมาแล้ว ${daysAgo} วัน` : ""})`,
+        subWarning: "⛔ สิ้นสุดระยะเวลาแคมเปญแล้ว ห้ามกดให้ลูกค้าเด็ดขาด!",
+        badgeText: "❌ หมดอายุแล้ว",
+        badgeClass: "badge-red"
+      };
+    }
+
+    // กรณีใช้งานได้ในขณะนี้ (ACTIVE)
+    if (endMidnight && p.endDate !== "2099-12-31") {
+      const daysLeft = Math.ceil((endMidnight - todayMidnight) / (1000 * 60 * 60 * 24)) + 1;
+      return {
+        state: "ACTIVE",
+        bannerText: `🟢 มีให้ใช้อยู่ตอนนี้! (เหลือเวลาอีก ${daysLeft} วัน — ถึง ${p.period})`,
+        subWarning: "",
+        badgeText: `✅ ใช้ได้ตอนนี้ (เหลือ ${daysLeft} วัน)`,
+        badgeClass: "badge-emerald"
+      };
+    }
+
+    return {
+      state: "ACTIVE",
+      bannerText: `🟢 มีให้ใช้อยู่ตอนนี้! (สิทธิมาตรฐาน ใช้ได้ต่อเนื่องตลอดปี)`,
+      subWarning: "",
+      badgeText: "✅ ใช้ได้ตอนนี้",
+      badgeClass: "badge-emerald"
+    };
+  }
+
+  function buildPromoCardHtml(p) {
+    const timing = evaluatePromoTiming(p);
+    const condHtml = (p.conditions || [])
+      .map((c) => `<li class="${c.includes("⚠️") || timing.state !== "ACTIVE" ? "critical" : "good"}">${escapeHtml(c)}</li>`)
+      .join("");
+
+    if (timing.state === "UPCOMING") {
+      return `
+        <div class="card upcoming-card">
+          <div class="promo-status-banner upcoming">
+            <span>${escapeHtml(timing.bannerText)}</span>
+          </div>
+          <div class="card-header">
+            <div class="card-title" style="color:#78350F;">${escapeHtml(p.title)}</div>
+            <span class="badge ${timing.badgeClass}">${escapeHtml(timing.badgeText)}</span>
+          </div>
+          <div style="font-size:13px; color:#991B1B; font-weight:700; margin-bottom:6px;">
+            ${escapeHtml(timing.subWarning)}
+          </div>
+          <div style="font-size:13px; color:var(--text-muted); margin-bottom:6px;">
+            🗓️ <strong>ระยะเวลาที่ใช้ได้จริง:</strong> ${escapeHtml(p.period)} | 👤 <strong>กลุ่มเป้าหมาย:</strong> ${escapeHtml(p.target)}
+          </div>
+          <div class="pos-btn-badge" style="background:#64748B; color:#E2E8F0; text-decoration:line-through;">
+            🔒 ปุ่มใน New CA POS: "${escapeHtml(p.posButton)}" (รอกดเมื่อถึงกำหนด)
+          </div>
+          <div style="font-size:13px; margin:6px 0;">
+            <strong>บริการที่ร่วมรายการ:</strong> ${escapeHtml(p.services.join(", "))}
+          </div>
+          <ul class="notes-list">${condHtml}</ul>
+          <div class="ref-foot">📄 อ้างอิงบันทึก: ${escapeHtml(p.ref)}</div>
+        </div>
+      `;
+    }
+
+    if (timing.state === "EXPIRED") {
+      return `
+        <div class="card expired-card">
+          <div class="promo-status-banner expired">
+            <span>${escapeHtml(timing.bannerText)}</span>
+          </div>
+          <div class="card-header">
+            <div class="card-title" style="font-size:15.5px; color:#475569; text-decoration:line-through;">${escapeHtml(p.title)}</div>
+            <span class="badge badge-red">❌ หมดอายุแล้ว</span>
+          </div>
+          <div style="font-size:13px; color:#64748B;">
+            🗓️ <strong>ระยะเวลาเดิม:</strong> ${escapeHtml(p.period)}
+          </div>
+          <div style="font-size:13px; color:#B91C1C; font-weight:700; margin-top:4px;">
+            ⛔ ${escapeHtml(p.reason || timing.subWarning)}
+          </div>
+          <div class="ref-foot">อ้างอิงเดิม: ${escapeHtml(p.ref)}</div>
+        </div>
+      `;
+    }
+
+    // ACTIVE
+    return `
+      <div class="card" style="border: 2.5px solid #10B981;">
+        <div class="promo-status-banner active">
+          <span>${escapeHtml(timing.bannerText)}</span>
+        </div>
+        <div class="card-header">
+          <div class="card-title">${escapeHtml(p.title)}</div>
+          <span class="badge ${timing.badgeClass}">${escapeHtml(timing.badgeText)}</span>
+        </div>
+        <div style="font-size:13px; color:var(--text-muted); margin-bottom:6px;">
+          🗓️ <strong>ระยะเวลา:</strong> ${escapeHtml(p.period)} | 👤 <strong>กลุ่มเป้าหมาย:</strong> ${escapeHtml(p.target)}
+        </div>
+        <div class="pos-btn-badge">💻 กดปุ่มใน New CA POS: "${escapeHtml(p.posButton)}"</div>
+        <div style="font-size:13px; margin:6px 0;">
+          <strong>บริการที่ร่วมรายการ:</strong> ${escapeHtml(p.services.join(", "))}
+        </div>
+        <ul class="notes-list">${condHtml}</ul>
+        <div class="ref-foot">📄 อ้างอิงบันทึก: ${escapeHtml(p.ref)}</div>
+      </div>
+    `;
+  }
+
   function renderPromosAndContacts() {
+    const clockBanner = document.getElementById("promoTodayClockBanner");
     const activeContainer = document.getElementById("activePromosContainer");
+    const upcomingContainer = document.getElementById("upcomingPromosContainer");
     const expiredContainer = document.getElementById("expiredPromosContainer");
     const contactsContainer = document.getElementById("contactsContainer");
 
-    if (activeContainer) {
-      activeContainer.innerHTML = DATA.promotions.active
-        .map((p) => {
-          const isUpcoming = p.status === "UPCOMING";
-          const badgeClass = isUpcoming ? "badge-amber" : "badge-emerald";
-          const condHtml = p.conditions
-            .map((c) => `<li class="${c.includes("⚠️") ? "critical" : "good"}">${escapeHtml(c)}</li>`)
-            .join("");
+    if (clockBanner) {
+      const now = new Date();
+      const thaiDateStr = now.toLocaleDateString("th-TH", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
+      clockBanner.innerHTML = `
+        <h3 style="color:#1E40AF;">🕒 เช็คสถานะวัน-เวลาแคมเปญอัตโนมัติ (วันนี้: ${escapeHtml(thaiDateStr)})</h3>
+        <p style="color:#1E3A8A;">
+          • <strong>🟢 กรอบสีเขียวเข้ม (มีให้ใช้อยู่ตอนนี้):</strong> กดให้ส่วนลดลูกค้าได้ทันที พร้อมนับถอยหลังจำนวนวันที่เหลือ<br>
+          • <strong>⏳ กรอบสีส้มจาง + แถบเตือนสีแดง (ยังไม่ถึงวันเริ่ม):</strong> ปุ่มส่วนลดถูกขีดฆ่าล็อกไว้ ห้ามเพิ่งกดจนกว่าจะถึงวันเริ่ม<br>
+          • <strong>🔴 กรอบสีเทาจาง + แถบสีแดงขีดฆ่า (หมดอายุแล้ว):</strong> สิ้นสุดระยะเวลาแล้ว แสดงแบบสีจางเพื่อป้องกันเจ้าหน้าที่กดผิด
+        </p>
+      `;
+    }
 
-          return `
-            <div class="card" style="${isUpcoming ? "border: 2px solid #F59E0B;" : "border: 2px solid #10B981;"}">
-              <div class="card-header">
-                <div class="card-title">${escapeHtml(p.title)}</div>
-                <span class="badge ${badgeClass}">${escapeHtml(p.badge)}</span>
-              </div>
-              <div style="font-size:13px; color:var(--text-muted); margin-bottom:6px;">
-                🗓️ <strong>ระยะเวลา:</strong> ${escapeHtml(p.period)} | 👤 <strong>กลุ่มเป้าหมาย:</strong> ${escapeHtml(p.target)}
-              </div>
-              <div class="pos-btn-badge">💻 ปุ่มใน New CA POS: "${escapeHtml(p.posButton)}"</div>
-              <div style="font-size:13px; margin:6px 0;">
-                <strong>บริการที่ร่วมรายการ:</strong> ${escapeHtml(p.services.join(", "))}
-              </div>
-              <ul class="notes-list">${condHtml}</ul>
-              <div class="ref-foot">📄 อ้างอิงบันทึก: ${escapeHtml(p.ref)}</div>
-            </div>
-          `;
-        })
-        .join("");
+    const allPromos = [
+      ...(DATA.promotions.active || []),
+      ...(DATA.promotions.expired || [])
+    ];
+
+    const activeList = [];
+    const upcomingList = [];
+    const expiredList = [];
+
+    allPromos.forEach((p) => {
+      const t = evaluatePromoTiming(p);
+      if (t.state === "ACTIVE") activeList.push(p);
+      else if (t.state === "UPCOMING") upcomingList.push(p);
+      else expiredList.push(p);
+    });
+
+    if (activeContainer) {
+      activeContainer.innerHTML = activeList.map((p) => buildPromoCardHtml(p)).join("");
+    }
+
+    if (upcomingContainer) {
+      upcomingContainer.innerHTML =
+        upcomingList.length > 0
+          ? upcomingList.map((p) => buildPromoCardHtml(p)).join("")
+          : `<div class="card"><div style="color:var(--text-muted); font-size:13.5px;">ไม่มีแคมเปญที่รอเริ่มในขณะนี้</div></div>`;
     }
 
     if (expiredContainer) {
-      expiredContainer.innerHTML = DATA.promotions.expired
-        .map(
-          (ex) => `
-          <div class="card expired-card">
-            <div class="card-header">
-              <div class="card-title" style="font-size:15px; color:#475569; text-decoration:line-through;">${escapeHtml(ex.title)}</div>
-              <span class="badge badge-red">หมดอายุแล้ว</span>
-            </div>
-            <div style="font-size:13px; color:#64748B;">
-              🗓️ <strong>ระยะเวลาเดิม:</strong> ${escapeHtml(ex.period)}
-            </div>
-            <div style="font-size:13px; color:#B91C1C; font-weight:600; margin-top:4px;">
-              ⛔ ${escapeHtml(ex.reason)}
-            </div>
-            <div class="ref-foot">อ้างอิงเดิม: ${escapeHtml(ex.ref)}</div>
-          </div>
-        `
-        )
-        .join("");
+      expiredContainer.innerHTML = expiredList.map((p) => buildPromoCardHtml(p)).join("");
     }
 
     if (contactsContainer) {
@@ -928,33 +1056,14 @@
       DATA.promotions.active.forEach((p) => {
         const hay = [p.title, p.period, p.target, p.posButton, ...p.services, ...p.conditions].join(" ").toLowerCase();
         if (hay.includes(q)) {
-          matches.push(`
-            <div class="card" style="border:2px solid #10B981;">
-              <div class="card-header">
-                <div class="card-title">${escapeHtml(p.title)}</div>
-                <span class="badge badge-emerald">${escapeHtml(p.badge)}</span>
-              </div>
-              <div class="pos-btn-badge">💻 ปุ่ม POS: "${escapeHtml(p.posButton)}"</div>
-              <ul class="notes-list">
-                ${p.conditions.map((c) => `<li class="good">${escapeHtml(c)}</li>`).join("")}
-              </ul>
-            </div>
-          `);
+          matches.push(buildPromoCardHtml(p));
         }
       });
 
       DATA.promotions.expired.forEach((ex) => {
         const hay = [ex.title, ex.period, ex.reason].join(" ").toLowerCase();
         if (hay.includes(q)) {
-          matches.push(`
-            <div class="card expired-card">
-              <div class="card-header">
-                <div class="card-title" style="text-decoration:line-through;">${escapeHtml(ex.title)}</div>
-                <span class="badge badge-red">หมดอายุแล้ว</span>
-              </div>
-              <div style="color:#B91C1C; font-weight:600; font-size:13px;">⛔ ${escapeHtml(ex.reason)}</div>
-            </div>
-          `);
+          matches.push(buildPromoCardHtml(ex));
         }
       });
 
