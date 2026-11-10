@@ -1187,6 +1187,197 @@
       color: #0F172A;
     }
 
+    /* =================================================================== */
+    /* 🧮 ตัวช่วยเช็คค่าบริการด่วน (Rate Assistant & Reverse Price Lookup)   */
+    /* =================================================================== */
+    .assistant-card {
+      background: #FFFFFF;
+      border: 2.5px solid #D97706;
+      border-radius: 16px;
+      padding: 15px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+    }
+
+    .assistant-card.inter-theme {
+      border-color: #1D4ED8;
+      background: linear-gradient(180deg, #F0F7FF 0%, #FFFFFF 45%);
+    }
+
+    .assistant-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .assistant-title {
+      font-size: 16.5px;
+      font-weight: 800;
+      color: #92400E;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .assistant-card.inter-theme .assistant-title {
+      color: #1E3A8A;
+    }
+
+    .submode-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      background: #E2E8F0;
+      padding: 4px;
+      border-radius: 11px;
+      margin-bottom: 12px;
+    }
+
+    .submode-btn {
+      border: none;
+      background: transparent;
+      padding: 9px 10px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .submode-btn.active {
+      background: #1D4ED8;
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(29, 78, 216, 0.3);
+    }
+
+    .quick-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 6px 0 10px;
+    }
+
+    .quick-chip-btn {
+      border: 1px solid #CBD5E1;
+      background: #F8FAFC;
+      color: #1E293B;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+
+    .quick-chip-btn:hover,
+    .quick-chip-btn.active {
+      background: #FEF3C7;
+      border-color: #D97706;
+      color: #92400E;
+    }
+
+    .assistant-card.inter-theme .quick-chip-btn:hover,
+    .assistant-card.inter-theme .quick-chip-btn.active {
+      background: #DBEAFE;
+      border-color: #2563EB;
+      color: #1E3A8A;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 8px 10px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      margin: 10px 0;
+      align-items: center;
+    }
+
+    .filter-pill {
+      border: 1.5px solid #CBD5E1;
+      background: #FFFFFF;
+      color: #334155;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-pill.active {
+      background: #0F172A;
+      color: #FDE047;
+      border-color: #0F172A;
+    }
+
+    .rate-result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .rate-result-card {
+      background: #FFFFFF;
+      border: 1.5px solid #CBD5E1;
+      border-left: 5px solid #2563EB;
+      border-radius: 11px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .rate-result-card.cheapest {
+      border-color: #10B981;
+      border-left: 5px solid #059669;
+      background: #F0FDF4;
+    }
+
+    .rate-result-card.fastest {
+      border-left-color: #E11D48;
+    }
+
+    .rate-price-big {
+      font-size: 19px;
+      font-weight: 800;
+      color: #B91C1C;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .cross-mode-toggle-btn {
+      border: 1.5px solid #D97706;
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      color: #78350F;
+      padding: 6px 11px;
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .cross-mode-toggle-btn.to-inter {
+      border-color: #2563EB;
+      background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+      color: #1E3A8A;
+    }
+
     /* Desktop & Tablet Responsive Layout (ทำงานได้ดีทั้งบนมือถือส่วนตัวและคอมหน้าเคาน์เตอร์) */
     @media (min-width: 900px) {
       body {
@@ -1380,6 +1571,71 @@
             • <strong>7–8. EMS ปกติ (831) • EMS ขนาดใหญ่ (2886) • EMS Jumbo:</strong> ยาวเกิน 60 ซม. หรือ ก+ย+ส &gt; 120 ซม. (≤240 ซม.) <strong>คีย์รหัส <code>2886</code> (หารปริมาตร ÷ 6,000)</strong> | <strong>EMS Jumbo:</strong> 30–200 กก. หรือสินค้าสำเร็จรูป 44 รายการ (10 โซน) มอเตอร์ไซค์หุ้ม <strong>โฟม EPE</strong> + ทำ <strong>ใบตรวจสภาพรถ 3 ฉบับ</strong><br>
             • <strong>9. ความรู้ พนง.:</strong> <strong>COD (Wallet@POST)</strong> โอนเงิน <strong>T+1 ก่อน 17.00 น.</strong> | ของมีค่า &gt;2,000 บ. แนะนำ <strong>High Value / EMS รับประกัน (สูงสุด 50,000 บ.)</strong> | งาน <strong>EMS Point</strong> คีย์รหัส <code>694160</code> (ซอง) / <code>694163</code> (กล่อง)
           </p>
+        </div>
+
+        <!-- 🧮 ตัวช่วยเช็คค่าบริการในประเทศ + กรองบริการ (Filter) & เช็ครหัสไปรษณีย์พื้นที่ห่างไกล -->
+        <div class="assistant-card" id="domQuickRateCard">
+          <div class="assistant-header">
+            <div class="assistant-title">🧮 ตัวช่วยเช็คค่าบริการในประเทศ & กรองบริการ</div>
+            <button type="button" class="cross-mode-toggle-btn to-inter" id="jumpToInterReverseBtn">
+              🌐 สลับไปค้นราคา ➔ ประเทศ (ตปท.)
+            </button>
+          </div>
+
+          <div class="calc-input-grid" style="margin-bottom:6px;">
+            <div>
+              <label class="form-label">1. น้ำหนักสิ่งของ (กรัม)</label>
+              <input type="number" id="domQuickWeight" placeholder="เช่น 50, 250, 1000" value="250" min="1" max="30000" />
+            </div>
+            <div>
+              <label class="form-label">2. รหัสไปรษณีย์ปลายทาง (ไม่บังคับ)</label>
+              <input type="text" id="domQuickPostcode" placeholder="เช่น 10400, 83000, 84140" maxlength="5" inputmode="numeric" />
+            </div>
+            <div>
+              <label class="form-label">3. ลักษณะซอง / หีบห่อ</label>
+              <select id="domQuickPack">
+                <option value="env">✉️ ซองกระดาษปกติ (ก+ย+ส ≤ 60 ซม.)</option>
+                <option value="pack">📦 ซองพลาสติก / ซองป่อง / กล่อง</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">4. บริการเสริมตอบรับ (AR / e-AR)</label>
+              <select id="domQuickAr">
+                <option value="none">ไม่เพิ่มตอบรับ</option>
+                <option value="ear">📲 ตอบรับ e-AR (+5 บ. แจ้ง SMS)</option>
+                <option value="ar">📬 ใบตอบรับกระดาษ ป.133ก (+3/+6/+10 บ.)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- ปุ่มลัดเลือกน้ำหนักด่วน -->
+          <div class="quick-chips-row" id="domWeightQuickChips">
+            <span style="font-size:12px; color:#64748B; font-weight:600; align-self:center;">น้ำหนักด่วน:</span>
+            <button type="button" class="quick-chip-btn" data-wg="15">15ก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="50">50ก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="100">100ก.</button>
+            <button type="button" class="quick-chip-btn active" data-wg="250">250ก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="500">500ก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="1000">1 กก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="2000">2 กก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="3500">3.5 กก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="5000">5 กก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="10000">10 กก.</button>
+          </div>
+
+          <div id="domPostcodeStatusBox" style="margin-bottom:8px;"></div>
+
+          <!-- แถบตัวกรอง (Filter) และเรียงลำดับ (Sort) -->
+          <div class="filter-bar" id="domQuickFilterBar">
+            <span style="font-size:12px; font-weight:700; color:#0F172A;">กรอง/เรียงตาม:</span>
+            <button type="button" class="filter-pill active" data-dfilter="price_asc">⬇️ ราคาน้อย ➔ มาก</button>
+            <button type="button" class="filter-pill" data-dfilter="fastest">⚡ เร็วสุด (EMS ด่วน)</button>
+            <button type="button" class="filter-pill" data-dfilter="trackable">🔍 ตรวจสอบสถานะออนไลน์ได้</button>
+            <button type="button" class="filter-pill" data-dfilter="insured">🛡️ มีวงเงินชดใช้ค่าเสียหาย</button>
+            <button type="button" class="filter-pill" data-dfilter="price_desc">⬆️ ราคามาก ➔ น้อย</button>
+          </div>
+
+          <div id="domQuickRateResults" class="rate-result-grid"></div>
         </div>
 
         <!-- Domestic Interactive Decision Wizard -->
@@ -1701,6 +1957,140 @@
           • <strong>ส่งไป EU 27 ประเทศ:</strong> บังคับทำจ่าหน้าผ่าน <strong>D-Post Inter</strong> และกรอกรหัส <strong>PID (M-PID / NS-PID)</strong> ทุกชิ้น<br>
           • <strong>ห้ามส่งอาหาร/อาหารเสริมเด็ดขาด</strong> ในบริการ <strong>ePacket US (LA/LI)</strong> และ <strong>ePacket DDP ยุโรป (LE)</strong> (ปรับขั้นต่ำ 3,100 บ./กล่อง) ต้องเปิดตรวจและประทับตรา <strong>"Content Checked"</strong> ทุกชิ้น
         </p>
+      </div>
+
+      <!-- 🎯 ตัวช่วยพิเศษฝั่งต่างประเทศ: คีย์ราคา ➔ แสดงประเทศปลายทาง & พิกัดน้ำหนัก + กดดูเรทในประเทศคู่กันได้ทันที -->
+      <div class="assistant-card inter-theme" id="interRateAssistantCard">
+        <div class="assistant-header">
+          <div class="assistant-title">🎯 ตัวช่วยเช็คเรทต่างประเทศ (คีย์ราคา ➔ รู้ประเทศ & พิกัดน้ำหนัก)</div>
+          <button type="button" class="cross-mode-toggle-btn" id="toggleInlineDomCompareBtn">
+            🇹🇭 กดแสดงค่าบริการในประเทศคู่กัน
+          </button>
+        </div>
+
+        <!-- ปุ่มสลับ 2 โหมดย่อย: (1) คีย์ราคา ➔ หาประเทศ & น้ำหนัก | (2) เลือกประเทศ + น้ำหนัก ➔ เทียบราคาทุกบริการ -->
+        <div class="submode-tabs" id="interSubmodeTabs">
+          <button type="button" class="submode-btn active" data-isub="reverse">
+            💰 คีย์ราคา (บาท) ➔ หาประเทศ & น้ำหนัก
+          </button>
+          <button type="button" class="submode-btn" data-isub="forward">
+            🌍 เลือกประเทศ + น้ำหนัก ➔ เทียบเรทตปท.
+          </button>
+        </div>
+
+        <!-- โหมดย่อยที่ 1: ค้นหาย้อนกลับจากราคา (Reverse Price Lookup) -->
+        <div id="interReversePane">
+          <div class="calc-input-grid" style="margin-bottom:6px;">
+            <div>
+              <label class="form-label">1. คีย์ราคาค่าส่งต่างประเทศ (บาท)</label>
+              <input type="number" id="interRevPriceInput" placeholder="เช่น 160, 260, 339, 720, 1460..." value="339" min="10" step="any" />
+            </div>
+            <div>
+              <label class="form-label">2. กรองเฉพาะประเภทบริการ (ไม่บังคับ)</label>
+              <select id="interRevServiceFilter">
+                <option value="all">ทุกบริการระหว่างประเทศ (ePacket / EMS / พัสดุ / ย่อย / จดหมาย)</option>
+                <option value="epacket">เฉพาะ ePacket (LP / LX / US DDP LA-LI)</option>
+                <option value="ems">เฉพาะ EMS World (EE / ED / One Price)</option>
+                <option value="airparcel">เฉพาะ พัสดุไปรษณีย์ทางอากาศ (CP)</option>
+                <option value="small_letter">เฉพาะ พัสดุย่อย / จดหมายทางอากาศ / ลงทะเบียน RR</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="quick-chips-row" id="interRevPriceChips">
+            <span style="font-size:12px; color:#475569; font-weight:600; align-self:center;">เรทยอดฮิต:</span>
+            <button type="button" class="quick-chip-btn" data-rprice="160">160 บ.</button>
+            <button type="button" class="quick-chip-btn" data-rprice="195">195 บ.</button>
+            <button type="button" class="quick-chip-btn" data-rprice="220">220 บ.</button>
+            <button type="button" class="quick-chip-btn" data-rprice="260">260 บ.</button>
+            <button type="button" class="quick-chip-btn active" data-rprice="339">339 บ. (US)</button>
+            <button type="button" class="quick-chip-btn" data-rprice="475">475 บ. (US)</button>
+            <button type="button" class="quick-chip-btn" data-rprice="640">640 บ. (EMS)</button>
+            <button type="button" class="quick-chip-btn" data-rprice="720">720 บ. (EMS)</button>
+            <button type="button" class="quick-chip-btn" data-rprice="880">880 บ. (EMS)</button>
+            <button type="button" class="quick-chip-btn" data-rprice="1120">1,120 บ.</button>
+            <button type="button" class="quick-chip-btn" data-rprice="1460">1,460 บ.</button>
+          </div>
+
+          <div id="interRevResultBox"></div>
+        </div>
+
+        <!-- โหมดย่อยที่ 2: เลือกประเทศปลายทาง + คีย์น้ำหนัก ➔ เทียบราคาทุกบริการ + Filter -->
+        <div id="interForwardPane" style="display:none;">
+          <div class="calc-input-grid" style="margin-bottom:6px;">
+            <div>
+              <label class="form-label">1. ประเทศปลายทาง</label>
+              <select id="interFwdCountrySelect">
+                <option value="สหรัฐอเมริกา">🇺🇸 สหรัฐอเมริกา (USA)</option>
+                <option value="ญี่ปุ่น">🇯🇵 ญี่ปุ่น (Japan)</option>
+                <option value="เกาหลีใต้">🇰🇷 เกาหลีใต้ (South Korea)</option>
+                <option value="สหราชอาณาจักร">🇬🇧 สหราชอาณาจักร (อังกฤษ / UK)</option>
+                <option value="ออสเตรเลีย">🇦🇺 ออสเตรเลีย (Australia)</option>
+                <option value="เยอรมนี">🇩🇪 เยอรมนี (Germany - EU)</option>
+                <option value="ฝรั่งเศส">🇫🇷 ฝรั่งเศส (France - EU)</option>
+                <option value="อิตาลี">🇮🇹 อิตาลี (Italy - EU)</option>
+                <option value="สวีเดน">🇸🇪 สวีเดน (Sweden - EU)</option>
+                <option value="เนเธอร์แลนด์">🇳🇱 เนเธอร์แลนด์ (Netherlands - EU)</option>
+                <option value="สวิตเซอร์แลนด์">🇨🇭 สวิตเซอร์แลนด์ (Switzerland - Non-EU)</option>
+                <option value="นอร์เวย์">🇳🇴 นอร์เวย์ (Norway - Non-EU)</option>
+                <option value="จีน">🇨🇳 จีน (China)</option>
+                <option value="ฮ่องกง">🇭🇰 ฮ่องกง (Hong Kong)</option>
+                <option value="ไต้หวัน">🇹🇼 ไต้หวัน (Taiwan)</option>
+                <option value="สิงคโปร์">🇸🇬 สิงคโปร์ (Singapore)</option>
+                <option value="มาเลเซีย">🇲🇾 มาเลเซีย (Malaysia)</option>
+                <option value="เวียดนาม">🇻🇳 เวียดนาม (Vietnam)</option>
+                <option value="ลาว">🇱🇦 ลาว (Laos)</option>
+                <option value="กัมพูชา">🇰🇭 กัมพูชา (Cambodia)</option>
+                <option value="อินเดีย">🇮🇳 อินเดีย (India)</option>
+                <option value="แคนาดา">🇨🇦 แคนาดา (Canada)</option>
+                <option value="นิวซีแลนด์">🇳🇿 นิวซีแลนด์ (New Zealand)</option>
+                <option value="สหรัฐอาหรับเอมิเรตส์">🇦🇪 สหรัฐอาหรับเอมิเรตส์ (UAE / ดูไบ)</option>
+                <option value="อิสราเอล">🇮🇱 อิสราเอล (Israel)</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">2. น้ำหนักสิ่งของ (กรัม)</label>
+              <input type="number" id="interFwdWeightInput" placeholder="เช่น 250, 500, 1000" value="250" min="1" max="30000" />
+            </div>
+          </div>
+
+          <div class="quick-chips-row" id="interFwdWeightChips">
+            <span style="font-size:12px; color:#475569; font-weight:600; align-self:center;">น้ำหนักด่วน:</span>
+            <button type="button" class="quick-chip-btn" data-ifwg="100">100ก.</button>
+            <button type="button" class="quick-chip-btn active" data-ifwg="250">250ก.</button>
+            <button type="button" class="quick-chip-btn" data-ifwg="500">500ก.</button>
+            <button type="button" class="quick-chip-btn" data-ifwg="1000">1 กก.</button>
+            <button type="button" class="quick-chip-btn" data-ifwg="1500">1.5 กก.</button>
+            <button type="button" class="quick-chip-btn" data-ifwg="2000">2 กก.</button>
+            <button type="button" class="quick-chip-btn" data-ifwg="3000">3 กก.</button>
+            <button type="button" class="quick-chip-btn" data-ifwg="5000">5 กก.</button>
+          </div>
+
+          <div class="filter-bar" id="interFwdFilterBar">
+            <span style="font-size:12px; font-weight:700; color:#0F172A;">กรอง/เรียงตาม:</span>
+            <button type="button" class="filter-pill active" data-ifilter="price_asc">⬇️ ราคาน้อย ➔ มาก</button>
+            <button type="button" class="filter-pill" data-ifilter="fastest">⚡ เร็วสุด (EMS World)</button>
+            <button type="button" class="filter-pill" data-ifilter="trackable">🔍 ตรวจสอบสถานะได้</button>
+            <button type="button" class="filter-pill" data-ifilter="price_desc">⬆️ ราคามาก ➔ น้อย</button>
+          </div>
+
+          <div id="interFwdResultBox" class="rate-result-grid"></div>
+        </div>
+
+        <!-- กล่องแสดงค่าบริการในประเทศคู่กันทันทีเมื่อกดปุ่ม "🇹🇭 กดแสดงค่าบริการในประเทศคู่กัน" -->
+        <div id="inlineDomCompareDrawer" style="display:none; margin-top:12px; padding-top:12px; border-top:2px dashed #F59E0B;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:8px;">
+            <div style="font-size:14.5px; font-weight:800; color:#92400E;">
+              🇹🇭 เทียบค่าบริการในประเทศ (คีย์น้ำหนัก & รหัสไปรษณีย์ดูควบคู่ได้เลย)
+            </div>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <input type="number" id="inlineDomWeightInput" value="250" placeholder="กรัม" style="width:95px; padding:5px 8px; border:1.5px solid #D97706; border-radius:8px; font-family:inherit; font-size:13.5px; font-weight:700;" />
+              <span style="font-size:12.5px; font-weight:600; color:#78350F;">กรัม</span>
+              <input type="text" id="inlineDomPostcodeInput" placeholder="รหัส ปณ. (ไม่บังคับ)" maxlength="5" style="width:130px; padding:5px 8px; border:1.5px solid #CBD5E1; border-radius:8px; font-family:inherit; font-size:13px;" />
+            </div>
+          </div>
+          <div id="inlineDomCompareOutput" class="rate-result-grid"></div>
+        </div>
       </div>
 
       <!-- Interactive Decision Wizard -->
