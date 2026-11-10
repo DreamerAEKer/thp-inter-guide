@@ -619,53 +619,68 @@
       margin: 8px 0;
     }
 
-    /* Top-Level Gateway Mode Switcher (ทางเข้าแรก: บริการในประเทศ | บริการระหว่างประเทศ) */
+    /* Top-Level Gateway Mode Switcher (ทางเข้าแรก: บริการในประเทศ = สีทอง | บริการระหว่างประเทศ = สีน้ำเงิน) */
     .mode-gateway-bar {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 8px;
       margin-bottom: 12px;
-      background: rgba(0, 0, 0, 0.22);
-      padding: 5px;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 6px;
       border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
     }
 
     .mode-gateway-btn {
-      border: none;
+      border: 2px solid transparent;
       border-radius: 10px;
-      padding: 10px 12px;
+      padding: 10px 14px;
       font-family: inherit;
-      font-size: 14.5px;
+      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: transparent;
-      color: rgba(255, 255, 255, 0.9);
-      transition: all 0.18s ease;
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.92);
+      transition: all 0.2s ease;
     }
 
     .mode-gateway-btn .sub-pill {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 2px 7px;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 2px 8px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.22);
       color: #fff;
     }
 
-    .mode-gateway-btn.active {
-      background: #FFFFFF;
-      color: var(--thp-red-dark);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+    /* ปุ่มบนสุด: ในประเทศ = สีทองอร่าม | ระหว่างประเทศ = สีน้ำเงินสด */
+    .mode-gateway-btn[data-mode="domestic"].active {
+      background: linear-gradient(135deg, #FEF08A 0%, #F59E0B 100%);
+      color: #451A03;
+      border-color: #FEF9C3;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45);
     }
 
-    .mode-gateway-btn.active .sub-pill {
-      background: var(--thp-red-light);
-      color: var(--thp-red);
+    .mode-gateway-btn[data-mode="domestic"].active .sub-pill {
+      background: #78350F;
+      color: #FEF08A;
+    }
+
+    .mode-gateway-btn[data-mode="inter"].active {
+      background: linear-gradient(135deg, #DBEAFE 0%, #2563EB 100%);
+      color: #FFFFFF;
+      border-color: #BFDBFE;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    }
+
+    .mode-gateway-btn[data-mode="inter"].active .sub-pill {
+      background: #1E3A8A;
+      color: #DBEAFE;
     }
 
     /* Gateway Hero Banner inside Container */
@@ -680,38 +695,268 @@
       background: #FFFFFF;
       border: 2px solid #CBD5E1;
       border-radius: 14px;
-      padding: 12px 14px;
+      padding: 13px 15px;
       cursor: pointer;
       transition: all 0.18s ease;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 5px;
       text-align: left;
     }
 
-    .gateway-card.active {
-      border-color: var(--thp-red);
-      background: linear-gradient(180deg, #FFF5F5 0%, #FFFFFF 100%);
-      box-shadow: 0 4px 14px rgba(217, 25, 32, 0.12);
+    /* การ์ดทางเข้า: ในประเทศ = สีทอง | ระหว่างประเทศ = สีน้ำเงิน */
+    .gateway-card[data-mode="domestic"].active {
+      border: 2.5px solid #D97706;
+      background: linear-gradient(180deg, #FEF3C7 0%, #FFFBEB 60%, #FFFFFF 100%);
+      box-shadow: 0 6px 18px rgba(217, 119, 6, 0.22);
+    }
+
+    .gateway-card[data-mode="inter"].active {
+      border: 2.5px solid #1D4ED8;
+      background: linear-gradient(180deg, #DBEAFE 0%, #EFF6FF 60%, #FFFFFF 100%);
+      box-shadow: 0 6px 18px rgba(29, 78, 216, 0.22);
     }
 
     .gateway-card-title {
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 15.5px;
+      font-weight: 800;
       color: var(--text-main);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .gateway-card.active .gateway-card-title {
-      color: var(--thp-red-dark);
+    .gateway-card[data-mode="domestic"].active .gateway-card-title {
+      color: #92400E;
+    }
+
+    .gateway-card[data-mode="inter"].active .gateway-card-title {
+      color: #1E3A8A;
     }
 
     .gateway-card-desc {
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--text-muted);
-      line-height: 1.35;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    /* =================================================================== */
+    /* 🎨 โหมดสีทอง (ในประเทศ) vs โหมดสีน้ำเงิน (ระหว่างประเทศ) ชัดเจน 100%! */
+    /* =================================================================== */
+    body.mode-domestic .app-header {
+      background: linear-gradient(135deg, #B45309 0%, #92400E 55%, #78350F 100%);
+      box-shadow: 0 4px 16px rgba(180, 83, 9, 0.35);
+      border-bottom: 3px solid #FDE047;
+    }
+    body.mode-domestic .brand-icon {
+      background: linear-gradient(135deg, #FEF08A 0%, #F59E0B 100%);
+      color: #78350F;
+      border: 1.5px solid #FFFFFF;
+    }
+    body.mode-domestic .nav-btn.active {
+      color: #92400E;
+      background: #FEF3C7;
+      border: 1px solid #F59E0B;
+    }
+    body.mode-domestic .urgent-banner {
+      background: #FFFBEB;
+      border-left: 5px solid #D97706;
+    }
+    body.mode-domestic .urgent-banner h3 {
+      color: #92400E;
+    }
+    body.mode-domestic .urgent-banner p {
+      color: #78350F;
+    }
+
+    body.mode-inter .app-header {
+      background: linear-gradient(135deg, #1D4ED8 0%, #1E3A8A 60%, #0F172A 100%);
+      box-shadow: 0 4px 16px rgba(29, 78, 216, 0.35);
+      border-bottom: 3px solid #60A5FA;
+    }
+    body.mode-inter .brand-icon {
+      background: linear-gradient(135deg, #EFF6FF 0%, #BFDBFE 100%);
+      color: #1E3A8A;
+      border: 1.5px solid #FFFFFF;
+    }
+    body.mode-inter .nav-btn.active {
+      color: #1E40AF;
+      background: #DBEAFE;
+      border: 1px solid #3B82F6;
+    }
+
+    /* =================================================================== */
+    /* 🌈 ปุ่มเลือกหมวดทั้ง 9 หมวดในประเทศ & ปุ่มตปท. แยกคนละสี อ่านง่ายสุดๆ */
+    /* =================================================================== */
+    .pill-btn[data-dom-srv="letter"]     { border-left: 5px solid #2563EB; background: #EFF6FF; color: #1E3A8A; font-weight: 600; }
+    .pill-btn[data-dom-srv="trasin"]     { border-left: 5px solid #7C3AED; background: #F5F3FF; color: #4C1D95; font-weight: 600; }
+    .pill-btn[data-dom-srv="admail"]     { border-left: 5px solid #059669; background: #ECFDF5; color: #064E3B; font-weight: 600; }
+    .pill-btn[data-dom-srv="parcel"]     { border-left: 5px solid #D97706; background: #FFFBEB; color: #78350F; font-weight: 600; }
+    .pill-btn[data-dom-srv="registered"] { border-left: 5px solid #0284C7; background: #F0F9FF; color: #0C4A6E; font-weight: 600; }
+    .pill-btn[data-dom-srv="ecopost"]    { border-left: 5px solid #0D9488; background: #F0FDFA; color: #134E4A; font-weight: 600; }
+    .pill-btn[data-dom-srv="ems"]        { border-left: 5px solid #E11D48; background: #FFF1F2; color: #881337; font-weight: 600; }
+    .pill-btn[data-dom-srv="jumbo"]      { border-left: 5px solid #EA580C; background: #FFF7ED; color: #7C2D12; font-weight: 600; }
+    .pill-btn[data-dom-srv="knowledge"]  { border-left: 5px solid #334155; background: #F1F5F9; color: #0F172A; font-weight: 600; }
+
+    .pill-btn[data-dom-srv="letter"].active     { background: #1D4ED8; color: #fff; border-color: #1E3A8A; box-shadow: 0 3px 10px rgba(29,78,216,0.3); }
+    .pill-btn[data-dom-srv="trasin"].active     { background: #6D28D9; color: #fff; border-color: #4C1D95; box-shadow: 0 3px 10px rgba(109,40,217,0.3); }
+    .pill-btn[data-dom-srv="admail"].active     { background: #047857; color: #fff; border-color: #064E3B; box-shadow: 0 3px 10px rgba(4,120,87,0.3); }
+    .pill-btn[data-dom-srv="parcel"].active     { background: #B45309; color: #fff; border-color: #78350F; box-shadow: 0 3px 10px rgba(180,83,9,0.3); }
+    .pill-btn[data-dom-srv="registered"].active { background: #0369A1; color: #fff; border-color: #0C4A6E; box-shadow: 0 3px 10px rgba(3,105,161,0.3); }
+    .pill-btn[data-dom-srv="ecopost"].active    { background: #0F766E; color: #fff; border-color: #134E4A; box-shadow: 0 3px 10px rgba(15,118,110,0.3); }
+    .pill-btn[data-dom-srv="ems"].active        { background: #BE123C; color: #fff; border-color: #881337; box-shadow: 0 3px 10px rgba(190,18,60,0.3); }
+    .pill-btn[data-dom-srv="jumbo"].active      { background: #C2410C; color: #fff; border-color: #7C2D12; box-shadow: 0 3px 10px rgba(194,65,12,0.3); }
+    .pill-btn[data-dom-srv="knowledge"].active  { background: #0F172A; color: #FDE047; border-color: #0F172A; box-shadow: 0 3px 10px rgba(15,23,42,0.35); }
+
+    /* การ์ดบริการแต่ละหมวด แยกแถบสีหัวการ์ดชัดเจน อ่านง่าย ข้อมูลยิบยับ */
+    .srv-theme-card {
+      border-width: 2px;
+      overflow: hidden;
+      padding: 0;
+    }
+    .srv-theme-banner {
+      padding: 13px 16px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .srv-theme-banner .prefix-tag {
+      background: rgba(0, 0, 0, 0.32);
+      color: #FEF08A;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      margin-bottom: 5px;
+    }
+    .srv-theme-banner .card-title {
+      color: #FFFFFF;
+      font-size: 17.5px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    .srv-theme-banner .badge {
+      background: #FFFFFF;
+      font-weight: 800;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
+    }
+    .srv-theme-body {
+      padding: 15px 16px 16px;
+    }
+
+    .theme-1-blue    { border-color: #60A5FA; background: #F8FAFC; }
+    .theme-1-blue .srv-theme-banner    { background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%); }
+    .theme-1-blue .srv-theme-banner .badge { color: #1E40AF; }
+
+    .theme-2-purple  { border-color: #A78BFA; background: #FDFCFE; }
+    .theme-2-purple .srv-theme-banner  { background: linear-gradient(135deg, #6D28D9 0%, #4C1D95 100%); }
+    .theme-2-purple .srv-theme-banner .badge { color: #5B21B6; }
+
+    .theme-3-emerald { border-color: #34D399; background: #F8FAFC; }
+    .theme-3-emerald .srv-theme-banner { background: linear-gradient(135deg, #047857 0%, #064E3B 100%); }
+    .theme-3-emerald .srv-theme-banner .badge { color: #065F46; }
+
+    .theme-4-amber   { border-color: #FBBF24; background: #FFFDF7; }
+    .theme-4-amber .srv-theme-banner   { background: linear-gradient(135deg, #B45309 0%, #78350F 100%); }
+    .theme-4-amber .srv-theme-banner .badge { color: #92400E; }
+
+    .theme-5-cyan    { border-color: #38BDF8; background: #F8FAFC; }
+    .theme-5-cyan .srv-theme-banner    { background: linear-gradient(135deg, #0369A1 0%, #0C4A6E 100%); }
+    .theme-5-cyan .srv-theme-banner .badge { color: #075985; }
+
+    .theme-6-teal    { border-color: #2DD4BF; background: #F8FAFC; }
+    .theme-6-teal .srv-theme-banner    { background: linear-gradient(135deg, #0F766E 0%, #134E4A 100%); }
+    .theme-6-teal .srv-theme-banner .badge { color: #115E59; }
+
+    .theme-7-crimson { border-color: #FB7185; background: #FFFBFB; }
+    .theme-7-crimson .srv-theme-banner { background: linear-gradient(135deg, #BE123C 0%, #881337 100%); }
+    .theme-7-crimson .srv-theme-banner .badge { color: #9F1239; }
+
+    .theme-8-orange  { border-color: #FB923C; background: #FFFDF9; }
+    .theme-8-orange .srv-theme-banner  { background: linear-gradient(135deg, #C2410C 0%, #7C2D12 100%); }
+    .theme-8-orange .srv-theme-banner .badge { color: #9A3412; }
+
+    .theme-9-slate   { border-color: #64748B; background: #F8FAFC; }
+    .theme-9-slate .srv-theme-banner   { background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); }
+    .theme-9-slate .srv-theme-banner .badge { color: #0F172A; background: #FDE047; }
+
+    /* ตารางข้อมูลแบบยิบยับ อ่านง่าย สบายตา (Ultra-Readable Dense Matrix Tables) */
+    .dense-table-wrap {
+      overflow-x: auto;
+      margin: 8px 0 12px;
+      border-radius: 10px;
+      border: 1.5px solid #CBD5E1;
+      background: #FFFFFF;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.05);
+    }
+    .dense-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .dense-table th {
+      background: #1E293B;
+      color: #FFFFFF;
+      font-weight: 700;
+      text-align: left;
+      padding: 8px 10px;
+      border: 1px solid #334155;
+      white-space: nowrap;
+    }
+    .dense-table td {
+      padding: 7px 10px;
+      border: 1px solid #E2E8F0;
+      color: #0F172A;
+      vertical-align: top;
+    }
+    .dense-table tr:nth-child(even) td {
+      background: #F8FAFC;
+    }
+    .dense-table tr.highlight-row td {
+      background: #FEF9C3;
+      font-weight: 700;
+    }
+    .price-chip {
+      display: inline-block;
+      background: #FEE2E2;
+      color: #991B1B;
+      font-weight: 800;
+      padding: 1px 7px;
+      border-radius: 6px;
+      font-size: 12.5px;
+    }
+    .price-chip.gold {
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #F59E0B;
+    }
+    .price-chip.green {
+      background: #D1FAE5;
+      color: #065F46;
+    }
+    .price-chip.blue {
+      background: #DBEAFE;
+      color: #1E40AF;
+    }
+    .price-chip.purple {
+      background: #EDE9FE;
+      color: #5B21B6;
+    }
+    .rate-formatted-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .rate-line-item {
+      padding: 7px 10px;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-left: 4px solid #059669;
+      border-radius: 8px;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: #0F172A;
     }
 
     /* Desktop & Tablet Responsive Layout (ทำงานได้ดีทั้งบนมือถือส่วนตัวและคอมหน้าเคาน์เตอร์) */
@@ -792,20 +1037,20 @@
     }
   </style>
 </head>
-<body>
+<body class="mode-domestic">
 
   <!-- Header -->
   <header class="app-header">
     <div style="max-width: 1180px; margin: 0 auto;">
-      <!-- ทางเข้าแรก (Gateway Switcher): บริการในประเทศ vs บริการระหว่างประเทศ -->
+      <!-- ทางเข้าแรก (Gateway Switcher): บริการในประเทศ (สีทอง) vs บริการระหว่างประเทศ (สีน้ำเงิน) -->
       <div class="mode-gateway-bar" id="topGatewayBar">
         <button type="button" class="mode-gateway-btn active" data-mode="domestic">
           <span>🇹🇭 บริการในประเทศ</span>
-          <span class="sub-pill">ครบ 9 หมวด</span>
+          <span class="sub-pill">โหมดสีทอง • 9 หมวด</span>
         </button>
         <button type="button" class="mode-gateway-btn" data-mode="inter">
           <span>🌐 บริการระหว่างประเทศ</span>
-          <span class="sub-pill">ครบทุกโซน</span>
+          <span class="sub-pill">โหมดสีน้ำเงิน • ทุกโซน</span>
         </button>
       </div>
     </div>
@@ -815,7 +1060,7 @@
         <div class="brand-title">
           <div class="brand-icon">ปณก.</div>
           <div class="brand-text">
-            <h1 id="headerMainTitle">คู่มือบริการในประเทศ & ระหว่างประเทศ</h1>
+            <h1 id="headerMainTitle">🇹🇭 คู่มือบริการในประเทศ (โหมดสีทอง)</h1>
             <p id="headerSubTitle">ฉบับพกพาบนมือถือ & เว็บหน้าเคาน์เตอร์ (อัปเดต พ.ย. 69)</p>
           </div>
         </div>
@@ -865,8 +1110,8 @@
     <div class="gateway-hero-cards" id="gatewayHeroCards">
       <button type="button" class="gateway-card active" data-mode="domestic">
         <div class="gateway-card-title">
-          <span>🇹🇭 1. บริการในประเทศ (ครบ 9 หมวด)</span>
-          <span class="badge badge-red" id="gwBadgeDom">กำลังเปิดดู</span>
+          <span>🇹🇭 1. บริการในประเทศ (ธีมสีทอง • ครบ 9 หมวด)</span>
+          <span class="badge badge-amber" id="gwBadgeDom">🟡 กำลังเปิดดู (ในปท.)</span>
         </div>
         <div class="gateway-card-desc">
           1. จดหมาย/สิ่งพิมพ์ • 2. ตราสิน • 3. ไม่มีจ่าหน้า • 4. พัสดุ (P) • 5. ลงทะเบียน (R) • 6. eCo-Post • 7. EMS/EMS ใหญ่ (2886) • 8. EMS Jumbo • 9. ความรู้ พนง. (COD/High Value/EMS Point)
@@ -874,8 +1119,8 @@
       </button>
       <button type="button" class="gateway-card" data-mode="inter">
         <div class="gateway-card-title">
-          <span>🌐 2. บริการระหว่างประเทศ</span>
-          <span class="badge badge-slate" id="gwBadgeInter">กดเพื่อสลับ</span>
+          <span>🌐 2. บริการระหว่างประเทศ (ธีมสีน้ำเงิน • ทุกโซน)</span>
+          <span class="badge badge-slate" id="gwBadgeInter">กดเพื่อสลับไป ตปท.</span>
         </div>
         <div class="gateway-card-desc">
           ePacket DDP ยุโรป 27 ปท. (LE) • ePacket US (LA/LI) • Courier Post Plus • EMS World • รหัส PID • ใบ LOA
@@ -910,10 +1155,10 @@
         </div>
 
         <!-- Domestic Interactive Decision Wizard -->
-        <div class="wizard-box">
-          <div class="wizard-title">🧭 ตัวช่วยเลือกบริการ & เช็คกฎรับฝากในประเทศครบ 9 หมวด (3 วินาที)</div>
+        <div class="wizard-box" style="border-color:#F59E0B; background:linear-gradient(180deg,#FFFDF7 0%,#FFFFFF 100%);">
+          <div class="wizard-title" style="color:#92400E;">🧭 ตัวช่วยเลือกบริการ & เช็คกฎรับฝากในประเทศครบ 9 หมวด (แยก 9 สี อ่านง่าย ข้อมูลยิบยับ!)</div>
           <div class="form-group">
-            <label class="form-label">แตะเลือกหมวดบริการในประเทศที่ต้องการดูโพยเอาตัวรอด:</label>
+            <label class="form-label">แตะเลือกหมวดบริการในประเทศที่ต้องการดูตารางเรทและคัมภีร์เอาตัวรอด:</label>
             <div class="pill-selector" id="domWizGroup">
               <button class="pill-btn active" data-dom-srv="letter">✉️ 1. จดหมาย / สิ่งตีพิมพ์</button>
               <button class="pill-btn" data-dom-srv="trasin">📰 2. หนังสือพิมพ์ตราสิน</button>
@@ -926,60 +1171,218 @@
               <button class="pill-btn" data-dom-srv="knowledge" style="grid-column: 1 / -1;">💡 9. ความรู้เสริม พนง. (COD T+1 • High Value/ประกัน • EMS Point • ข้อ 186–189 • หุ้มห่อ)</button>
             </div>
           </div>
-          <div class="wizard-result" id="domWizardOutput"></div>
+          <div class="wizard-result" id="domWizardOutput" style="background:#FFFFFF; border:2px solid #CBD5E1;"></div>
         </div>
 
-        <!-- ตารางเปรียบเทียบเรทด่วนในประเทศ -->
-        <div class="card">
+        <!-- ตารางเปรียบเทียบเรทด่วนในประเทศ แบบตารางชัดเจน ข้อมูลยิบยับทุกพิกัด -->
+        <div class="card" style="border: 2px solid #D97706;">
           <div class="card-header">
-            <div class="card-title">📊 ตารางโพยเรทราคาในประเทศครบทุกบริการ (1–8 หมวดบริการ + เกณฑ์ขนาด & ชดใช้)</div>
-            <span class="badge badge-red">โพยติดเคาน์เตอร์</span>
+            <div class="card-title" style="color:#92400E;">📊 ตารางโพยเรทราคาในประเทศฉบับสมบูรณ์ (เทียบทุกพิกัดน้ำหนัก • ดูง่ายในตารางเดียว!)</div>
+            <span class="badge badge-amber">โพยละเอียดยิบ</span>
           </div>
-          <div class="spec-grid">
-            <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
-              <span class="spec-label" style="color:#1D4ED8;">1. จดหมายซอง (ก+ย+ส ≤ 60 ซม.) vs 5. ลงทะเบียนซอง (R บวก +13 บ. | AR +3 บ. | e-AR +5 บ.)</span>
-              <span class="spec-value">
-                • <strong>ไม่เกิน 10 กรัม:</strong> ธรรมดา <strong>5 บ.</strong> | ลงทะเบียน (R) <strong>18 บ.</strong> (+AR = <strong>21 บ.</strong> / +e-AR = <strong>23 บ.</strong>)<br>
-                • <strong>เกิน 10 – 20 กรัม:</strong> ธรรมดา <strong>6 บ.</strong> | ลงทะเบียน (R) <strong>19 บ.</strong> (+AR = <strong>22 บ.</strong> / +e-AR = <strong>24 บ.</strong>)<br>
-                • <strong>เกิน 20 – 100 กรัม:</strong> ธรรมดา <strong>11 บ.</strong> | ลงทะเบียน (R) <strong>24 บ.</strong> (+AR = <strong>27 บ.</strong> / +e-AR = <strong>29 บ.</strong>)<br>
-                • <strong>เกิน 100 – 250 กรัม:</strong> ธรรมดา <strong>17 บ.</strong> | ลงทะเบียน (R) <strong>30 บ.</strong> (+AR = <strong>33 บ.</strong> / +e-AR = <strong>35 บ.</strong>)<br>
-                • <strong>เกิน 250 – 500 กรัม:</strong> ธรรมดา <strong>23 บ.</strong> | ลงทะเบียน (R) <strong>36 บ.</strong> (+AR = <strong>39 บ.</strong> / +e-AR = <strong>41 บ.</strong>)<br>
-                • <strong>เกิน 500 – 1,000 กรัม:</strong> ธรรมดา <strong>40 บ.</strong> | ลงทะเบียน (R) <strong>53 บ.</strong> (+AR = <strong>56 บ.</strong> / +e-AR = <strong>58 บ.</strong>)<br>
-                • <strong>เกิน 1,000 – 2,000 กรัม:</strong> ธรรมดา <strong>62 บ.</strong> | ลงทะเบียน (R) <strong>75 บ.</strong> (+AR = <strong>78 บ.</strong> / +e-AR = <strong>80 บ.</strong>)
-              </span>
-            </div>
-            <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
-              <span class="spec-label" style="color:#B91C1C;">2. จดหมายหีบห่อ (ซองพลาสติกทุกกรณี / ซองป่อง / ซองขยายข้าง ก+ย+ส &gt; 60 ซม. / กล่องเล็ก) vs ลงทะเบียนหีบห่อ (R บวก +15 บ.)</span>
-              <span class="spec-value">
-                • <strong>ไม่เกิน 500 กรัม:</strong> ธรรมดา <strong>34 บ.</strong> | ลงทะเบียนหีบห่อ (R) <strong>49 บ.</strong> (+AR 3 บ. = <strong>52 บ.</strong> / +e-AR 5 บ. = <strong>54 บ.</strong>)<br>
-                • <strong>เกิน 500 – 1,000 กรัม:</strong> ธรรมดา <strong>45 บ.</strong> | ลงทะเบียนหีบห่อ (R) <strong>60 บ.</strong> (+AR 3 บ. = <strong>63 บ.</strong> / +e-AR 5 บ. = <strong>65 บ.</strong>)<br>
-                • <strong>เกิน 1,000 – 2,000 กรัม:</strong> ธรรมดา <strong>62 บ.</strong> | ลงทะเบียนหีบห่อ (R) <strong>77 บ.</strong> (+AR 3 บ. = <strong>80 บ.</strong> / +e-AR 5 บ. = <strong>82 บ.</strong>)
-              </span>
-            </div>
-            <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
-              <span class="spec-label" style="color:#047857;">3. ของตีพิมพ์ / สิ่งพิมพ์ (สูงสุด 5 กก. — ลงทะเบียนสิ่งพิมพ์ บวก +13 บ.) & ตราสิน / Admail</span>
-              <span class="spec-value">
-                • <strong>ของตีพิมพ์:</strong> ≤50ก.=<strong>4บ.</strong> | ≤100ก.=<strong>5บ.</strong> | ≤250ก.=<strong>8บ.</strong> | ≤500ก.=<strong>11บ.</strong> | ≤1กก.=<strong>17บ.</strong> | ≤2กก.=<strong>33บ.</strong> | เกิน 2 กก. บวกเพิ่ม กก.ละ <strong>16 บ.</strong> (≤3กก.=<strong>49บ.</strong>, ≤4กก.=<strong>65บ.</strong>, ≤5กก.=<strong>81บ.</strong>)<br>
-                • <strong>หนังสือพิมพ์ตราสิน (ป.244):</strong> รายวัน ลด <strong>50%</strong> | ราย 2–15 วัน ลด <strong>35%</strong> | รายเดือน/2–3 เดือน ลด <strong>25%</strong> ของเรทของตีพิมพ์ (ขั้นต่ำ 100 ชิ้น ณ ปณ.ที่ระบุในใบอนุญาต)<br>
-                • <strong>ไม่มีจ่าหน้า (Admail):</strong> ≤50ก. เรท <strong>3.50 / 3.00 / 2.75 / 2.50 บ.</strong> (ตามจำนวนชิ้น) | <strong>สื่อหาเสียงเลือกตั้ง (≤50ก.) เหมาจ่าย 2.50 บ./ชิ้น ไม่มีขั้นต่ำ!</strong>
-              </span>
-            </div>
-            <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
-              <span class="spec-label" style="color:#4338CA;">4. พัสดุไปรษณีย์ (P) vs 6. eCo-Post (O) vs 7. EMS ในประเทศ (E รหัส 831 & EMS ขนาดใหญ่ รหัส 2886)</span>
-              <span class="spec-value">
-                • <strong>📦 พัสดุไปรษณีย์ (P - สูงสุด 20 กก.):</strong> กก.แรก <strong>25 บ.</strong> + กก.ต่อไป กก.ละ <strong>20 บ.</strong> (2กก.=45บ., 3กก.=65บ., 5กก.=105บ., 10กก.=205บ., 20กก.=405บ.) *ไม่เสีย Fuel +3 บ. เช็คสถานะออนไลน์ไม่ได้ ชดใช้สูงสุด 1,000 บ.*<br>
-                • <strong>🌱 eCo-Post (O - สูงสุด 10 กก. รวม Fuel +3 บ.แล้ว):</strong> ≤20ก.=<strong>23บ.</strong> | ≤100ก.=<strong>25บ.</strong> | ≤250ก.=<strong>29บ.</strong> | ≤500ก.=<strong>33บ.</strong> | ≤1กก.=<strong>43บ.</strong> | ≤2กก.=<strong>63บ.</strong> | ≤4กก.=<strong>83บ.</strong> | ≤6กก.=<strong>123บ.</strong> | ≤10กก.=<strong>163บ.</strong> *เช็คต้นทาง-นำจ่ายได้ ชดใช้สูงสุด 1,500 บ.*<br>
-                • <strong>⚡ EMS ปกติ (รหัส 831 — ยาวสุด ≤60 ซม. และ ก+ย+ส ≤120 ซม., รวม Fuel +3 บ.แล้ว):</strong> ≤20ก.=<strong>35บ.</strong> | ≤100ก.=<strong>40บ.</strong> | ≤250ก.=<strong>45บ.</strong> | ≤500ก.=<strong>55บ.</strong> | ≤1กก.=<strong>70บ.</strong> | ≤1.5กก.=<strong>85บ.</strong> | ≤2กก.=<strong>100บ.</strong> | ≤2.5กก.=<strong>103บ.</strong> | ≤3กก.=<strong>108บ.</strong> | ≤3.5กก.=<strong>113บ.</strong> | ≤4–5กก.=<strong>123บ.</strong><br>
-                • <strong>📐 EMS ขนาดใหญ่ (รหัส 2886 — ด้านใดเกิน 60 ซม. หรือ ก+ย+ส &gt; 120 ถึง 240 ซม., สูงสุด 30 กก.):</strong> ต้องคีย์ <code>กว้าง × ยาว × สูง</code> ใน CA POS ระบบจะเทียบน้ำหนักจริงกับน้ำหนักปริมาตร (<code>ก×ย×ส ÷ 6,000</code>) ตัวไหนมากกว่าคิดเรทนั้น!
-              </span>
-            </div>
-            <div class="spec-item">
-              <span class="spec-label" style="color:#B45309;">8. บริการ EMS Jumbo (พิกัดน้ำหนัก 30–200 กก. & สินค้าสำเร็จรูป 44 รายการ 10 โซน)</span>
-              <span class="spec-value">
-                • <strong>พิกัดน้ำหนัก 30–200 กก. (ขนาดไม่เกิน 150×300×150 ซม.):</strong> คิดเรทตามน้ำหนักและโซน 1–10 (เริ่มต้นประมาณ 200 บ. ขึ้นไป) หากด้านใดเกิน 150 ซม. บวกเพิ่มทุก 50 ซม. ละ 100–300 บ.<br>
-                • <strong>สินค้าสำเร็จรูป (เช่น รถจักรยานยนต์, ทีวี, ตู้เย็น, จักรยาน, เครื่องซักผ้า):</strong> มอเตอร์ไซค์ ≤150 CC เริ่ม <strong>1,200–1,680 บ.</strong> (รุ่น 125 CC คิดเรท 150 CC!) | &gt;150–400 CC เริ่ม <strong>1,500–2,100 บ.</strong> | &gt;400 CC (Big Bike) เริ่ม <strong>3,300–4,020 บ.</strong> (ยังไม่รวมค่าหุ้มห่อ EPE Foam 360–500 บ. และค่ารับ-ส่งถึงบ้าน 60–500 บ./เที่ยว)
-              </span>
-            </div>
+
+          <div style="font-size:14px; font-weight:700; color:#1E40AF; margin-bottom:4px;">
+            ✉️ ตารางที่ 1: จดหมายซอง vs จดหมายหีบห่อ vs ลงทะเบียน (R) vs ของตีพิมพ์ (1 กรัม – 5,000 กรัม)
+          </div>
+          <div class="dense-table-wrap">
+            <table class="dense-table">
+              <thead>
+                <tr>
+                  <th>พิกัดน้ำหนัก</th>
+                  <th>จดหมายซอง<br><span style="font-weight:400;font-size:11px;">(ก+ย+ส ≤60ซม.)</span></th>
+                  <th>ลงทะเบียนซอง (R)<br><span style="font-weight:400;font-size:11px;">(บวก +13 บ.)</span></th>
+                  <th>จดหมายหีบห่อ<br><span style="font-weight:400;font-size:11px;">(ซองพลาสติก/ป่อง/กล่อง)</span></th>
+                  <th>ลงทะเบียนหีบห่อ (R)<br><span style="font-weight:400;font-size:11px;">(บวก +15 บ.)</span></th>
+                  <th>ของตีพิมพ์<br><span style="font-weight:400;font-size:11px;">(สิ่งพิมพ์/หนังสือ)</span></th>
+                  <th>ของตีพิมพ์ลงทะเบียน<br><span style="font-weight:400;font-size:11px;">(บวก +13 บ.)</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>ไม่เกิน 10 กรัม</strong></td>
+                  <td><span class="price-chip blue">5 บ.</span></td>
+                  <td><strong>18 บ.</strong> (+AR=21 / e-AR=23)</td>
+                  <td><span class="price-chip">34 บ.</span></td>
+                  <td><strong>49 บ.</strong> (+AR=52 / e-AR=54)</td>
+                  <td><span class="price-chip green">4 บ.</span> (≤50ก.)</td>
+                  <td><strong>17 บ.</strong> (+AR=20)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 10 – 20 กรัม</strong></td>
+                  <td><span class="price-chip blue">6 บ.</span></td>
+                  <td><strong>19 บ.</strong> (+AR=22 / e-AR=24)</td>
+                  <td><span class="price-chip">34 บ.</span></td>
+                  <td><strong>49 บ.</strong> (+AR=52 / e-AR=54)</td>
+                  <td><span class="price-chip green">4 บ.</span> (≤50ก.)</td>
+                  <td><strong>17 บ.</strong> (+AR=20)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 20 – 50 กรัม</strong></td>
+                  <td><span class="price-chip blue">11 บ.</span></td>
+                  <td><strong>24 บ.</strong> (+AR=27 / e-AR=29)</td>
+                  <td><span class="price-chip">34 บ.</span></td>
+                  <td><strong>49 บ.</strong> (+AR=52 / e-AR=54)</td>
+                  <td><span class="price-chip green">4 บ.</span></td>
+                  <td><strong>17 บ.</strong> (+AR=20)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 50 – 100 กรัม</strong></td>
+                  <td><span class="price-chip blue">11 บ.</span></td>
+                  <td><strong>24 บ.</strong> (+AR=27 / e-AR=29)</td>
+                  <td><span class="price-chip">34 บ.</span></td>
+                  <td><strong>49 บ.</strong> (+AR=52 / e-AR=54)</td>
+                  <td><span class="price-chip green">5 บ.</span></td>
+                  <td><strong>18 บ.</strong> (+AR=21)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 100 – 250 กรัม</strong></td>
+                  <td><span class="price-chip blue">17 บ.</span></td>
+                  <td><strong>30 บ.</strong> (+AR=33 / e-AR=35)</td>
+                  <td><span class="price-chip">34 บ.</span></td>
+                  <td><strong>49 บ.</strong> (+AR=52 / e-AR=54)</td>
+                  <td><span class="price-chip green">8 บ.</span></td>
+                  <td><strong>21 บ.</strong> (+AR=24)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 250 – 500 กรัม</strong></td>
+                  <td><span class="price-chip blue">23 บ.</span></td>
+                  <td><strong>36 บ.</strong> (+AR=39 / e-AR=41)</td>
+                  <td><span class="price-chip">34 บ.</span></td>
+                  <td><strong>49 บ.</strong> (+AR=52 / e-AR=54)</td>
+                  <td><span class="price-chip green">11 บ.</span></td>
+                  <td><strong>24 บ.</strong> (+AR=27)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 500 – 1,000 กรัม</strong></td>
+                  <td><span class="price-chip blue">40 บ.</span></td>
+                  <td><strong>53 บ.</strong> (+AR=56 / e-AR=58)</td>
+                  <td><span class="price-chip">45 บ.</span></td>
+                  <td><strong>60 บ.</strong> (+AR=63 / e-AR=65)</td>
+                  <td><span class="price-chip green">17 บ.</span></td>
+                  <td><strong>30 บ.</strong> (+AR=33)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 1,000 – 2,000 กรัม</strong></td>
+                  <td><span class="price-chip blue">62 บ.</span></td>
+                  <td><strong>75 บ.</strong> (+AR=78 / e-AR=80)</td>
+                  <td><span class="price-chip">62 บ.</span></td>
+                  <td><strong>77 บ.</strong> (+AR=80 / e-AR=82)</td>
+                  <td><span class="price-chip green">33 บ.</span></td>
+                  <td><strong>46 บ.</strong> (+AR=49)</td>
+                </tr>
+                <tr class="highlight-row">
+                  <td><strong>เกิน 2,000 – 5,000 กรัม</strong><br><span style="font-weight:400;font-size:11px;">(เฉพาะหนังสือเล่มเดียว)</span></td>
+                  <td colspan="4" style="color:#991B1B;">❌ จดหมายและลงทะเบียนทั่วไป รับน้ำหนักสูงสุดไม่เกิน 2,000 กรัม (เกินนี้ใช้ พัสดุ P / eCo-Post / EMS)</td>
+                  <td><strong>≤3กก.=49บ. | ≤4กก.=65บ. | ≤5กก.=81บ.</strong> (+16บ./กก.)</td>
+                  <td><strong>≤3กก.=62บ. | ≤4กก.=78บ. | ≤5กก.=94บ.</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="font-size:14px; font-weight:700; color:#991B1B; margin:14px 0 4px;">
+            📦 ตารางที่ 2: เทียบราคา พัสดุไปรษณีย์ (P) vs eCo-Post (O) vs EMS ในประเทศ (E) ครบทุกขั้นน้ำหนัก (รวม Fuel +3 บ. แล้ว!)
+          </div>
+          <div class="dense-table-wrap">
+            <table class="dense-table">
+              <thead>
+                <tr>
+                  <th>พิกัดน้ำหนัก</th>
+                  <th>4. พัสดุไปรษณีย์ (P...TH)<br><span style="font-weight:400;font-size:11px;">(ไม่เสีย Fuel / เช็คเว็บไม่ได้ / ชดใช้ 1,000 บ.)</span></th>
+                  <th>6. บริการ eCo-Post (O...TH)<br><span style="font-weight:400;font-size:11px;">(รวม Fuel +3 บ. แล้ว / ชดใช้ 1,500 บ.)</span></th>
+                  <th>7. บริการ EMS ในประเทศ (E...TH)<br><span style="font-weight:400;font-size:11px;">(รวม Fuel +3 บ. แล้ว / ชดใช้ 2,000 บ.)</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>ไม่เกิน 20 กรัม</strong></td>
+                  <td><span class="price-chip gold">25 บ.</span> (+AR=28 บ.)</td>
+                  <td><span class="price-chip green">23 บ.</span> (20+Fuel 3)</td>
+                  <td><span class="price-chip">35 บ.</span> (32+Fuel 3)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 20 – 100 กรัม</strong></td>
+                  <td><span class="price-chip gold">25 บ.</span></td>
+                  <td><span class="price-chip green">25 บ.</span> (22+Fuel 3)</td>
+                  <td><span class="price-chip">40 บ.</span> (37+Fuel 3)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 100 – 250 กรัม</strong></td>
+                  <td><span class="price-chip gold">25 บ.</span></td>
+                  <td><span class="price-chip green">29 บ.</span> (26+Fuel 3)</td>
+                  <td><span class="price-chip">45 บ.</span> (42+Fuel 3)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 250 – 500 กรัม</strong></td>
+                  <td><span class="price-chip gold">25 บ.</span></td>
+                  <td><span class="price-chip green">33 บ.</span> (30+Fuel 3)</td>
+                  <td><span class="price-chip">55 บ.</span> (52+Fuel 3)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 500 – 1,000 กรัม (1 กก.)</strong></td>
+                  <td><span class="price-chip gold">25 บ.</span></td>
+                  <td><span class="price-chip green">43 บ.</span> (40+Fuel 3)</td>
+                  <td><span class="price-chip">70 บ.</span> (67+Fuel 3)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 1,000 – 1,500 กรัม (1.5 กก.)</strong></td>
+                  <td><span class="price-chip gold">45 บ.</span> (คิดเรท 2 กก.)</td>
+                  <td><span class="price-chip green">63 บ.</span> (คิดเรท 2 กก.)</td>
+                  <td><span class="price-chip">85 บ.</span> (82+Fuel 3)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 1,500 – 2,000 กรัม (2 กก.)</strong></td>
+                  <td><span class="price-chip gold">45 บ.</span></td>
+                  <td><span class="price-chip green">63 บ.</span> (60+Fuel 3)</td>
+                  <td><span class="price-chip">100 บ.</span> (97+Fuel 3)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 2,000 – 2,500 กรัม (2.5 กก.)</strong></td>
+                  <td><span class="price-chip gold">65 บ.</span> (คิดเรท 3 กก.)</td>
+                  <td><span class="price-chip green">73 บ.</span> (คิดเรท 3 กก.)</td>
+                  <td><span class="price-chip">103 บ.</span> (100+Fuel 3)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 2,500 – 3,000 กรัม (3 กก.)</strong></td>
+                  <td><span class="price-chip gold">65 บ.</span></td>
+                  <td><span class="price-chip green">73 บ.</span> (70+Fuel 3)</td>
+                  <td><span class="price-chip">108 บ.</span> (105+Fuel 3)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 3,000 – 3,500 กรัม (3.5 กก.)</strong></td>
+                  <td><span class="price-chip gold">85 บ.</span> (คิดเรท 4 กก.)</td>
+                  <td><span class="price-chip green">83 บ.</span> (คิดเรท 4 กก.)</td>
+                  <td><span class="price-chip">113 บ.</span> (110+Fuel 3)</td>
+                </tr>
+                <tr class="highlight-row">
+                  <td><strong>เกิน 3,500 – 5,000 กรัม (3.5–5 กก.)</strong></td>
+                  <td>4กก.=<strong>85 บ.</strong> | 5กก.=<strong>105 บ.</strong></td>
+                  <td>4กก.=<strong>83 บ.</strong> | 5กก.=<strong>103 บ.</strong></td>
+                  <td><span class="price-chip">123 บ.</span> (120+Fuel 3 เท่ากันตลอดช่วง >3.5–5 กก.!)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 5 – 10 กิโลกรัม</strong></td>
+                  <td>6กก.=<strong>125บ.</strong> | 7กก.=<strong>145บ.</strong> | 8กก.=<strong>165บ.</strong> | 9กก.=<strong>185บ.</strong> | 10กก.=<strong>205บ.</strong></td>
+                  <td>6กก.=<strong>123บ.</strong> | 7กก.=<strong>133บ.</strong> | 8กก.=<strong>143บ.</strong> | 9กก.=<strong>153บ.</strong> | 10กก.=<strong>163บ. (สูงสุด)</strong></td>
+                  <td>5.5กก.=<strong>133บ.</strong> | 6กก.=<strong>143บ.</strong> | 7กก.=<strong>163บ.</strong> | 8กก.=<strong>183บ.</strong> | 9กก.=<strong>203บ.</strong> | 10กก.=<strong>223บ.</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 10 – 20 กิโลกรัม</strong></td>
+                  <td>บวกเพิ่ม กก.ละ 20 บ. (15กก.=<strong>305บ.</strong> | 20กก.=<strong>405บ. สูงสุด</strong>)</td>
+                  <td>❌ เกินพิกัด eCo-Post (จำกัดสูงสุด 10 กก.)</td>
+                  <td>เกิน 10–24 กก. บวกเพิ่ม กก.ละ <strong>10 บ.</strong> (15กก.=<strong>273บ.</strong> | 20กก.=<strong>323บ.</strong> | 24กก.=<strong>363บ.</strong>)</td>
+                </tr>
+                <tr>
+                  <td><strong>เกิน 20 – 30 กิโลกรัม</strong></td>
+                  <td>❌ เกินพิกัดพัสดุไปรษณีย์ (จำกัดสูงสุด 20 กก.)</td>
+                  <td>❌ เกินพิกัด eCo-Post</td>
+                  <td>เกิน 24–30 กก. บวกเพิ่ม กก.ละ <strong>20 บ.</strong> (25กก.=<strong>383บ.</strong> | 28กก.=<strong>443บ.</strong> | 30กก.=<strong>483บ. สูงสุด</strong>)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ref-foot">
+            💡 <strong>หมายเหตุสำคัญ:</strong> (1) ปลายทาง <strong>85 พื้นที่เกาะ/ห่างไกล/ท่องเที่ยว</strong> บวกเพิ่ม <strong>+20 บาท/ชิ้น</strong> สำหรับ EMS และ eCo-Post | (2) หากกล่องมีด้านใด <strong>ยาวเกิน 60 ซม.</strong> หรือ <strong>ก+ย+ส &gt; 120 ซม. (ถึง 240 ซม.)</strong> ต้องคีย์รหัส <strong><code>2886</code> (EMS ขนาดใหญ่)</strong> คำนวณน้ำหนักปริมาตร <code>ก×ย×ส ÷ 6,000</code> | (3) หากหนักเกิน 30–200 กก. หรือเป็นสินค้าสำเร็จรูป 44 รายการ/มอเตอร์ไซค์ ให้ใช้บริการ <strong>8. EMS Jumbo</strong>
           </div>
         </div>
       </section>

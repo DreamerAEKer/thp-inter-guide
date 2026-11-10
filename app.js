@@ -242,94 +242,109 @@
     const container = document.getElementById("servicesListContainer");
     if (!container) return;
 
+    const interThemes = [
+      "theme-1-blue",
+      "theme-5-cyan",
+      "theme-2-purple",
+      "theme-6-teal",
+      "theme-7-crimson",
+      "theme-8-orange",
+      "theme-3-emerald",
+      "theme-4-amber",
+      "theme-9-slate"
+    ];
+
     const servicesHtml = DATA.services
-      .map((srv) => {
+      .map((srv, idx) => {
+        const themeCls = interThemes[idx % interThemes.length];
         const notesHtml = srv.criticalNotes
           .map((n) => {
             let cls = "";
             if (n.includes("🚨") || n.includes("⚠️") || n.includes("ห้าม")) cls = "critical";
             else if (n.includes("✅")) cls = "good";
-            return `<li class="${cls}">${escapeHtml(n)}</li>`;
+            return `<li class="${cls}" style="white-space:pre-line;">${escapeHtml(n)}</li>`;
           })
           .join("");
 
         const formsHtml = (srv.requiredForms || [])
-          .map((f) => `<li class="good" style="background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A;">${escapeHtml(f)}</li>`)
+          .map((f) => `<li class="good" style="background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A; white-space:pre-line;">${escapeHtml(f)}</li>`)
           .join("");
 
         const survivalHtml = (srv.survivalGuide || [])
-          .map((s) => `<li class="critical">${escapeHtml(s)}</li>`)
+          .map((s) => `<li class="critical" style="white-space:pre-line;">${escapeHtml(s)}</li>`)
           .join("");
 
         return `
-          <div class="card" id="service-${escapeHtml(srv.id)}">
-            <div class="card-header">
+          <div class="card srv-theme-card ${themeCls}" id="service-${escapeHtml(srv.id)}">
+            <div class="srv-theme-banner">
               <div>
                 <span class="prefix-tag">${escapeHtml(srv.prefix)}</span>
                 <div class="card-title">${escapeHtml(srv.name)}</div>
               </div>
-              <span class="badge badge-${escapeHtml(srv.badgeColor)}">${escapeHtml(srv.badge)}</span>
+              <span class="badge">${escapeHtml(srv.badge)}</span>
             </div>
 
-            ${
-              srv.dpostInterMode
-                ? `<div style="background:${srv.dpostInterMode.includes("🔴") ? "#FEF2F2" : srv.dpostInterMode.includes("🟡") ? "#FFFBEB" : "#ECFDF5"}; border:1.5px solid ${srv.dpostInterMode.includes("🔴") ? "#EF4444" : srv.dpostInterMode.includes("🟡") ? "#F59E0B" : "#10B981"}; border-radius:10px; padding:10px 12px; margin-bottom:12px; font-size:13.5px; font-weight:600; color:${srv.dpostInterMode.includes("🔴") ? "#991B1B" : srv.dpostInterMode.includes("🟡") ? "#92400E" : "#065F46"};">
-                    💻 <strong>ต้องทำผ่าน D-Post Inter เท่านั้นไหม?:</strong><br>${escapeHtml(srv.dpostInterMode)}
-                  </div>`
-                : ""
-            }
+            <div class="srv-theme-body">
+              ${
+                srv.dpostInterMode
+                  ? `<div style="background:${srv.dpostInterMode.includes("🔴") ? "#FEF2F2" : srv.dpostInterMode.includes("🟡") ? "#FFFBEB" : "#ECFDF5"}; border:1.5px solid ${srv.dpostInterMode.includes("🔴") ? "#EF4444" : srv.dpostInterMode.includes("🟡") ? "#F59E0B" : "#10B981"}; border-radius:10px; padding:10px 12px; margin-bottom:12px; font-size:13.5px; font-weight:600; color:${srv.dpostInterMode.includes("🔴") ? "#991B1B" : srv.dpostInterMode.includes("🟡") ? "#92400E" : "#065F46"}; white-space:pre-line;">
+                      💻 <strong>ต้องทำผ่าน D-Post Inter เท่านั้นไหม?:</strong><br>${escapeHtml(srv.dpostInterMode)}
+                    </div>`
+                  : ""
+              }
 
-            ${
-              formsHtml
-                ? `<div style="font-size:14px; font-weight:700; color:#1E3A8A; margin-bottom:6px;">
-                    📋 แบบพิมพ์ / เอกสาร / ตราประทับที่ต้องมีในการรับฝาก:
-                  </div>
-                  <ul class="notes-list" style="margin-bottom:12px;">${formsHtml}</ul>`
-                : ""
-            }
+              ${
+                formsHtml
+                  ? `<div style="font-size:14px; font-weight:700; color:#1E3A8A; margin-bottom:6px;">
+                      📋 แบบพิมพ์ / เอกสาร / ตราประทับที่ต้องมีในการรับฝาก:
+                    </div>
+                    <ul class="notes-list" style="margin-bottom:12px;">${formsHtml}</ul>`
+                  : ""
+              }
 
-            ${
-              survivalHtml
-                ? `<div style="font-size:14px; font-weight:700; color:#991B1B; margin-bottom:6px;">
-                    🛡️ คัมภีร์เอาตัวรอดของเจ้าหน้าที่รับฝาก (ป้องกันโดนเคลม/โดนปรับ/ของตีกลับ):
-                  </div>
-                  <ul class="notes-list" style="margin-bottom:12px;">${survivalHtml}</ul>`
-                : ""
-            }
+              ${
+                survivalHtml
+                  ? `<div style="font-size:14px; font-weight:700; color:#991B1B; margin-bottom:6px;">
+                      🛡️ คัมภีร์เอาตัวรอดของเจ้าหน้าที่รับฝาก (ป้องกันโดนเคลม/โดนปรับ/ของตีกลับ):
+                    </div>
+                    <ul class="notes-list" style="margin-bottom:12px;">${survivalHtml}</ul>`
+                  : ""
+              }
 
-            <div class="spec-grid">
-              <div class="spec-item">
-                <span class="spec-label">⚖️ พิกัดน้ำหนักสูงสุด</span>
-                <span class="spec-value">${escapeHtml(srv.maxWeight)}</span>
+              <div class="spec-grid" style="background:#FFFFFF; border:1.5px solid #CBD5E1;">
+                <div class="spec-item" style="border-bottom:1px dashed #E2E8F0; padding-bottom:6px;">
+                  <span class="spec-label">⚖️ พิกัดน้ำหนักสูงสุด</span>
+                  <span class="spec-value">${escapeHtml(srv.maxWeight)}</span>
+                </div>
+                <div class="spec-item" style="border-bottom:1px dashed #E2E8F0; padding-bottom:6px;">
+                  <span class="spec-label">📏 ขนาดสูงสุดที่รับฝากได้</span>
+                  <span class="spec-value">${escapeHtml(srv.maxSize)}</span>
+                </div>
+                <div class="spec-item" style="border-bottom:1px dashed #E2E8F0; padding-bottom:6px;">
+                  <span class="spec-label">📦 กล่องบรรจุภัณฑ์</span>
+                  <span class="spec-value">${escapeHtml(srv.allowedBoxes)}</span>
+                </div>
+                <div class="spec-item" style="border-bottom:1px dashed #E2E8F0; padding-bottom:6px;">
+                  <span class="spec-label">💶 มูลค่าสิ่งของสูงสุด</span>
+                  <span class="spec-value">${escapeHtml(srv.maxValue)}</span>
+                </div>
+                <div class="spec-item" style="border-bottom:1px dashed #E2E8F0; padding-bottom:6px;">
+                  <span class="spec-label">🛡️ อัตราชดใช้ค่าเสียหาย (ปี 2569)</span>
+                  <span class="spec-value">${escapeHtml(srv.indemnity)}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">🏛️ เงื่อนไขศุลกากร / ระบบรับฝาก</span>
+                  <span class="spec-value">${escapeHtml(srv.customsRule)}</span>
+                </div>
               </div>
-              <div class="spec-item">
-                <span class="spec-label">📏 ขนาดสูงสุดที่รับฝากได้</span>
-                <span class="spec-value">${escapeHtml(srv.maxSize)}</span>
+
+              <div style="font-size:14px; font-weight:700; color:var(--thp-navy); margin-bottom:6px;">
+                📌 ข้อสังเกตสำคัญหน้าเคาน์เตอร์:
               </div>
-              <div class="spec-item">
-                <span class="spec-label">📦 กล่องบรรจุภัณฑ์</span>
-                <span class="spec-value">${escapeHtml(srv.allowedBoxes)}</span>
-              </div>
-              <div class="spec-item">
-                <span class="spec-label">💶 มูลค่าสิ่งของสูงสุด</span>
-                <span class="spec-value">${escapeHtml(srv.maxValue)}</span>
-              </div>
-              <div class="spec-item">
-                <span class="spec-label">🛡️ อัตราชดใช้ค่าเสียหาย (ปี 2569)</span>
-                <span class="spec-value">${escapeHtml(srv.indemnity)}</span>
-              </div>
-              <div class="spec-item">
-                <span class="spec-label">🏛️ เงื่อนไขศุลกากร / ระบบรับฝาก</span>
-                <span class="spec-value">${escapeHtml(srv.customsRule)}</span>
-              </div>
+              <ul class="notes-list">${notesHtml}</ul>
+
+              <div class="ref-foot">📄 อ้างอิงบันทึก: ${escapeHtml(srv.ref)}</div>
             </div>
-
-            <div style="font-size:14px; font-weight:700; color:var(--thp-navy); margin-bottom:6px;">
-              📌 ข้อสังเกตสำคัญหน้าเคาน์เตอร์:
-            </div>
-            <ul class="notes-list">${notesHtml}</ul>
-
-            <div class="ref-foot">📄 อ้างอิงบันทึก: ${escapeHtml(srv.ref)}</div>
           </div>
         `;
       })
@@ -1991,118 +2006,168 @@
     renderDomWizardOutput();
   }
 
+  // แปลงข้อความหลายบรรทัดให้กลายเป็นบล็อกบรรทัดย่อยที่อ่านง่าย สบายตา ข้อมูลยิบยับชัดเจน
+  function formatMultilineToBlocks(text, borderColor) {
+    if (!text) return "";
+    const lines = String(text).split(/\n+/).map((l) => l.trim()).filter(Boolean);
+    if (lines.length <= 1) {
+      return escapeHtml(text);
+    }
+    return `<div class="rate-formatted-lines">${lines
+      .map(
+        (line) =>
+          `<div class="rate-line-item" style="border-left-color:${borderColor || "#059669"};">${escapeHtml(line)}</div>`
+      )
+      .join("")}</div>`;
+  }
+
   function renderDomServices() {
     const container = document.getElementById("domServicesListContainer");
     if (!container || !DATA.domestic || !DATA.domestic.services) return;
 
+    const themeClasses = [
+      { cls: "theme-1-blue", color: "#1D4ED8" },
+      { cls: "theme-2-purple", color: "#6D28D9" },
+      { cls: "theme-3-emerald", color: "#047857" },
+      { cls: "theme-4-amber", color: "#B45309" },
+      { cls: "theme-5-cyan", color: "#0369A1" },
+      { cls: "theme-6-teal", color: "#0F766E" },
+      { cls: "theme-7-crimson", color: "#BE123C" },
+      { cls: "theme-8-orange", color: "#C2410C" },
+      { cls: "theme-9-slate", color: "#1E293B" }
+    ];
+
     const srvHtml = DATA.domestic.services
-      .map((srv) => {
+      .map((srv, idx) => {
+        const theme = themeClasses[idx % themeClasses.length];
+
         const formsHtml = (srv.requiredForms || [])
-          .map((f) => `<li class="good" style="background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A;">${escapeHtml(f)}</li>`)
+          .map((f) => `<li class="good" style="background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A; white-space:pre-line;">${escapeHtml(f)}</li>`)
           .join("");
 
         const survivalHtml = (srv.survivalGuide || [])
-          .map((s) => `<li class="critical">${escapeHtml(s)}</li>`)
+          .map((s) => `<li class="critical" style="white-space:pre-line;">${escapeHtml(s)}</li>`)
           .join("");
 
         const notesHtml = (srv.criticalNotes || [])
           .map((n) => {
             let cls = "good";
             if (n.includes("🚨") || n.includes("⚠️") || n.includes("ห้าม")) cls = "critical";
-            return `<li class="${cls}">${escapeHtml(n)}</li>`;
+            return `<li class="${cls}" style="white-space:pre-line;">${escapeHtml(n)}</li>`;
           })
           .join("");
 
         return `
-          <div class="card" id="dom-service-${escapeHtml(srv.id)}">
-            <div class="card-header">
+          <div class="card srv-theme-card ${theme.cls}" id="dom-service-${escapeHtml(srv.id)}">
+            <div class="srv-theme-banner">
               <div>
-                <span class="prefix-tag" style="background:#D91920; color:#FFFFFF;">${escapeHtml(srv.prefix)}</span>
+                <span class="prefix-tag">${escapeHtml(srv.prefix)}</span>
                 <div class="card-title">${escapeHtml(srv.name)}</div>
               </div>
-              <span class="badge badge-${escapeHtml(srv.badgeColor || "red")}">${escapeHtml(srv.badge)}</span>
+              <span class="badge">${escapeHtml(srv.badge)}</span>
             </div>
 
-            ${
-              srv.posMode
-                ? `<div style="background:#FFFBEB; border:1.5px solid #F59E0B; border-radius:10px; padding:10px 12px; margin-bottom:12px; font-size:13.5px; font-weight:600; color:#92400E;">
-                    💻 <strong>การทำรายการในระบบ New CA POS / จุดรับฝาก:</strong><br>${escapeHtml(srv.posMode)}
-                  </div>`
-                : ""
-            }
+            <div class="srv-theme-body">
+              ${
+                srv.posMode
+                  ? `<div style="background:#FFFBEB; border:1.5px solid #F59E0B; border-radius:10px; padding:10px 12px; margin-bottom:12px; font-size:13.5px; font-weight:600; color:#92400E; white-space:pre-line;">
+                      💻 <strong>การทำรายการในระบบ New CA POS / จุดรับฝาก:</strong>\n${escapeHtml(srv.posMode)}
+                    </div>`
+                  : ""
+              }
 
-            ${
-              formsHtml
-                ? `<div style="font-size:14px; font-weight:700; color:#1E3A8A; margin-bottom:6px;">
-                    📋 แบบพิมพ์ / ใบนำส่ง / ตราประทับที่ต้องใช้ในการรับฝาก:
-                  </div>
-                  <ul class="notes-list" style="margin-bottom:12px;">${formsHtml}</ul>`
-                : ""
-            }
+              ${
+                formsHtml
+                  ? `<div style="font-size:14px; font-weight:700; color:#1E3A8A; margin-bottom:6px;">
+                      📋 แบบพิมพ์ / ใบนำส่ง / ตราประทับที่ต้องใช้ในการรับฝาก:
+                    </div>
+                    <ul class="notes-list" style="margin-bottom:12px;">${formsHtml}</ul>`
+                  : ""
+              }
 
-            ${
-              survivalHtml
-                ? `<div style="font-size:14px; font-weight:700; color:#991B1B; margin-bottom:6px;">
-                    🛡️ คัมภีร์เอาตัวรอดของเจ้าหน้าที่รับฝาก (ป้องกันคิดเงินผิด/ของตีกลับ/ถูกร้องเรียน):
-                  </div>
-                  <ul class="notes-list" style="margin-bottom:12px;">${survivalHtml}</ul>`
-                : ""
-            }
+              ${
+                survivalHtml
+                  ? `<div style="font-size:14px; font-weight:700; color:#991B1B; margin-bottom:6px;">
+                      🛡️ คัมภีร์เอาตัวรอดของเจ้าหน้าที่รับฝาก (ป้องกันคิดเงินผิด/ของตีกลับ/ถูกร้องเรียน):
+                    </div>
+                    <ul class="notes-list" style="margin-bottom:12px;">${survivalHtml}</ul>`
+                  : ""
+              }
 
-            <div class="spec-grid">
-              <div class="spec-item">
-                <span class="spec-label">⚖️ พิกัดน้ำหนักสูงสุด</span>
-                <span class="spec-value">${escapeHtml(srv.maxWeight)}</span>
+              <div class="spec-grid" style="background:#FFFFFF; border:1.5px solid #CBD5E1;">
+                <div class="spec-item" style="border-bottom:1px dashed #E2E8F0; padding-bottom:6px;">
+                  <span class="spec-label" style="color:${theme.color};">⚖️ พิกัดน้ำหนักสูงสุด</span>
+                  <span class="spec-value" style="white-space:pre-line;">${escapeHtml(srv.maxWeight)}</span>
+                </div>
+                <div class="spec-item" style="border-bottom:1px dashed #E2E8F0; padding-bottom:6px;">
+                  <span class="spec-label" style="color:${theme.color};">📏 ขนาดสูงสุด / เงื่อนไขหุ้มห่อ</span>
+                  <span class="spec-value" style="white-space:pre-line;">${escapeHtml(srv.maxSize)}</span>
+                </div>
+                <div class="spec-item" style="border-bottom:1px dashed #E2E8F0; padding-bottom:6px;">
+                  <span class="spec-label" style="color:#047857; font-size:13.5px;">💰 ตารางสรุปอัตราค่าบริการ & ส่วนลด (แยกบรรทัดอ่านง่าย)</span>
+                  <div class="spec-value">${formatMultilineToBlocks(srv.rateSummary, theme.color)}</div>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label" style="color:#B91C1C;">🛡️ อัตราชดใช้ค่าเสียหาย & การรับประกัน</span>
+                  <span class="spec-value" style="white-space:pre-line; font-weight:600;">${escapeHtml(srv.indemnity)}</span>
+                </div>
               </div>
-              <div class="spec-item">
-                <span class="spec-label">📏 ขนาดสูงสุด / เงื่อนไขหุ้มห่อ</span>
-                <span class="spec-value">${escapeHtml(srv.maxSize)}</span>
+
+              <div style="font-size:14px; font-weight:700; color:var(--thp-navy); margin-bottom:6px;">
+                📌 รายละเอียดเพิ่มเติม & ข้อสังเกตสำคัญหน้าเคาน์เตอร์:
               </div>
-              <div class="spec-item">
-                <span class="spec-label">💰 สรุปอัตราค่าบริการ & ส่วนลด</span>
-                <span class="spec-value" style="font-weight:600; color:#047857;">${escapeHtml(srv.rateSummary)}</span>
-              </div>
-              <div class="spec-item">
-                <span class="spec-label">🛡️ อัตราชดใช้ค่าเสียหาย</span>
-                <span class="spec-value">${escapeHtml(srv.indemnity)}</span>
-              </div>
+              <ul class="notes-list">${notesHtml}</ul>
+
+              <div class="ref-foot">📄 อ้างอิงระเบียบ/บันทึก: ${escapeHtml(srv.ref)}</div>
             </div>
-
-            <div style="font-size:14px; font-weight:700; color:var(--thp-navy); margin-bottom:6px;">
-              📌 รายละเอียดอัตราค่าบริการ & ข้อสังเกตสำคัญ:
-            </div>
-            <ul class="notes-list">${notesHtml}</ul>
-
-            <div class="ref-foot">📄 อ้างอิงระเบียบ/บันทึก: ${escapeHtml(srv.ref)}</div>
           </div>
         `;
       })
       .join("");
 
-    // เพิ่มการ์ดราคากล่อง ซอง และค่าบริการหุ้มห่อในประเทศ
+    // เพิ่มการ์ดตารางราคากล่อง ซอง และค่าบริการหุ้มห่อในประเทศแบบตารางละเอียดยิบ
     const boxDomHtml = `
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">📦 ตารางราคากล่อง ซอง และค่าบริการหุ้มห่อสิ่งของ (สำหรับเคาน์เตอร์ในประเทศ)</div>
-          <span class="badge badge-blue">โพยราคาหุ้มห่อ</span>
-        </div>
-        <div class="spec-grid">
-          <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:6px;">
-            <span class="spec-label">1. ราคากล่องสำเร็จรูป ปณท (ไม่รวมค่าบริการหุ้มห่อ)</span>
-            <span class="spec-value">
-              • <strong>กล่อง AA</strong> (13×17×7 ซม.) = <strong>9 บ.</strong> | <strong>กล่อง ก</strong> (14×20×6 ซม.) = <strong>12 บ.</strong> | <strong>กล่อง ข</strong> (17×25×9 ซม.) = <strong>15 บ.</strong><br>
-              • <strong>กล่อง ค</strong> (20×30×11 ซม.) = <strong>20 บ.</strong> | <strong>กล่อง ง</strong> (22×35×14 ซม.) = <strong>25 บ.</strong> | <strong>กล่อง จ</strong> (24×40×17 ซม.) = <strong>32 บ.</strong> | <strong>กล่อง ฉ</strong> (30×45×20 ซม.) = <strong>45 บ.</strong><br>
-              • <strong>กล่องเบอร์ 1 (ยาว)</strong> = <strong>20 บ.</strong> | <strong>กล่องเบอร์ 2</strong> = <strong>30 บ.</strong> | <strong>กล่องเบอร์ 3</strong> = <strong>35 บ.</strong> | <strong>กล่องเบอร์ 4</strong> = <strong>65 บ.</strong> | <strong>กล่องเบอร์ 5</strong> = <strong>65 บ.</strong> | <strong>กล่องเบอร์ 6</strong> = <strong>95 บ.</strong>
-            </span>
+      <div class="card srv-theme-card theme-4-amber" style="grid-column: 1 / -1;">
+        <div class="srv-theme-banner">
+          <div>
+            <span class="prefix-tag">มาตรฐานบรรจุภัณฑ์ & ค่าหุ้มห่อ ปณท</span>
+            <div class="card-title">📦 ตารางราคากล่องสำเร็จรูป ซองกันกระแทก และค่าบริการหุ้มห่อสิ่งของ (ครบทุกขนาด)</div>
           </div>
-          <div class="spec-item">
-            <span class="spec-label">2. ค่าบริการหุ้มห่อพร้อมอุปกรณ์กันกระแทก (กรณีให้เจ้าหน้าที่หุ้มห่อให้)</span>
-            <span class="spec-value">
-              • หุ้มห่อซอง/กล่องขนาดเล็ก (AA, ก, ข, ค): ค่าบริการหุ้มห่อตามเกณฑ์มาตรฐาน ปณท (ตรวจสอบดูภาพตารางเต็มได้ในเมนู <strong>🖨️ แบบพิมพ์</strong>)
-            </span>
-          </div>
+          <span class="badge">โพยราคากล่อง & ค่าห่อ</span>
         </div>
-        <div class="ref-foot">📄 อ้างอิง: แผ่นภาพราคากล่อง ซอง และค่าบริการหุ้มห่อ ไปรษณีย์ไทย</div>
+        <div class="srv-theme-body">
+          <div class="dense-table-wrap">
+            <table class="dense-table">
+              <thead>
+                <tr>
+                  <th>ประเภทกล่อง / ซอง</th>
+                  <th>ขนาด (กว้าง × ยาว × สูง ซม.)</th>
+                  <th>ผลรวม 3 ด้าน</th>
+                  <th>ราคาจำหน่ายเฉพาะกล่อง/ซอง</th>
+                  <th>ค่าบริการหุ้มห่อ (กรณีให้ ปณ. ห่อให้)</th>
+                  <th>รวมราคากล่อง + ค่าหุ้มห่อ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>กล่องสำเร็จรูป ก</strong></td><td>14 × 20 × 6 ซม.</td><td>40 ซม.</td><td><span class="price-chip gold">9 บ.</span> (รุ่นใหม่ 12 บ.)</td><td>+6 บาท</td><td><strong>15 – 18 บาท</strong></td></tr>
+                <tr><td><strong>กล่องสำเร็จรูป ข</strong></td><td>17 × 25 × 9 ซม.</td><td>51 ซม.</td><td><span class="price-chip gold">12 บ.</span> (รุ่นใหม่ 15 บ.)</td><td>+6 บาท</td><td><strong>18 – 21 บาท</strong></td></tr>
+                <tr><td><strong>กล่องสำเร็จรูป ค</strong></td><td>20 × 30 × 11 ซม.</td><td>61 ซม.</td><td><span class="price-chip gold">16 บ.</span> (รุ่นใหม่ 20 บ.)</td><td>+6 บาท</td><td><strong>22 – 26 บาท</strong></td></tr>
+                <tr><td><strong>กล่องสำเร็จรูป ง</strong></td><td>22 × 35 × 14 ซม.</td><td>71 ซม.</td><td><span class="price-chip gold">20 บ.</span> (รุ่นใหม่ 25 บ.)</td><td>+8 บาท</td><td><strong>28 – 33 บาท</strong></td></tr>
+                <tr><td><strong>กล่องสำเร็จรูป จ</strong></td><td>24 × 40 × 17 ซม.</td><td>81 ซม.</td><td><span class="price-chip gold">25 บ.</span> (รุ่นใหม่ 32 บ.)</td><td>+8 บาท</td><td><strong>33 – 40 บาท</strong></td></tr>
+                <tr><td><strong>กล่องสำเร็จรูป ฉ</strong></td><td>30 × 45 × 20 ซม.</td><td>95 ซม.</td><td><span class="price-chip gold">32 บ.</span> (รุ่นใหม่ 45 บ.)</td><td>+8 บาท</td><td><strong>40 – 53 บาท</strong></td></tr>
+                <tr><td><strong>กล่องธรรมดา เบอร์ 1 (ทรงยาว)</strong></td><td>6 × 60 × 6 ซม.</td><td>72 ซม.</td><td><span class="price-chip blue">20 – 35 บ.</span></td><td>+15 บาท</td><td><strong>35 – 50 บาท</strong></td></tr>
+                <tr><td><strong>กล่องธรรมดา เบอร์ 2</strong></td><td>10 × 50 × 20 ซม.</td><td>80 ซม.</td><td><span class="price-chip blue">20 – 30 บ.</span></td><td>+8 บาท</td><td><strong>28 – 38 บาท</strong></td></tr>
+                <tr><td><strong>กล่องธรรมดา เบอร์ 3</strong></td><td>11 × 55 × 27 ซม.</td><td>93 ซม.</td><td><span class="price-chip blue">35 – 37 บ.</span></td><td>+8 บาท</td><td><strong>43 – 45 บาท</strong></td></tr>
+                <tr><td><strong>กล่องธรรมดา เบอร์ 4 (ใหญ่ยาว)</strong></td><td>21 × 70 × 31 ซม.</td><td>122 ซม. (รหัส 2886)</td><td><span class="price-chip">65 – 80 บ.</span></td><td>+20 บาท</td><td><strong>85 – 100 บาท</strong></td></tr>
+                <tr><td><strong>กล่องธรรมดา เบอร์ 5</strong></td><td>40 × 45 × 35 ซม.</td><td>120 ซม.</td><td><span class="price-chip">40 – 65 บ.</span></td><td>+15 บาท</td><td><strong>55 – 80 บาท</strong></td></tr>
+                <tr><td><strong>กล่องธรรมดา เบอร์ 6 (จัมโบ้)</strong></td><td>45 × 55 × 40 ซม.</td><td>140 ซม. (รหัส 2886)</td><td><span class="price-chip">55 – 95 บ.</span></td><td>+15 บาท</td><td><strong>70 – 110 บาท</strong></td></tr>
+                <tr class="highlight-row"><td><strong>กล่องที่ลูกค้านำมาเอง / อื่นๆ</strong></td><td colspan="2">ขนาดไม่เกิน 31×36×26 ซม. ค่าห่อ <strong>15 บ.</strong> | เกิน 31×36×26 ซม. ค่าห่อ <strong>25 บ.</strong></td><td colspan="3">กระดาษน้ำตาล ครึ่งแผ่น <strong>5 บ.</strong> / เต็มแผ่น <strong>10 บ.</strong> | ซองกันกระแทก C5=<strong>12 บ.</strong>, C4=<strong>17 บ.</strong> | บับเบิ้ล 65×65ซม.=<strong>7 บ.</strong></td></tr>
+                <tr><td><strong>หุ้มห่อรถจักรยานยนต์ (EMS Jumbo)</strong></td><td colspan="2">หุ้มด้วยโฟม EPE รอบคัน + ถอดกระจกมองข้าง</td><td colspan="3">รถ ≤150 CC ค่าหุ้มห่อ <strong>360 บาท</strong> | รถ &gt;150–400 CC ค่าหุ้มห่อ <strong>450 บาท</strong> | รถ &gt;400 CC (Big Bike) ค่าหุ้มห่อ <strong>500 บาท</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ref-foot">📄 อ้างอิง: ตารางราคาจำหน่ายกล่อง/ซอง และค่าบริการหุ้มห่อ ไปรษณีย์ไทย (บันทึก รบ.(รฝ.2)/180 และ รป.(รฝ.2)/363)</div>
+        </div>
       </div>
     `;
 
@@ -2378,9 +2443,13 @@
     calculateDomRates();
   }
 
-  // 8. ระบบสลับโหมดทางเข้าแรก (Domestic vs International) & สลับแท็บด้านล่าง
+  // 8. ระบบสลับโหมดทางเข้าแรก (Domestic = สีทอง vs International = สีน้ำเงิน) & สลับแท็บด้านล่าง
   function switchAppMode(mode) {
     currentMode = mode === "inter" ? "inter" : "domestic";
+
+    // สลับคลาสที่ <body> เพื่อให้ Header / ปุ่ม / แถบเมนู เปลี่ยนเป็น "สีทอง (ในประเทศ)" หรือ "สีน้ำเงิน (ระหว่างประเทศ)" ทันที
+    document.body.classList.toggle("mode-domestic", currentMode === "domestic");
+    document.body.classList.toggle("mode-inter", currentMode === "inter");
 
     const domWrapper = document.getElementById("mode-domestic-wrapper");
     const interWrapper = document.getElementById("mode-inter-wrapper");
@@ -2389,23 +2458,31 @@
     const navLabelServices = document.getElementById("navLabelServices");
     const gwBadgeDom = document.getElementById("gwBadgeDom");
     const gwBadgeInter = document.getElementById("gwBadgeInter");
+    const headerMainTitle = document.getElementById("headerMainTitle");
 
     // อัปเดตปุ่มบน Header และการ์ดทางเข้าหลัก
     document.querySelectorAll("[data-mode]").forEach((el) => {
       el.classList.toggle("active", el.getAttribute("data-mode") === currentMode);
     });
 
+    if (headerMainTitle) {
+      headerMainTitle.textContent =
+        currentMode === "domestic"
+          ? "🇹🇭 คู่มือบริการในประเทศ (โหมดสีทอง • 9 หมวด)"
+          : "🌐 คู่มือบริการระหว่างประเทศ (โหมดสีน้ำเงิน • ทุกโซน)";
+    }
+
     if (gwBadgeDom && gwBadgeInter) {
       if (currentMode === "domestic") {
-        gwBadgeDom.className = "badge badge-red";
-        gwBadgeDom.textContent = "กำลังเปิดดู";
+        gwBadgeDom.className = "badge badge-amber";
+        gwBadgeDom.textContent = "🟡 กำลังเปิดดู (ในปท.)";
         gwBadgeInter.className = "badge badge-slate";
-        gwBadgeInter.textContent = "กดเพื่อสลับ";
+        gwBadgeInter.textContent = "กดเพื่อสลับไป ตปท.";
       } else {
-        gwBadgeInter.className = "badge badge-red";
-        gwBadgeInter.textContent = "กำลังเปิดดู";
+        gwBadgeInter.className = "badge badge-blue";
+        gwBadgeInter.textContent = "🔵 กำลังเปิดดู (ตปท.)";
         gwBadgeDom.className = "badge badge-slate";
-        gwBadgeDom.textContent = "กดเพื่อสลับ";
+        gwBadgeDom.textContent = "กดเพื่อสลับไป ในปท.";
       }
     }
 
