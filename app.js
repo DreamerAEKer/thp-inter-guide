@@ -1604,6 +1604,71 @@
       </body></html>`;
     }
 
+    if (templateType === "DOM_MOTORCYCLE_CHECKLIST") {
+      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>แบบตรวจสภาพรถจักรยานยนต์ EMS Jumbo (จัดทำ 3 ฉบับ) & ป้าย ป.309</title>${baseStyle}</head><body>
+        <div class="no-print" style="background:#FEF2F2; padding:10px; border:1px solid #DC2626; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+          <span><strong>พร้อมพิมพ์ A4 (จัดทำ 3 ฉบับ):</strong> (1) แนบตัวรถในซองพลาสติกใส (2) มอบให้ผู้ฝากคู่ใบเสร็จ (3) เก็บที่ ปณ.ต้นทาง</span>
+          <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์แบบตรวจสภาพรถ (A4)</button>
+        </div>
+        <h1>บริษัท ไปรษณีย์ไทย จำกัด — แบบบันทึกตรวจสอบสภาพรถจักรยานยนต์ (บริการ EMS Jumbo)</h1>
+        <h2>อ้างอิงบันทึก ปณท รป.(รฝ.2)/363 และ รป.(รฝ.2)/718 (จัดทำ 3 ฉบับ: แนบรถ 1 / ให้ผู้ฝากส่ง 1 / เก็บที่ ปณ.ต้นทาง 1)</h2>
+        <div class="box">
+          <strong>ปณ.รับฝากต้นทาง:</strong> ........................................................ <strong>วันที่รับฝาก:</strong> ......../................/2569 <strong>เลขที่บาร์โค้ด EMS Jumbo:</strong> <code>E_______________________TH</code><br>
+          <strong>ชื่อผู้ฝากส่ง:</strong> ............................................................................... <strong>เบอร์โทรผู้ฝาก:</strong> ............................................... <strong>เลขบัตร ปชช.:</strong> .....................................................<br>
+          <strong>ชื่อผู้รับปลายทาง:</strong> ........................................................................ <strong>เบอร์โทรผู้รับ:</strong> ................................................ <strong>ปณ.ปลายทาง:</strong> .....................................................<br>
+          <strong>ที่อยู่ผู้รับโดยละเอียด (บังคับคีย์ลง CA POS):</strong> บ้านเลขที่ ................. หมู่ ........ ซอย/ถนน ....................................... ตำบล/แขวง ....................................... อำเภอ/เขต ....................................... จังหวัด ....................................... รหัสไปรษณีย์ .......................
+        </div>
+        <div class="box">
+          <strong>1. ข้อมูลรถจักรยานยนต์ & เอกสารประกอบการรับฝาก:</strong><br>
+          • ยี่ห้อ/รุ่น: ................................................................. สี: ................................. ป้ายทะเบียน: ......................................... ขนาดเครื่องยนต์: .............. CC (เรทโซน ........)<br>
+          • เลขตัวถัง/เลขเครื่อง: .................................................................................... เลขไมล์ขณะรับฝาก: ...................................... กม.<br>
+          • <strong>เอกสารที่ตรวจสอบแล้ว:</strong> ☐ สำเนาเล่มทะเบียนรถ (หรือใบซื้อขาย) &nbsp;&nbsp; ☐ สำเนาบัตรประชาชนผู้ฝากส่ง &nbsp;&nbsp; ☐ กุญแจรถจำนวน ........ ดอก (มัดติดตัวรถในซองกันกระแทก)<br>
+          • <strong>การเตรียมรถก่อนหุ้มห่อ (บังคับ):</strong> ☐ ถ่ายน้ำมันเชื้อเพลิงออกเหลือไม่เกิน 1/4 ถัง &nbsp;&nbsp; ☐ ถอดกระจกมองข้างทั้ง 2 ข้างออกแพ็คแยก &nbsp;&nbsp; ☐ ถอดขั้วแบตเตอรี่ (กรณีรถไฟฟ้า/Big Bike)<br>
+          • <strong>การหุ้มห่อตามมาตรฐาน ปณท:</strong> ☐ หุ้มด้วย <strong>โฟม EPE (EPE Foam)</strong> รอบคัน (หรือ Air Bubble หนา + กระดาษลูกฟูกทับ <em>*ห้ามนำกระดาษลูกฟูกสัมผัสสีรถโดยตรงเด็ดขาด!*</em>)
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:32%;">ตำแหน่งชิ้นส่วนรถจักรยานยนต์</th>
+              <th style="width:22%; text-align:center;">สภาพปกติ</th>
+              <th style="width:46%;">พบร่องรอยขีดข่วน / แตกหัก / ตำหนิเดิมก่อนฝากส่ง (ระบุละเอียด)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1. ชุดไฟหน้า / หน้ากาก / บังลมหน้า</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
+            <tr><td>2. บังโคลนหน้า / โช้คอัพหน้า / ล้อแม็ก-ซี่ลวดหน้า</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
+            <tr><td>3. แฮนด์ซ้าย-ขวา / มือเบรก-คลัตช์ / เรือนไมล์</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
+            <tr><td>4. ถังน้ำมัน / ชุดสีแฟริ่งข้างซ้าย (Left Side)</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
+            <tr><td>5. ชุดสีแฟริ่งข้างขวา (Right Side) / ท่อไอเสีย</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
+            <tr><td>6. เบาะนั่ง / กล่องเก็บของใต้เบาะ / กันตกท้าย</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
+            <tr><td>7. ชุดไฟท้าย / ไฟเลี้ยวหน้า-หลัง / บังโคลนหลัง</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
+            <tr><td>8. ขาตั้งเดี่ยว / ขาตั้งคู่ / พักเท้าหน้า-หลัง / เครื่องยนต์</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
+          </tbody>
+        </table>
+        <div class="box" style="background:#FFFBEB; font-size:12px;">
+          <strong>ข้อตกลงรับทราบเงื่อนไข:</strong> ผู้ฝากส่งและเจ้าหน้าที่รับฝากได้ร่วมกันตรวจสอบสภาพรถจักรยานยนต์และถ่ายภาพมุมรอบคันไว้เป็นหลักฐานถูกต้องตรงกันแล้ว ทั้งนี้ ไปรษณีย์ไทยรับผิดชอบชดใช้ค่าเสียหายตามจริงไม่เกิน 3,000 บาท (หรือตามวงเงินรับประกันภัยที่ซื้อเพิ่มสูงสุดไม่เกิน 200,000 บาท) และหากสิ่งของถึง ปณ.ปลายทางแล้วผู้รับไม่มารับภายใน 7 วัน จะมีค่าเก็บรักษาวันละ 25 บาท/ชิ้น
+        </div>
+        <div class="sig-row">
+          <div class="sig-box">
+            <strong>ลงชื่อผู้ฝากส่ง (ยืนยันสภาพรถก่อนส่ง):</strong><br><br>
+            ลงชื่อ .................................................................................<br>
+            (.........................................................................................)
+          </div>
+          <div class="sig-box">
+            <strong>ลงชื่อเจ้าหน้าที่ ปณ.ต้นทาง (ผู้ตรวจสภาพ/รับฝาก):</strong><br><br>
+            ลงชื่อ .................................................................................<br>
+            ตำแหน่ง ................................................ ปณ. .......................
+          </div>
+        </div>
+        <div class="sig-row" style="margin-top:8px;">
+          <div class="sig-box" style="grid-column: 1 / -1; background:#F8FAFC;">
+            <strong>ส่วนสำหรับผู้รับปลายทาง (เมื่อรับมอบรถ ณ ปณ.ปลายทาง หรือนำส่งถึงบ้าน):</strong> ข้าพเจ้าได้รับมอบรถจักรยานยนต์หมายเลขบาร์โค้ดข้างต้นในสภาพเรียบร้อยถูกต้องแล้ว<br>
+            ลงชื่อผู้รับ: ........................................................................... วันที่รับ: ......../............/2569 เวลา .............. น. | เจ้าหน้าที่นำจ่าย: .........................................................
+          </div>
+        </div>
+      </body></html>`;
+    }
+
     return "";
   }
 
@@ -1723,7 +1788,7 @@
   }
 
   // =========================================================================
-  // 🇹🇭 ส่วนฟังก์ชันสำหรับบริการในประเทศ (DOMESTIC SERVICES MODULE)
+  // 🇹🇭 ส่วนฟังก์ชันสำหรับบริการในประเทศครบ 9 หมวด (DOMESTIC SERVICES MODULE)
   // =========================================================================
   function renderDomWizardOutput() {
     const out = document.getElementById("domWizardOutput");
@@ -1733,82 +1798,178 @@
     if (domWizSrv === "letter") {
       html = `
         <div style="color:#1E40AF; font-weight:700; font-size:15px; margin-bottom:8px;">
-          ✉️ 1. จดหมาย (ซอง/หีบห่อ), ของตีพิมพ์ และลงทะเบียนในประเทศ (R / AR / e-AR)
+          ✉️ 1. จดหมาย (ซอง / หีบห่อ), ไปรษณียบัตร และของตีพิมพ์ (สูงสุด 5 กก.)
         </div>
         <ul class="notes-list" style="margin-top:0;">
-          <li class="critical"><strong>🚨 กฎเหล็กแยก "ซอง" กับ "หีบห่อ" (ห้ามคิดเรทผิดเด็ดขาด!):</strong>
+          <li class="critical"><strong>🚨 กฎเหล็กแยก "จดหมายซอง" กับ "จดหมายหีบห่อ" (ห้ามคิดเรทผิดเด็ดขาด!):</strong>
             <br>• <strong>ซองพลาสติกทุกกรณี</strong>, <strong>ซองกระดาษที่โป่งนูน</strong>, หรือ <strong>ซองขยายข้างที่ ก+ย+ส เกิน 60 ซม.</strong> ➔ <strong>ต้องคิดเรท "จดหมายหีบห่อ" เสมอ!</strong>
-            <br>• เรทหีบห่อ: <strong>≤500ก. = 34 บ. (ลงทะเบียน R = 49 บ.)</strong> | <strong>≤1กก. = 45 บ. (R = 60 บ.)</strong> | <strong>≤2กก. = 62 บ. (R = 77 บ.)</strong>
+            <br>• เรทจดหมายหีบห่อ: <strong>≤500ก. = 34 บ. (ลงทะเบียน R = 49 บ.)</strong> | <strong>≤1กก. = 45 บ. (R = 60 บ.)</strong> | <strong>≤2กก. = 62 บ. (R = 77 บ.)</strong>
           </li>
-          <li class="good"><strong>✅ เรทจดหมายซองกระดาษปกติ (ก+ย+ส ≤ 60 ซม.):</strong>
+          <li class="good"><strong>✅ เรทจดหมายซองกระดาษปกติ (ก+ย+ส ≤ 60 ซม., บางเรียบ):</strong>
             <br>• <strong>≤10ก. = 5 บ. (R 18 บ.)</strong> | <strong>≤20ก. = 6 บ. (R 19 บ.)</strong> | <strong>≤100ก. = 11 บ. (R 24 บ.)</strong> | <strong>≤250ก. = 17 บ. (R 30 บ.)</strong> | <strong>≤500ก. = 23 บ. (R 36 บ.)</strong> | <strong>≤1กก. = 40 บ. (R 53 บ.)</strong> | <strong>≤2กก. = 62 บ. (R 75 บ.)</strong>
           </li>
-          <li class="good"><strong>📚 เรทของตีพิมพ์ / สิ่งพิมพ์ (หนังสือส่งได้สูงสุด 5 กก.!):</strong>
-            <br>• ≤50ก.=<strong>4 บ.</strong> | ≤100ก.=<strong>5 บ.</strong> | ≤250ก.=<strong>8 บ.</strong> | ≤500ก.=<strong>11 บ.</strong> | ≤1กก.=<strong>17 บ.</strong> | ≤2กก.=<strong>33 บ.</strong> | เกิน 2 กก. คิดเพิ่ม กก.ละ <strong>16 บ.</strong> (≤3กก.=49บ., ≤4กก.=65บ., ≤5กก.=81บ.)
+          <li class="good"><strong>📚 เรทของตีพิมพ์ / สิ่งพิมพ์ (หนังสือส่งได้สูงสุดถึง 5 กก.!):</strong>
+            <br>• ≤50ก.=<strong>4 บ.</strong> | ≤100ก.=<strong>5 บ.</strong> | ≤250ก.=<strong>8 บ.</strong> | ≤500ก.=<strong>11 บ.</strong> | ≤1กก.=<strong>17 บ.</strong> | ≤2กก.=<strong>33 บ.</strong> | เกิน 2 กก. บวกเพิ่ม กก.ละ <strong>16 บ.</strong> (≤3กก.=<strong>49 บ.</strong>, ≤4กก.=<strong>65 บ.</strong>, ≤5กก.=<strong>81 บ.</strong>)
             <br>• ต้องหุ้มห่อแบบเปิดตรวจได้ และระบุคำว่า <strong>"ของตีพิมพ์" / "สิ่งพิมพ์"</strong> มุมซอง (ลงทะเบียนสิ่งพิมพ์ บวก +13 บ.)
-          </li>
-          <li class="critical"><strong>📋 แบบพิมพ์ & บริการเสริมตอบรับ:</strong>
-            <br>• สติกเกอร์บาร์โค้ด <strong>R...TH</strong> | ใบตอบรับในประเทศ <strong>ป.133 (ก)</strong> (+3 บ. หรือแบบมีเลข +8 บ. สำหรับ R / +12 บ. สำหรับ EMS) | หรือแนะนำใช้ <strong>e-AR (ระบบตอบรับอิเล็กทรอนิกส์)</strong>
-            <br>• ชดใช้ค่าเสียหายลงทะเบียนในประเทศ: <strong>ซองสูงสุด 300 บ. / หีบห่อสูงสุด 500 บ.</strong> (ห้ามส่งเงินสด/ทอง/ของมีค่า!)
           </li>
         </ul>
       `;
     } else if (domWizSrv === "trasin") {
       html = `
-        <div style="color:#065F46; font-weight:700; font-size:15px; margin-bottom:8px;">
+        <div style="color:#4338CA; font-weight:700; font-size:15px; margin-bottom:8px;">
           📰 2. บริการหนังสือพิมพ์ตราสิน (ระเบียบ ปณท ฉบับที่ 234 พ.ศ. 2558 — แบบ ป.244)
         </div>
         <ul class="notes-list" style="margin-top:0;">
-          <li class="good"><strong>🎁 ส่วนลดพิเศษ:</strong> ได้รับส่วนลดสูงสุดถึง <strong>50% จากอัตราค่าบริการของตีพิมพ์ปกติ</strong>! (คำนวณยอดรวมต่อครั้ง หากมีเศษสตางค์ให้ปัดขึ้นเป็น <strong>.25 / .50 / .75 / 1.00 บาท</strong>)</li>
-          <li class="critical"><strong>🚨 กฎเหล็กหน้าเคาน์เตอร์ (ห้ามรับฝากผิดเงื่อนไข!):</strong>
-            <br>1. <strong>ต้องฝากส่ง ณ ที่ทำการไปรษณีย์แห่งเดียวที่ระบุไว้ในใบอนุญาตเท่านั้น!</strong> (ห้ามรับฝากข้าม ปณ. เด็ดขาด)
-            <br>2. ต้องฝากส่งครั้งละ <strong>ไม่ต่ำกว่า 100 ฉบับ</strong> โดยทุกฉบับต้องมีขนาดและน้ำหนักเท่ากัน และคัดแยกมัดตามรหัสไปรษณีย์ปลายทาง
-            <br>3. มุมขวาบนของซอง/ปกต้องมีกรอบสี่เหลี่ยมขนาดไม่น้อยกว่า <strong>2 × 4 ซม.</strong> พิมพ์คำว่า <code>หนังสือพิมพ์ตราสิน / ชำระค่าฝากส่งเป็นรายเดือน / ใบอนุญาตที่ .../...</code>
-            <br>4. <strong>ต้องชำระค่าฝากส่งเป็นเงินสดทุกครั้งที่ฝากส่ง!</strong> พร้อมยื่น <strong>แบบ ป.244 (ครบ 4 ตอน)</strong> และมอบ <strong>ตัวอย่างหนังสือพิมพ์ฉบับที่ฝากส่งจริง จำนวน 2 ฉบับ</strong> ทุกครั้ง (เก็บที่ ปณ. 1 ฉบับ + ส่งส่วนบริการสื่อสารบริการธุรกิจ 1 ฉบับ)
-            <br>5. <strong>ระวังใบอนุญาตขาด/ถูกระงับ:</strong> ค่าธรรมเนียมออกใบอนุญาต/ต่ออายุรายปี <strong>100 บาท/ปี</strong> (ต้องยื่นต่ออายุล่วงหน้าอย่างน้อย <strong>15 วัน</strong> ก่อนสิ้นปี) และหากขาดส่งเกิน 5 คราวติดต่อกัน (รายวัน) หรือเกิน 3 คราว (รายสัปดาห์) สิทธิจะถูกระงับทันที!
+          <li class="good"><strong>🎁 ส่วนลดตามกำหนดออก (ลดจากเรทของตีพิมพ์ปกติ):</strong>
+            <br>• <strong>รายวัน: ลด 50%</strong> | <strong>ราย 2–15 วัน (รายสัปดาห์/รายปักษ์): ลด 35%</strong> | <strong>รายเดือน / ราย 2–3 เดือน: ลด 25%</strong>
+            <br>• คำนวณยอดรวมต่อครั้ง หากมีเศษสตางค์ให้ปัดขึ้นเป็น <strong>.25 / .50 / .75 / 1.00 บาท</strong>
+          </li>
+          <li class="critical"><strong>🚨 กฎเหล็กหน้าเคาน์เตอร์ (5 ข้อต้องเช็คก่อนรับฝาก!):</strong>
+            <br>1. <strong>ต้องฝากส่ง ณ ปณ. แห่งเดียวที่ระบุไว้ในใบอนุญาตเท่านั้น!</strong> (ห้ามรับฝากข้าม ปณ.)
+            <br>2. ต้องฝากส่งครั้งละ <strong>ไม่ต่ำกว่า 100 ฉบับ</strong> โดยทุกฉบับต้องมีขนาด/น้ำหนักเท่ากัน และมัดแยกตามรหัสไปรษณีย์
+            <br>3. มุมขวาบนของซอง/ปกต้องมีกรอบสี่เหลี่ยมขนาดไม่น้อยกว่า <strong>2 × 4 ซม.</strong> พิมพ์คำว่า <code>หนังสือพิมพ์ตราสิน / ชำระค่าบริการเป็นเงินสด / ใบอนุญาตที่ .../...</code>
+            <br>4. <strong>ชำระค่าฝากส่งเป็นเงินสดทุกครั้ง!</strong> พร้อมยื่น <strong>แบบ ป.244 (ครบ 4 ตอน)</strong> และมอบ <strong>ตัวอย่างหนังสือพิมพ์ฉบับจริง 2 ฉบับ</strong> ทุกครั้ง
+            <br>5. ค่าธรรมเนียมออกใบอนุญาต/ต่ออายุรายปี <strong>100 บาท/ปี</strong> (ต้องยื่นต่ออายุล่วงหน้าอย่างน้อย <strong>15 วัน</strong> ก่อนสิ้นปีปฏิทิน)
           </li>
         </ul>
       `;
     } else if (domWizSrv === "admail") {
       html = `
-        <div style="color:#9A3412; font-weight:700; font-size:15px; margin-bottom:8px;">
-          📢 3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Advertising Mail / Admail — ระเบียบฉบับที่ 215 & เรทใหม่ 2568–2569)
+        <div style="color:#047857; font-weight:700; font-size:15px; margin-bottom:8px;">
+          📢 3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Advertising Mail / Admail — ระเบียบฉบับที่ 215)
         </div>
         <ul class="notes-list" style="margin-top:0;">
           <li class="good"><strong>💰 ตารางอัตราเหมาจ่ายตั้งแต่ชิ้นแรก (ลดตามปริมาณรวมต่อครั้ง):</strong>
-            <br>• <strong>ไม่เกิน 3,000 ชิ้น:</strong> ≤50ก. = <strong>3.50 บ.</strong> | 51–100ก. = <strong>4.50 บ.</strong> | 101–250ก. = <strong>7.50 บ.</strong> | 251–500ก. = <strong>10.50 บ.</strong>
-            <br>• <strong>3,001 – 10,000 ชิ้น:</strong> 3.40 / 4.40 / 7.40 / 10.40 บ. &nbsp;|&nbsp; <strong>10,001 – 20,000 ชิ้น:</strong> 3.30 / 4.30 / 7.30 / 10.30 บ.
-            <br>• <strong>20,001 – 30,000 ชิ้น:</strong> 3.15 / 4.15 / 7.15 / 10.15 บ. &nbsp;|&nbsp; <strong>30,001 – 50,000 ชิ้น:</strong> 3.00 / 4.00 / 7.00 / 10.00 บ.
-            <br>• <strong>50,001 – 100,000 ชิ้น:</strong> 2.85 / 3.85 / 6.85 / 9.85 บ. &nbsp;|&nbsp; <strong>100,001 – 200,000 ชิ้น:</strong> 2.70 / 3.70 / 6.70 / 9.70 บ.
-            <br>• <strong>ตั้งแต่ 200,001 ชิ้นขึ้นไป:</strong> <strong>2.50 / 3.50 / 6.50 / 9.50 บ.</strong>
+            <br>• <strong>ไม่เกิน 5,000 ชิ้น:</strong> ≤50ก. = <strong>3.50 บ.</strong> | 51–100ก. = <strong>4.50 บ.</strong> | 101–250ก. = <strong>6.50 บ.</strong> | 251–500ก. = <strong>9.50 บ.</strong>
+            <br>• <strong>5,001 – 20,000 ชิ้น:</strong> ≤50ก. = <strong>3.00 บ.</strong> | 51–100ก. = <strong>4.00 บ.</strong> | 101–250ก. = <strong>6.00 บ.</strong> | 251–500ก. = <strong>9.00 บ.</strong>
+            <br>• <strong>20,001 – 50,000 ชิ้น:</strong> ≤50ก. = <strong>2.75 บ.</strong> | 51–100ก. = <strong>3.75 บ.</strong> | 101–250ก. = <strong>5.75 บ.</strong> | 251–500ก. = <strong>8.75 บ.</strong>
+            <br>• <strong>ตั้งแต่ 50,001 ชิ้นขึ้นไป:</strong> ≤50ก. = <strong>2.50 บ.</strong> | 51–100ก. = <strong>3.50 บ.</strong> | 101–250ก. = <strong>5.50 บ.</strong> | 251–500ก. = <strong>8.50 บ.</strong>
           </li>
           <li class="good" style="background:#ECFDF5; border-left-color:#059669;"><strong>🗳️ สิทธิพิเศษ "สื่อรณรงค์หาเสียงเลือกตั้งทุกประเภท" (อบต. / อบจ. / เทศบาล / สส. / สว.):</strong>
             <br>พิกัดน้ำหนักไม่เกิน 50 กรัม คิดอัตราพิเศษ <strong>2.50 บาท/ชิ้น ตั้งแต่ชิ้นแรก โดยไม่กำหนดจำนวนขั้นต่ำ!</strong>
           </li>
           <li class="critical"><strong>📋 แบบพิมพ์ & การเตรียมงานรับฝาก:</strong>
-            <br>• ต้องยื่น <strong>ใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (เอกสารหมายเลข 1)</strong> 2 ฉบับ + แนบตัวอย่างสื่อจริง
-            <br>• ลูกค้าต้องมัดเป็นห่อ <strong>ห่อละ 50 หรือ 100 ชิ้น</strong> แยกตาม ปณ.ปลายทาง พร้อมแปะ <strong>ใบปะหน้าห่อ (เอกสารหมายเลข 2)</strong>
-            <br>• การปิดถุงส่งต่อ: ต้องผูกป้ายปากถุงระบุชัดเจนว่า <strong>"ไปรษณียภัณฑ์ไม่มีจ่าหน้า"</strong> พร้อมจำนวนชิ้นและวันที่ต้องการให้นำจ่าย
+            <br>• ยื่น <strong>ใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (เอกสารหมายเลข 1)</strong> 2 ฉบับ + แนบตัวอย่างสื่อจริง
+            <br>• ลูกค้าต้องมัดเป็นห่อ <strong>ห่อละ 50 หรือ 100 ชิ้น</strong> แยกตาม ปณ.ปลายทาง พร้อมแปะ <strong>ใบปะหน้าห่อถึงหัวหน้า ปณ.ปลายทาง (เอกสารหมายเลข 2)</strong>
+          </li>
+        </ul>
+      `;
+    } else if (domWizSrv === "parcel") {
+      html = `
+        <div style="color:#1D4ED8; font-weight:700; font-size:15px; margin-bottom:8px;">
+          📦 4. บริการพัสดุไปรษณีย์ในประเทศ (บาร์โค้ด P...TH — สูงสุด 20 กก.)
+        </div>
+        <ul class="notes-list" style="margin-top:0;">
+          <li class="good"><strong>💰 สูตรคำนวณอัตราค่าบริการ (จำง่ายที่สุด!):</strong>
+            <br>• <strong>กิโลกรัมแรก 25 บาท + กิโลกรัมต่อไป กก.ละ 20 บาท</strong> (เศษของ กก. ปัดเป็น 1 กก.)
+            <br>• ตัวอย่าง: ≤1กก.=<strong>25 บ.</strong> | ≤2กก.=<strong>45 บ.</strong> | ≤3กก.=<strong>65 บ.</strong> | ≤5กก.=<strong>105 บ.</strong> | ≤10กก.=<strong>205 บ.</strong> | ≤15กก.=<strong>305 บ.</strong> | ≤20กก.=<strong>405 บ.</strong>
+            <br>• <strong>ข้อดี:</strong> <strong>ไม่เสียค่าธรรมเนียมน้ำมัน (Fuel Surcharge +3 บ.)</strong> และ <strong>ไม่เสียค่าพื้นที่ห่างไกล/เกาะ (+20 บ.)!</strong>
+          </li>
+          <li class="critical"><strong>🚨 คำเตือนสำคัญที่ต้องแจ้งลูกค้าหน้าเคาน์เตอร์ทุกครั้ง:</strong>
+            <br>• บาร์โค้ด <code>P...TH</code> <strong>ไม่สามารถเช็คสถานะออนไลน์ระหว่างทางในเว็บ Track & Trace ได้!</strong> (ตรวจสอบได้เฉพาะที่ ปณ. เท่านั้น)
+            <br>• หากลูกค้าต้องการเช็คเลขในมือถือ แนะนำให้ขยับไปใช้ <strong>eCo-Post (O)</strong> หรือ <strong>EMS (E)</strong> แทน
+            <br>• ขนาดสูงสุด: ด้านยาวสุดไม่เกิน <strong>150 ซม.</strong> และผลรวม <code>ยาว + 2(กว้าง + สูง)</code> ไม่เกิน <strong>300 ซม.</strong> | ชดใช้ค่าเสียหายตามจริงสูงสุด <strong>1,000 บาท/ชิ้น</strong>
+          </li>
+        </ul>
+      `;
+    } else if (domWizSrv === "registered") {
+      html = `
+        <div style="color:#B45309; font-weight:700; font-size:15px; margin-bottom:8px;">
+          🔖 5. บริการไปรษณีย์ลงทะเบียนในประเทศ (R...TH) & บริการตอบรับอิเล็กทรอนิกส์ (e-AR)
+        </div>
+        <ul class="notes-list" style="margin-top:0;">
+          <li class="good"><strong>💰 ค่าธรรมเนียมลงทะเบียน (บวกเพิ่มจากค่าไปรษณียากรปกติ):</strong>
+            <br>• <strong>ลงทะเบียนซองกระดาษปกติ / ของตีพิมพ์:</strong> บวกเพิ่ม <strong>+13 บาท/ชิ้น</strong> (เช่น จดหมายซอง ≤10ก. 5+13 = <strong>18 บ.</strong>)
+            <br>• <strong>ลงทะเบียนหีบห่อ (ซองพลาสติก / ซองป่อง / ซองขยายข้าง ก+ย+ส &gt; 60 ซม. / กล่องเล็ก):</strong> บวกเพิ่ม <strong>+15 บาท/ชิ้น</strong> (เช่น หีบห่อ ≤500ก. 34+15 = <strong>49 บ.</strong>)
+          </li>
+          <li class="good" style="background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A;"><strong>📲 บริการตอบรับในประเทศ (AR กระดาษ ป.133ก vs e-AR อิเล็กทรอนิกส์):</strong>
+            <br>• <strong>ใบตอบรับกระดาษ ป.133(ก) (AR):</strong> ใช้คู่กับลงทะเบียน (R) <strong>+3 บ.</strong> | ใช้คู่กับพัสดุ (P) <strong>+6 บ.</strong> | ใช้คู่กับ EMS (E) <strong>+10 บ.</strong>
+            <br>• <strong>ตอบรับอิเล็กทรอนิกส์ (e-AR — แนะนำ!):</strong> ค่าบริการเพียง <strong>+5 บาท/ชิ้น</strong> (ใช้ได้กับ R, P และ EMS) <strong>ต้องคีย์เบอร์มือถือ 10 หลักของผู้ฝากส่งใน CA POS</strong> ระบบจะส่ง SMS แจ้ง 2 ครั้ง (เมื่อรับฝากเสร็จ และเมื่อนำจ่ายสำเร็จพร้อมชื่อผู้รับ) ลดปัญหาใบเหลือง ป.133(ก) หาย!
+          </li>
+          <li class="critical"><strong>🛡️ อัตราชดใช้ & ข้อห้ามเด็ดขาด:</strong>
+            <br>• ชดใช้ตามจริงสูงสุด <strong>300 บาท (ลงทะเบียนซอง/สิ่งพิมพ์)</strong> และ <strong>500 บาท (ลงทะเบียนหีบห่อ)</strong> | <strong>น้ำหนักสูงสุดไม่เกิน 2 กก.</strong>
+            <br>• <strong>ห้ามบรรจุเงินสด ทองคำ พระเครื่องมูลค่าสูง หรือของมีค่าในบริการลงทะเบียนเด็ดขาด!</strong> (หากสูญหายจะไม่ได้รับการชดใช้ตามระเบียบ ข้อ 186)
+          </li>
+        </ul>
+      `;
+    } else if (domWizSrv === "ecopost") {
+      html = `
+        <div style="color:#047857; font-weight:700; font-size:15px; margin-bottom:8px;">
+          🌱 6. บริการ eCo-Post (บาร์โค้ด O...TH — ประหยัด เช็คสถานะต้นทาง-ปลายทางได้!)
+        </div>
+        <ul class="notes-list" style="margin-top:0;">
+          <li class="good"><strong>💰 ตารางอัตราค่าบริการ eCo-Post (ราคารวมค่าขนส่งเพิ่มเติม Fuel +3 บาท/ชิ้นแล้ว):</strong>
+            <br>• ≤20ก. = <strong>23 บ.</strong> (20+3) | ≤100ก. = <strong>25 บ.</strong> (22+3) | ≤250ก. = <strong>29 บ.</strong> (26+3) | ≤500ก. = <strong>33 บ.</strong> (30+3) | ≤1กก. = <strong>43 บ.</strong> (40+3)
+            <br>• ≤2กก. = <strong>63 บ.</strong> (60+3) | ≤3กก. = <strong>73 บ.</strong> | ≤4กก. = <strong>83 บ.</strong> | ≤5กก. = <strong>103 บ.</strong> | ≤6กก. = <strong>123 บ.</strong> | ≤7กก. = <strong>133 บ.</strong> | ≤8กก. = <strong>143 บ.</strong> | ≤9กก. = <strong>153 บ.</strong> | ≤10กก. = <strong>163 บ.</strong>
+            <br>• <strong>กรณีปลายทางอยู่ใน 85 พื้นที่เกาะ/ห่างไกล/ท่องเที่ยว:</strong> บวกเพิ่มอีก <strong>+20 บาท/ชิ้น</strong>
+          </li>
+          <li class="critical"><strong>🚨 ข้อสังเกตสำคัญหน้าเคาน์เตอร์:</strong>
+            <br>• <strong>พิกัดน้ำหนักสูงสุดไม่เกิน 10 กก.</strong> (ขนาดยาวสุดไม่เกิน 60 ซม. และ ก+ย+ส ไม่เกิน 120 ซม.)
+            <br>• <strong>การติดตามสถานะ:</strong> แสดงสถานะในเว็บ Track & Trace <strong>3 จุดหลัก (รับฝากต้นทาง ➔ เตรียมการนำจ่าย ➔ นำจ่ายสำเร็จ)</strong>
+            <br>• <strong>อัตราชดใช้ค่าเสียหาย:</strong> ชดใช้ตามจริงสูงสุด <strong>1,500 บาท/ชิ้น</strong> (คุ้มกว่าลงทะเบียน R และพัสดุ P!)
+          </li>
+        </ul>
+      `;
+    } else if (domWizSrv === "ems") {
+      html = `
+        <div style="color:#B91C1C; font-weight:700; font-size:15px; margin-bottom:8px;">
+          ⚡ 7. บริการ EMS ในประเทศ (รหัส 831) & EMS ขนาดใหญ่ (รหัส 2886 — หารปริมาตร ÷ 6,000!)
+        </div>
+        <ul class="notes-list" style="margin-top:0;">
+          <li class="critical"><strong>🚨 กฎเหล็กแยก "EMS ปกติ (รหัส 831)" กับ "EMS ขนาดใหญ่ (รหัส 2886)":</strong>
+            <br>• <strong>EMS ปกติ (รหัสบริการ <code>831</code>):</strong> ด้านยาวที่สุด <strong>ไม่เกิน 60 ซม.</strong> และผลรวม <code>กว้าง + ยาว + สูง ≤ 120 ซม.</code> (คิดเรทตามน้ำหนักชั่งจริง)
+            <br>• <strong>EMS ขนาดใหญ่ (รหัสบริการ <code>2886</code>):</strong> เมื่อด้านใดด้านหนึ่ง <strong>ยาวเกิน 60 ซม.</strong> หรือผลรวม <code>กว้าง + ยาว + สูง &gt; 120 ซม.</code> (แต่ไม่เกิน 240 ซม. และด้านยาวสุดไม่เกิน 150 ซม.) ➔ <strong>ต้องคีย์รหัส <code>2886</code> และวัดขนาด <code>ก × ย × ส</code> กรอกลงใน CA POS ทุกครั้ง!</strong>
+            <br>• <strong>สูตรน้ำหนักปริมาตรในประเทศ:</strong> <code>(กว้าง × ยาว × สูง ซม.) ÷ 6,000</code> = น้ำหนักปริมาตร (กก.) เทียบกับน้ำหนักชั่งจริง ตัวไหนมากกว่าคิดเรทนั้น! (ห้ามเผลอคีย์รหัส 831 เด็ดขาด เพราะจะโดนตรวจสอบย้อนหลัง!)
+          </li>
+          <li class="good"><strong>💰 อัตราค่าบริการ EMS ในประเทศ (ราคารวม Fuel Surcharge +3 บาท/ชิ้นแล้ว):</strong>
+            <br>• ≤20ก.=<strong>35บ.</strong> | ≤100ก.=<strong>40บ.</strong> | ≤250ก.=<strong>45บ.</strong> | ≤500ก.=<strong>55บ.</strong> | ≤1กก.=<strong>70บ.</strong> | ≤1.5กก.=<strong>85บ.</strong> | ≤2กก.=<strong>100บ.</strong> | ≤2.5กก.=<strong>103บ.</strong> | ≤3กก.=<strong>108บ.</strong> | ≤3.5กก.=<strong>113บ.</strong> | ≤5กก.=<strong>123บ.</strong> | ≤10กก.=<strong>223บ.</strong> (สูงสุด 30 กก.)
+            <br>• <strong>พื้นที่เกาะ/ห่างไกล 85 พื้นที่:</strong> บวกเพิ่ม <strong>+20 บาท/ชิ้น</strong> | <strong>ชดใช้ค่าเสียหายปกติ:</strong> สูงสุด <strong>2,000 บาท/ชิ้น</strong> (ซื้อ EMS รับประกันเพิ่มได้สูงสุด <strong>50,000 บาท</strong>)
+          </li>
+        </ul>
+      `;
+    } else if (domWizSrv === "jumbo") {
+      html = `
+        <div style="color:#9A3412; font-weight:700; font-size:15px; margin-bottom:8px;">
+          🏍️ 8. บริการ EMS Jumbo (พิกัด 30–200 กก. & สินค้าสำเร็จรูป 44 รายการ 10 โซน + มอเตอร์ไซค์)
+        </div>
+        <ul class="notes-list" style="margin-top:0;">
+          <li class="good"><strong>📦 2 รูปแบบการคิดค่าบริการ EMS Jumbo (ขยายเวลามาตรการถึง 30 มิ.ย. 2570):</strong>
+            <br>1. <strong>คิดตามพิกัดน้ำหนัก (ตั้งแต่ 30 กก. ขึ้นไป ถึง 200 กก.):</strong> ขนาดสูงสุดไม่เกิน <code>150 × 300 × 150 ซม.</code> (หากด้านใดเกิน 150 ซม. คิดค่าบริการส่วนเกินทุกๆ 50 ซม. ละ 100 / 200 / 300 บ.)
+            <br>2. <strong>คิดตามสินค้าสำเร็จรูป 44 รายการ (แยกตาม 10 โซนจังหวัด):</strong> เช่น ทีวี, ตู้เย็น, เครื่องซักผ้า, ที่นอน, จักรยาน, กันชนรถยนต์ และ <strong>รถจักรยานยนต์</strong>:
+            <br>&nbsp;&nbsp;• <strong>รถจักรยานยนต์ ≤150 CC:</strong> เริ่มต้น <strong>1,200 – 1,680 บาท</strong> (<em>หมายเหตุ: รุ่น 125 CC ให้คิดเรทเดียวกับ 150 CC!</em>)
+            <br>&nbsp;&nbsp;• <strong>รถจักรยานยนต์ &gt;150 – 400 CC:</strong> เริ่มต้น <strong>1,500 – 2,100 บาท</strong> | <strong>&gt;400 CC (Big Bike):</strong> เริ่มต้น <strong>3,300 – 4,020 บาท</strong>
+            <br>&nbsp;&nbsp;• <strong>บริการไปรับ (Pick-up) / นำส่งถึงบ้าน (Delivery):</strong> คิดเพิ่มเที่ยวละ <strong>60 – 500 บาท/ชิ้น</strong> ตามขั้นอัตราค่าฝากส่ง (และหากผู้รับไม่มารับที่ ปณ. ภายใน 7 วัน คิดค่าเก็บรักษา <strong>วันละ 25 บาท/ชิ้น</strong>)
+          </li>
+          <li class="critical"><strong>🚨 กฎเหล็กการรับฝาก "รถจักรยานยนต์" (ปณท รป.(รฝ.2)/363 & รป.(รฝ.2)/718):</strong>
+            <br>1. <strong>ห้ามใช้กระดาษลูกฟูกสัมผัสชุดสีรถโดยตรงเด็ดขาด!</strong> ต้องหุ้มด้วย <strong>โฟม EPE (EPE Foam)</strong> รอบคันก่อน (หรือใช้ Air Bubble หนาหุ้มแล้วค่อยใช้กระดาษลูกฟูกปะทับ) + ถอดกระจกมองข้างออกแพ็คแยก + ถ่ายน้ำมันออกเหลือไม่เกิน 1/4 ถัง
+            <br>2. <strong>ต้องจัดทำ "แบบตรวจสภาพรถจักรยานยนต์" จำนวน 3 ฉบับ:</strong> (1) ใส่ซองพลาสติกใสแนบติดตัวรถ (2) มอบให้ผู้ฝากส่งคู่ใบเสร็จ (3) เก็บไว้ที่ ปณ.ต้นทาง (กดสั่งพิมพ์แบบฟอร์ม A4 ได้ในแท็บ <strong>🖨️ แบบพิมพ์</strong>)
+            <br>3. <strong>กำชับคีย์ข้อมูลผู้รับให้ครบถ้วนใน CA POS (บันทึก 718 ลว. 14 ก.ค. 69):</strong> แม้เป็นการส่งแบบรอจ่าย ณ ปณ.ปลายทาง เจ้าหน้าที่ต้นทาง <strong>ต้องคีย์บ้านเลขที่ หมู่ ตำบล อำเภอ จังหวัด และเบอร์โทรผู้รับให้ครบถ้วนทุกช่อง!</strong>
+            <br>4. <strong>อัตราชดใช้ค่าเสียหาย EMS Jumbo:</strong> ชดใช้ตามจริงสูงสุด <strong>3,000 บาท/ชิ้น</strong> (แนะนำลูกค้าซื้อประกันภัยเพิ่มได้สูงสุดถึง <strong>200,000 บาท/ชิ้น</strong>)
           </li>
         </ul>
       `;
     } else {
       html = `
-        <div style="color:#B91C1C; font-weight:700; font-size:15px; margin-bottom:8px;">
-          📦 4. พัสดุไปรษณีย์ (P) vs eCo-Post (O) vs EMS ในประเทศ (E) — กฎใหม่ปี 2569!
+        <div style="color:#065F46; font-weight:700; font-size:15px; margin-bottom:8px;">
+          💡 9. คลังความรู้เสริมสำหรับพนักงานรับฝาก (COD T+1 • High Value/รับประกัน • EMS Point • ข้อ 186–189)
         </div>
         <ul class="notes-list" style="margin-top:0;">
-          <li class="good"><strong>📦 พัสดุไปรษณีย์ในประเทศ (รหัส P...TH — สูงสุด 20 กก.):</strong>
-            <br>• <strong>สูตรจำง่าย:</strong> กก.แรก <strong>25 บาท</strong> + กก.ต่อไป กก.ละ <strong>20 บาท</strong> (เศษของ กก. คิดเป็น 1 กก. เช่น 2กก.=45บ., 3กก.=65บ., 5กก.=105บ., 10กก.=205บ., 20กก.=405บ.)
-            <br>• <strong>ข้อดี:</strong> ประหยัดสำหรับของหนัก และ <strong>ไม่ถูกเก็บค่า Fuel Surcharge +3 บาท!</strong>
-            <br>• <strong>⚠️ คำเตือนที่ต้องแจ้งลูกค้าทุกครั้ง:</strong> บาร์โค้ด <code>P...TH</code> <strong>ไม่สามารถเช็คสถานะออนไลน์ระหว่างทางในเว็บ Track & Trace ได้!</strong> (ตรวจสอบได้เฉพาะที่ ปณ. และชดใช้สูงสุด <strong>1,000 บาท</strong>)
+          <li class="good"><strong>💸 1. บริการเก็บเงินปลายทาง COD (Wallet@POST — เกณฑ์ใหม่โอนเงิน T+1!):</strong>
+            <br>• <strong>การสมัคร KYC 2 ขั้นตอน:</strong> (1) ลูกค้าถ่ายรูปบัตร ปชช. + เซลฟี่ในแอป Wallet@POST (2) <strong>นำบัตร ปชช. ตัวจริงมาเสียบเครื่องอ่านบัตร (Dip Chip) ณ ปณ.</strong> เพื่อยืนยันตัวตน
+            <br>• <strong>โอนเงินเร็วขึ้น (มีผล 15 ก.ย. 2569):</strong> เมื่อผู้รับชำระเงินสำเร็จ ระบบจะโอนเงินเข้า Wallet@POST ของผู้ส่งใน <strong>วันทำการถัดไป (T+1) ก่อนเวลา 17.00 น.!</strong> (ค่าธรรมเนียม COD 3% ของยอดเรียกเก็บ วงเงินสูงสุด 50,000 บ./ชิ้น)
+            <br>• <strong>เบอร์ติดต่อแก้ปัญหา COD ด่วน:</strong> เรื่องเงินโอน/e-Tax <code>0-2831-3019</code> | ปลดระงับ Wallet/2C2P <code>0-2831-3278</code> | เครื่อง Dip Chip ขัดข้อง <code>0-2831-3899</code> | Help Desk <code>0-2831-3660</code>
           </li>
-          <li class="critical"><strong>⛽ ค่าธรรมเนียมน้ำมัน (Fuel Surcharge +3 บาท/ชิ้น) & พื้นที่เกาะ/ห่างไกล 85 พื้นที่ (+20 บาท/ชิ้น):</strong>
-            <br>• <strong>Fuel Surcharge +3 บาท/ชิ้น:</strong> เก็บเฉพาะบริการ <strong>EMS ในประเทศ</strong> และ <strong>eCo-Post</strong> (ลูกค้าเงินสดและสมาชิก POST Family โดนเก็บ +3 บ./ชิ้น ตั้งแต่วันที่ 16 เม.ย. 69)
-            <br>• <strong>พื้นที่ท่องเที่ยว/เกาะ/พื้นที่ห่างไกล 85 รหัสไปรษณีย์:</strong> ปรับเพิ่มจาก 15 บาท เป็น <strong>+20 บาท/ชิ้น</strong> (เริ่ม 1 ม.ค. 69)
+          <li class="good" style="background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A;"><strong>💎 2. บริการจัดส่งสินค้ามูลค่าสูง (High Value — เริ่ม 14 ส.ค. 69) & EMS รับประกัน:</strong>
+            <br>• หากลูกค้าส่งสิ่งของที่มีมูลค่า <strong>เกินกว่า 2,000 บาท</strong> (เช่น มือถือ ทองคำ นาฬิกา กล้อง พระเลี่ยมทอง) ให้แนะนำใช้บริการ <strong>EMS รับประกัน / สินค้ามูลค่าสูง (วงเงินสูงสุด 50,000 บาท)</strong> เสมอ!
+            <br>• <strong>ข้อยกเว้นของ High Value:</strong> ไม่รับฝากสิ่งของที่เป็น <strong>ของเหลวทุกชนิด (เช่น น้ำหอม สุรา ไวน์)</strong> และ <strong>วัตถุมงคล/พระเครื่องที่ไม่สามารถประเมินมูลค่ามาตรฐานได้</strong>
+            <br>• <strong>สูตรค่าบริการ EMS รับประกัน:</strong> ค่าปฏิบัติการ 15 บ. + ค่าประกันทุกๆ 500 บ. (วงเงิน <strong>500–20,000 บ. คิด 5 บ. ต่อ 500 บ.</strong> เช่น 5,000 บ. = 65 บ., 10,000 บ. = 115 บ., 20,000 บ. = 215 บ. | ส่วนที่เกิน <strong>20,001–50,000 บ. คิด 10 บ. ต่อ 500 บ.</strong> เช่น 50,000 บ. = 815 บ.)
           </li>
-          <li class="good"><strong>🛡️ บริการรับประกันในประเทศ (เริ่ม 20 ก.ค. 69):</strong>
-            <br>• วงเงินคุ้มครองสูงสุด <strong>50,000 บาท/ชิ้น</strong> (ค่าธรรมเนียมขั้นต่ำ 15 บ. + ร้อยละ 1 ของวงเงิน สำหรับ 100–25,000 บ. / ร้อยละ 1.5 สำหรับ 25,001–50,000 บ.) *ต้องปิดผนึกด้วยเทปกาวกระดาษและลงนามคร่อมรอยต่อทุกด้าน!*
+          <li class="critical"><strong>🏪 3. การรับมอบงานจากจุดบริการ EMS Point (ระบบ Post One / MPS):</strong>
+            <br>• เมื่อร้านค้า EMS Point นำพัสดุมาส่งมอบที่ ปณ. เจ้าหน้าที่ต้องเข้าระบบ <strong>MPS (<code>https://postone.thailandpost.com/m</code>)</strong> เพื่อกด <strong>"รับมอบสิ่งของ"</strong> ให้ครบทุกชิ้น <strong>ก่อน</strong> นำไปสแกนเข้าระบบ TND เด็ดขาด!
+            <br>• การรับชำระเงินในระบบ <strong>CA POS</strong>: เข้าเมนู <code>ใบแจ้งหนี้รายได้อื่น</code> ➔ ใช้รหัส <strong><code>694160</code> (EMS Point ประเภทซอง)</strong> หรือ <strong><code>694163</code> (EMS Point ประเภทกล่อง)</strong>
+          </li>
+          <li class="critical"><strong>⚖️ 4. เงื่อนไขการไม่ชดใช้ค่าเสียหาย (ระเบียบ Postal Guide ข้อ 186–189):</strong>
+            <br>• ปณท <strong>ไม่ชดใช้ค่าเสียหาย</strong> ในกรณี: เหตุสุดวิสัย, ความเสียหายที่เกิดจาก <strong>สภาพแห่งสิ่งของนั้นเอง หรือการหุ้มห่อไม่มั่นคงแข็งแรงพอ</strong>, สิ่งของต้องห้าม, การฝากส่งเงินสด/ของมีค่าในบริการที่ไม่ได้รับประกัน และการไม่ยื่นเรื่องสอบสวนภายในกำหนด <strong>6 เดือน</strong> นับตั้งแต่วันถัดจากวันฝากส่ง
           </li>
         </ul>
       `;
@@ -1990,34 +2151,69 @@
     }
   }
 
-  // เครื่องคำนวณค่าบริการในประเทศอัตโนมัติ (Domestic Rate & Admail/Trasin Calculator)
+  // เครื่องคำนวณค่าบริการในประเทศอัตโนมัติ (Domestic Rate, Volumetric 6000 & Admail/Trasin Calculator)
   function setupDomCalculator() {
     const btn = document.getElementById("runDomCalcBtn");
     const out = document.getElementById("domCalcResultBox");
     if (!btn || !out) return;
 
+    function getEmsBaseByWeightG(weightG) {
+      if (weightG > 30000) return null;
+      if (weightG <= 20) return 32;
+      if (weightG <= 100) return 37;
+      if (weightG <= 250) return 42;
+      if (weightG <= 500) return 52;
+      if (weightG <= 1000) return 67;
+      if (weightG <= 1500) return 82;
+      if (weightG <= 2000) return 97;
+      if (weightG <= 2500) return 100;
+      if (weightG <= 3000) return 105;
+      if (weightG <= 3500) return 110;
+      if (weightG <= 5000) return 120;
+      if (weightG <= 6000) return 140;
+      if (weightG <= 7000) return 160;
+      if (weightG <= 8000) return 180;
+      if (weightG <= 9000) return 200;
+      if (weightG <= 10000) return 220;
+      const extraKg = Math.ceil((weightG - 10000) / 1000);
+      return 220 + extraKg * 20;
+    }
+
     function calculateDomRates() {
       const wG = parseFloat(document.getElementById("domCalcWeightG").value) || 0;
       const packType = document.getElementById("domCalcPackType").value; // "env" | "pack"
       const qty = Math.max(1, parseInt(document.getElementById("domCalcQty").value, 10) || 1);
-      const addon = document.getElementById("domCalcAddon").value; // "none" | "ar" | "remote" | "remote_ar"
+      const addon = document.getElementById("domCalcAddon").value; // "none" | "ar" | "ear" | "remote" | "remote_ear"
+      const dimW = parseFloat((document.getElementById("domCalcW") || {}).value) || 0;
+      const dimL = parseFloat((document.getElementById("domCalcL") || {}).value) || 0;
+      const dimH = parseFloat((document.getElementById("domCalcH") || {}).value) || 0;
 
       if (wG <= 0) {
-        out.innerHTML = `<div style="color:#B91C1C; font-weight:600;">กรุณากรอกน้ำหนักต่อชิ้น (กรัม) เช่น 50, 250, 1500</div>`;
+        out.innerHTML = `<div style="color:#B91C1C; font-weight:600;">กรุณากรอกน้ำหนักชั่งจริงต่อชิ้น (กรัม) เช่น 50, 250, 1500, 12000</div>`;
         return;
       }
 
-      const hasAr = addon === "ar" || addon === "remote_ar";
-      const isRemote = addon === "remote" || addon === "remote_ar";
+      const hasPaperAr = addon === "ar";
+      const hasEAr = addon === "ear" || addon === "remote_ear";
+      const isRemote = addon === "remote" || addon === "remote_ear";
       const remoteFee = isRemote ? 20 : 0;
+
+      // คำนวณขนาดและน้ำหนักปริมาตรในประเทศ (ก×ย×ส ÷ 6,000)
+      const hasDims = dimW > 0 && dimL > 0 && dimH > 0;
+      const maxSide = hasDims ? Math.max(dimW, dimL, dimH) : 0;
+      const sum3Sides = hasDims ? dimW + dimL + dimH : 0;
+      const volWeightKg = hasDims ? (dimW * dimL * dimH) / 6000 : 0;
+      const volWeightG = Math.round(volWeightKg * 1000);
+      const isLargeEms2886 = hasDims && (maxSide > 60 || sum3Sides > 120) && sum3Sides <= 240 && maxSide <= 150;
+      const isOverEmsLarge = hasDims && (sum3Sides > 240 || maxSide > 150);
 
       // 1. จดหมาย & ลงทะเบียน (R)
       let letterRate = null;
       let regRate = null;
       let letterTypeLabel = "";
-      if (wG <= 2000) {
-        if (packType === "env") {
-          letterTypeLabel = "จดหมายซอง (ก+ย+ส ≤ 60 ซม.)";
+      if (wG <= 2000 && (!hasDims || sum3Sides <= 90)) {
+        if (packType === "env" && (!hasDims || sum3Sides <= 60)) {
+          letterTypeLabel = "จดหมายซองกระดาษปกติ (ก+ย+ส ≤ 60 ซม.)";
           if (wG <= 10) letterRate = 5;
           else if (wG <= 20) letterRate = 6;
           else if (wG <= 100) letterRate = 11;
@@ -2027,7 +2223,7 @@
           else letterRate = 62;
           regRate = letterRate + 13; // ลงทะเบียนซอง +13 บ.
         } else {
-          letterTypeLabel = "จดหมายหีบห่อ (ซองพลาสติก/ซองป่อง/กล่องเล็ก)";
+          letterTypeLabel = "จดหมายหีบห่อ (ซองพลาสติก/ซองป่อง/ซองขยายข้าง/กล่องเล็ก)";
           if (wG <= 500) letterRate = 34;
           else if (wG <= 1000) letterRate = 45;
           else letterRate = 62;
@@ -2035,7 +2231,7 @@
         }
       }
 
-      // 2. ของตีพิมพ์ & หนังสือพิมพ์ตราสิน (ลด 50%)
+      // 2. ของตีพิมพ์ & หนังสือพิมพ์ตราสิน (ลด 50% / 35% / 25%)
       let printedRate = null;
       if (wG <= 5000) {
         if (wG <= 50) printedRate = 4;
@@ -2050,16 +2246,16 @@
         }
       }
 
-      // คำนวณหนังสือพิมพ์ตราสิน (ลด 50% จากของตีพิมพ์ ปัดเศษขึ้นเป็น .25 / .50 / .75 / 1.00)
-      let trasinTotal = null;
-      let trasinPerPiece = null;
+      let trasinTotal50 = null;
+      let trasinTotal35 = null;
+      let trasinTotal25 = null;
       if (printedRate !== null) {
-        trasinPerPiece = printedRate * 0.5;
-        const rawTotal = trasinPerPiece * qty;
-        trasinTotal = Math.ceil(rawTotal * 4) / 4;
+        trasinTotal50 = Math.ceil(printedRate * 0.5 * qty * 4) / 4;
+        trasinTotal35 = Math.ceil(printedRate * 0.65 * qty * 4) / 4;
+        trasinTotal25 = Math.ceil(printedRate * 0.75 * qty * 4) / 4;
       }
 
-      // 3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail) - สูงสุด 500 กรัม
+      // 3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail) - สูงสุด 500 กรัม (ระเบียบฉบับที่ 215)
       let admailRatePerPc = null;
       let admailTierName = "";
       if (wG <= 500) {
@@ -2070,14 +2266,10 @@
         else wIdx = 3;
 
         const admailMatrix = [
-          { max: 3000, label: "ไม่เกิน 3,000 ชิ้น", rates: [3.5, 4.5, 7.5, 10.5] },
-          { max: 10000, label: "3,001 – 10,000 ชิ้น", rates: [3.4, 4.4, 7.4, 10.4] },
-          { max: 20000, label: "10,001 – 20,000 ชิ้น", rates: [3.3, 4.3, 7.3, 10.3] },
-          { max: 30000, label: "20,001 – 30,000 ชิ้น", rates: [3.15, 4.15, 7.15, 10.15] },
-          { max: 50000, label: "30,001 – 50,000 ชิ้น", rates: [3.0, 4.0, 7.0, 10.0] },
-          { max: 100000, label: "50,001 – 100,000 ชิ้น", rates: [2.85, 3.85, 6.85, 9.85] },
-          { max: 200000, label: "100,001 – 200,000 ชิ้น", rates: [2.7, 3.7, 6.7, 9.7] },
-          { max: Infinity, label: "200,001 ชิ้นขึ้นไป", rates: [2.5, 3.5, 6.5, 9.5] }
+          { max: 5000, label: "ไม่เกิน 5,000 ชิ้น", rates: [3.5, 4.5, 6.5, 9.5] },
+          { max: 20000, label: "5,001 – 20,000 ชิ้น", rates: [3.0, 4.0, 6.0, 9.0] },
+          { max: 50000, label: "20,001 – 50,000 ชิ้น", rates: [2.75, 3.75, 5.75, 8.75] },
+          { max: Infinity, label: "ตั้งแต่ 50,001 ชิ้นขึ้นไป", rates: [2.5, 3.5, 5.5, 8.5] }
         ];
 
         const tier = admailMatrix.find((t) => qty <= t.max);
@@ -2092,9 +2284,10 @@
         parcelRate = 25 + (kgCeil - 1) * 20;
       }
 
-      // 5. eCo-Post (O) - สูงสุด 10 กก. (+Fuel 3 บ. +Remote 20 บ.)
+      // 5. eCo-Post (O) - สูงสุด 10 กก., ยาวสุด ≤60 ซม., ก+ย+ส ≤120 ซม. (+Fuel 3 บ. +Remote 20 บ.)
       let ecoBase = null;
-      if (wG <= 10000) {
+      const ecoSizeOk = !hasDims || (maxSide <= 60 && sum3Sides <= 120);
+      if (wG <= 10000 && ecoSizeOk) {
         if (wG <= 20) ecoBase = 20;
         else if (wG <= 100) ecoBase = 22;
         else if (wG <= 250) ecoBase = 26;
@@ -2111,56 +2304,55 @@
         else ecoBase = 160;
       }
 
-      // 6. EMS ในประเทศ (E) - สูงสุด 30 กก. (+Fuel 3 บ. +Remote 20 บ.)
-      let emsBase = null;
-      if (wG <= 30000) {
-        if (wG <= 20) emsBase = 32;
-        else if (wG <= 100) emsBase = 37;
-        else if (wG <= 250) emsBase = 42;
-        else if (wG <= 500) emsBase = 52;
-        else if (wG <= 1000) emsBase = 67;
-        else if (wG <= 1500) emsBase = 82;
-        else if (wG <= 2000) emsBase = 97;
-        else if (wG <= 2500) emsBase = 100;
-        else if (wG <= 3000) emsBase = 105;
-        else if (wG <= 3500) emsBase = 110;
-        else if (wG <= 5000) emsBase = 120;
-        else if (wG <= 6000) emsBase = 140;
-        else if (wG <= 7000) emsBase = 160;
-        else if (wG <= 8000) emsBase = 180;
-        else if (wG <= 9000) emsBase = 200;
-        else if (wG <= 10000) emsBase = 220;
-        else {
-          const extraKg = Math.ceil((wG - 10000) / 1000);
-          emsBase = 220 + extraKg * 20;
-        }
-      }
+      // 6. EMS ปกติ (รหัส 831) vs EMS ขนาดใหญ่ (รหัส 2886)
+      const effectiveEmsWeightG = isLargeEms2886 ? Math.max(wG, volWeightG) : wG;
+      const emsBase = !isOverEmsLarge ? getEmsBaseByWeightG(effectiveEmsWeightG) : null;
+      const arFeeReg = hasPaperAr ? 3 : hasEAr ? 5 : 0;
+      const arFeeParcel = hasPaperAr ? 6 : hasEAr ? 5 : 0;
+      const arFeeEms = hasPaperAr ? 10 : hasEAr ? 5 : 0;
 
       out.innerHTML = `
         <div class="spec-grid" style="background:#EFF6FF; border-color:#93C5FD;">
+          ${
+            hasDims
+              ? `<div class="spec-item" style="border-bottom:1px solid #BFDBFE; padding-bottom:6px; background:#FFFBEB; padding:8px; border-radius:8px;">
+                  <span class="spec-label" style="color:#B45309;">📐 ผลตรวจขนาดกล่อง (${dimW} × ${dimL} × ${dimH} ซม. | รวม 3 ด้าน = ${sum3Sides} ซม. | ยาวสุด = ${maxSide} ซม.)</span>
+                  <span class="spec-value">
+                    • น้ำหนักปริมาตรในประเทศ (<code>ก×ย×ส ÷ 6,000</code>): <strong>${volWeightKg.toFixed(2)} กก. (${volWeightG.toLocaleString()} กรัม)</strong> vs น้ำหนักชั่งจริง <strong>${(wG / 1000).toFixed(2)} กก.</strong><br>
+                    • <strong>รหัสบริการ EMS ที่ต้องใช้:</strong> ${
+                      isOverEmsLarge
+                        ? `<span style="color:#B91C1C; font-weight:700;">🚨 เกินเกณฑ์ EMS ขนาดใหญ่ (ก+ย+ส &gt; 240 ซม. หรือยาว &gt; 150 ซม.) ➔ ต้องใช้บริการ 8. EMS Jumbo เท่านั้น!</span>`
+                        : isLargeEms2886
+                        ? `<span style="color:#B91C1C; font-weight:700;">🔴 ต้องคีย์รหัส <code>2886</code> (EMS ขนาดใหญ่) และกรอก ก×ย×ส ใน CA POS! (คิดเรทจาก ${ (effectiveEmsWeightG / 1000).toFixed(2) } กก.)</span>`
+                        : `<span style="color:#047857; font-weight:700;">🟢 ใช้รหัส <code>831</code> (EMS ปกติ) ได้ (ยาวสุด ≤60 ซม. และ ก+ย+ส ≤120 ซม.)</span>`
+                    }
+                  </span>
+                </div>`
+              : ""
+          }
           <div class="spec-item" style="border-bottom:1px solid #BFDBFE; padding-bottom:6px;">
-            <span class="spec-label" style="color:#1E40AF;">✉️ 1. ${escapeHtml(letterTypeLabel || "จดหมาย & ลงทะเบียน (R)")}</span>
+            <span class="spec-label" style="color:#1E40AF;">✉️ 1 & 5. ${escapeHtml(letterTypeLabel || "จดหมาย & ลงทะเบียนในประเทศ (R...TH)")}</span>
             <span class="spec-value">
               ${
                 letterRate !== null
-                  ? `• ส่งธรรมดา: <strong>${letterRate} บาท/ชิ้น</strong> | ลงทะเบียนในประเทศ (R): <strong>${regRate}${hasAr ? " + ตอบรับ AR 3 บ. = " + (regRate + 3) : ""} บาท/ชิ้น</strong>`
-                  : `❌ น้ำหนัก ${wG.toLocaleString()} กรัม เกินพิกัดสูงสุดของจดหมาย/ลงทะเบียน (รับได้สูงสุด 2,000 กรัม)`
+                  ? `• ส่งธรรมดา: <strong>${letterRate} บาท/ชิ้น</strong> | <strong>ลงทะเบียนในประเทศ (R): ${regRate + arFeeReg} บาท/ชิ้น</strong> (ค่าส่ง ${letterRate} + ค่าลงทะเบียน ${regRate - letterRate}${arFeeReg ? ` + ตอบรับ ${arFeeReg} บ.` : ""})`
+                  : `❌ น้ำหนักหรือขนาดเกินพิกัดจดหมาย/ลงทะเบียน (รับได้สูงสุด 2,000 กรัม และ ก+ย+ส ไม่เกิน 90 ซม.)`
               }
             </span>
           </div>
           <div class="spec-item" style="border-bottom:1px solid #BFDBFE; padding-bottom:6px;">
-            <span class="spec-label" style="color:#047857;">📚 2. ของตีพิมพ์ & หนังสือพิมพ์ตราสิน (ป.244 ลด 50%)</span>
+            <span class="spec-label" style="color:#047857;">📚 1 & 2. ของตีพิมพ์ & หนังสือพิมพ์ตราสิน (ป.244)</span>
             <span class="spec-value">
               ${
                 printedRate !== null
-                  ? `• ของตีพิมพ์ปกติ: <strong>${printedRate} บาท/ชิ้น</strong> (ลงทะเบียนสิ่งพิมพ์ R = <strong>${printedRate + 13} บาท</strong>)<br>
-                     • 📰 <strong>หนังสือพิมพ์ตราสิน (ลด 50%):</strong> เหลือฉบับละ <strong>${trasinPerPiece.toFixed(2)} บาท</strong> ➔ จำนวน ${qty.toLocaleString()} ฉบับ = รวมชำระจริง <strong>${trasinTotal.toLocaleString("th-TH", { minimumFractionDigits: 2 })} บาท</strong> ${qty < 100 ? "<span style='color:#B91C1C; font-weight:700;'>(⚠️ ตราสินต้องส่งขั้นต่ำ 100 ฉบับ/ครั้ง)</span>" : "✅ ผ่านเกณฑ์ขั้นต่ำ 100 ฉบับ"}`
+                  ? `• ของตีพิมพ์ปกติ: <strong>${printedRate} บาท/ชิ้น</strong> (ลงทะเบียนสิ่งพิมพ์ R = <strong>${printedRate + 13 + arFeeReg} บาท</strong>)<br>
+                     • 📰 <strong>หนังสือพิมพ์ตราสิน (${qty.toLocaleString()} ฉบับ):</strong> รายวัน (ลด 50%) = <strong>${trasinTotal50.toLocaleString("th-TH", { minimumFractionDigits: 2 })} บ.</strong> | รายสัปดาห์/ปักษ์ (ลด 35%) = <strong>${trasinTotal35.toLocaleString("th-TH", { minimumFractionDigits: 2 })} บ.</strong> | รายเดือน (ลด 25%) = <strong>${trasinTotal25.toLocaleString("th-TH", { minimumFractionDigits: 2 })} บ.</strong> ${qty < 100 ? "<span style='color:#B91C1C; font-weight:700;'>(⚠️ ตราสินต้องส่งขั้นต่ำ 100 ฉบับ)</span>" : "✅"}`
                   : `❌ น้ำหนักเกินพิกัดของตีพิมพ์ (รับได้สูงสุด 5,000 กรัม เฉพาะหนังสือ)`
               }
             </span>
           </div>
           <div class="spec-item" style="border-bottom:1px solid #BFDBFE; padding-bottom:6px;">
-            <span class="spec-label" style="color:#9A3412;">📢 3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail — คำนวณจากจำนวน ${qty.toLocaleString()} ชิ้น)</span>
+            <span class="spec-label" style="color:#9A3412;">📢 3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail — จำนวน ${qty.toLocaleString()} ชิ้น)</span>
             <span class="spec-value">
               ${
                 admailRatePerPc !== null
@@ -2171,11 +2363,11 @@
             </span>
           </div>
           <div class="spec-item">
-            <span class="spec-label" style="color:#B91C1C;">📦 4. พัสดุไปรษณีย์ (P) vs eCo-Post (O) vs EMS ในประเทศ (E)</span>
+            <span class="spec-label" style="color:#B91C1C;">📦 4, 6, 7, 8. พัสดุ (P) vs eCo-Post (O) vs EMS (831 / 2886) vs EMS Jumbo</span>
             <span class="spec-value">
-              • <strong>พัสดุไปรษณีย์ (P):</strong> ${parcelRate !== null ? `<strong>${parcelRate + (hasAr ? 3 : 0)} บาท/ชิ้น</strong> (ไม่เสีย Fuel +3 บ. / เช็คสถานะออนไลน์ไม่ได้ / ชดใช้สูงสุด 1,000 บ.)` : "❌ เกิน 20 กก."}<br>
-              • <strong>eCo-Post (O):</strong> ${ecoBase !== null ? `<strong>${ecoBase + 3 + remoteFee} บาท/ชิ้น</strong> (ค่าส่ง ${ecoBase} + Fuel 3 บ.${isRemote ? " + พื้นที่ห่างไกล 20 บ." : ""})` : "❌ เกิน 10 กก."}<br>
-              • <strong>EMS ในประเทศ (E):</strong> ${emsBase !== null ? `<strong>${emsBase + 3 + remoteFee + (hasAr ? 12 : 0)} บาท/ชิ้น</strong> (ค่าส่ง ${emsBase} + Fuel 3 บ.${isRemote ? " + พื้นที่ห่างไกล 20 บ." : ""}${hasAr ? " + ตอบรับ EMS 12 บ." : ""})` : "❌ เกิน 30 กก. (แนะนำใช้ EMS Jumbo 30–200 กก.)"}
+              • <strong>4. พัสดุไปรษณีย์ (P):</strong> ${parcelRate !== null ? `<strong>${parcelRate + arFeeParcel} บาท/ชิ้น</strong> (ไม่เสีย Fuel +3 บ. / เช็คออนไลน์ไม่ได้ / ชดใช้สูงสุด 1,000 บ.)` : "❌ เกิน 20 กก."}<br>
+              • <strong>6. eCo-Post (O):</strong> ${ecoBase !== null ? `<strong>${ecoBase + 3 + remoteFee} บาท/ชิ้น</strong> (ค่าส่ง ${ecoBase} + Fuel 3 บ.${isRemote ? " + พื้นที่ห่างไกล 20 บ." : ""} | ชดใช้สูงสุด 1,500 บ.)` : "❌ เกินพิกัด eCo-Post (จำกัด ≤10 กก., ยาวสุด ≤60 ซม., ก+ย+ส ≤120 ซม.)"}<br>
+              • <strong>7. EMS ในประเทศ (${isLargeEms2886 ? "รหัส 2886 EMS ขนาดใหญ่" : "รหัส 831 EMS ปกติ"}):</strong> ${emsBase !== null ? `<strong>${emsBase + 3 + remoteFee + arFeeEms} บาท/ชิ้น</strong> (ค่าส่ง ${emsBase} + Fuel 3 บ.${isRemote ? " + พื้นที่ห่างไกล 20 บ." : ""}${arFeeEms ? ` + ตอบรับ ${arFeeEms} บ.` : ""} | ชดใช้สูงสุด 2,000 บ.)` : "❌ เกินพิกัด 30 กก. หรือเกินขนาด 240 ซม. ➔ ใช้ <strong>8. EMS Jumbo (30–200 กก. / สินค้าสำเร็จรูป)</strong>"}
             </span>
           </div>
         </div>
@@ -2224,7 +2416,7 @@
     if (navBtnDest) navBtnDest.style.display = currentMode === "inter" ? "flex" : "none";
     if (navBtnProhib) navBtnProhib.style.display = currentMode === "inter" ? "flex" : "none";
     if (navLabelServices) {
-      navLabelServices.textContent = currentMode === "domestic" ? "4 บริการในปท." : "บริการตปท.";
+      navLabelServices.textContent = currentMode === "domestic" ? "9 หมวดในปท." : "บริการตปท.";
     }
 
     // หากสลับมาโหมดในประเทศแต่แท็บเดิมอยู่ที่ ประเทศ/ของต้องห้าม ให้เด้งกลับมาที่ เช็คด่วน

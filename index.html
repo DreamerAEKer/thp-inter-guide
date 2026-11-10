@@ -801,7 +801,7 @@
       <div class="mode-gateway-bar" id="topGatewayBar">
         <button type="button" class="mode-gateway-btn active" data-mode="domestic">
           <span>🇹🇭 บริการในประเทศ</span>
-          <span class="sub-pill">4 หมวดหลัก</span>
+          <span class="sub-pill">ครบ 9 หมวด</span>
         </button>
         <button type="button" class="mode-gateway-btn" data-mode="inter">
           <span>🌐 บริการระหว่างประเทศ</span>
@@ -824,7 +824,7 @@
 
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="globalSearchInput" placeholder="ค้นหาได้ทั้งในประเทศ & ตปท.: ตราสิน, ไม่มีจ่าหน้า, พัสดุ, จดหมาย, เกาหลี, PID..." autocomplete="off" />
+        <input type="text" id="globalSearchInput" placeholder="ค้นหาได้ทั้งในประเทศ & ตปท.: ตราสิน, Admail, eCo-Post, EMS Jumbo, COD, เกาหลี, PID..." autocomplete="off" />
         <button class="clear-search" id="clearSearchBtn" title="ล้างคำค้น">✕</button>
       </div>
     </div>
@@ -838,7 +838,7 @@
     </button>
     <button class="nav-btn" data-tab="tab-services">
       <span class="icon">📦</span>
-      <span id="navLabelServices">4 บริการหลัก</span>
+      <span id="navLabelServices">9 หมวดในปท.</span>
     </button>
     <button class="nav-btn" data-tab="tab-forms">
       <span class="icon">🖨️</span>
@@ -865,11 +865,11 @@
     <div class="gateway-hero-cards" id="gatewayHeroCards">
       <button type="button" class="gateway-card active" data-mode="domestic">
         <div class="gateway-card-title">
-          <span>🇹🇭 1. บริการในประเทศ</span>
+          <span>🇹🇭 1. บริการในประเทศ (ครบ 9 หมวด)</span>
           <span class="badge badge-red" id="gwBadgeDom">กำลังเปิดดู</span>
         </div>
         <div class="gateway-card-desc">
-          1. จดหมาย & สิ่งตีพิมพ์ (R/e-AR) • 2. หนังสือพิมพ์ตราสิน (ป.244) • 3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail) • 4. พัสดุ (P / eCo / EMS)
+          1. จดหมาย/สิ่งพิมพ์ • 2. ตราสิน • 3. ไม่มีจ่าหน้า • 4. พัสดุ (P) • 5. ลงทะเบียน (R) • 6. eCo-Post • 7. EMS/EMS ใหญ่ (2886) • 8. EMS Jumbo • 9. ความรู้ พนง. (COD/High Value/EMS Point)
         </div>
       </button>
       <button type="button" class="gateway-card" data-mode="inter">
@@ -900,25 +900,30 @@
       <!-- DOMESTIC TAB 1: เช็คด่วน & ตัวช่วยคำนวณเรทในประเทศ -->
       <section id="dom-tab-quick" class="tab-section active">
         <div class="urgent-banner">
-          <h3>🇹🇭 สรุปไฮไลท์บริการในประเทศ (อัปเดตล่าสุด พฤศจิกายน 2569)</h3>
+          <h3>🇹🇭 สรุปไฮไลท์บริการในประเทศครบ 9 หมวด (อัปเดตล่าสุด พฤศจิกายน 2569)</h3>
           <p>
-            • <strong>1. จดหมาย & สิ่งตีพิมพ์:</strong> ซองพลาสติกทุกกรณี / ซองโป่งนูน / ซองขยายข้าง (ก+ย+ส &gt; 60 ซม.) <strong>ต้องคิดเรท "หีบห่อ" เสมอ!</strong> (ธรรมดาเริ่ม 34 บ. / ลงทะเบียน R เริ่ม 49 บ.) | ของตีพิมพ์ส่งหนังสือได้สูงสุด 5 กก.<br>
-            • <strong>2. หนังสือพิมพ์ตราสิน (ป.244):</strong> ลดสูงสุด 50% ของเรทของตีพิมพ์! <strong>ต้องส่ง ณ ปณ.ที่ระบุในใบอนุญาตเท่านั้น (ขั้นต่ำ 100 ชิ้น/ครั้ง)</strong> แนบตัวอย่างจริง 2 ฉบับทุกครั้ง<br>
-            • <strong>3. ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail):</strong> เรทเหมาจ่ายตั้งแต่ชิ้นแรกตามปริมาณงาน (3.50 บ. เหลือต่ำสุด 2.50 บ./ชิ้น) | <strong>พิเศษ! สื่อหาเสียงเลือกตั้งทุกประเภท (≤50ก.) เหมาจ่าย 2.50 บ./ชิ้น ไม่มีขั้นต่ำ!</strong><br>
-            • <strong>4. พัสดุ (P) / eCo-Post / EMS:</strong> พัสดุ (P) กก.แรก 25 บ. + กก.ละ 20 บ. (สูงสุด 20 กก. <em>เช็คสถานะออนไลน์ไม่ได้</em>) | <strong>Fuel Surcharge +3 บ./ชิ้น</strong> เฉพาะ EMS และ eCo-Post | <strong>พื้นที่เกาะ/ห่างไกล/ท่องเที่ยว 85 พื้นที่ +20 บ./ชิ้น</strong>
+            • <strong>1–3. จดหมาย/สิ่งพิมพ์ • ตราสิน (ป.244) • ไม่มีจ่าหน้า (Admail):</strong> ซองพลาสติกทุกกรณี / ซองป่อง / ซองขยายข้าง (ก+ย+ส &gt; 60 ซม.) <strong>ต้องคิดเรท "หีบห่อ" เสมอ!</strong> | ตราสินลดสูงสุด 50% (ขั้นต่ำ 100 ชิ้น ณ ปณ.ที่ระบุในใบอนุญาต) | Admail เรทเหมาจ่ายตั้งแต่ชิ้นแรก (สื่อเลือกตั้ง ≤50ก. ชิ้นละ 2.50 บ. ไม่มีขั้นต่ำ!)<br>
+            • <strong>4–6. พัสดุ (P) • ลงทะเบียน (R / e-AR) • eCo-Post (O):</strong> พัสดุ (P) เริ่ม 25 บ. + กก.ละ 20 บ. (สูงสุด 20 กก. <em>เช็คออนไลน์ไม่ได้</em>) | ลงทะเบียน (R) ซอง +13 บ. / หีบห่อ +15 บ. (<strong>e-AR +5 บ. แจ้ง SMS ต้นทางและนำจ่ายสำเร็จ!</strong>) | eCo-Post (O) เริ่ม 23 บ. (รวม Fuel +3 บ.) ชดใช้สูงสุด 1,500 บ.<br>
+            • <strong>7–8. EMS ปกติ (831) • EMS ขนาดใหญ่ (2886) • EMS Jumbo:</strong> ถ้ายาวเกิน 60 ซม. หรือ ก+ย+ส &gt; 120 ซม. (แต่ ≤240 ซม.) <strong>ต้องคีย์รหัส <code>2886</code> (EMS ขนาดใหญ่ หารปริมาตร ÷ 6,000)</strong> | <strong>EMS Jumbo:</strong> พิกัด 30–200 กก. หรือสินค้าสำเร็จรูป 44 รายการ (10 โซน) ส่งมอเตอร์ไซค์ต้องหุ้ม <strong>โฟม EPE</strong> + ทำ <strong>ใบตรวจสภาพรถ 3 ฉบับ</strong> + คีย์ที่อยู่ผู้รับให้ครบถ้วน!<br>
+            • <strong>9. ประดับความรู้ พนง.:</strong> <strong>COD (Wallet@POST)</strong> โอนเงินเร็วขึ้นเป็น <strong>T+1 ก่อน 17.00 น.</strong> | ของมีค่า &gt;2,000 บ. แนะนำ <strong>High Value / EMS รับประกัน (สูงสุด 50,000 บ.)</strong> | รับงาน <strong>EMS Point</strong> คีย์รายได้อื่นรหัส <code>694160</code> (ซอง) / <code>694163</code> (กล่อง)
           </p>
         </div>
 
         <!-- Domestic Interactive Decision Wizard -->
         <div class="wizard-box">
-          <div class="wizard-title">🧭 ตัวช่วยเลือกบริการ & เช็คกฎรับฝากในประเทศ (3 วินาที)</div>
+          <div class="wizard-title">🧭 ตัวช่วยเลือกบริการ & เช็คกฎรับฝากในประเทศครบ 9 หมวด (3 วินาที)</div>
           <div class="form-group">
-            <label class="form-label">เลือกหมวดบริการในประเทศที่ลูกค้าต้องการฝากส่ง:</label>
+            <label class="form-label">แตะเลือกหมวดบริการในประเทศที่ต้องการดูโพยเอาตัวรอด:</label>
             <div class="pill-selector" id="domWizGroup">
               <button class="pill-btn active" data-dom-srv="letter">✉️ 1. จดหมาย / สิ่งตีพิมพ์</button>
               <button class="pill-btn" data-dom-srv="trasin">📰 2. หนังสือพิมพ์ตราสิน</button>
               <button class="pill-btn" data-dom-srv="admail">📢 3. ไม่มีจ่าหน้า (Admail)</button>
-              <button class="pill-btn" data-dom-srv="parcel">📦 4. พัสดุ / eCo / EMS</button>
+              <button class="pill-btn" data-dom-srv="parcel">📦 4. พัสดุไปรษณีย์ (P)</button>
+              <button class="pill-btn" data-dom-srv="registered">🔖 5. ลงทะเบียน (R / e-AR)</button>
+              <button class="pill-btn" data-dom-srv="ecopost">🌱 6. บริการ eCo-Post (O)</button>
+              <button class="pill-btn" data-dom-srv="ems">⚡ 7. EMS & EMS ใหญ่ (2886)</button>
+              <button class="pill-btn" data-dom-srv="jumbo">🏍️ 8. บริการ EMS Jumbo</button>
+              <button class="pill-btn" data-dom-srv="knowledge" style="grid-column: 1 / -1;">💡 9. ความรู้เสริม พนง. (COD T+1 • High Value/ประกัน • EMS Point • ข้อ 186–189 • หุ้มห่อ)</button>
             </div>
           </div>
           <div class="wizard-result" id="domWizardOutput"></div>
@@ -927,61 +932,70 @@
         <!-- ตารางเปรียบเทียบเรทด่วนในประเทศ -->
         <div class="card">
           <div class="card-header">
-            <div class="card-title">📊 ตารางโพยเรทราคาในประเทศ (จดหมาย / ลงทะเบียน R / ของตีพิมพ์ / พัสดุ P / eCo / EMS)</div>
+            <div class="card-title">📊 ตารางโพยเรทราคาในประเทศครบทุกบริการ (1–8 หมวดบริการ + เกณฑ์ขนาด & ชดใช้)</div>
             <span class="badge badge-red">โพยติดเคาน์เตอร์</span>
           </div>
           <div class="spec-grid">
             <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
-              <span class="spec-label" style="color:#1D4ED8;">1. จดหมายซอง (ก+ย+ส ≤ 60 ซม.) vs ลงทะเบียนซอง (R บวก +13 บ.)</span>
+              <span class="spec-label" style="color:#1D4ED8;">1. จดหมายซอง (ก+ย+ส ≤ 60 ซม.) vs 5. ลงทะเบียนซอง (R บวก +13 บ. | AR +3 บ. | e-AR +5 บ.)</span>
               <span class="spec-value">
-                • <strong>ไม่เกิน 10 กรัม:</strong> ธรรมดา <strong>5 บ.</strong> | ลงทะเบียน (R) <strong>18 บ.</strong> (+ตอบรับ AR 3 บ. = <strong>21 บ.</strong>)<br>
-                • <strong>เกิน 10 – 20 กรัม:</strong> ธรรมดา <strong>6 บ.</strong> | ลงทะเบียน (R) <strong>19 บ.</strong> (+AR = <strong>22 บ.</strong>)<br>
-                • <strong>เกิน 20 – 100 กรัม:</strong> ธรรมดา <strong>11 บ.</strong> | ลงทะเบียน (R) <strong>24 บ.</strong> (+AR = <strong>27 บ.</strong>)<br>
-                • <strong>เกิน 100 – 250 กรัม:</strong> ธรรมดา <strong>17 บ.</strong> | ลงทะเบียน (R) <strong>30 บ.</strong> (+AR = <strong>33 บ.</strong>)<br>
-                • <strong>เกิน 250 – 500 กรัม:</strong> ธรรมดา <strong>23 บ.</strong> | ลงทะเบียน (R) <strong>36 บ.</strong> (+AR = <strong>39 บ.</strong>)<br>
-                • <strong>เกิน 500 – 1,000 กรัม:</strong> ธรรมดา <strong>40 บ.</strong> | ลงทะเบียน (R) <strong>53 บ.</strong> (+AR = <strong>56 บ.</strong>)<br>
-                • <strong>เกิน 1,000 – 2,000 กรัม:</strong> ธรรมดา <strong>62 บ.</strong> | ลงทะเบียน (R) <strong>75 บ.</strong> (+AR = <strong>78 บ.</strong>)
+                • <strong>ไม่เกิน 10 กรัม:</strong> ธรรมดา <strong>5 บ.</strong> | ลงทะเบียน (R) <strong>18 บ.</strong> (+AR = <strong>21 บ.</strong> / +e-AR = <strong>23 บ.</strong>)<br>
+                • <strong>เกิน 10 – 20 กรัม:</strong> ธรรมดา <strong>6 บ.</strong> | ลงทะเบียน (R) <strong>19 บ.</strong> (+AR = <strong>22 บ.</strong> / +e-AR = <strong>24 บ.</strong>)<br>
+                • <strong>เกิน 20 – 100 กรัม:</strong> ธรรมดา <strong>11 บ.</strong> | ลงทะเบียน (R) <strong>24 บ.</strong> (+AR = <strong>27 บ.</strong> / +e-AR = <strong>29 บ.</strong>)<br>
+                • <strong>เกิน 100 – 250 กรัม:</strong> ธรรมดา <strong>17 บ.</strong> | ลงทะเบียน (R) <strong>30 บ.</strong> (+AR = <strong>33 บ.</strong> / +e-AR = <strong>35 บ.</strong>)<br>
+                • <strong>เกิน 250 – 500 กรัม:</strong> ธรรมดา <strong>23 บ.</strong> | ลงทะเบียน (R) <strong>36 บ.</strong> (+AR = <strong>39 บ.</strong> / +e-AR = <strong>41 บ.</strong>)<br>
+                • <strong>เกิน 500 – 1,000 กรัม:</strong> ธรรมดา <strong>40 บ.</strong> | ลงทะเบียน (R) <strong>53 บ.</strong> (+AR = <strong>56 บ.</strong> / +e-AR = <strong>58 บ.</strong>)<br>
+                • <strong>เกิน 1,000 – 2,000 กรัม:</strong> ธรรมดา <strong>62 บ.</strong> | ลงทะเบียน (R) <strong>75 บ.</strong> (+AR = <strong>78 บ.</strong> / +e-AR = <strong>80 บ.</strong>)
               </span>
             </div>
             <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
-              <span class="spec-label" style="color:#B91C1C;">2. จดหมายหีบห่อ (ซองพลาสติกทุกกรณี / ซองโป่งนูน / ซองขยายข้าง ก+ย+ส &gt; 60 ซม. / กล่องเล็ก) vs ลงทะเบียนหีบห่อ (R บวก +15 บ.)</span>
+              <span class="spec-label" style="color:#B91C1C;">2. จดหมายหีบห่อ (ซองพลาสติกทุกกรณี / ซองป่อง / ซองขยายข้าง ก+ย+ส &gt; 60 ซม. / กล่องเล็ก) vs ลงทะเบียนหีบห่อ (R บวก +15 บ.)</span>
               <span class="spec-value">
-                • <strong>ไม่เกิน 500 กรัม:</strong> ธรรมดา <strong>34 บ.</strong> | ลงทะเบียนหีบห่อ (R) <strong>49 บ.</strong> (+AR 3 บ. = <strong>52 บ.</strong>)<br>
-                • <strong>เกิน 500 – 1,000 กรัม:</strong> ธรรมดา <strong>45 บ.</strong> | ลงทะเบียนหีบห่อ (R) <strong>60 บ.</strong> (+AR 3 บ. = <strong>63 บ.</strong>)<br>
-                • <strong>เกิน 1,000 – 2,000 กรัม:</strong> ธรรมดา <strong>62 บ.</strong> | ลงทะเบียนหีบห่อ (R) <strong>77 บ.</strong> (+AR 3 บ. = <strong>80 บ.</strong>)
+                • <strong>ไม่เกิน 500 กรัม:</strong> ธรรมดา <strong>34 บ.</strong> | ลงทะเบียนหีบห่อ (R) <strong>49 บ.</strong> (+AR 3 บ. = <strong>52 บ.</strong> / +e-AR 5 บ. = <strong>54 บ.</strong>)<br>
+                • <strong>เกิน 500 – 1,000 กรัม:</strong> ธรรมดา <strong>45 บ.</strong> | ลงทะเบียนหีบห่อ (R) <strong>60 บ.</strong> (+AR 3 บ. = <strong>63 บ.</strong> / +e-AR 5 บ. = <strong>65 บ.</strong>)<br>
+                • <strong>เกิน 1,000 – 2,000 กรัม:</strong> ธรรมดา <strong>62 บ.</strong> | ลงทะเบียนหีบห่อ (R) <strong>77 บ.</strong> (+AR 3 บ. = <strong>80 บ.</strong> / +e-AR 5 บ. = <strong>82 บ.</strong>)
               </span>
             </div>
             <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
-              <span class="spec-label" style="color:#047857;">3. ของตีพิมพ์ / สิ่งพิมพ์ (สูงสุด 5 กก. — ลงทะเบียนสิ่งพิมพ์ บวก +13 บ.)</span>
+              <span class="spec-label" style="color:#047857;">3. ของตีพิมพ์ / สิ่งพิมพ์ (สูงสุด 5 กก. — ลงทะเบียนสิ่งพิมพ์ บวก +13 บ.) & ตราสิน / Admail</span>
               <span class="spec-value">
-                • <strong>≤50ก. = 4 บ.</strong> | <strong>51–100ก. = 5 บ.</strong> | <strong>101–250ก. = 8 บ.</strong> | <strong>251–500ก. = 11 บ.</strong> | <strong>501–1,000ก. = 17 บ.</strong> | <strong>1,001–2,000ก. = 33 บ.</strong><br>
-                • <strong>ส่วนที่เกิน 2,000 กรัม (หนังสือส่งได้ถึง 5 กก.):</strong> บวกเพิ่ม กก.ละ <strong>16 บาท</strong> (เศษของ กก. คิดเป็น 1 กก. ➔ ≤3กก.=<strong>49 บ.</strong>, ≤4กก.=<strong>65 บ.</strong>, ≤5กก.=<strong>81 บ.</strong>)
+                • <strong>ของตีพิมพ์:</strong> ≤50ก.=<strong>4บ.</strong> | ≤100ก.=<strong>5บ.</strong> | ≤250ก.=<strong>8บ.</strong> | ≤500ก.=<strong>11บ.</strong> | ≤1กก.=<strong>17บ.</strong> | ≤2กก.=<strong>33บ.</strong> | เกิน 2 กก. บวกเพิ่ม กก.ละ <strong>16 บ.</strong> (≤3กก.=<strong>49บ.</strong>, ≤4กก.=<strong>65บ.</strong>, ≤5กก.=<strong>81บ.</strong>)<br>
+                • <strong>หนังสือพิมพ์ตราสิน (ป.244):</strong> รายวัน ลด <strong>50%</strong> | ราย 2–15 วัน ลด <strong>35%</strong> | รายเดือน/2–3 เดือน ลด <strong>25%</strong> ของเรทของตีพิมพ์ (ขั้นต่ำ 100 ชิ้น ณ ปณ.ที่ระบุในใบอนุญาต)<br>
+                • <strong>ไม่มีจ่าหน้า (Admail):</strong> ≤50ก. เรท <strong>3.50 / 3.00 / 2.75 / 2.50 บ.</strong> (ตามจำนวนชิ้น) | <strong>สื่อหาเสียงเลือกตั้ง (≤50ก.) เหมาจ่าย 2.50 บ./ชิ้น ไม่มีขั้นต่ำ!</strong>
+              </span>
+            </div>
+            <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
+              <span class="spec-label" style="color:#4338CA;">4. พัสดุไปรษณีย์ (P) vs 6. eCo-Post (O) vs 7. EMS ในประเทศ (E รหัส 831 & EMS ขนาดใหญ่ รหัส 2886)</span>
+              <span class="spec-value">
+                • <strong>📦 พัสดุไปรษณีย์ (P - สูงสุด 20 กก.):</strong> กก.แรก <strong>25 บ.</strong> + กก.ต่อไป กก.ละ <strong>20 บ.</strong> (2กก.=45บ., 3กก.=65บ., 5กก.=105บ., 10กก.=205บ., 20กก.=405บ.) *ไม่เสีย Fuel +3 บ. เช็คสถานะออนไลน์ไม่ได้ ชดใช้สูงสุด 1,000 บ.*<br>
+                • <strong>🌱 eCo-Post (O - สูงสุด 10 กก. รวม Fuel +3 บ.แล้ว):</strong> ≤20ก.=<strong>23บ.</strong> | ≤100ก.=<strong>25บ.</strong> | ≤250ก.=<strong>29บ.</strong> | ≤500ก.=<strong>33บ.</strong> | ≤1กก.=<strong>43บ.</strong> | ≤2กก.=<strong>63บ.</strong> | ≤4กก.=<strong>83บ.</strong> | ≤6กก.=<strong>123บ.</strong> | ≤10กก.=<strong>163บ.</strong> *เช็คต้นทาง-นำจ่ายได้ ชดใช้สูงสุด 1,500 บ.*<br>
+                • <strong>⚡ EMS ปกติ (รหัส 831 — ยาวสุด ≤60 ซม. และ ก+ย+ส ≤120 ซม., รวม Fuel +3 บ.แล้ว):</strong> ≤20ก.=<strong>35บ.</strong> | ≤100ก.=<strong>40บ.</strong> | ≤250ก.=<strong>45บ.</strong> | ≤500ก.=<strong>55บ.</strong> | ≤1กก.=<strong>70บ.</strong> | ≤1.5กก.=<strong>85บ.</strong> | ≤2กก.=<strong>100บ.</strong> | ≤2.5กก.=<strong>103บ.</strong> | ≤3กก.=<strong>108บ.</strong> | ≤3.5กก.=<strong>113บ.</strong> | ≤4–5กก.=<strong>123บ.</strong><br>
+                • <strong>📐 EMS ขนาดใหญ่ (รหัส 2886 — ด้านใดเกิน 60 ซม. หรือ ก+ย+ส &gt; 120 ถึง 240 ซม., สูงสุด 30 กก.):</strong> ต้องคีย์ <code>กว้าง × ยาว × สูง</code> ใน CA POS ระบบจะเทียบน้ำหนักจริงกับน้ำหนักปริมาตร (<code>ก×ย×ส ÷ 6,000</code>) ตัวไหนมากกว่าคิดเรทนั้น!
               </span>
             </div>
             <div class="spec-item">
-              <span class="spec-label" style="color:#4338CA;">4. พัสดุไปรษณีย์ (P) vs eCo-Post (O) vs EMS ในประเทศ (E)</span>
+              <span class="spec-label" style="color:#B45309;">8. บริการ EMS Jumbo (พิกัดน้ำหนัก 30–200 กก. & สินค้าสำเร็จรูป 44 รายการ 10 โซน)</span>
               <span class="spec-value">
-                • <strong>📦 พัสดุไปรษณีย์ (P - สูงสุด 20 กก.):</strong> กก.แรก <strong>25 บ.</strong> + กก.ต่อไป กก.ละ <strong>20 บ.</strong> (เช่น 2กก.=45บ., 3กก.=65บ., 5กก.=105บ., 10กก.=205บ., 20กก.=405บ.) *ไม่เสีย Fuel +3 บ. แต่เช็คสถานะออนไลน์ไม่ได้ ชดใช้สูงสุด 1,000 บ.*<br>
-                • <strong>📬 eCo-Post (O - สูงสุด 10 กก. ราคารวม Fuel +3 บ.แล้ว):</strong> ≤20ก.=<strong>23บ.</strong> | ≤100ก.=<strong>25บ.</strong> | ≤250ก.=<strong>29บ.</strong> | ≤500ก.=<strong>33บ.</strong> | ≤1กก.=<strong>43บ.</strong> | ≤2กก.=<strong>63บ.</strong> | ≤4กก.=<strong>83บ.</strong> | ≤6กก.=<strong>123บ.</strong> | ≤10กก.=<strong>163บ.</strong> *เช็คต้นทาง-ปลายทางได้ ชดใช้สูงสุด 1,500 บ.*<br>
-                • <strong>⚡ EMS ในประเทศ (E - สูงสุด 30 กก. ราคารวม Fuel +3 บ.แล้ว):</strong> ≤20ก.=<strong>35บ.</strong> | ≤100ก.=<strong>40บ.</strong> | ≤250ก.=<strong>45บ.</strong> | ≤500ก.=<strong>55บ.</strong> | ≤1กก.=<strong>70บ.</strong> | ≤1.5กก.=<strong>85บ.</strong> | ≤2กก.=<strong>100บ.</strong> | ≤2.5กก.=<strong>103บ.</strong> | ≤3กก.=<strong>108บ.</strong> | ≤3.5กก.=<strong>113บ.</strong> | ≤4–5กก.=<strong>123บ.</strong> *เช็คได้ทุกขั้นตอน ชดใช้สูงสุด 2,000 บ.*
+                • <strong>พิกัดน้ำหนัก 30–200 กก. (ขนาดไม่เกิน 150×300×150 ซม.):</strong> คิดเรทตามน้ำหนักและโซน 1–10 (เริ่มต้นประมาณ 200 บ. ขึ้นไป) หากด้านใดเกิน 150 ซม. บวกเพิ่มทุก 50 ซม. ละ 100–300 บ.<br>
+                • <strong>สินค้าสำเร็จรูป (เช่น รถจักรยานยนต์, ทีวี, ตู้เย็น, จักรยาน, เครื่องซักผ้า):</strong> มอเตอร์ไซค์ ≤150 CC เริ่ม <strong>1,200–1,680 บ.</strong> (รุ่น 125 CC คิดเรท 150 CC!) | &gt;150–400 CC เริ่ม <strong>1,500–2,100 บ.</strong> | &gt;400 CC (Big Bike) เริ่ม <strong>3,300–4,020 บ.</strong> (ยังไม่รวมค่าหุ้มห่อ EPE Foam 360–500 บ. และค่ารับ-ส่งถึงบ้าน 60–500 บ./เที่ยว)
               </span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- DOMESTIC TAB 2: รายละเอียด 4 บริการหลักในประเทศครบทุกแง่มุม -->
+      <!-- DOMESTIC TAB 2: รายละเอียด 9 หมวดบริการหลักในประเทศครบทุกแง่มุม -->
       <section id="dom-tab-services" class="tab-section">
-        <div class="section-heading">🇹🇭 ข้อมูลบริการในประเทศทั้ง 4 หมวดหลัก (แบบพิมพ์ • ส่วนลด • คัมภีร์เอาตัวรอด)</div>
+        <div class="section-heading">🇹🇭 ข้อมูลบริการในประเทศครบทั้ง 9 หมวด (แบบพิมพ์ • ส่วนลด • คัมภีร์เอาตัวรอด & ความรู้ พนง.)</div>
         <div id="domServicesListContainer" class="grid-2col"></div>
       </section>
 
       <!-- DOMESTIC TAB 3: แบบพิมพ์ประกอบการรับฝากในประเทศ -->
       <section id="dom-tab-forms" class="tab-section">
         <div class="urgent-banner" style="background:#ECFDF5; border-left-color:#059669;">
-          <h3 style="color:#065F46;">🖨️ ศูนย์รวมแบบพิมพ์ & ตารางอัตราค่าบริการในประเทศ (สั่งพิมพ์ A4 / ดาวน์โหลด / แชร์)</h3>
+          <h3 style="color:#065F46;">🖨️ ศูนย์รวมแบบพิมพ์ & ตารางอัตราค่าบริการในประเทศครบ 9 หมวด (สั่งพิมพ์ A4 / ดาวน์โหลด / แชร์)</h3>
           <p style="color:#047857;">
-            รวมแบบฟอร์มใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail), แบบคำขอฝากส่งหนังสือพิมพ์ตราสิน (ป.244), ใบนำส่งรับฝากรวม (RC/พัสดุ/EMS) และตารางอัตราค่าบริการในประเทศปี 2569 สำหรับ <strong>กดสั่งพิมพ์ออกเครื่องปริ้นท์ A4 ทันที</strong>, <strong>ดาวน์โหลด PDF/รูปภาพ</strong> หรือ <strong>แชร์ส่ง LINE ให้ลูกค้า</strong>
+            รวมแบบฟอร์มใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail), แบบคำขอฝากส่งหนังสือพิมพ์ตราสิน (ป.244), แบบตรวจสภาพรถจักรยานยนต์ EMS Jumbo (3 ฉบับ), ใบนำส่งรับฝากรวม (RC/พัสดุ/EMS), ตารางอัตรา EMS Jumbo 10 โซน, ตารางรับประกัน & High Value, คู่มือ COD Wallet@POST และเกณฑ์การไม่ชดใช้ค่าเสียหาย สำหรับ <strong>กดสั่งพิมพ์ออกเครื่องปริ้นท์ A4 ทันที</strong>, <strong>ดาวน์โหลด PDF/รูปภาพ</strong> หรือ <strong>แชร์ส่ง LINE</strong>
           </p>
         </div>
         <div id="domFormsHubContainer" class="grid-2col"></div>
@@ -991,14 +1005,14 @@
       <section id="dom-tab-promos" class="tab-section">
         <div id="domPromoClockBanner" class="urgent-banner" style="background:#EFF6FF; border-left-color:#2563EB; margin-bottom:14px;"></div>
 
-        <!-- เครื่องคำนวณค่าบริการในประเทศอัตโนมัติ (Domestic Rate & Admail Calculator) -->
-        <div class="section-heading">🧮 เครื่องคำนวณค่าส่งไปรษณีย์ในประเทศอัตโนมัติ (เทียบทุกบริการ + คำนวณ Admail/ตราสิน)</div>
+        <!-- เครื่องคำนวณค่าบริการในประเทศอัตโนมัติ (Domestic Rate, Volumetric 6000 & Admail Calculator) -->
+        <div class="section-heading">🧮 เครื่องคำนวณค่าส่งไปรษณีย์ในประเทศอัตโนมัติ (เทียบทุกบริการ + เช็ค EMS ขนาดใหญ่ ÷ 6,000 + คำนวณ Admail/ตราสิน)</div>
         <div class="card" style="border: 2px solid #2563EB;">
-          <div class="card-title" style="margin-bottom:10px; color:#1E40AF;">ใส่พิกัดน้ำหนัก หรือจำนวนชิ้น เพื่อคำนวณค่าส่งในประเทศทันที</div>
+          <div class="card-title" style="margin-bottom:10px; color:#1E40AF;">ใส่น้ำหนัก ขนาดกล่อง หรือจำนวนชิ้น เพื่อคำนวณเทียบทุกบริการในประเทศทันที</div>
           <div class="calc-input-grid">
             <div>
-              <label class="form-label">น้ำหนักต่อชิ้น (กรัม)</label>
-              <input type="number" id="domCalcWeightG" placeholder="เช่น 350 หรือ 2500" value="250" />
+              <label class="form-label">น้ำหนักชั่งจริง (กรัม)</label>
+              <input type="number" id="domCalcWeightG" placeholder="เช่น 350 หรือ 5000" value="250" />
             </div>
             <div>
               <label class="form-label">ลักษณะซอง/กล่อง</label>
@@ -1008,16 +1022,25 @@
               </select>
             </div>
             <div>
+              <label class="form-label">ขนาด กว้าง×ยาว×สูง ซม. (ถ้ากล่องใหญ่)</label>
+              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:4px;">
+                <input type="number" id="domCalcW" placeholder="ก." style="padding:10px 6px; text-align:center;" />
+                <input type="number" id="domCalcL" placeholder="ย." style="padding:10px 6px; text-align:center;" />
+                <input type="number" id="domCalcH" placeholder="ส." style="padding:10px 6px; text-align:center;" />
+              </div>
+            </div>
+            <div>
               <label class="form-label">จำนวนชิ้น (สำหรับ Admail/ตราสิน)</label>
               <input type="number" id="domCalcQty" placeholder="เช่น 1 หรือ 5000" value="1" />
             </div>
-            <div>
-              <label class="form-label">พื้นที่ปลายทาง & ตอบรับ</label>
+            <div style="grid-column: 1 / -1;">
+              <label class="form-label">พื้นที่ปลายทาง & บริการตอบรับพิเศษ (AR / e-AR)</label>
               <select id="domCalcAddon">
                 <option value="none">พื้นที่ทั่วไป (ไม่เอาตอบรับ)</option>
-                <option value="ar">พื้นที่ทั่วไป + ใบตอบรับ (AR)</option>
-                <option value="remote">พื้นที่ห่างไกล/เกาะ 85 พื้นที่ (+20 บ.)</option>
-                <option value="remote_ar">พื้นที่ห่างไกล (+20 บ.) + ตอบรับ (AR)</option>
+                <option value="ar">พื้นที่ทั่วไป + ใบตอบรับกระดาษ (AR +3 บ. / พัสดุ +6 บ. / EMS +10 บ.)</option>
+                <option value="ear">พื้นที่ทั่วไป + ตอบรับอิเล็กทรอนิกส์ (e-AR +5 บ. แจ้ง SMS มือถือ)</option>
+                <option value="remote">พื้นที่ห่างไกล/เกาะ 85 พื้นที่ (+20 บ. สำหรับ EMS/eCo-Post)</option>
+                <option value="remote_ear">พื้นที่ห่างไกล (+20 บ.) + ตอบรับ e-AR (+5 บ.)</option>
               </select>
             </div>
           </div>
