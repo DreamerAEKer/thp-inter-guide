@@ -3209,11 +3209,88 @@
       revOut.innerHTML = html;
     }
 
-    // 2. ฟังก์ชันเลือกประเทศ + คีย์น้ำหนัก ➔ เทียบราคาทุกบริการระหว่างประเทศ + Filter
+    // 2. ฟังก์ชันเลือก/คีย์ประเทศ + คีย์น้ำหนัก ➔ เทียบราคาทุกบริการระหว่างประเทศ + Filter
+    const COUNTRY_ALIAS_MAP = [
+      { key: "สหรัฐอเมริกา", aliases: ["สหรัฐอเมริกา", "อเมริกา", "สหรัฐ", "us", "usa", "united states", "america"] },
+      { key: "ญี่ปุ่น", aliases: ["ญี่ปุ่น", "japan", "jp", "jpn"] },
+      { key: "เกาหลีใต้", aliases: ["เกาหลีใต้", "เกาหลี", "korea", "south korea", "kr", "kor"] },
+      { key: "สหราชอาณาจักร", aliases: ["สหราชอาณาจักร", "อังกฤษ", "uk", "gb", "united kingdom", "england", "great britain"] },
+      { key: "ออสเตรเลีย", aliases: ["ออสเตรเลีย", "australia", "au", "aus"] },
+      { key: "มาเลเซีย", aliases: ["มาเลเซีย", "มาเลย์", "malaysia", "my", "mys"] },
+      { key: "สิงคโปร์", aliases: ["สิงคโปร์", "singapore", "sg", "sgp"] },
+      { key: "จีน", aliases: ["จีน", "china", "cn", "chn"] },
+      { key: "ฮ่องกง", aliases: ["ฮ่องกง", "hong kong", "hongkong", "hk", "hkg"] },
+      { key: "ไต้หวัน", aliases: ["ไต้หวัน", "taiwan", "tw", "twn"] },
+      { key: "เวียดนาม", aliases: ["เวียดนาม", "vietnam", "vn", "vnm"] },
+      { key: "ลาว", aliases: ["ลาว", "สปป.ลาว", "laos", "lao", "la"] },
+      { key: "กัมพูชา", aliases: ["กัมพูชา", "เขมร", "cambodia", "kh", "khm"] },
+      { key: "เมียนมา", aliases: ["เมียนมา", "พม่า", "myanmar", "burma", "mm", "mmr"] },
+      { key: "อินโดนีเซีย", aliases: ["อินโดนีเซีย", "อินโด", "indonesia", "id", "idn"] },
+      { key: "ฟิลิปปินส์", aliases: ["ฟิลิปปินส์", "philippines", "ph", "phl"] },
+      { key: "อินเดีย", aliases: ["อินเดีย", "india", "in", "ind"] },
+      { key: "ศรีลังกา", aliases: ["ศรีลังกา", "sri lanka", "lk", "lka"] },
+      { key: "เนปาล", aliases: ["เนปาล", "nepal", "np", "npl"] },
+      { key: "มัลดีฟส์", aliases: ["มัลดีฟส์", "maldives", "mv", "mdv"] },
+      { key: "ภูฏาน", aliases: ["ภูฏาน", "bhutan", "bt", "btn"] },
+      { key: "มาเก๊า", aliases: ["มาเก๊า", "macau", "macao", "mo", "mac"] },
+      { key: "บรูไน", aliases: ["บรูไน", "brunei", "bn", "brn"] },
+      { key: "นิวซีแลนด์", aliases: ["นิวซีแลนด์", "new zealand", "nz", "nzl"] },
+      { key: "แคนาดา", aliases: ["แคนาดา", "canada", "ca", "can"] },
+      { key: "สวิตเซอร์แลนด์", aliases: ["สวิตเซอร์แลนด์", "สวิส", "switzerland", "swiss", "ch", "che"] },
+      { key: "นอร์เวย์", aliases: ["นอร์เวย์", "norway", "no", "nor"] },
+      { key: "เยอรมนี", aliases: ["เยอรมนี", "เยอรมัน", "germany", "deutschland", "de", "deu"] },
+      { key: "ฝรั่งเศส", aliases: ["ฝรั่งเศส", "france", "fr", "fra"] },
+      { key: "อิตาลี", aliases: ["อิตาลี", "italy", "italia", "it", "ita"] },
+      { key: "สวีเดน", aliases: ["สวีเดน", "sweden", "se", "swe"] },
+      { key: "เนเธอร์แลนด์", aliases: ["เนเธอร์แลนด์", "ฮอลแลนด์", "netherlands", "holland", "nl", "nld"] },
+      { key: "สเปน", aliases: ["สเปน", "spain", "es", "esp"] },
+      { key: "เบลเยียม", aliases: ["เบลเยียม", "belgium", "be", "bel"] },
+      { key: "เดนมาร์ก", aliases: ["เดนมาร์ก", "denmark", "dk", "dnk"] },
+      { key: "ออสเตรีย", aliases: ["ออสเตรีย", "austria", "at", "aut"] },
+      { key: "ฟินแลนด์", aliases: ["ฟินแลนด์", "finland", "fi", "fin"] },
+      { key: "โปแลนด์", aliases: ["โปแลนด์", "poland", "pl", "pol"] },
+      { key: "โปรตุเกส", aliases: ["โปรตุเกส", "portugal", "pt", "prt"] },
+      { key: "มอลตา", aliases: ["มอลตา", "malta", "mt", "mlt"] },
+      { key: "สหรัฐอาหรับเอมิเรตส์", aliases: ["สหรัฐอาหรับเอมิเรตส์", "ดูไบ", "อาบูดาบี", "uae", "dubai", "united arab emirates", "ae", "are"] },
+      { key: "อิสราเอล", aliases: ["อิสราเอล", "israel", "il", "isr"] },
+      { key: "ซาอุดีอาระเบีย", aliases: ["ซาอุดีอาระเบีย", "ซาอุ", "saudi arabia", "sa", "sau"] },
+      { key: "กาตาร์", aliases: ["กาตาร์", "qatar", "qa", "qat"] },
+      { key: "ตุรกี", aliases: ["ตุรกี", "turkey", "turkiye", "tr", "tur"] },
+      { key: "รัสเซีย", aliases: ["รัสเซีย", "russia", "ru", "rus"] },
+      { key: "แอฟริกาใต้", aliases: ["แอฟริกาใต้", "south africa", "za", "zaf"] },
+      { key: "บราซิล", aliases: ["บราซิล", "brazil", "br", "bra"] }
+    ];
+
+    function resolveCountryKey(rawInput) {
+      const q = String(rawInput || "").trim().toLowerCase();
+      if (!q) return "";
+      // 1. ตรงกับชื่อไทยหลักในข้อความ (เช่น "มาเลเซีย (Malaysia / MY)" ➔ "มาเลเซีย")
+      for (const item of COUNTRY_ALIAS_MAP) {
+        if (q.includes(item.key.toLowerCase())) return item.key;
+      }
+      // 2. ตรงกับรหัสประเทศ 2 หลัก หรือชื่อภาษาอังกฤษแบบตรงตัว
+      for (const item of COUNTRY_ALIAS_MAP) {
+        if (item.aliases.some((a) => a === q)) return item.key;
+      }
+      // 3. ค้นหาบางส่วนของคำ (Partial match)
+      for (const item of COUNTRY_ALIAS_MAP) {
+        if (item.aliases.some((a) => a.length >= 2 && (a.includes(q) || q.includes(a)))) {
+          return item.key;
+        }
+      }
+      return rawInput.trim();
+    }
+
     function runForwardInterLookup() {
       if (!fwdCountrySel || !fwdWeightInput || !fwdOut) return;
-      const countryKey = fwdCountrySel.value;
+      const rawCountry = fwdCountrySel.value;
+      const countryKey = resolveCountryKey(rawCountry);
       const wG = parseFloat(fwdWeightInput.value) || 0;
+
+      if (!countryKey) {
+        fwdOut.innerHTML = `<div style="padding:10px; background:#EFF6FF; border:1px solid #93C5FD; border-radius:8px; color:#1E40AF; font-weight:600; font-size:13px;">👆 พิมพ์ชื่อประเทศปลายทาง (ภาษาไทย / อังกฤษ / รหัส 2 หลัก เช่น มาเลเซีย, MY, เกาหลี, US, ญี่ปุ่น) หรือแตะเลือกจากรายการได้เลยครับ</div>`;
+        return;
+      }
 
       if (wG <= 0 || wG > 30000) {
         fwdOut.innerHTML = `<div style="padding:10px; background:#FFFBEB; border:1px solid #F59E0B; border-radius:8px; color:#92400E; font-weight:600; font-size:13px;">กรุณาระบุน้ำหนักระหว่าง 1 – 30,000 กรัม</div>`;
@@ -3223,7 +3300,9 @@
       // ค้นหารายการที่รองรับประเทศนี้และพิกัดน้ำหนักครอบคลุม wG
       const matchesByService = new Map();
       allEntries.forEach((item) => {
-        const hasCountry = item.countries.some((c) => c.includes(countryKey));
+        const hasCountry = item.countries.some(
+          (c) => c.toLowerCase().includes(countryKey.toLowerCase())
+        );
         if (!hasCountry) return;
         if (wG >= item.minG && wG <= item.maxG) {
           const key = item.service + "|" + item.zone;
@@ -3351,7 +3430,22 @@
       });
     });
 
-    if (fwdCountrySel) fwdCountrySel.addEventListener("change", runForwardInterLookup);
+    const clearCountryBtn = document.getElementById("clearInterFwdCountryBtn");
+    if (fwdCountrySel) {
+      fwdCountrySel.addEventListener("input", runForwardInterLookup);
+      fwdCountrySel.addEventListener("change", runForwardInterLookup);
+      fwdCountrySel.addEventListener("focus", () => {
+        // เลือกคลุมข้อความทั้งหมดเมื่อแตะเพื่อพิมพ์ชื่อประเทศใหม่ได้ทันที
+        fwdCountrySel.select();
+      });
+    }
+    if (clearCountryBtn && fwdCountrySel) {
+      clearCountryBtn.addEventListener("click", () => {
+        fwdCountrySel.value = "";
+        fwdCountrySel.focus();
+        runForwardInterLookup();
+      });
+    }
     if (fwdWeightInput) {
       fwdWeightInput.addEventListener("input", runForwardInterLookup);
       fwdWeightInput.addEventListener("change", runForwardInterLookup);

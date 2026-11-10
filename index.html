@@ -2019,34 +2019,74 @@
         <div id="interForwardPane" style="display:none;">
           <div class="calc-input-grid" style="margin-bottom:6px;">
             <div>
-              <label class="form-label">1. ประเทศปลายทาง</label>
-              <select id="interFwdCountrySelect">
-                <option value="สหรัฐอเมริกา">🇺🇸 สหรัฐอเมริกา (USA)</option>
-                <option value="ญี่ปุ่น">🇯🇵 ญี่ปุ่น (Japan)</option>
-                <option value="เกาหลีใต้">🇰🇷 เกาหลีใต้ (South Korea)</option>
-                <option value="สหราชอาณาจักร">🇬🇧 สหราชอาณาจักร (อังกฤษ / UK)</option>
-                <option value="ออสเตรเลีย">🇦🇺 ออสเตรเลีย (Australia)</option>
-                <option value="เยอรมนี">🇩🇪 เยอรมนี (Germany - EU)</option>
-                <option value="ฝรั่งเศส">🇫🇷 ฝรั่งเศส (France - EU)</option>
-                <option value="อิตาลี">🇮🇹 อิตาลี (Italy - EU)</option>
-                <option value="สวีเดน">🇸🇪 สวีเดน (Sweden - EU)</option>
-                <option value="เนเธอร์แลนด์">🇳🇱 เนเธอร์แลนด์ (Netherlands - EU)</option>
-                <option value="สวิตเซอร์แลนด์">🇨🇭 สวิตเซอร์แลนด์ (Switzerland - Non-EU)</option>
-                <option value="นอร์เวย์">🇳🇴 นอร์เวย์ (Norway - Non-EU)</option>
-                <option value="จีน">🇨🇳 จีน (China)</option>
-                <option value="ฮ่องกง">🇭🇰 ฮ่องกง (Hong Kong)</option>
-                <option value="ไต้หวัน">🇹🇼 ไต้หวัน (Taiwan)</option>
-                <option value="สิงคโปร์">🇸🇬 สิงคโปร์ (Singapore)</option>
-                <option value="มาเลเซีย">🇲🇾 มาเลเซีย (Malaysia)</option>
-                <option value="เวียดนาม">🇻🇳 เวียดนาม (Vietnam)</option>
-                <option value="ลาว">🇱🇦 ลาว (Laos)</option>
-                <option value="กัมพูชา">🇰🇭 กัมพูชา (Cambodia)</option>
-                <option value="อินเดีย">🇮🇳 อินเดีย (India)</option>
-                <option value="แคนาดา">🇨🇦 แคนาดา (Canada)</option>
-                <option value="นิวซีแลนด์">🇳🇿 นิวซีแลนด์ (New Zealand)</option>
-                <option value="สหรัฐอาหรับเอมิเรตส์">🇦🇪 สหรัฐอาหรับเอมิเรตส์ (UAE / ดูไบ)</option>
-                <option value="อิสราเอล">🇮🇱 อิสราเอล (Israel)</option>
-              </select>
+              <label class="form-label">1. ประเทศปลายทาง (พิมพ์ชื่อไทย / อังกฤษ / รหัส 2 หลัก หรือกดเลือก)</label>
+              <div style="position:relative;">
+                <input
+                  type="text"
+                  id="interFwdCountrySelect"
+                  list="interFwdCountryDatalist"
+                  placeholder="พิมพ์ค้นหา เช่น มาเลเซีย, MY, เกาหลี, KR, US, ญี่ปุ่น..."
+                  value="มาเลเซีย (Malaysia)"
+                  autocomplete="off"
+                  style="padding-right:36px;"
+                />
+                <button
+                  type="button"
+                  id="clearInterFwdCountryBtn"
+                  title="ล้างชื่อประเทศเพื่อพิมพ์ใหม่"
+                  style="position:absolute; right:8px; top:50%; transform:translateY(-50%); border:none; background:#E2E8F0; color:#334155; width:24px; height:24px; border-radius:50%; font-size:12px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;"
+                >✕</button>
+              </div>
+              <datalist id="interFwdCountryDatalist">
+                <option value="สหรัฐอเมริกา (USA / US)"></option>
+                <option value="ญี่ปุ่น (Japan / JP)"></option>
+                <option value="เกาหลีใต้ (South Korea / KR)"></option>
+                <option value="สหราชอาณาจักร (อังกฤษ / UK / GB)"></option>
+                <option value="ออสเตรเลีย (Australia / AU)"></option>
+                <option value="มาเลเซีย (Malaysia / MY)"></option>
+                <option value="สิงคโปร์ (Singapore / SG)"></option>
+                <option value="จีน (China / CN)"></option>
+                <option value="ฮ่องกง (Hong Kong / HK)"></option>
+                <option value="ไต้หวัน (Taiwan / TW)"></option>
+                <option value="เวียดนาม (Vietnam / VN)"></option>
+                <option value="ลาว (Laos / LA)"></option>
+                <option value="กัมพูชา (Cambodia / KH)"></option>
+                <option value="เมียนมา (พม่า / Myanmar / MM)"></option>
+                <option value="อินโดนีเซีย (Indonesia / ID)"></option>
+                <option value="ฟิลิปปินส์ (Philippines / PH)"></option>
+                <option value="อินเดีย (India / IN)"></option>
+                <option value="ศรีลังกา (Sri Lanka / LK)"></option>
+                <option value="เนปาล (Nepal / NP)"></option>
+                <option value="มัลดีฟส์ (Maldives / MV)"></option>
+                <option value="ภูฏาน (Bhutan / BT)"></option>
+                <option value="มาเก๊า (Macau / MO)"></option>
+                <option value="บรูไน (Brunei / BN)"></option>
+                <option value="นิวซีแลนด์ (New Zealand / NZ)"></option>
+                <option value="แคนาดา (Canada / CA)"></option>
+                <option value="สวิตเซอร์แลนด์ (Switzerland / CH - Non-EU)"></option>
+                <option value="นอร์เวย์ (Norway / NO - Non-EU)"></option>
+                <option value="เยอรมนี (Germany / DE - EU)"></option>
+                <option value="ฝรั่งเศส (France / FR - EU)"></option>
+                <option value="อิตาลี (Italy / IT - EU)"></option>
+                <option value="สวีเดน (Sweden / SE - EU)"></option>
+                <option value="เนเธอร์แลนด์ (Netherlands / NL - EU)"></option>
+                <option value="สเปน (Spain / ES - EU)"></option>
+                <option value="เบลเยียม (Belgium / BE - EU)"></option>
+                <option value="เดนมาร์ก (Denmark / DK - EU)"></option>
+                <option value="ออสเตรีย (Austria / AT - EU)"></option>
+                <option value="ฟินแลนด์ (Finland / FI - EU)"></option>
+                <option value="โปแลนด์ (Poland / PL - EU)"></option>
+                <option value="โปรตุเกส (Portugal / PT - EU)"></option>
+                <option value="มอลตา (Malta / MT - EU)"></option>
+                <option value="สหรัฐอาหรับเอมิเรตส์ (UAE / ดูไบ / AE)"></option>
+                <option value="อิสราเอล (Israel / IL)"></option>
+                <option value="ซาอุดีอาระเบีย (Saudi Arabia / SA)"></option>
+                <option value="กาตาร์ (Qatar / QA)"></option>
+                <option value="ตุรกี (Turkey / TR)"></option>
+                <option value="รัสเซีย (Russia / RU)"></option>
+                <option value="แอฟริกาใต้ (South Africa / ZA)"></option>
+                <option value="บราซิล (Brazil / BR)"></option>
+              </datalist>
             </div>
             <div>
               <label class="form-label">2. น้ำหนักสิ่งของ (กรัม)</label>
