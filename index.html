@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>THP Inter Companion | คู่มือรับฝากระหว่างประเทศ ปณท (อัปเดต พ.ย. 69)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --thp-red: #D91920;
+      --thp-red-dark: #A80F15;
+      --thp-red-light: #FFF0F0;
+      --thp-navy: #1E293B;
+      --thp-blue: #2563EB;
+      --thp-blue-light: #EFF6FF;
+      --thp-green: #059669;
+      --thp-green-light: #ECFDF5;
+      --thp-amber: #D97706;
+      --thp-amber-light: #FFFBEB;
+      --bg-main: #F1F5F9;
+      --card-bg: #FFFFFF;
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --border-color: #E2E8F0;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 6px 20px rgba(15, 23, 42, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.55;
+      padding-bottom: 92px;
+    }
+
+    /* Top Header */
+    .app-header {
+      background: linear-gradient(135deg, var(--thp-red) 0%, var(--thp-red-dark) 100%);
+      color: #fff;
+      padding: 16px 16px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 14px rgba(217, 25, 32, 0.28);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--thp-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .brand-text h1 {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .brand-text p {
+      font-size: 12px;
+      opacity: 0.92;
+      font-weight: 400;
+    }
+
+    .update-pill {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Global Search Bar */
+    .search-box {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 40px 12px 42px;
+      border-radius: 12px;
+      border: none;
+      font-family: inherit;
+      font-size: 15px;
+      background: #fff;
+      color: var(--text-main);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    }
+
+    .search-box input:focus {
+      outline: 2px solid #FDE047;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 17px;
+      color: var(--text-muted);
+    }
+
+    .clear-search {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #E2E8F0;
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      font-size: 13px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 14px;
+    }
+
+    /* Quick Alert Banner */
+    .urgent-banner {
+      background: #FEF2F2;
+      border-left: 5px solid var(--thp-red);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .urgent-banner h3 {
+      color: var(--thp-red-dark);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .urgent-banner p {
+      font-size: 13px;
+      color: #7F1D1D;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .badge-red { background: #FEE2E2; color: #B91C1C; }
+    .badge-blue { background: #DBEAFE; color: #1D4ED8; }
+    .badge-indigo { background: #E0E7FF; color: #4338CA; }
+    .badge-emerald { background: #D1FAE5; color: #047857; }
+    .badge-rose { background: #FFE4E6; color: #BE123C; }
+    .badge-amber { background: #FEF3C7; color: #B45309; }
+    .badge-slate { background: #E2E8F0; color: #334155; }
+
+    /* Interactive Decision Helper */
+    .wizard-box {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+      border: 2px solid #CBD5E1;
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .wizard-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--thp-navy);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--thp-navy);
+    }
+
+    .pill-selector {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .pill-btn {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1.5px solid #CBD5E1;
+      background: #fff;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-main);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-btn.active {
+      border-color: var(--thp-red);
+      background: var(--thp-red-light);
+      color: var(--thp-red-dark);
+      font-weight: 700;
+    }
+
+    .wizard-result {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      background: #EFF6FF;
+      border: 1.5px solid #93C5FD;
+    }
+
+    /* Info Grid inside Service Card */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      background: #F8FAFC;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #E2E8F0;
+    }
+
+    .spec-item {
+      font-size: 13.5px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .spec-label {
+      font-weight: 700;
+      color: var(--thp-navy);
+      font-size: 12.5px;
+    }
+
+    .spec-value {
+      color: var(--text-main);
+    }
+
+    .prefix-tag {
+      display: inline-block;
+      background: var(--thp-navy);
+      color: #FDE047;
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .notes-list {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .notes-list li {
+      font-size: 13.5px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      border-radius: 8px;
+      background: #FFFBEB;
+      border-left: 3.5px solid #F59E0B;
+      color: #78350F;
+    }
+
+    .notes-list li.critical {
+      background: #FEF2F2;
+      border-left-color: var(--thp-red);
+      color: #7F1D1D;
+    }
+
+    .notes-list li.good {
+      background: #ECFDF5;
+      border-left-color: var(--thp-green);
+      color: #065F46;
+    }
+
+    .ref-foot {
+      margin-top: 10px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      border-top: 1px dashed #CBD5E1;
+      padding-top: 8px;
+    }
+
+    /* Calculators */
+    .calc-input-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .calc-input-grid input, .calc-input-grid select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: var(--thp-red);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-secondary {
+      padding: 8px 12px;
+      background: #E2E8F0;
+      color: var(--text-main);
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Country Tags */
+    .country-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 12px;
+    }
+
+    .country-chip {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 500;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-around;
+      padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+      z-index: 200;
+      box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.08);
+    }
+
+    .nav-btn {
+      flex: 1;
+      border: none;
+      background: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 2px;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: all 0.15s ease;
+    }
+
+    .nav-btn .icon {
+      font-size: 19px;
+      margin-bottom: 2px;
+    }
+
+    .nav-btn.active {
+      color: var(--thp-red);
+      font-weight: 700;
+      background: var(--thp-red-light);
+    }
+
+    .tab-section {
+      display: none;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    /* Expired Card Styling */
+    .expired-card {
+      background: #F8FAFC;
+      border: 1.5px dashed #94A3B8;
+      opacity: 0.88;
+    }
+
+    .pos-btn-badge {
+      display: inline-block;
+      background: #1E293B;
+      color: #38BDF8;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      margin: 6px 0;
+    }
+
+    .section-heading {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 16px 0 10px;
+      color: var(--thp-navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Action Buttons for Forms & Printables */
+    .doc-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #E2E8F0;
+    }
+
+    .doc-btn {
+      flex: 1;
+      min-width: 110px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: all 0.15s ease;
+    }
+
+    .doc-btn.print {
+      background: var(--thp-red);
+      color: #fff;
+    }
+
+    .doc-btn.print:hover {
+      background: var(--thp-red-dark);
+    }
+
+    .doc-btn.download {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      border-color: #BFDBFE;
+    }
+
+    .doc-btn.share {
+      background: #ECFDF5;
+      color: #047857;
+      border-color: #A7F3D0;
+    }
+
+    .doc-preview-img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: contain;
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      border-radius: 10px;
+      margin: 8px 0;
+    }
+
+    /* Desktop & Tablet Responsive Layout (ทำงานได้ดีทั้งบนมือถือส่วนตัวและคอมหน้าเคาน์เตอร์) */
+    @media (min-width: 900px) {
+      body {
+        padding-bottom: 40px;
+      }
+
+      .app-header {
+        padding: 18px 32px;
+      }
+
+      .header-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .header-top {
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+
+      .search-box {
+        max-width: 520px;
+      }
+
+      .container {
+        max-width: 1180px;
+        padding: 20px 32px;
+      }
+
+      .bottom-nav {
+        position: sticky;
+        top: 76px;
+        bottom: auto;
+        max-width: 1180px;
+        margin: 14px auto 0;
+        border-radius: 14px;
+        border: 1px solid var(--border-color);
+        padding: 6px 10px;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .nav-btn {
+        flex-direction: row;
+        gap: 8px;
+        font-size: 13.5px;
+        padding: 10px 14px;
+      }
+
+      .nav-btn .icon {
+        margin-bottom: 0;
+        font-size: 18px;
+      }
+
+      .pill-selector {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .grid-2col {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        align-items: start;
+      }
+
+      .grid-2col > .card {
+        margin-bottom: 0;
+      }
+
+      .calc-input-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-top">
+        <div class="brand-title">
+          <div class="brand-icon">ปณท</div>
+          <div class="brand-text">
+            <h1>คู่มือบริการระหว่างประเทศ</h1>
+            <p>ฉบับพกพาบนมือถือ & เว็บหน้าเคาน์เตอร์ (อัปเดต พ.ย. 69)</p>
+          </div>
+        </div>
+        <span class="update-pill" id="lastUpdatedBadge">อัปเดต พ.ย. 69</span>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="globalSearchInput" placeholder="ค้นหาด่วน: ชื่อประเทศ, แบบพิมพ์, LOA, อาหาร, PID, ส่วนลด..." autocomplete="off" />
+        <button class="clear-search" id="clearSearchBtn" title="ล้างคำค้น">✕</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Bar (Bottom on Mobile / Sticky Top Bar on Desktop Web) -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-tab="tab-quick">
+      <span class="icon">⚡</span>
+      <span>เช็คด่วน</span>
+    </button>
+    <button class="nav-btn" data-tab="tab-services">
+      <span class="icon">📦</span>
+      <span>บริการ</span>
+    </button>
+    <button class="nav-btn" data-tab="tab-forms">
+      <span class="icon">🖨️</span>
+      <span>แบบพิมพ์</span>
+    </button>
+    <button class="nav-btn" data-tab="tab-destinations">
+      <span class="icon">🌍</span>
+      <span>ประเทศ</span>
+    </button>
+    <button class="nav-btn" data-tab="tab-prohibited">
+      <span class="icon">🚫</span>
+      <span>ของต้องห้าม</span>
+    </button>
+    <button class="nav-btn" data-tab="tab-promos">
+      <span class="icon">🏷️</span>
+      <span>ส่วนลด/คำนวณ</span>
+    </button>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container">
+
+    <!-- Search Results View (Hidden unless searching) -->
+    <section id="searchResultsSection" style="display: none;">
+      <div class="section-heading">
+        <span>🔎 ผลการค้นหาด่วน</span>
+        <button class="btn-secondary" id="closeSearchBtn" style="margin-left:auto;">กลับหน้าหลัก</button>
+      </div>
+      <div id="searchResultsContainer"></div>
+    </section>
+
+    <!-- TAB 1: ตัวช่วยตัดสินใจด่วนหน้าเคาน์เตอร์ (Quick Check) -->
+    <section id="tab-quick" class="tab-section active">
+      <div class="urgent-banner">
+        <h3>⚡ เตือนความจำสำคัญ (พฤศจิกายน 2569)</h3>
+        <p>
+          • <strong>ตั้งแต่วันที่ 1 พ.ย. 69:</strong> บริการ <strong>ePacket DDP (LE)</strong> ขยายครบทั้ง <strong>27 ประเทศสหภาพยุโรป (EU)</strong> (นน.สูงสุด 5 กก., ยาวสุด 60 ซม., ก+ย+ส ไม่เกิน 130 ซม.) + มีส่วนลด 5% สมาชิก POST Family!<br>
+          • <strong>ส่งไป EU 27 ประเทศ:</strong> ต้องทำจ่าหน้าผ่าน <strong>D-Post Inter</strong> และกรอกรหัส <strong>PID (M-PID / NS-PID)</strong> ทุกชิ้น!<br>
+          • <strong>ห้ามส่งอาหาร/อาหารเสริมเด็ดขาด</strong> ในบริการ <strong>ePacket US (LA/LI)</strong> และ <strong>ePacket DDP ยุโรป (LE)</strong> (ฝ่าฝืนโดนปรับขั้นต่ำ 3,100 บ./กล่อง) ต้องเปิดตรวจและประทับตรา <strong>"Content Checked"</strong> ทุกชิ้น!
+        </p>
+      </div>
+
+      <!-- Interactive Decision Wizard -->
+      <div class="wizard-box">
+        <div class="wizard-title">🧭 ตัวช่วยเช็คความชัวร์ก่อนรับฝาก (3 วินาที)</div>
+        
+        <div class="form-group">
+          <label class="form-label">1. ลูกค้าส่งไปประเทศโซนไหน?</label>
+          <div class="pill-selector" id="wizDestGroup">
+            <button class="pill-btn active" data-dest="eu">🇪🇺 ยุโรป EU (27 ปท.)</button>
+            <button class="pill-btn" data-dest="us">🇺🇸 สหรัฐอเมริกา (US)</button>
+            <button class="pill-btn" data-dest="uk">🇬🇧 อังกฤษ (UK - นอก EU)</button>
+            <button class="pill-btn" data-dest="other">🌏 ประเทศอื่นๆ (ญี่ปุ่น/เอเชียฯ)</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">2. สิ่งของข้างในเป็นอะไร?</label>
+          <div class="pill-selector" id="wizItemGroup">
+            <button class="pill-btn active" data-item="general">📦 สินค้าทั่วไป / เสื้อผ้า</button>
+            <button class="pill-btn" data-item="food">🍜 อาหารแห้ง / อาหารเสริม</button>
+            <button class="pill-btn" data-item="cosmetic">🧴 ยาดม / ครีม / แชมพู</button>
+            <button class="pill-btn" data-item="doc">📄 เอกสารล้วน (Document)</button>
+          </div>
+        </div>
+
+        <div class="wizard-result" id="wizardOutput"></div>
+      </div>
+
+      <!-- Survival Matrix: D-Post Inter & Required Forms Quick Table -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📋 ตารางเช็คลิสต์เอาตัวรอด: บริการไหนบังคับ D-Post Inter? ต้องใช้แบบพิมพ์/ตราประทับอะไร?</div>
+          <span class="badge badge-red">โพยกันพลาด</span>
+        </div>
+        <div class="spec-grid">
+          <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
+            <span class="spec-label" style="color:#B91C1C;">1. ePacket DDP ยุโรป 27 ประเทศ (LE...TH)</span>
+            <span class="spec-value"><strong>D-Post Inter:</strong> 🔴 <strong>บังคับ 100% เท่านั้น!</strong> (ห้ามคีย์มือ/ห้ามใช้สติกเกอร์ LE เก่า มิฉะนั้น ศป.สภ. ตีกลับและต้องคืนเงินลูกค้าตามบันทึก 3363)<br><strong>แบบพิมพ์/สิ่งที่ต้องมี:</strong> ใบจ่าหน้า D-Post Inter (ระบุสกุลเงิน EUR + รหัส M-PID/NS-PID) + ใบ Checklist 14 ข้อ (ลูกค้าเซ็นเก็บที่ ปณ.) + ประทับตรา/เขียน <code>Content Checked</code> และ <code>Duties Paid</code> บนหน้ากล่อง + ป้ายปากถุง ป.322 เขียน 'ePacket DDP'</span>
+          </div>
+          <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
+            <span class="spec-label" style="color:#4338CA;">2. ePacket สหรัฐอเมริกา (LA = 48 รัฐ / LI = เกาะ, Alaska, Hawaii, APO)</span>
+            <span class="spec-value"><strong>D-Post Inter:</strong> 🔴 <strong>บังคับ 100% เท่านั้น!</strong> (สกุลเงิน USD มูลค่า ≤ 60 USD)<br><strong>แบบพิมพ์/สิ่งที่ต้องมี:</strong> ใบจ่าหน้า D-Post Inter + ใบ Checklist 14 ข้อ (ลูกค้าเซ็นเก็บที่ ปณ.) + ประทับตรา/เขียน <code>Content Checked</code> บนหน้ากล่อง (ถ้าลูกค้าไม่ยอมให้เปิดตรวจ ให้ปฏิเสธรับฝากทันที!) + ป้ายปากถุง ป.322 เขียน 'ePacket ปลายทาง US'</span>
+          </div>
+          <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
+            <span class="spec-label" style="color:#BE123C;">3. Courier Post Plus (FD = US 1–20 กก. / FC = US >20 กก. & 19 ประเทศ)</span>
+            <span class="spec-value"><strong>D-Post Inter:</strong> 🔴 <strong>บังคับ 100% เท่านั้น!</strong> (เสียบบัตรประชาชน Smart Card ผู้ส่งทุกครั้ง ไม่ต้องแนบสำเนาบัตรและ Invoice กระดาษซ้ำ)<br><strong>แบบพิมพ์/สิ่งที่ต้องมี:</strong> ใบจ่าหน้า D-Post Inter (เจ้าหน้าที่ต้องวัดส่วนที่ป่องที่สุดแล้วเขียน ก×ย×ส และน้ำหนักในกรอบเฉพาะเจ้าหน้าที่ ปณท!) + ถ้าส่งหลายกล่องใช้ไฟล์ Excel คำนวณ และเขียน <code>ชำระค่าบริการแล้ว</code> ที่กล่องที่ 2, 3... + ปิดถุงแยก: <code>FD</code> ใช้ป้าย ป.94 ไป ศป.EMS / <code>FC</code> ใช้ป้าย ป.94(ก) ไป ศป.สภ.</span>
+          </div>
+          <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
+            <span class="spec-label" style="color:#B45309;">4. Courier Post (DHL Express)</span>
+            <span class="spec-value"><strong>D-Post Inter:</strong> 🟡 <strong>ทำผ่าน D-Post Inter ได้ หรือ ใช้ใบรับฝากกระดาษเคมี (ป.324) ได้</strong> (แต่ถ้าไป EU 27 ประเทศแล้วใช้ ป.324 ต้องแนบ <em>Proforma Invoice รูปแบบใหม่ที่มีช่องรหัส PID</em> เท่านั้น!)<br><strong>แบบพิมพ์/สิ่งที่ต้องมี:</strong> ใบจ่าหน้า D-Post Inter หรือ ป.324 + Proforma Invoice + <strong>ใบ LOA (บังคับเซ็นเลือกทำลายหรือส่งกลับกรณีผู้รับไม่จ่ายภาษี แนบหน้ากล่อง 1 ใบ เก็บที่ ปณ. 1 ใบ)</strong> + สำเนาบัตร ปชช. (ถ้าส่งพระพุทธรูป/ศิลปวัตถุ ต้องมีใบอนุญาตกรมศิลปากรแนบหน้ากล่อง)</span>
+          </div>
+          <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
+            <span class="spec-label" style="color:#047857;">5. ePacket ปลายทางอื่นๆ นอก US/EU (LP / LX) & EMS World (EE / ED)</span>
+            <span class="spec-value"><strong>D-Post Inter:</strong> 🟢 <strong>นอก EU:</strong> ทำผ่าน D-Post Inter ได้ หรือ ใช้แบบพิมพ์กระดาษ (`LP`/`LX` + `CN22`/`CN23` หรือใบรับฝาก `EE`/`ED` + `CN23`) แล้วคีย์ ITMATT ภาษาอังกฤษใน POS ได้ | 🔴 <strong>ถ้าส่ง EMS World (Document - ED) ไป EU 27 ประเทศ:</strong> บังคับทำผ่าน D-Post Inter เท่านั้น! (ส่วน EMS World Package งดส่งไป EU 27 ประเทศ)</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label" style="color:#334155;">6. ลงทะเบียน (RR) / พัสดุไปรษณีย์ (CP) / พัสดุย่อย / ของตีพิมพ์</span>
+            <span class="spec-value"><strong>D-Post Inter:</strong> 🟢 <strong>เอกสารล้วน:</strong> ใช้สติกเกอร์ `RR...TH` ได้ (ถ้าไป US เอกสารต้องหนัก ≤ 500 กรัม และซองไม่เกิน P/G ห้ามมีของปะปนเด็ดขาด!) | 🔴 <strong>สิ่งของ (เฉพาะประเทศนอก US/EU/มอลตา ที่ยังเปิดรับ):</strong> ใช้ใบรับฝาก `CP...TH` หรือ `CN22`/`CN23` และต้องทำ D-Post Inter หรือคีย์ ITMATT ทุกชิ้น</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PID Quick Cheat Sheet -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🆔 โพยกรอกรหัส PID (สำหรับส่งไปยุโรป EU 27 ประเทศ)</div>
+          <span class="badge badge-blue">บังคับ D-Post Inter</span>
+        </div>
+        <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:10px;">
+          รหัสระบุสินค้าเปรียบเสมือนเลขบัตรประชาชนสินค้า ช่วยให้ศุลกากรยุโรปรู้ว่าสิ่งของคืออะไร:
+        </p>
+        <div class="spec-grid">
+          <div class="spec-item">
+            <span class="spec-label">1. M-PID (Merchant Product ID) — *บังคับกรอก*</span>
+            <span class="spec-value">รหัสที่ร้านค้ากำหนดเอง หรือดูจาก SKU บนฉลาก | <strong>ถ้าลูกค้าส่งให้ญาติ (C2C) ไม่มีรหัสเลย:</strong> ให้ตั้งด้วยชื่อสินค้าภาษาอังกฤษ เช่น <code>Lays</code> หรือ <code>MAMA</code> หรือ <code>Shirt</code></span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">2. NS-PID (Manufacturer Product ID) — *บังคับกรอก*</span>
+            <span class="spec-value">รหัสรุ่นจากโรงงาน หรือเลขบาร์โค้ด 13 หลักบนซองสินค้า (เช่น <code>8851802012942</code>) | <strong>ถ้าไม่มีรหัสบนของเลย:</strong> ให้ตั้งด้วยชื่อสินค้า+รสชาติ/สี/ตัวเลข เช่น <code>Lays-Salt</code> หรือ <code>Lays01</code></span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">3. S-PID (Standardised ID) — *ไม่บังคับ*</span>
+            <span class="spec-value">รหัสมาตรฐานสากล EAN / UPC / GTIN (เว้นว่างได้)</span>
+          </div>
+        </div>
+        <div class="ref-foot">อ้างอิง: สื่อ Friday Talk (6 พ.ย. 69) และบันทึกวิธีปฏิบัติเลขที่ 3362, 3363</div>
+      </div>
+    </section>
+
+    <!-- TAB 2: ข้อมูลบริการ & ข้อสังเกตครบทุกบริการ -->
+    <section id="tab-services" class="tab-section">
+      <div class="section-heading">📦 ข้อมูลบริการ & ข้อสังเกตสำคัญหน้าเคาน์เตอร์</div>
+      <div id="servicesListContainer" class="grid-2col"></div>
+    </section>
+
+    <!-- TAB 3 (NEW): ศูนย์รวมแบบพิมพ์ & เอกสารประกอบการรับฝาก (แชร์ / ดาวน์โหลด / สั่งพิมพ์) -->
+    <section id="tab-forms" class="tab-section">
+      <div class="urgent-banner" style="background:#EFF6FF; border-left-color:#2563EB;">
+        <h3 style="color:#1E40AF;">🖨️ ศูนย์รวมแบบพิมพ์ & เอกสารประกอบการรับฝาก (อัปเดตล่าสุด พ.ย. 2569)</h3>
+        <p style="color:#1E3A8A;">
+          รวมแบบฟอร์มที่ต้องให้ลูกค้าเซ็นหน้าเคาน์เตอร์ (ใบ Checklist 14 ข้อ, ใบ LOA, ใบแจ้งศุลกากร PID รูปแบบใหม่), แผ่นป้ายข้อความสำหรับพิมพ์ตัดแปะหน้ากล่อง (<code>Content Checked</code> / <code>Duties Paid</code>) และประกาศทางการ (ไทย/อังกฤษ) สำหรับ <strong>กดสั่งพิมพ์ออกเครื่องปริ้นท์ A4 ทันที</strong>, <strong>ดาวน์โหลดเก็บไว้</strong> หรือ <strong>กดแชร์ส่งเข้า LINE ให้ลูกค้า/เพื่อนร่วมงาน</strong> ได้ทั้งบนมือถือและคอมพิวเตอร์
+        </p>
+      </div>
+      <div id="formsHubContainer" class="grid-2col"></div>
+    </section>
+
+    <!-- TAB 4: กฎปลายทาง (EU 27 / US / มอลตา / เยอรมนี) -->
+    <section id="tab-destinations" class="tab-section">
+      <div class="section-heading">🌍 เช็คเงื่อนไขเฉพาะของแต่ละโซนประเทศ</div>
+      <div id="destinationsContainer"></div>
+    </section>
+
+    <!-- TAB 5: สิ่งของต้องห้าม & เกณฑ์ของเหลว/พระเครื่อง -->
+    <section id="tab-prohibited" class="tab-section">
+      <div id="prohibitedContainer"></div>
+    </section>
+
+    <!-- TAB 6: ส่วนลด/โปรโมชั่น (กรองเฉพาะที่ใช้ได้จริง พ.ย. 69) + เครื่องคำนวณ -->
+    <section id="tab-promos" class="tab-section">
+      <div class="section-heading">🏷️ ส่วนลดและแคมเปญที่มีผลปัจจุบัน (พ.ย. 2569)</div>
+      <div id="activePromosContainer" class="grid-2col"></div>
+
+      <div class="section-heading" style="margin-top:24px;">🧮 เครื่องคำนวณขนาด & น้ำหนักปริมาตร (Courier Post Plus / ตปท.)</div>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:10px;">เช็คขนาดกล่อง + คำนวณน้ำหนักปริมาตร (ก×ย×ส ÷ 5,000)</div>
+        <div class="calc-input-grid">
+          <div>
+            <label class="form-label">น้ำหนักชั่งจริง (กก.)</label>
+            <input type="number" id="calcWeight" placeholder="เช่น 12.5" step="0.1" />
+          </div>
+          <div>
+            <label class="form-label">ด้านยาวที่สุด (ซม.)</label>
+            <input type="number" id="calcL" placeholder="เช่น 60" />
+          </div>
+          <div>
+            <label class="form-label">ด้านกว้าง (ซม.)</label>
+            <input type="number" id="calcW" placeholder="เช่น 40" />
+          </div>
+          <div>
+            <label class="form-label">ด้านสูง (ซม.)</label>
+            <input type="number" id="calcH" placeholder="เช่น 30" />
+          </div>
+        </div>
+        <button class="btn-primary" id="runCalcBtn">คำนวณและเช็คเกณฑ์ขนาดทันที</button>
+        <div id="calcResultBox" style="margin-top:12px; display:none;"></div>
+      </div>
+
+      <div class="section-heading" style="margin-top:24px; color:#64748B;">🗑️ บันทึก/โปรโมชั่นที่หมดอายุแล้ว (ตัดออกเพื่อกันสับสน)</div>
+      <div id="expiredPromosContainer" class="grid-2col"></div>
+
+      <div class="section-heading" style="margin-top:24px;">📞 เบอร์ติดต่อด่วนสำหรับเจ้าหน้าที่ ปณท</div>
+      <div id="contactsContainer"></div>
+    </section>
+
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
