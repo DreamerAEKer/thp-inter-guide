@@ -1327,10 +1327,21 @@ window.THP_INTER_DATA = {
       zone: "🌏 ปลายทางอื่นๆ ทั่วโลก (นอกเหนือ US และ EU)",
       updated: "สถานะ ณ วันที่ 4 พ.ย. 2569",
       countries: [
-        "เอเชีย (ญี่ปุ่น, เกาหลีใต้, จีน, ไต้หวัน, ฮ่องกง, สิงคโปร์, มาเลเซีย ฯลฯ)",
-        "โอเชียเนีย (ออสเตรเลีย, นิวซีแลนด์ ฯลฯ)",
-        "ยุโรปนอก EU (สหราชอาณาจักร UK, สวิตเซอร์แลนด์, นอร์เวย์ ฯลฯ)",
-        "อเมริกาเหนืออื่นๆ (แคนาดา) และภูมิภาคอื่นๆ"
+        "ญี่ปุ่น (Japan / JP)", "เกาหลีใต้ (South Korea / Korea Rep / KR)", "จีน (China / CN)", "ไต้หวัน (Taiwan / TW)",
+        "ฮ่องกง (Hong Kong / HK)", "สิงคโปร์ (Singapore / SG)", "มาเลเซีย (Malaysia / MY)", "เวียดนาม (Vietnam / VN)",
+        "กัมพูชา (Cambodia / KH)", "ลาว (Laos / LA)", "เมียนมา (Myanmar / MM)", "อินโดนีเซีย (Indonesia / ID)",
+        "ฟิลิปปินส์ (Philippines / PH)", "บรูไน (Brunei / BN)", "มาเก๊า (Macau / MO)", "อินเดีย (India / IN)",
+        "ศรีลังกา (Sri Lanka / LK)", "เนปาล (Nepal / NP)", "ปากีสถาน (Pakistan / PK)", "บังกลาเทศ (Bangladesh / BD)",
+        "มัลดีฟส์ (Maldives / MV)", "ภูฏาน (Bhutan / BT)", "มองโกเลีย (Mongolia / MN)", "ออสเตรเลีย (Australia / AU)",
+        "นิวซีแลนด์ (New Zealand / NZ)", "ฟิจิ (Fiji / FJ)", "ปาปัวนิวกินี (Papua New Guinea / PG)",
+        "สหราชอาณาจักร / อังกฤษ (United Kingdom / UK / GB / England)", "สวิตเซอร์แลนด์ (Switzerland / CH)",
+        "นอร์เวย์ (Norway / NO)", "รัสเซีย (Russia / Russian Federation / RU)", "แคนาดา (Canada / CA)",
+        "อิสราเอล (Israel / IL)", "สหรัฐอาหรับเอมิเรตส์ / ดูไบ (UAE / United Arab Emirates / Dubai)",
+        "ซาอุดีอาระเบีย (Saudi Arabia / SA)", "กาตาร์ (Qatar / QA)", "คูเวต (Kuwait / KW)", "โอมาน (Oman / OM)",
+        "บาห์เรน (Bahrain / BH)", "อิหร่าน (Iran / IR)", "เลบานอน (Lebanon / LB)", "ตุรกี (Turkiye / Turkey / TR)",
+        "อียิปต์ (Egypt / EG)", "แอฟริกาใต้ (South Africa / ZA)", "เคนยา (Kenya / KE)", "ไนจีเรีย (Nigeria / NG)",
+        "โมร็อกโก (Morocco / MA)", "บราซิล (Brazil / BR)", "อาร์เจนตินา (Argentina / AR)", "คิวบา (Cuba / CU)",
+        "ยูเครน (Ukraine / UA)", "เบลารุส (Belarus / BY)", "เซอร์เบีย (Serbia / RS)", "มาซิโดเนียเหนือ (North Macedonia / MK)"
       ],
       allowedForDocs: [
         "ไปรษณียบัตร / บัตรภาพ",
@@ -1548,6 +1559,274 @@ window.THP_INTER_DATA = {
       secondaryUrl: "docs/indemnity-rates-2569.pdf",
       secondaryLabel: "🛡️ ดาวน์โหลดตารางอัตราชดใช้ 2569",
       updated: "ปี 2569"
+    }
+  ],
+
+  // 7. ฐานข้อมูลรายประเทศสำหรับค้นหาด่วน (ค้นได้ทั้งชื่อไทย ชื่ออังกฤษ และรหัสย่อ 2 ตัวอักษร เช่น Korea, KR, เกาหลี, Japan, JP, ญี่ปุ่น)
+  countryDirectory: [
+    {
+      code: "KR",
+      th: "เกาหลีใต้",
+      en: "South Korea / Korea Rep (Republic of Korea)",
+      zone: "เอเชีย (นอกกลุ่ม US/EU)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. | จ่าหน้า P.O.Box ได้",
+      emsEta: "3–5 วันทำการ (ไม่นำจ่ายวันเสาร์-อาทิตย์)",
+      epacketRule: "✅ ส่ง ePacket (LP...TH) ได้ (สูงสุด 2 กก.) — ส่งอาหารแห้งที่มี อย. และฉลากภาษาอังกฤษได้!",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS) ทั้งแบบ DDU และ DDP (มีส่วนลด 5% ปุ่ม PostPlusDDP5% ถึง 30 พ.ย. 69)",
+      notes: "คีย์ข้อมูลศุลกากรล่วงหน้า (ITMATT) หรือทำผ่าน D-Post Inter เป็นภาษาอังกฤษให้ชัดเจน"
+    },
+    {
+      code: "JP",
+      th: "ญี่ปุ่น",
+      en: "Japan",
+      zone: "เอเชีย (นอกกลุ่ม US/EU)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. | จ่าหน้า P.O.Box ได้",
+      emsEta: "3–5 วันทำการ (นำจ่ายทุกวัน)",
+      epacketRule: "✅ ส่ง ePacket (LP...TH) ได้ (สูงสุด 2 กก.) — ส่งอาหารแห้งที่มี อย. ได้!",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS) ทั้งแบบ DDU และ DDP",
+      notes: "ห้ามส่งเนื้อสัตว์แปรรูปทุกชนิด (หมูแผ่น/กุนเชียง/แหนม) และผลไม้สดเข้าญี่ปุ่นเด็ดขาด"
+    },
+    {
+      code: "CN",
+      th: "จีน",
+      en: "China (People's Republic of China)",
+      zone: "เอเชีย (นอกกลุ่ม US/EU)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. | ❌ จ่าหน้า P.O.Box ไม่ได้",
+      emsEta: "3–5 วันทำการ",
+      epacketRule: "✅ ส่ง ePacket (LP...TH) ได้ (สูงสุด 2 กก.)",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS)",
+      notes: "ต้องระบุเบอร์โทรศัพท์ผู้รับในจีนทุกชิ้น และห้ามจ่าหน้าตู้ ปณ. (P.O.Box)"
+    },
+    {
+      code: "TW",
+      th: "ไต้หวัน",
+      en: "Taiwan (Republic of China)",
+      zone: "เอเชีย (นอกกลุ่ม US/EU)",
+      emsMaxWeight: "20 กก. (ระวัง! ไต้หวันจำกัด EMS 20 กก.)",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. | จ่าหน้า P.O.Box ได้",
+      emsEta: "3–5 วันทำการ | ต้องแนบ Commercial / Proforma Invoice",
+      epacketRule: "✅ ส่ง ePacket (LP...TH) ได้ (สูงสุด 2 กก.)",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS)",
+      notes: "ห้ามส่งเนื้อหมูหรือผลิตภัณฑ์จากเนื้อสัตว์เข้าไต้หวันเด็ดขาด (ศุลกากรไต้หวันปรับหนักมาก)"
+    },
+    {
+      code: "HK",
+      th: "ฮ่องกง",
+      en: "Hong Kong",
+      zone: "เอเชีย (นอกกลุ่ม US/EU)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. | จ่าหน้า P.O.Box ได้",
+      emsEta: "3–5 วันทำการ (ไม่นำจ่ายวันอาทิตย์) | แนบ Commercial/Proforma Invoice",
+      epacketRule: "✅ ส่ง ePacket (LP...TH) ได้ (สูงสุด 2 กก.)",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS)",
+      notes: "ส่งอาหารแห้งมี อย. และสินค้าทั่วไปได้สะดวก"
+    },
+    {
+      code: "SG",
+      th: "สิงคโปร์",
+      en: "Singapore",
+      zone: "อาเซียน (นอกกลุ่ม US/EU)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. | จ่าหน้า P.O.Box ได้",
+      emsEta: "3–5 วันทำการ (ไม่นำจ่ายวันอาทิตย์) | ยกเว้นพื้นที่หมู่เกาะนอกชายฝั่ง",
+      epacketRule: "✅ ส่ง ePacket (LP...TH) ได้ (สูงสุด 2 กก.)",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS)",
+      notes: "ห้ามส่งหมากฝรั่ง บุหรี่ไฟฟ้า และยาสูบเข้าสิงคโปร์เด็ดขาด"
+    },
+    {
+      code: "MY",
+      th: "มาเลเซีย",
+      en: "Malaysia",
+      zone: "อาเซียน (นอกกลุ่ม US/EU)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. | ❌ จ่าหน้า P.O.Box ไม่ได้",
+      emsEta: "3–5 วันทำการ (ไม่นำจ่ายเสาร์-อาทิตย์) | แนบ Commercial Invoice",
+      epacketRule: "✅ ส่ง ePacket (LP...TH) ได้ (สูงสุด 2 กก.)",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS)",
+      notes: "ห้ามจ่าหน้า P.O.Box สำหรับบริการ EMS World"
+    },
+    {
+      code: "AU",
+      th: "ออสเตรเลีย",
+      en: "Australia",
+      zone: "โอเชียเนีย (นอกกลุ่ม US/EU)",
+      emsMaxWeight: "20 กก. (⚠️ จำกัดน้ำหนักไม่เกิน 20 กก.!)",
+      emsSize: "⚠️ ขนาดจำกัดพิเศษ: ด้านยาวสุดไม่เกิน 1.05 ม. (105 ซม.) และ ยาวสุด+รอบตัวห่อ ไม่เกิน 2.00 ม. (200 ซม.)!",
+      emsEta: "4–6 วันทำการ (ไม่นำจ่ายเสาร์-อาทิตย์)",
+      epacketRule: "✅ ส่ง ePacket (LP...TH) ได้ (สูงสุด 2 กก.)",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS) — เหมาะมากสำหรับกล่องเกิน 20 กก. หรือยาวเกิน 105 ซม.",
+      notes: "ด่านกักกันโรคออสเตรเลียเข้มงวดเรื่องพืช เมล็ดพันธุ์ ไม้ และอาหารมาก ต้องสำแดงตามจริง 100%"
+    },
+    {
+      code: "NZ",
+      th: "นิวซีแลนด์",
+      en: "New Zealand",
+      zone: "โอเชียเนีย (นอกกลุ่ม US/EU)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. | จ่าหน้า P.O.Box ได้",
+      emsEta: "4–6 วันทำการ (ไม่นำจ่ายวันอาทิตย์) | แนบ Commercial Invoice",
+      epacketRule: "✅ ส่ง ePacket (LX...TH) ได้ (สูงสุด 2 กก.)",
+      courierPlusRule: "ใช้บริการ Courier Post (DHL) หรือ EMS World",
+      notes: "ยกเว้นพื้นที่ Cook Islands, Niue และ Tokelau"
+    },
+    {
+      code: "GB",
+      th: "สหราชอาณาจักร (อังกฤษ / UK)",
+      en: "United Kingdom / UK / Great Britain / England",
+      zone: "ยุโรปนอกกลุ่ม EU (Non-EU)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. | ❌ จ่าหน้า P.O.Box ไม่ได้",
+      emsEta: "4–9 วันทำการ (ไม่นำจ่ายเสาร์-อาทิตย์) | แนบ Commercial/Proforma Invoice",
+      epacketRule: "✅ พิเศษ! ส่ง ePacket ปกติ (LX...TH) ได้สูงสุดถึง 5 กก.! และส่งอาหารแห้งมี อย. ได้ตามปกติ (ไม่ต้องใช้ ePacket DDP ของ EU)",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS) ทั้ง DDU และ DDP",
+      notes: "อังกฤษ (UK) ไม่ใช่สมาชิกสหภาพยุโรป (EU 27 ประเทศ) จึงส่ง EMS World Package และ ePacket LX ได้ตามปกติ!"
+    },
+    {
+      code: "CH",
+      th: "สวิตเซอร์แลนด์",
+      en: "Switzerland",
+      zone: "ยุโรปนอกกลุ่ม EU (Non-EU)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. | จ่าหน้า P.O.Box ได้",
+      emsEta: "4–9 วันทำการ (ไม่นำจ่ายเสาร์-อาทิตย์) | แนบ Commercial/Proforma Invoice + สำเนาใบเสร็จ",
+      epacketRule: "✅ ส่ง ePacket ปกติ (LX...TH) ได้ (สูงสุด 2 กก.) — ส่งอาหารแห้งมี อย. ได้",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS)",
+      notes: "สวิตเซอร์แลนด์ ไม่ใช่สมาชิก EU 27 ประเทศ ใช้บริการปกติได้ครบทุกบริการ"
+    },
+    {
+      code: "NO",
+      th: "นอร์เวย์",
+      en: "Norway",
+      zone: "ยุโรปนอกกลุ่ม EU (Non-EU)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. | ❌ จ่าหน้า P.O.Box ไม่ได้",
+      emsEta: "4–9 วันทำการ (ไม่นำจ่ายเสาร์-อาทิตย์) | แนบ Commercial/Proforma Invoice",
+      epacketRule: "✅ ส่ง ePacket ปกติ (LX...TH) ได้ (สูงสุด 2 กก.)",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS)",
+      notes: "นอร์เวย์ ไม่ใช่สมาชิก EU 27 ประเทศ ใช้บริการปกติได้ครบทุกบริการ"
+    },
+    {
+      code: "US",
+      th: "สหรัฐอเมริกา",
+      en: "United States of America / USA / US / America",
+      zone: "อเมริกาเหนือ (กฎเฉพาะ US)",
+      emsMaxWeight: "Package ≤ 30 กก. | 🚨 Document (เอกสาร) ห้ามเกิน 500 กรัม เด็ดขาด!",
+      emsSize: "Package: ยาวสุด ≤ 1.52 ม. และ ยาวสุด+รอบตัวห่อ ≤ 2.74 ม. | Document: ซองไม่เกิน P/G (30.5×38.1×2 ซม.)",
+      emsEta: "5–7 วันทำการ (ไม่นำจ่ายวันอาทิตย์) | แนบ Commercial/Proforma Invoice",
+      epacketRule: "🚨 ePacket US (LA = 48 รัฐแผ่นดินใหญ่ / LI = Alaska, Hawaii, เกาะ, APO): นน. ≤ 5 กก., มูลค่า ≤ 60 USD (รวมภาษี DDP แล้ว) — ❌ ห้ามส่งอาหาร/อาหารเสริมทุกชนิดเด็ดขาด! ต้องทำผ่าน D-Post Inter + เปิดตรวจ 100% + เขียน Content Checked",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus: พิกัด 1–20 กก. รหัส FD (ปิดถุง ป.94 ไป ศป.EMS) / พิกัด >20–5,000 กก. รหัส FC (ปิดถุง ป.94ก ไป ศป.สภ.) — ส่งอาหารแปรรูปมี อย. ได้!",
+      notes: "ถ้าลูกค้าส่งอาหารแห้งมี อย. ไปอเมริกา ห้ามใช้ ePacket เด็ดขาด ให้ใช้ EMS World (Package) หรือ Courier Post Plus แทน"
+    },
+    {
+      code: "CA",
+      th: "แคนาดา",
+      en: "Canada",
+      zone: "อเมริกาเหนือ (นอกกลุ่ม US/EU)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. | จ่าหน้า P.O.Box ได้",
+      emsEta: "5–7 วันทำการ (ไม่นำจ่ายเสาร์-อาทิตย์) | แนบ Commercial Invoice",
+      epacketRule: "✅ ส่ง ePacket (LX...TH) ได้ (สูงสุด 2 กก.) — ส่งอาหารแห้งมี อย. ได้",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS)",
+      notes: "ใช้เกณฑ์ปกติ (ไม่ติดข้อจำกัด 60 USD หรือห้ามส่งอาหารของสหรัฐฯ)"
+    },
+    {
+      code: "DE",
+      th: "เยอรมนี",
+      en: "Germany / Deutschland",
+      zone: "🇪🇺 สมาชิกสหภาพยุโรป (EU 27 ประเทศ - กลุ่มที่ 3)",
+      emsMaxWeight: "🚨 รับเฉพาะ EMS World (Document - เอกสารล้วน ≤ 5 กก.) เท่านั้น! (งดส่งสิ่งของด้วย EMS World Package)",
+      emsSize: "ห้ามส่งทางภาคพื้น (ทางเรือ / Surface) ทุกบริการ ตั้งแต่วันที่ 24 ก.ค. 2569",
+      emsEta: "4–9 วันทำการ",
+      epacketRule: "🚨 ต้องใช้ ePacket DDP (LE...TH) เท่านั้น! (นน. ≤ 5 กก., ขนาด ≤ 60×40×30 ซม. รวม ≤ 130 ซม., มูลค่า ≤ 150 EUR, ค่าธรรมเนียมศุลกากร 2 EUR/HS Code Line) — ❌ ห้ามส่งอาหารเด็ดขาด! ต้องทำ D-Post Inter + กรอกรหัส PID + เปิดตรวจ 100% + เขียน Content Checked & Duties Paid",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS) ทั้ง DDU และ DDP (ส่งอาหารแปรรูปมี อย. ได้)",
+      notes: "ลด 5% สำหรับสมาชิก POST Family เมื่อส่ง ePacket DDP (1 พ.ย. – 31 ธ.ค. 69)"
+    },
+    {
+      code: "FR",
+      th: "ฝรั่งเศส",
+      en: "France",
+      zone: "🇪🇺 สมาชิกสหภาพยุโรป (EU 27 ประเทศ - กลุ่มที่ 2)",
+      emsMaxWeight: "🚨 รับเฉพาะ EMS World (Document - เอกสารล้วน) เท่านั้น! (งดส่งสิ่งของด้วย EMS World Package)",
+      emsSize: "บังคับทำจ่าหน้าผ่าน D-Post Inter และกรอกรหัส PID (M-PID / NS-PID) ทุกชิ้น",
+      emsEta: "4–9 วันทำการ",
+      epacketRule: "🚨 ต้องใช้ ePacket DDP (LE...TH) เท่านั้น! (นน. ≤ 5 กก., มูลค่า ≤ 150 EUR, ภาษีขาเข้า 3 EUR/พิกัดศุลกากร ผ่าน Pay@Post 84415) — ❌ ห้ามส่งอาหารเด็ดขาด! เขียน Content Checked & Duties Paid",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS) ทั้ง DDU และ DDP",
+      notes: "ลด 5% สมาชิก POST Family สำหรับ ePacket DDP (1 พ.ย. – 31 ธ.ค. 69)"
+    },
+    {
+      code: "IT",
+      th: "อิตาลี",
+      en: "Italy / Italia",
+      zone: "🇪🇺 สมาชิกสหภาพยุโรป (EU 27 ประเทศ - กลุ่มที่ 1)",
+      emsMaxWeight: "🚨 รับเฉพาะ EMS World (Document - เอกสารล้วน) เท่านั้น!",
+      emsSize: "บังคับทำจ่าหน้าผ่าน D-Post Inter และกรอกรหัส PID ทุกชิ้น",
+      emsEta: "4–9 วันทำการ",
+      epacketRule: "🚨 เปิดบริการ ePacket DDP (LE...TH) ตั้งแต่วันที่ 1 พ.ย. 69! (นน. ≤ 5 กก., มูลค่า ≤ 150 EUR, ❌ ห้ามส่งอาหารเด็ดขาด! เขียน Content Checked & Duties Paid)",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS)",
+      notes: "ขยายเปิดรับ ePacket DDP (LE) ไปอิตาลีแล้วตั้งแต่วันที่ 1 พ.ย. 2569 (บันทึกเลขที่ 3362)"
+    },
+    {
+      code: "NL",
+      th: "เนเธอร์แลนด์",
+      en: "Netherlands / Holland",
+      zone: "🇪🇺 สมาชิกสหภาพยุโรป (EU 27 ประเทศ - กลุ่มที่ 2)",
+      emsMaxWeight: "🚨 รับเฉพาะ EMS World (Document - เอกสารล้วน) เท่านั้น!",
+      emsSize: "บังคับทำจ่าหน้าผ่าน D-Post Inter และกรอกรหัส PID ทุกชิ้น",
+      emsEta: "4–9 วันทำการ",
+      epacketRule: "🚨 ใช้ ePacket DDP (LE...TH) เท่านั้น! (นน. ≤ 5 กก., มูลค่า ≤ 150 EUR, ❌ ห้ามส่งอาหารเด็ดขาด! เขียน Content Checked & Duties Paid)",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS)",
+      notes: "ลด 5% สมาชิก POST Family สำหรับ ePacket DDP (1 พ.ย. – 31 ธ.ค. 69)"
+    },
+    {
+      code: "SE",
+      th: "สวีเดน",
+      en: "Sweden",
+      zone: "🇪🇺 สมาชิกสหภาพยุโรป (EU 27 ประเทศ - กลุ่มที่ 2)",
+      emsMaxWeight: "🚨 รับเฉพาะ EMS World (Document - เอกสารล้วน) เท่านั้น!",
+      emsSize: "บังคับทำจ่าหน้าผ่าน D-Post Inter และกรอกรหัส PID ทุกชิ้น",
+      emsEta: "4–9 วันทำการ",
+      epacketRule: "🚨 ใช้ ePacket DDP (LE...TH) เท่านั้น! (นน. ≤ 5 กก., มูลค่า ≤ 150 EUR, ❌ ห้ามส่งอาหารเด็ดขาด! เขียน Content Checked & Duties Paid)",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS)",
+      notes: "ลด 5% สมาชิก POST Family สำหรับ ePacket DDP (1 พ.ย. – 31 ธ.ค. 69)"
+    },
+    {
+      code: "MT",
+      th: "มอลตา",
+      en: "Malta",
+      zone: "🇪🇺 สมาชิกสหภาพยุโรป (EU 27 ประเทศ - กลุ่มที่ 3)",
+      emsMaxWeight: "🚨 รับเฉพาะ EMS World (Document - เอกสารล้วน) เท่านั้น! และระงับบริการลงทะเบียนประเภทสิ่งของ (ประกาศ 17 ก.ย. 69)",
+      emsSize: "บังคับทำจ่าหน้าผ่าน D-Post Inter และกรอกรหัส PID ทุกชิ้น",
+      emsEta: "4–9 วันทำการ",
+      epacketRule: "🚨 ใช้ ePacket DDP (LE...TH) เท่านั้น! (นน. ≤ 5 กก., มูลค่า ≤ 150 EUR, ค่าธรรมเนียมศุลกากร 2 EUR/HS Code Line, ❌ ห้ามส่งอาหารเด็ดขาด!)",
+      courierPlusRule: "ใช้บริการ Courier Post หรือ ePacket DDP",
+      notes: "การไปรษณีย์มอลตารับเฉพาะสิ่งของที่ชำระภาษีล่วงหน้า (DDP) เท่านั้น"
+    },
+    {
+      code: "AE",
+      th: "สหรัฐอาหรับเอมิเรตส์ (ดูไบ / UAE)",
+      en: "United Arab Emirates / UAE / Dubai / Abu Dhabi",
+      zone: "ตะวันออกกลาง (นอกกลุ่ม US/EU)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "⚠️ ขนาดจำกัดพิเศษ: ด้านยาวสุดไม่เกิน 1.05 ม. (105 ซม.) และ ยาวสุด+รอบตัวห่อ ไม่เกิน 2.00 ม. (200 ซม.)",
+      emsEta: "3–5 วันทำการ (ไม่นำจ่ายเสาร์-อาทิตย์) | แนบ Commercial/Proforma Invoice",
+      epacketRule: "ตรวจสอบบริการในระบบ CA POS / แนะนำ EMS World หรือ Courier Post",
+      courierPlusRule: "ใช้บริการ Courier Post (DHL) หรือ EMS World",
+      notes: "ระวังขนาดกล่อง EMS World ไป UAE ห้ามยาวเกิน 105 ซม."
+    },
+    {
+      code: "IL",
+      th: "อิสราเอล",
+      en: "Israel",
+      zone: "ตะวันออกกลาง (นอกกลุ่ม US/EU)",
+      emsMaxWeight: "20 กก. (⚠️ จำกัดน้ำหนักไม่เกิน 20 กก.)",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม.",
+      emsEta: "3–5 วันทำการ (ไม่นำจ่ายศุกร์-เสาร์) | แนบ Commercial/Proforma Invoice",
+      epacketRule: "ส่งผ่าน EMS World / Courier Post Plus / Courier Post",
+      courierPlusRule: "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS)",
+      notes: "วันหยุดประจำสัปดาห์ของอิสราเอลคือวันศุกร์-เสาร์"
     }
   ]
 };
@@ -2301,6 +2580,56 @@ window.THP_INTER_DATA = {
       searchSection.style.display = "block";
 
       const matches = [];
+
+      // 0. ค้นหาในฐานข้อมูลรายประเทศโดยตรง (Country Directory - รองรับทั้งชื่ออังกฤษ ชื่อไทย และรหัส 2 ตัวอักษร เช่น Korea, KR, เกาหลี, Japan, JP, UK, US, Germany)
+      (DATA.countryDirectory || []).forEach((cty) => {
+        const hay = [
+          cty.code,
+          cty.th,
+          cty.en,
+          cty.zone,
+          cty.emsMaxWeight,
+          cty.emsSize,
+          cty.emsEta,
+          cty.epacketRule,
+          cty.courierPlusRule,
+          cty.notes
+        ]
+          .join(" ")
+          .toLowerCase();
+
+        if (hay.includes(q)) {
+          matches.push(`
+            <div class="card" style="border: 2px solid #2563EB;">
+              <div class="card-header">
+                <div>
+                  <span class="prefix-tag" style="background:#1E40AF; color:#FDE047;">รหัสประเทศ: ${escapeHtml(cty.code)}</span>
+                  <div class="card-title">🏳️ ${escapeHtml(cty.th)} — ${escapeHtml(cty.en)}</div>
+                </div>
+                <span class="badge badge-blue">${escapeHtml(cty.zone)}</span>
+              </div>
+              <div class="spec-grid">
+                <div class="spec-item">
+                  <span class="spec-label">📦 บริการ ePacket:</span>
+                  <span class="spec-value" style="font-weight:600; color:${cty.epacketRule.includes("❌") || cty.epacketRule.includes("🚨") ? "#B91C1C" : "#047857"};">${escapeHtml(cty.epacketRule)}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">🚀 บริการ EMS World:</span>
+                  <span class="spec-value"><strong>น้ำหนักสูงสุด:</strong> ${escapeHtml(cty.emsMaxWeight)} | <strong>ขนาด/เงื่อนไข:</strong> ${escapeHtml(cty.emsSize)} | <strong>ระยะเวลานำจ่าย:</strong> ${escapeHtml(cty.emsEta)}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">🚛 บริการ Courier Post Plus / Courier Post:</span>
+                  <span class="spec-value">${escapeHtml(cty.courierPlusRule)}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">📌 ข้อสังเกตสำคัญหน้าเคาน์เตอร์:</span>
+                  <span class="spec-value" style="color:#92400E; font-weight:600;">${escapeHtml(cty.notes)}</span>
+                </div>
+              </div>
+            </div>
+          `);
+        }
+      });
 
       // ค้นหาในบริการ (Services)
       DATA.services.forEach((srv) => {

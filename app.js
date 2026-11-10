@@ -746,6 +746,56 @@
 
       const matches = [];
 
+      // 0. ค้นหาในฐานข้อมูลรายประเทศโดยตรง (Country Directory - รองรับทั้งชื่ออังกฤษ ชื่อไทย และรหัส 2 ตัวอักษร เช่น Korea, KR, เกาหลี, Japan, JP, UK, US, Germany)
+      (DATA.countryDirectory || []).forEach((cty) => {
+        const hay = [
+          cty.code,
+          cty.th,
+          cty.en,
+          cty.zone,
+          cty.emsMaxWeight,
+          cty.emsSize,
+          cty.emsEta,
+          cty.epacketRule,
+          cty.courierPlusRule,
+          cty.notes
+        ]
+          .join(" ")
+          .toLowerCase();
+
+        if (hay.includes(q)) {
+          matches.push(`
+            <div class="card" style="border: 2px solid #2563EB;">
+              <div class="card-header">
+                <div>
+                  <span class="prefix-tag" style="background:#1E40AF; color:#FDE047;">รหัสประเทศ: ${escapeHtml(cty.code)}</span>
+                  <div class="card-title">🏳️ ${escapeHtml(cty.th)} — ${escapeHtml(cty.en)}</div>
+                </div>
+                <span class="badge badge-blue">${escapeHtml(cty.zone)}</span>
+              </div>
+              <div class="spec-grid">
+                <div class="spec-item">
+                  <span class="spec-label">📦 บริการ ePacket:</span>
+                  <span class="spec-value" style="font-weight:600; color:${cty.epacketRule.includes("❌") || cty.epacketRule.includes("🚨") ? "#B91C1C" : "#047857"};">${escapeHtml(cty.epacketRule)}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">🚀 บริการ EMS World:</span>
+                  <span class="spec-value"><strong>น้ำหนักสูงสุด:</strong> ${escapeHtml(cty.emsMaxWeight)} | <strong>ขนาด/เงื่อนไข:</strong> ${escapeHtml(cty.emsSize)} | <strong>ระยะเวลานำจ่าย:</strong> ${escapeHtml(cty.emsEta)}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">🚛 บริการ Courier Post Plus / Courier Post:</span>
+                  <span class="spec-value">${escapeHtml(cty.courierPlusRule)}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">📌 ข้อสังเกตสำคัญหน้าเคาน์เตอร์:</span>
+                  <span class="spec-value" style="color:#92400E; font-weight:600;">${escapeHtml(cty.notes)}</span>
+                </div>
+              </div>
+            </div>
+          `);
+        }
+      });
+
       // ค้นหาในบริการ (Services)
       DATA.services.forEach((srv) => {
         const hay = [
