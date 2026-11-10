@@ -1187,6 +1187,197 @@
       color: #0F172A;
     }
 
+    /* =================================================================== */
+    /* 🧮 ตัวช่วยเช็คค่าบริการด่วน (Rate Assistant & Reverse Price Lookup)   */
+    /* =================================================================== */
+    .assistant-card {
+      background: #FFFFFF;
+      border: 2.5px solid #D97706;
+      border-radius: 16px;
+      padding: 15px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+    }
+
+    .assistant-card.inter-theme {
+      border-color: #1D4ED8;
+      background: linear-gradient(180deg, #F0F7FF 0%, #FFFFFF 45%);
+    }
+
+    .assistant-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .assistant-title {
+      font-size: 16.5px;
+      font-weight: 800;
+      color: #92400E;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .assistant-card.inter-theme .assistant-title {
+      color: #1E3A8A;
+    }
+
+    .submode-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      background: #E2E8F0;
+      padding: 4px;
+      border-radius: 11px;
+      margin-bottom: 12px;
+    }
+
+    .submode-btn {
+      border: none;
+      background: transparent;
+      padding: 9px 10px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .submode-btn.active {
+      background: #1D4ED8;
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(29, 78, 216, 0.3);
+    }
+
+    .quick-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 6px 0 10px;
+    }
+
+    .quick-chip-btn {
+      border: 1px solid #CBD5E1;
+      background: #F8FAFC;
+      color: #1E293B;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+
+    .quick-chip-btn:hover,
+    .quick-chip-btn.active {
+      background: #FEF3C7;
+      border-color: #D97706;
+      color: #92400E;
+    }
+
+    .assistant-card.inter-theme .quick-chip-btn:hover,
+    .assistant-card.inter-theme .quick-chip-btn.active {
+      background: #DBEAFE;
+      border-color: #2563EB;
+      color: #1E3A8A;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 8px 10px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      margin: 10px 0;
+      align-items: center;
+    }
+
+    .filter-pill {
+      border: 1.5px solid #CBD5E1;
+      background: #FFFFFF;
+      color: #334155;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-pill.active {
+      background: #0F172A;
+      color: #FDE047;
+      border-color: #0F172A;
+    }
+
+    .rate-result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .rate-result-card {
+      background: #FFFFFF;
+      border: 1.5px solid #CBD5E1;
+      border-left: 5px solid #2563EB;
+      border-radius: 11px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .rate-result-card.cheapest {
+      border-color: #10B981;
+      border-left: 5px solid #059669;
+      background: #F0FDF4;
+    }
+
+    .rate-result-card.fastest {
+      border-left-color: #E11D48;
+    }
+
+    .rate-price-big {
+      font-size: 19px;
+      font-weight: 800;
+      color: #B91C1C;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .cross-mode-toggle-btn {
+      border: 1.5px solid #D97706;
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      color: #78350F;
+      padding: 6px 11px;
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .cross-mode-toggle-btn.to-inter {
+      border-color: #2563EB;
+      background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+      color: #1E3A8A;
+    }
+
     /* Desktop & Tablet Responsive Layout (ทำงานได้ดีทั้งบนมือถือส่วนตัวและคอมหน้าเคาน์เตอร์) */
     @media (min-width: 900px) {
       body {
@@ -1380,6 +1571,71 @@
             • <strong>7–8. EMS ปกติ (831) • EMS ขนาดใหญ่ (2886) • EMS Jumbo:</strong> ยาวเกิน 60 ซม. หรือ ก+ย+ส &gt; 120 ซม. (≤240 ซม.) <strong>คีย์รหัส <code>2886</code> (หารปริมาตร ÷ 6,000)</strong> | <strong>EMS Jumbo:</strong> 30–200 กก. หรือสินค้าสำเร็จรูป 44 รายการ (10 โซน) มอเตอร์ไซค์หุ้ม <strong>โฟม EPE</strong> + ทำ <strong>ใบตรวจสภาพรถ 3 ฉบับ</strong><br>
             • <strong>9. ความรู้ พนง.:</strong> <strong>COD (Wallet@POST)</strong> โอนเงิน <strong>T+1 ก่อน 17.00 น.</strong> | ของมีค่า &gt;2,000 บ. แนะนำ <strong>High Value / EMS รับประกัน (สูงสุด 50,000 บ.)</strong> | งาน <strong>EMS Point</strong> คีย์รหัส <code>694160</code> (ซอง) / <code>694163</code> (กล่อง)
           </p>
+        </div>
+
+        <!-- 🧮 ตัวช่วยเช็คค่าบริการในประเทศ + กรองบริการ (Filter) & เช็ครหัสไปรษณีย์พื้นที่ห่างไกล -->
+        <div class="assistant-card" id="domQuickRateCard">
+          <div class="assistant-header">
+            <div class="assistant-title">🧮 ตัวช่วยเช็คค่าบริการในประเทศ & กรองบริการ</div>
+            <button type="button" class="cross-mode-toggle-btn to-inter" id="jumpToInterReverseBtn">
+              🌐 สลับไปค้นราคา ➔ ประเทศ (ตปท.)
+            </button>
+          </div>
+
+          <div class="calc-input-grid" style="margin-bottom:6px;">
+            <div>
+              <label class="form-label">1. น้ำหนักสิ่งของ (กรัม)</label>
+              <input type="number" id="domQuickWeight" placeholder="เช่น 50, 250, 1000" value="250" min="1" max="30000" />
+            </div>
+            <div>
+              <label class="form-label">2. รหัสไปรษณีย์ปลายทาง (ไม่บังคับ)</label>
+              <input type="text" id="domQuickPostcode" placeholder="เช่น 10400, 83000, 84140" maxlength="5" inputmode="numeric" />
+            </div>
+            <div>
+              <label class="form-label">3. ลักษณะซอง / หีบห่อ</label>
+              <select id="domQuickPack">
+                <option value="env">✉️ ซองกระดาษปกติ (ก+ย+ส ≤ 60 ซม.)</option>
+                <option value="pack">📦 ซองพลาสติก / ซองป่อง / กล่อง</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">4. บริการเสริมตอบรับ (AR / e-AR)</label>
+              <select id="domQuickAr">
+                <option value="none">ไม่เพิ่มตอบรับ</option>
+                <option value="ear">📲 ตอบรับ e-AR (+5 บ. แจ้ง SMS)</option>
+                <option value="ar">📬 ใบตอบรับกระดาษ ป.133ก (+3/+6/+10 บ.)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- ปุ่มลัดเลือกน้ำหนักด่วน -->
+          <div class="quick-chips-row" id="domWeightQuickChips">
+            <span style="font-size:12px; color:#64748B; font-weight:600; align-self:center;">น้ำหนักด่วน:</span>
+            <button type="button" class="quick-chip-btn" data-wg="15">15ก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="50">50ก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="100">100ก.</button>
+            <button type="button" class="quick-chip-btn active" data-wg="250">250ก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="500">500ก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="1000">1 กก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="2000">2 กก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="3500">3.5 กก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="5000">5 กก.</button>
+            <button type="button" class="quick-chip-btn" data-wg="10000">10 กก.</button>
+          </div>
+
+          <div id="domPostcodeStatusBox" style="margin-bottom:8px;"></div>
+
+          <!-- แถบตัวกรอง (Filter) และเรียงลำดับ (Sort) -->
+          <div class="filter-bar" id="domQuickFilterBar">
+            <span style="font-size:12px; font-weight:700; color:#0F172A;">กรอง/เรียงตาม:</span>
+            <button type="button" class="filter-pill active" data-dfilter="price_asc">⬇️ ราคาน้อย ➔ มาก</button>
+            <button type="button" class="filter-pill" data-dfilter="fastest">⚡ เร็วสุด (EMS ด่วน)</button>
+            <button type="button" class="filter-pill" data-dfilter="trackable">🔍 ตรวจสอบสถานะออนไลน์ได้</button>
+            <button type="button" class="filter-pill" data-dfilter="insured">🛡️ มีวงเงินชดใช้ค่าเสียหาย</button>
+            <button type="button" class="filter-pill" data-dfilter="price_desc">⬆️ ราคามาก ➔ น้อย</button>
+          </div>
+
+          <div id="domQuickRateResults" class="rate-result-grid"></div>
         </div>
 
         <!-- Domestic Interactive Decision Wizard -->
@@ -1701,6 +1957,140 @@
           • <strong>ส่งไป EU 27 ประเทศ:</strong> บังคับทำจ่าหน้าผ่าน <strong>D-Post Inter</strong> และกรอกรหัส <strong>PID (M-PID / NS-PID)</strong> ทุกชิ้น<br>
           • <strong>ห้ามส่งอาหาร/อาหารเสริมเด็ดขาด</strong> ในบริการ <strong>ePacket US (LA/LI)</strong> และ <strong>ePacket DDP ยุโรป (LE)</strong> (ปรับขั้นต่ำ 3,100 บ./กล่อง) ต้องเปิดตรวจและประทับตรา <strong>"Content Checked"</strong> ทุกชิ้น
         </p>
+      </div>
+
+      <!-- 🎯 ตัวช่วยพิเศษฝั่งต่างประเทศ: คีย์ราคา ➔ แสดงประเทศปลายทาง & พิกัดน้ำหนัก + กดดูเรทในประเทศคู่กันได้ทันที -->
+      <div class="assistant-card inter-theme" id="interRateAssistantCard">
+        <div class="assistant-header">
+          <div class="assistant-title">🎯 ตัวช่วยเช็คเรทต่างประเทศ (คีย์ราคา ➔ รู้ประเทศ & พิกัดน้ำหนัก)</div>
+          <button type="button" class="cross-mode-toggle-btn" id="toggleInlineDomCompareBtn">
+            🇹🇭 กดแสดงค่าบริการในประเทศคู่กัน
+          </button>
+        </div>
+
+        <!-- ปุ่มสลับ 2 โหมดย่อย: (1) คีย์ราคา ➔ หาประเทศ & น้ำหนัก | (2) เลือกประเทศ + น้ำหนัก ➔ เทียบราคาทุกบริการ -->
+        <div class="submode-tabs" id="interSubmodeTabs">
+          <button type="button" class="submode-btn active" data-isub="reverse">
+            💰 คีย์ราคา (บาท) ➔ หาประเทศ & น้ำหนัก
+          </button>
+          <button type="button" class="submode-btn" data-isub="forward">
+            🌍 เลือกประเทศ + น้ำหนัก ➔ เทียบเรทตปท.
+          </button>
+        </div>
+
+        <!-- โหมดย่อยที่ 1: ค้นหาย้อนกลับจากราคา (Reverse Price Lookup) -->
+        <div id="interReversePane">
+          <div class="calc-input-grid" style="margin-bottom:6px;">
+            <div>
+              <label class="form-label">1. คีย์ราคาค่าส่งต่างประเทศ (บาท)</label>
+              <input type="number" id="interRevPriceInput" placeholder="เช่น 160, 260, 339, 720, 1460..." value="339" min="10" step="any" />
+            </div>
+            <div>
+              <label class="form-label">2. กรองเฉพาะประเภทบริการ (ไม่บังคับ)</label>
+              <select id="interRevServiceFilter">
+                <option value="all">ทุกบริการระหว่างประเทศ (ePacket / EMS / พัสดุ / ย่อย / จดหมาย)</option>
+                <option value="epacket">เฉพาะ ePacket (LP / LX / US DDP LA-LI)</option>
+                <option value="ems">เฉพาะ EMS World (EE / ED / One Price)</option>
+                <option value="airparcel">เฉพาะ พัสดุไปรษณีย์ทางอากาศ (CP)</option>
+                <option value="small_letter">เฉพาะ พัสดุย่อย / จดหมายทางอากาศ / ลงทะเบียน RR</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="quick-chips-row" id="interRevPriceChips">
+            <span style="font-size:12px; color:#475569; font-weight:600; align-self:center;">เรทยอดฮิต:</span>
+            <button type="button" class="quick-chip-btn" data-rprice="160">160 บ.</button>
+            <button type="button" class="quick-chip-btn" data-rprice="195">195 บ.</button>
+            <button type="button" class="quick-chip-btn" data-rprice="220">220 บ.</button>
+            <button type="button" class="quick-chip-btn" data-rprice="260">260 บ.</button>
+            <button type="button" class="quick-chip-btn active" data-rprice="339">339 บ. (US)</button>
+            <button type="button" class="quick-chip-btn" data-rprice="475">475 บ. (US)</button>
+            <button type="button" class="quick-chip-btn" data-rprice="640">640 บ. (EMS)</button>
+            <button type="button" class="quick-chip-btn" data-rprice="720">720 บ. (EMS)</button>
+            <button type="button" class="quick-chip-btn" data-rprice="880">880 บ. (EMS)</button>
+            <button type="button" class="quick-chip-btn" data-rprice="1120">1,120 บ.</button>
+            <button type="button" class="quick-chip-btn" data-rprice="1460">1,460 บ.</button>
+          </div>
+
+          <div id="interRevResultBox"></div>
+        </div>
+
+        <!-- โหมดย่อยที่ 2: เลือกประเทศปลายทาง + คีย์น้ำหนัก ➔ เทียบราคาทุกบริการ + Filter -->
+        <div id="interForwardPane" style="display:none;">
+          <div class="calc-input-grid" style="margin-bottom:6px;">
+            <div>
+              <label class="form-label">1. ประเทศปลายทาง</label>
+              <select id="interFwdCountrySelect">
+                <option value="สหรัฐอเมริกา">🇺🇸 สหรัฐอเมริกา (USA)</option>
+                <option value="ญี่ปุ่น">🇯🇵 ญี่ปุ่น (Japan)</option>
+                <option value="เกาหลีใต้">🇰🇷 เกาหลีใต้ (South Korea)</option>
+                <option value="สหราชอาณาจักร">🇬🇧 สหราชอาณาจักร (อังกฤษ / UK)</option>
+                <option value="ออสเตรเลีย">🇦🇺 ออสเตรเลีย (Australia)</option>
+                <option value="เยอรมนี">🇩🇪 เยอรมนี (Germany - EU)</option>
+                <option value="ฝรั่งเศส">🇫🇷 ฝรั่งเศส (France - EU)</option>
+                <option value="อิตาลี">🇮🇹 อิตาลี (Italy - EU)</option>
+                <option value="สวีเดน">🇸🇪 สวีเดน (Sweden - EU)</option>
+                <option value="เนเธอร์แลนด์">🇳🇱 เนเธอร์แลนด์ (Netherlands - EU)</option>
+                <option value="สวิตเซอร์แลนด์">🇨🇭 สวิตเซอร์แลนด์ (Switzerland - Non-EU)</option>
+                <option value="นอร์เวย์">🇳🇴 นอร์เวย์ (Norway - Non-EU)</option>
+                <option value="จีน">🇨🇳 จีน (China)</option>
+                <option value="ฮ่องกง">🇭🇰 ฮ่องกง (Hong Kong)</option>
+                <option value="ไต้หวัน">🇹🇼 ไต้หวัน (Taiwan)</option>
+                <option value="สิงคโปร์">🇸🇬 สิงคโปร์ (Singapore)</option>
+                <option value="มาเลเซีย">🇲🇾 มาเลเซีย (Malaysia)</option>
+                <option value="เวียดนาม">🇻🇳 เวียดนาม (Vietnam)</option>
+                <option value="ลาว">🇱🇦 ลาว (Laos)</option>
+                <option value="กัมพูชา">🇰🇭 กัมพูชา (Cambodia)</option>
+                <option value="อินเดีย">🇮🇳 อินเดีย (India)</option>
+                <option value="แคนาดา">🇨🇦 แคนาดา (Canada)</option>
+                <option value="นิวซีแลนด์">🇳🇿 นิวซีแลนด์ (New Zealand)</option>
+                <option value="สหรัฐอาหรับเอมิเรตส์">🇦🇪 สหรัฐอาหรับเอมิเรตส์ (UAE / ดูไบ)</option>
+                <option value="อิสราเอล">🇮🇱 อิสราเอล (Israel)</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">2. น้ำหนักสิ่งของ (กรัม)</label>
+              <input type="number" id="interFwdWeightInput" placeholder="เช่น 250, 500, 1000" value="250" min="1" max="30000" />
+            </div>
+          </div>
+
+          <div class="quick-chips-row" id="interFwdWeightChips">
+            <span style="font-size:12px; color:#475569; font-weight:600; align-self:center;">น้ำหนักด่วน:</span>
+            <button type="button" class="quick-chip-btn" data-ifwg="100">100ก.</button>
+            <button type="button" class="quick-chip-btn active" data-ifwg="250">250ก.</button>
+            <button type="button" class="quick-chip-btn" data-ifwg="500">500ก.</button>
+            <button type="button" class="quick-chip-btn" data-ifwg="1000">1 กก.</button>
+            <button type="button" class="quick-chip-btn" data-ifwg="1500">1.5 กก.</button>
+            <button type="button" class="quick-chip-btn" data-ifwg="2000">2 กก.</button>
+            <button type="button" class="quick-chip-btn" data-ifwg="3000">3 กก.</button>
+            <button type="button" class="quick-chip-btn" data-ifwg="5000">5 กก.</button>
+          </div>
+
+          <div class="filter-bar" id="interFwdFilterBar">
+            <span style="font-size:12px; font-weight:700; color:#0F172A;">กรอง/เรียงตาม:</span>
+            <button type="button" class="filter-pill active" data-ifilter="price_asc">⬇️ ราคาน้อย ➔ มาก</button>
+            <button type="button" class="filter-pill" data-ifilter="fastest">⚡ เร็วสุด (EMS World)</button>
+            <button type="button" class="filter-pill" data-ifilter="trackable">🔍 ตรวจสอบสถานะได้</button>
+            <button type="button" class="filter-pill" data-ifilter="price_desc">⬆️ ราคามาก ➔ น้อย</button>
+          </div>
+
+          <div id="interFwdResultBox" class="rate-result-grid"></div>
+        </div>
+
+        <!-- กล่องแสดงค่าบริการในประเทศคู่กันทันทีเมื่อกดปุ่ม "🇹🇭 กดแสดงค่าบริการในประเทศคู่กัน" -->
+        <div id="inlineDomCompareDrawer" style="display:none; margin-top:12px; padding-top:12px; border-top:2px dashed #F59E0B;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:8px;">
+            <div style="font-size:14.5px; font-weight:800; color:#92400E;">
+              🇹🇭 เทียบค่าบริการในประเทศ (คีย์น้ำหนัก & รหัสไปรษณีย์ดูควบคู่ได้เลย)
+            </div>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <input type="number" id="inlineDomWeightInput" value="250" placeholder="กรัม" style="width:95px; padding:5px 8px; border:1.5px solid #D97706; border-radius:8px; font-family:inherit; font-size:13.5px; font-weight:700;" />
+              <span style="font-size:12.5px; font-weight:600; color:#78350F;">กรัม</span>
+              <input type="text" id="inlineDomPostcodeInput" placeholder="รหัส ปณ. (ไม่บังคับ)" maxlength="5" style="width:130px; padding:5px 8px; border:1.5px solid #CBD5E1; border-radius:8px; font-family:inherit; font-size:13px;" />
+            </div>
+          </div>
+          <div id="inlineDomCompareOutput" class="rate-result-grid"></div>
+        </div>
       </div>
 
       <!-- Interactive Decision Wizard -->
@@ -3423,7 +3813,275 @@ window.THP_INTER_DATA = {
         imagePreview: "docs/domestic-boxes-packing-prices.png",
         updated: "มกราคม – กรกฎาคม 2569"
       }
-    ]
+    ],
+
+    // รหัสไปรษณีย์พื้นที่ห่างไกล / เกาะ / พื้นที่ท่องเที่ยว 85 พื้นที่ (+20 บาท สำหรับ EMS / eCo-Post)
+    remotePostcodes: {
+      "20120": "อ.เกาะสีชัง จ.ชลบุรี (พื้นที่เกาะ +20 บ.)",
+      "20150": "อ.บางละมุง (เฉพาะเกาะล้าน) จ.ชลบุรี (พื้นที่เกาะ +20 บ.)",
+      "21160": "อ.เมืองระยอง (เฉพาะเกาะเสม็ด ต.เพ) จ.ระยอง (พื้นที่เกาะ +20 บ.)",
+      "23000": "อ.เมืองตราด (พื้นที่พิเศษ +20 บ.)",
+      "23120": "อ.แหลมงอบ จ.ตราด (พื้นที่พิเศษ +20 บ.)",
+      "23170": "อ.เกาะช้าง / อ.เกาะกูด (เกาะหมาก) จ.ตราด (พื้นที่เกาะ +20 บ.)",
+      "50250": "อ.สะเมิง จ.เชียงใหม่ (พื้นที่ห่างไกล +20 บ.)",
+      "50310": "อ.แม่แจ่ม จ.เชียงใหม่ (พื้นที่ห่างไกล +20 บ.)",
+      "50350": "อ.อมก๋อย จ.เชียงใหม่ (พื้นที่ห่างไกล +20 บ.)",
+      "55130": "อ.แม่จริม จ.น่าน (พื้นที่ห่างไกล +20 บ.)",
+      "55220": "อ.บ่อเกลือ จ.น่าน (พื้นที่ห่างไกล +20 บ.)",
+      "57170": "อ.แม่สรวย จ.เชียงราย (พื้นที่ห่างไกล +20 บ.)",
+      "57180": "อ.เวียงป่าเป้า จ.เชียงราย (พื้นที่ห่างไกล +20 บ.)",
+      "57260": "อ.แม่ฟ้าหลวง จ.เชียงราย (พื้นที่ห่างไกล +20 บ.)",
+      "57310": "อ.เวียงแก่น จ.เชียงราย (พื้นที่ห่างไกล +20 บ.)",
+      "57340": "อ.ขุนตาล จ.เชียงราย (พื้นที่ห่างไกล +20 บ.)",
+      "58000": "อ.เมืองแม่ฮ่องสอน จ.แม่ฮ่องสอน (พื้นที่ห่างไกล +20 บ.)",
+      "58110": "อ.แม่สะเรียง จ.แม่ฮ่องสอน (พื้นที่ห่างไกล +20 บ.)",
+      "58120": "อ.แม่ลาน้อย จ.แม่ฮ่องสอน (พื้นที่ห่างไกล +20 บ.)",
+      "58130": "อ.ปาย จ.แม่ฮ่องสอน (พื้นที่ท่องเที่ยว/ห่างไกล +20 บ.)",
+      "58140": "อ.ขุนยวม จ.แม่ฮ่องสอน (พื้นที่ห่างไกล +20 บ.)",
+      "58150": "อ.ปางมะผ้า / อ.สบเมย จ.แม่ฮ่องสอน (พื้นที่ห่างไกล +20 บ.)",
+      "63150": "อ.ท่าสองยาง จ.ตาก (พื้นที่ห่างไกล +20 บ.)",
+      "63170": "อ.อุ้มผาง จ.ตาก (พื้นที่ห่างไกล +20 บ.)",
+      "71180": "อ.ทองผาภูมิ จ.กาญจนบุรี (พื้นที่ห่างไกล +20 บ.)",
+      "71240": "อ.สังขละบุรี จ.กาญจนบุรี (พื้นที่ห่างไกล +20 บ.)",
+      "81150": "อ.เกาะลันตา จ.กระบี่ (พื้นที่เกาะ +20 บ.)",
+      "81210": "อ.เมืองกระบี่ (เฉพาะเกาะพีพี ต.อ่าวนาง) จ.กระบี่ (พื้นที่เกาะ +20 บ.)",
+      "82000": "อ.เมืองพังงา (เฉพาะเกาะปันหยี) จ.พังงา (พื้นที่เกาะ +20 บ.)",
+      "82160": "อ.เกาะยาว (เกาะยาวน้อย/เกาะยาวใหญ่) จ.พังงา (พื้นที่เกาะ +20 บ.)",
+      "83000": "อ.เมืองภูเก็ต จ.ภูเก็ต (พื้นที่เกาะ/ท่องเที่ยว +20 บ.)",
+      "83100": "ต.กะรน อ.เมืองภูเก็ต จ.ภูเก็ต (พื้นที่เกาะ/ท่องเที่ยว +20 บ.)",
+      "83110": "อ.ถลาง จ.ภูเก็ต (พื้นที่เกาะ/ท่องเที่ยว +20 บ.)",
+      "83120": "อ.กะทู้ จ.ภูเก็ต (พื้นที่เกาะ/ท่องเที่ยว +20 บ.)",
+      "83130": "ต.ฉลอง/ราไวย์ อ.เมืองภูเก็ต จ.ภูเก็ต (พื้นที่เกาะ/ท่องเที่ยว +20 บ.)",
+      "83150": "ต.ป่าตอง อ.กะทู้ จ.ภูเก็ต (พื้นที่เกาะ/ท่องเที่ยว +20 บ.)",
+      "84140": "อ.เกาะสมุย (หน้าทอน) จ.สุราษฎร์ธานี (พื้นที่เกาะ +20 บ.)",
+      "84280": "อ.เกาะพะงัน จ.สุราษฎร์ธานี (พื้นที่เกาะ +20 บ.)",
+      "84310": "ต.มะเร็ต (ละไม) อ.เกาะสมุย จ.สุราษฎร์ธานี (พื้นที่เกาะ +20 บ.)",
+      "84320": "ต.บ่อผุด (เฉวง) อ.เกาะสมุย จ.สุราษฎร์ธานี (พื้นที่เกาะ +20 บ.)",
+      "84330": "ต.แม่น้ำ อ.เกาะสมุย จ.สุราษฎร์ธานี (พื้นที่เกาะ +20 บ.)",
+      "84360": "ต.เกาะเต่า อ.เกาะพะงัน จ.สุราษฎร์ธานี (พื้นที่เกาะ +20 บ.)",
+      "85000": "อ.เมืองระนอง (เฉพาะเกาะพยาม/เกาะช้าง) จ.ระนอง (พื้นที่เกาะ +20 บ.)",
+      "91000": "อ.เมืองสตูล (เฉพาะเกาะหลีเป๊ะ/เกาะสาหร่าย) จ.สตูล (พื้นที่เกาะ +20 บ.)",
+      "91110": "อ.ละงู (เฉพาะเกาะบุโหลน) จ.สตูล (พื้นที่เกาะ +20 บ.)",
+      "92110": "อ.กันตัง (เฉพาะเกาะลิบง) จ.ตรัง (พื้นที่เกาะ +20 บ.)",
+      "92120": "อ.สิเกา / อ.ปะเหลียน (เฉพาะเกาะมุกด์/เกาะสุกร) จ.ตรัง (พื้นที่เกาะ +20 บ.)",
+      "94000": "อ.เมืองปัตตานี จ.ปัตตานี (พื้นที่พิเศษ +20 บ.)",
+      "94110": "อ.โคกโพธิ์ / อ.แม่ลาน จ.ปัตตานี (พื้นที่พิเศษ +20 บ.)",
+      "94120": "อ.สายบุรี / อ.กะพ้อ / อ.ไม้แก่น จ.ปัตตานี (พื้นที่พิเศษ +20 บ.)",
+      "94130": "อ.ปะนาเระ จ.ปัตตานี (พื้นที่พิเศษ +20 บ.)",
+      "94140": "อ.มายอ / อ.ทุ่งยางแดง จ.ปัตตานี (พื้นที่พิเศษ +20 บ.)",
+      "94150": "อ.ยะหริ่ง จ.ปัตตานี (พื้นที่พิเศษ +20 บ.)",
+      "94160": "อ.หนองจิก จ.ปัตตานี (พื้นที่พิเศษ +20 บ.)",
+      "94170": "อ.ยะรัง จ.ปัตตานี (พื้นที่พิเศษ +20 บ.)",
+      "95000": "อ.เมืองยะลา จ.ยะลา (พื้นที่พิเศษ +20 บ.)",
+      "95110": "อ.เบตง จ.ยะลา (พื้นที่พิเศษ +20 บ.)",
+      "95120": "อ.ยะหา / อ.กาบัง จ.ยะลา (พื้นที่พิเศษ +20 บ.)",
+      "95130": "อ.บันนังสตา จ.ยะลา (พื้นที่พิเศษ +20 บ.)",
+      "95140": "อ.รามัน จ.ยะลา (พื้นที่พิเศษ +20 บ.)",
+      "95150": "อ.ธารโต จ.ยะลา (พื้นที่พิเศษ +20 บ.)",
+      "95160": "อ.กรงปินัง จ.ยะลา (พื้นที่พิเศษ +20 บ.)",
+      "96000": "อ.เมืองนราธิวาส จ.นราธิวาส (พื้นที่พิเศษ +20 บ.)",
+      "96110": "อ.ตากใบ จ.นราธิวาส (พื้นที่พิเศษ +20 บ.)",
+      "96120": "อ.สุไหงโก-ลก จ.นราธิวาส (พื้นที่พิเศษ +20 บ.)",
+      "96130": "อ.ระแงะ / อ.จะแนะ / อ.เจาะไอร้อง จ.นราธิวาส (พื้นที่พิเศษ +20 บ.)",
+      "96140": "อ.รือเสาะ / อ.ศรีสาคร จ.นราธิวาส (พื้นที่พิเศษ +20 บ.)",
+      "96150": "อ.ยี่งอ จ.นราธิวาส (พื้นที่พิเศษ +20 บ.)",
+      "96160": "อ.แว้ง จ.นราธิวาส (พื้นที่พิเศษ +20 บ.)",
+      "96170": "อ.บาเจาะ จ.นราธิวาส (พื้นที่พิเศษ +20 บ.)",
+      "96180": "อ.สุไหงปาดี จ.นราธิวาส (พื้นที่พิเศษ +20 บ.)",
+      "96190": "อ.สุคิริน จ.นราธิวาส (พื้นที่พิเศษ +20 บ.)"
+    }
+  },
+
+  // =========================================================================
+  // 🌍 ตารางเรทบริการระหว่างประเทศสำหรับค้นหาย้อนกลับจากราคา (Reverse Price Lookup)
+  // และเปรียบเทียบค่าบริการระหว่างประเทศตามปลายทาง & พิกัดน้ำหนัก
+  // =========================================================================
+  interRates: {
+    // 1. บริการ ePacket มาตรฐาน (LP / LX) 10 โซน (100g – 2,000g) + UK พิเศษถึง 5,000g
+    epacket: {
+      name: "ePacket มาตรฐาน (LP / LX...TH)",
+      code: "LP / LX",
+      eta: "5–14 วันทำการ",
+      trackable: true,
+      indemnity: "ซื้อ ePacket Plus (+30 บ.) ชดใช้สูงสุด 1,500 บ.",
+      zones: [
+        { zone: "Zone 1", countries: ["กัมพูชา", "จีน", "ฮ่องกง", "อินเดีย", "อินโดนีเซีย", "ลาว", "มาเลเซีย", "มัลดีฟส์", "ฟิลิปปินส์", "สิงคโปร์", "ไต้หวัน", "เวียดนาม"] },
+        { zone: "Zone 2", countries: ["เกาหลีใต้", "ญี่ปุ่น", "มาเก๊า", "ศรีลังกา", "ภูฏาน"] },
+        { zone: "Zone 3", countries: ["สหราชอาณาจักร (อังกฤษ / UK)", "เยอรมนี (เรทพื้นฐาน)"] },
+        { zone: "Zone 4", countries: ["ออสเตรเลีย", "รัสเซีย", "ฝรั่งเศส (เรทพื้นฐาน)"] },
+        { zone: "Zone 5", countries: ["นิวซีแลนด์"] },
+        { zone: "Zone 6", countries: ["แคนาดา", "สเปน", "สวีเดน", "โรมาเนีย"] },
+        { zone: "Zone 7", countries: ["โปแลนด์", "เอสโตเนีย", "ฮังการี", "แอฟริกาใต้", "อิสราเอล"] },
+        { zone: "Zone 8", countries: ["ออสเตรีย", "โครเอเชีย", "ฟินแลนด์", "ตุรกี"] },
+        { zone: "Zone 9", countries: ["สวิตเซอร์แลนด์", "นอร์เวย์", "เบลเยียม", "บราซิล", "เดนมาร์ก", "เนเธอร์แลนด์", "โปรตุเกส", "สโลวาเกีย", "สโลวีเนีย", "อิตาลี"] },
+        { zone: "Zone 10", countries: ["สหรัฐอเมริกา (เรทมาตรฐานก่อน DDP)"] }
+      ],
+      // พิกัดน้ำหนักละ 100 กรัม (100g ถึง 2,000g = 20 ขั้น)
+      weightsG: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000],
+      matrix: [
+        [160, 160, 200, 220, 225, 260, 260, 260, 260, 285], // ≤100g
+        [195, 195, 255, 275, 295, 325, 325, 325, 325, 370], // 101-200g
+        [240, 235, 310, 330, 365, 390, 390, 390, 390, 455], // 201-300g
+        [285, 310, 365, 385, 440, 455, 455, 455, 490, 545], // 301-400g
+        [330, 380, 420, 440, 510, 520, 520, 535, 610, 630], // 401-500g
+        [370, 450, 470, 490, 580, 585, 585, 635, 725, 715], // 501-600g
+        [410, 525, 520, 550, 650, 650, 655, 740, 840, 800], // 601-700g
+        [450, 595, 570, 605, 725, 715, 745, 840, 960, 890], // 701-800g
+        [490, 665, 620, 665, 795, 780, 835, 945, 1075, 975], // 801-900g
+        [530, 740, 670, 720, 865, 845, 930, 1045, 1195, 1060], // 901-1000g
+        [565, 810, 720, 780, 940, 910, 1020, 1150, 1310, 1150], // 1001-1100g
+        [600, 880, 770, 835, 1010, 975, 1110, 1250, 1430, 1235], // 1101-1200g
+        [635, 955, 820, 890, 1080, 1050, 1200, 1355, 1545, 1320], // 1201-1300g
+        [675, 1025, 870, 950, 1150, 1130, 1290, 1455, 1660, 1410], // 1301-1400g
+        [720, 1095, 920, 1005, 1225, 1210, 1380, 1555, 1780, 1495], // 1401-1500g
+        [760, 1170, 965, 1065, 1295, 1290, 1470, 1660, 1895, 1580], // 1501-1600g
+        [800, 1240, 1010, 1120, 1365, 1370, 1560, 1760, 2015, 1665], // 1601-1700g
+        [840, 1310, 1055, 1180, 1440, 1445, 1655, 1865, 2130, 1755], // 1701-1800g
+        [885, 1385, 1100, 1235, 1510, 1525, 1745, 1965, 2245, 1840], // 1801-1900g
+        [925, 1455, 1145, 1295, 1580, 1605, 1835, 2070, 2365, 1925]  // 1901-2000g
+      ]
+    },
+
+    // 2. บริการ ePacket US DDP (LA = 48 รัฐแผ่นดินใหญ่ / LI = เกาะ, Alaska, Hawaii, APO) รวมภาษีแล้ว
+    epacketUsDdp: {
+      name: "ePacket US รวมภาษี DDP (LA / LI...TH)",
+      code: "LA / LI",
+      eta: "5–10 วันทำการ",
+      trackable: true,
+      indemnity: "ซื้อ ePacket Plus (+30 บ.) ชดใช้สูงสุด 1,500 บ.",
+      countries: ["สหรัฐอเมริกา (US 48 รัฐ - LA)", "สหรัฐอเมริกา (Hawaii/Alaska/APO - LI)"],
+      tiers: [
+        { maxG: 100, label: "ไม่เกิน 100 กรัม", price: 339 },
+        { maxG: 200, label: "101 – 200 กรัม", price: 475 },
+        { maxG: 300, label: "201 – 300 กรัม", price: 600 },
+        { maxG: 400, label: "301 – 400 กรัม", price: 720 },
+        { maxG: 500, label: "401 – 500 กรัม", price: 840 },
+        { maxG: 600, label: "501 – 600 กรัม", price: 965 },
+        { maxG: 700, label: "601 – 700 กรัม", price: 1090 },
+        { maxG: 800, label: "701 – 800 กรัม", price: 1210 },
+        { maxG: 900, label: "801 – 900 กรัม", price: 1335 },
+        { maxG: 1000, label: "901 – 1,000 กรัม (1 กก.)", price: 1460 },
+        { maxG: 1100, label: "1,001 – 1,100 กรัม", price: 1610 },
+        { maxG: 1200, label: "1,101 – 1,200 กรัม", price: 1760 },
+        { maxG: 1300, label: "1,201 – 1,300 กรัม", price: 1910 },
+        { maxG: 1400, label: "1,301 – 1,400 กรัม", price: 2060 },
+        { maxG: 1500, label: "1,401 – 1,500 กรัม (1.5 กก.)", price: 2210 },
+        { maxG: 1600, label: "1,501 – 1,600 กรัม", price: 2360 },
+        { maxG: 1700, label: "1,601 – 1,700 กรัม", price: 2510 },
+        { maxG: 1800, label: "1,701 – 1,800 กรัม", price: 2660 },
+        { maxG: 1900, label: "1,801 – 1,900 กรัม", price: 2810 },
+        { maxG: 2000, label: "1,901 – 2,000 กรัม (2 กก.)", price: 2960 },
+        { maxG: 2500, label: "2,001 – 2,500 กรัม (2.5 กก.)", price: 3460 },
+        { maxG: 3000, label: "2,501 – 3,000 กรัม (3 กก.)", price: 3960 },
+        { maxG: 3500, label: "3,001 – 3,500 กรัม (3.5 กก.)", price: 4460 },
+        { maxG: 4000, label: "3,501 – 4,000 กรัม (4 กก.)", price: 4960 },
+        { maxG: 4500, label: "4,001 – 4,500 กรัม (4.5 กก.)", price: 5460 },
+        { maxG: 5000, label: "4,501 – 5,000 กรัม (5 กก.)", price: 5960 }
+      ]
+    },
+
+    // 3. บริการ EMS World (Package - สิ่งของ EE...TH และ Document - เอกสาร ED...TH)
+    emsWorld: {
+      name: "EMS World ด่วนพิเศษระหว่างประเทศ (EE / ED...TH)",
+      code: "EE / ED",
+      eta: "3–7 วันทำการ",
+      trackable: true,
+      indemnity: "ชดใช้ตามจริงสูงสุด 7,000 บาท (ซื้อประกันเพิ่มได้สูงสุด 50,000 บ.)",
+      zones: [
+        { zone: "Zone 1", countries: ["ลาว", "มาเลเซีย", "สิงคโปร์", "เวียดนาม", "กัมพูชา", "เมียนมา", "ฮ่องกง", "มาเก๊า", "ไต้หวัน"] },
+        { zone: "Zone 2", countries: ["จีน", "ญี่ปุ่น", "เกาหลีใต้", "อินโดนีเซีย", "ฟิลิปปินส์", "บรูไน"] },
+        { zone: "Zone 3", countries: ["อินเดีย", "ศรีลังกา", "เนปาล", "บังกลาเทศ", "ภูฏาน", "มัลดีฟส์", "ปากีสถาน"] },
+        { zone: "Zone 4", countries: ["ออสเตรเลีย", "นิวซีแลนด์", "ปาปัวนิวกินี", "ฟิจิ"] },
+        { zone: "Zone 5", countries: ["สหรัฐอาหรับเอมิเรตส์ (UAE/ดูไบ)", "อิสราเอล", "ซาอุดีอาระเบีย", "กาตาร์", "คูเวต", "โอมาน", "บาห์เรน", "ตุรกี"] },
+        { zone: "Zone 6", countries: ["สหราชอาณาจักร (อังกฤษ / UK)", "เยอรมนี (เฉพาะเอกสาร ED)", "ฝรั่งเศส (เฉพาะเอกสาร ED)", "สวิตเซอร์แลนด์", "นอร์เวย์", "อิตาลี (ED)", "สเปน (ED)", "เนเธอร์แลนด์ (ED)", "สวีเดน (ED)", "เบลเยียม (ED)", "เดนมาร์ก (ED)", "ออสเตรีย (ED)", "ฟินแลนด์ (ED)", "โปแลนด์ (ED)"] },
+        { zone: "Zone 7", countries: ["สหรัฐอเมริกา (US - เอกสาร ≤500ก. / สิ่งของ ≤30กก.)", "แคนาดา"] },
+        { zone: "Zone 8", countries: ["รัสเซีย", "ยูเครน", "คาซัคสถาน", "อุซเบกิสถาน"] },
+        { zone: "Zone 9", countries: ["แอฟริกาใต้", "อียิปต์", "เคนยา", "ไนจีเรีย", "โมร็อกโก"] },
+        { zone: "Zone 10", countries: ["บราซิล", "อาร์เจนตินา", "เม็กซิโก", "ชิลี", "เปรู", "โคลอมเบีย"] }
+      ],
+      // ตาราง EMS World (Document 250g/500g + Package 250g–10,000g)
+      weightsG: [250, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000, 7000, 8000, 9000, 10000],
+      docMatrix250and500: [
+        [640, 720, 850, 1000, 1120, 1190, 1120, 1320, 1440, 2800], // Document ≤250g
+        [720, 840, 950, 1120, 1260, 1350, 1320, 1500, 1650, 3050]  // Document 251-500g
+      ],
+      packageMatrix: [
+        [720, 880, 950, 1120, 1250, 1440, 1760, 1500, 1650, 2800],   // ≤250g
+        [820, 1000, 1090, 1310, 1450, 1660, 1960, 1720, 1900, 3050],  // 251-500g
+        [970, 1190, 1330, 1640, 1780, 2040, 2360, 2120, 2400, 3550],  // 501-1000g (1kg)
+        [1120, 1380, 1570, 1970, 2110, 2420, 2760, 2520, 2900, 4050], // 1001-1500g (1.5kg)
+        [1270, 1570, 1810, 2300, 2440, 2800, 3160, 2920, 3400, 4550], // 1501-2000g (2kg)
+        [1420, 1760, 2050, 2630, 2770, 3180, 3560, 3320, 3900, 5050], // 2001-2500g (2.5kg)
+        [1570, 1950, 2290, 2960, 3100, 3560, 3960, 3720, 4400, 5550], // 2501-3000g (3kg)
+        [1720, 2140, 2530, 3290, 3430, 3940, 4360, 4120, 4900, 6050], // 3001-3500g (3.5kg)
+        [1870, 2330, 2770, 3620, 3760, 4320, 4760, 4520, 5400, 6550], // 3501-4000g (4kg)
+        [2020, 2520, 3010, 3950, 4090, 4700, 5160, 4920, 5900, 7050], // 4001-4500g (4.5kg)
+        [2170, 2710, 3250, 4280, 4420, 5080, 5560, 5320, 6400, 7550], // 4501-5000g (5kg)
+        [2420, 3050, 3690, 4880, 5020, 5780, 6260, 6020, 7300, 8450], // 5001-6000g (6kg)
+        [2670, 3390, 4130, 5480, 5620, 6480, 6960, 6720, 8200, 9350], // 6001-7000g (7kg)
+        [2920, 3730, 4570, 6080, 6220, 7180, 7660, 7420, 9100, 10250], // 7001-8000g (8kg)
+        [3170, 4070, 5010, 6680, 6820, 7880, 8360, 8120, 10000, 11150], // 8001-9000g (9kg)
+        [3420, 4410, 5450, 7280, 7420, 8580, 9060, 8820, 10900, 12050]  // 9001-10000g (10kg)
+      ],
+      onePrice: [
+        { pkg: "ซอง One Price (สูงสุด 1 กก.)", maxG: 1000, z1: 800, z2: 1000, z3: 1600 },
+        { pkg: "กล่อง One Price #1 (สูงสุด 3 กก.)", maxG: 3000, z1: 1200, z2: 1350, z3: 2500 },
+        { pkg: "กล่อง One Price #2 (สูงสุด 7 กก.)", maxG: 7000, z1: 1950, z2: 2200, z3: 4100 },
+        { pkg: "กล่อง One Price #3 (สูงสุด 10 กก.)", maxG: 10000, z1: 2500, z2: 2800, z3: 5000 }
+      ]
+    },
+
+    // 4. พัสดุย่อยทางอากาศ (Small Packet Air) & จดหมาย/ของตีพิมพ์ทางอากาศ (บวกค่าลงทะเบียน RR +70 บ.)
+    smallPacketAndLetterAir: {
+      name: "พัสดุย่อยทางอากาศ / จดหมายทางอากาศ (บวกลงทะเบียน RR +70 บ.)",
+      code: "RR...TH / ธรรมดา",
+      eta: "7–15 วันทำการ",
+      trackable: true,
+      indemnity: "กรณีลงทะเบียน (RR +70 บ.) ชดใช้สูงสุดประมาณ 1,300 บาท (30 SDR)",
+      zones: [
+        { zone: "Zone 1 (เอเชียใกล้)", countries: ["ลาว", "มาเลเซีย", "สิงคโปร์", "เวียดนาม", "กัมพูชา", "เมียนมา", "ฮ่องกง", "มาเก๊า", "ไต้หวัน"] },
+        { zone: "Zone 2 (เอเชีย/โอเชียเนีย)", countries: ["ญี่ปุ่น", "เกาหลีใต้", "จีน", "อินเดีย", "อินโดนีเซีย", "ฟิลิปปินส์", "ออสเตรเลีย", "นิวซีแลนด์"] },
+        { zone: "Zone 3 (ยุโรป/ตะวันออกกลาง)", countries: ["สหราชอาณาจักร (UK)", "สวิตเซอร์แลนด์", "นอร์เวย์", "เยอรมนี (เอกสาร)", "ฝรั่งเศส (เอกสาร)", "อิตาลี (เอกสาร)", "สวีเดน (เอกสาร)", "เนเธอร์แลนด์ (เอกสาร)", "UAE/ดูไบ", "อิสราเอล", "รัสเซีย"] },
+        { zone: "Zone 4 (อเมริกา/แอฟริกา)", countries: ["สหรัฐอเมริกา (เฉพาะเอกสาร ≤500ก.)", "แคนาดา", "บราซิล", "แอฟริกาใต้"] }
+      ],
+      smallPacketWeightsG: [100, 250, 500, 1000, 1500, 2000],
+      smallPacketBase: [
+        [85, 95, 110, 130],   // ≤100g (ถ้ารวม RR +70 บ. = 155, 165, 180, 200 บ.)
+        [145, 170, 205, 250], // 101-250g (ถ้ารวม RR +70 บ. = 215, 240, 275, 320 บ.)
+        [245, 295, 365, 450], // 251-500g (ถ้ารวม RR +70 บ. = 315, 365, 435, 520 บ.)
+        [445, 545, 685, 850], // 501-1000g (ถ้ารวม RR +70 บ. = 515, 615, 755, 920 บ.)
+        [645, 795, 1005, 1250], // 1001-1500g (ถ้ารวม RR +70 บ. = 715, 865, 1075, 1320 บ.)
+        [845, 1045, 1325, 1650] // 1501-2000g (ถ้ารวม RR +70 บ. = 915, 1115, 1395, 1720 บ.)
+      ],
+      letterWeightsG: [20, 50, 100, 250, 500, 1000, 2000],
+      letterBase: [
+        [25, 30, 35, 40],     // ≤20g (+RR 70 = 95, 100, 105, 110 บ.)
+        [45, 55, 65, 75],     // 21-50g (+RR 70 = 115, 125, 135, 145 บ.)
+        [75, 90, 110, 130],   // 51-100g (+RR 70 = 145, 160, 180, 200 บ.)
+        [150, 185, 230, 280], // 101-250g (+RR 70 = 220, 255, 300, 350 บ.)
+        [275, 345, 430, 530], // 251-500g (+RR 70 = 345, 415, 500, 600 บ.)
+        [525, 665, 830, 1030], // 501-1000g (+RR 70 = 595, 735, 900, 1100 บ.)
+        [1025, 1305, 1630, 2030] // 1001-2000g (+RR 70 = 1095, 1375, 1700, 2100 บ.)
+      ]
+    },
+
+    // 5. พัสดุไปรษณีย์ระหว่างประเทศ ทางอากาศ (International Air Parcel - CP...TH) 1–10 กก.
+    airParcel: {
+      name: "พัสดุไปรษณีย์ทางอากาศ (Air Parcel - CP...TH)",
+      code: "CP...TH",
+      eta: "7–14 วันทำการ",
+      trackable: true,
+      indemnity: "ชดใช้ตามจริงตามเกณฑ์สหภาพสากลไปรษณีย์ (40 SDR/ชิ้น + 4.50 SDR/กก.)",
+      zones: [
+        { zone: "กลุ่มเอเชียตะวันออกเฉียงใต้", countries: ["ลาว", "มาเลเซีย", "สิงคโปร์", "เวียดนาม", "กัมพูชา", "เมียนมา"], firstKg: 680, stepKg: 120 },
+        { zone: "กลุ่มเอเชียตะวันออก (ฮ่องกง/ไต้หวัน/จีน)", countries: ["ฮ่องกง", "มาเก๊า", "ไต้หวัน", "จีน", "ฟิลิปปินส์", "อินโดนีเซีย"], firstKg: 780, stepKg: 160 },
+        { zone: "กลุ่มญี่ปุ่น / เกาหลีใต้ / อินเดีย", countries: ["ญี่ปุ่น", "เกาหลีใต้", "อินเดีย", "ศรีลังกา"], firstKg: 880, stepKg: 200 },
+        { zone: "กลุ่มออสเตรเลีย / นิวซีแลนด์", countries: ["ออสเตรเลีย", "นิวซีแลนด์"], firstKg: 950, stepKg: 250 },
+        { zone: "กลุ่มตะวันออกกลาง (UAE/อิสราเอล)", countries: ["สหรัฐอาหรับเอมิเรตส์ (UAE/ดูไบ)", "อิสราเอล", "ซาอุดีอาระเบีย", "กาตาร์"], firstKg: 1050, stepKg: 260 },
+        { zone: "กลุ่มยุโรปนอก EU (อังกฤษ UK / สวิตเซอร์แลนด์ / นอร์เวย์)", countries: ["สหราชอาณาจักร (อังกฤษ / UK)", "สวิตเซอร์แลนด์", "นอร์เวย์", "รัสเซีย"], firstKg: 1100, stepKg: 280 },
+        { zone: "กลุ่มอเมริกาเหนือ (สหรัฐอเมริกา / แคนาดา)", countries: ["สหรัฐอเมริกา (US)", "แคนาดา"], firstKg: 1225, stepKg: 350 }
+      ]
+    }
   }
 };
 
@@ -5888,6 +6546,944 @@ window.THP_INTER_DATA = {
     calculateDomRates();
   }
 
+  // =========================================================================
+  // 🧮 9. ตัวช่วยเช็คค่าบริการในประเทศ + Filter & ตรวจรหัสไปรษณีย์พื้นที่ห่างไกล
+  // และ 🎯 ตัวช่วยพิเศษฝั่งต่างประเทศ: คีย์ราคา ➔ แสดงประเทศปลายทาง & พิกัดน้ำหนัก
+  // =========================================================================
+  function getDomesticServicesForWeight(wG, packType, isRemote, arMode) {
+    const remoteFee = isRemote ? 20 : 0;
+    const arReg = arMode === "ar" ? 3 : arMode === "ear" ? 5 : 0;
+    const arParcel = arMode === "ar" ? 6 : arMode === "ear" ? 5 : 0;
+    const arEms = arMode === "ar" ? 10 : arMode === "ear" ? 5 : 0;
+    const arLabel = arMode === "ar" ? " + ใบตอบรับ ป.133ก" : arMode === "ear" ? " + ตอบรับ e-AR (SMS)" : "";
+
+    const list = [];
+
+    // 1. ของตีพิมพ์ธรรมดา (สูงสุด 5,000g)
+    if (wG <= 5000) {
+      let pRate = 4;
+      if (wG <= 50) pRate = 4;
+      else if (wG <= 100) pRate = 5;
+      else if (wG <= 250) pRate = 8;
+      else if (wG <= 500) pRate = 11;
+      else if (wG <= 1000) pRate = 17;
+      else if (wG <= 2000) pRate = 33;
+      else pRate = 33 + Math.ceil((wG - 2000) / 1000) * 16;
+
+      list.push({
+        id: "printed_ord",
+        name: "ของตีพิมพ์ธรรมดา (หนังสือ/สิ่งพิมพ์)",
+        code: "ผนึกแสตมป์ / ป้าย CA POS",
+        price: pRate,
+        breakdown: `ค่าส่งพื้นฐาน ${pRate} บ. (ไม่เสีย Fuel / ไม่บวกพื้นที่ห่างไกล)`,
+        speedRank: 5,
+        eta: "3–7 วันทำการ",
+        trackable: false,
+        trackText: "❌ เช็คสถานะออนไลน์ไม่ได้",
+        insured: false,
+        indemnityVal: 0,
+        indemnityText: "❌ ไม่มีการชดใช้ค่าเสียหาย",
+        color: "#059669"
+      });
+
+      list.push({
+        id: "printed_reg",
+        name: `ของตีพิมพ์ลงทะเบียน (R...TH)${arLabel}`,
+        code: "R...TH (สิ่งพิมพ์)",
+        price: pRate + 13 + arReg,
+        breakdown: `ค่าสิ่งพิมพ์ ${pRate} + ค่าลงทะเบียน 13${arReg ? ` + ตอบรับ ${arReg}` : ""} บ.`,
+        speedRank: 4,
+        eta: "3–5 วันทำการ",
+        trackable: true,
+        trackText: "✅ เช็คสถานะต้นทาง–ปลายทางได้",
+        insured: true,
+        indemnityVal: 300,
+        indemnityText: "🛡️ ชดใช้ตามจริงสูงสุด 300 บาท",
+        color: "#0284C7"
+      });
+    }
+
+    // 2. จดหมายธรรมดา & ลงทะเบียน (R) (สูงสุด 2,000g)
+    if (wG <= 2000) {
+      if (packType === "env") {
+        let lRate = 5;
+        if (wG <= 10) lRate = 5;
+        else if (wG <= 20) lRate = 6;
+        else if (wG <= 100) lRate = 11;
+        else if (wG <= 250) lRate = 17;
+        else if (wG <= 500) lRate = 23;
+        else if (wG <= 1000) lRate = 40;
+        else lRate = 62;
+
+        list.push({
+          id: "letter_env",
+          name: "จดหมายซองกระดาษธรรมดา (ก+ย+ส ≤ 60 ซม.)",
+          code: "ธรรมดา",
+          price: lRate,
+          breakdown: `ค่าส่งซอง ${lRate} บ. (ซองกระดาษเรียบ ไม่ป่อง)`,
+          speedRank: 4,
+          eta: "2–5 วันทำการ",
+          trackable: false,
+          trackText: "❌ เช็คสถานะออนไลน์ไม่ได้",
+          insured: false,
+          indemnityVal: 0,
+          indemnityText: "❌ ไม่มีการชดใช้ค่าเสียหาย",
+          color: "#2563EB"
+        });
+
+        list.push({
+          id: "reg_env",
+          name: `จดหมายลงทะเบียน (ซอง R...TH)${arLabel}`,
+          code: "R...TH (+13 บ.)",
+          price: lRate + 13 + arReg,
+          breakdown: `ค่าจดหมายซอง ${lRate} + ลงทะเบียนซอง 13${arReg ? ` + ตอบรับ ${arReg}` : ""} บ.`,
+          speedRank: 3,
+          eta: "2–4 วันทำการ",
+          trackable: true,
+          trackText: "✅ เช็คสถานะต้นทาง–ปลายทางได้",
+          insured: true,
+          indemnityVal: 300,
+          indemnityText: "🛡️ ชดใช้ตามจริงสูงสุด 300 บาท",
+          color: "#0369A1"
+        });
+      } else {
+        let pckRate = 34;
+        if (wG <= 500) pckRate = 34;
+        else if (wG <= 1000) pckRate = 45;
+        else pckRate = 62;
+
+        list.push({
+          id: "letter_pack",
+          name: "จดหมายหีบห่อธรรมดา (ซองพลาสติก/ซองป่อง/กล่องเล็ก)",
+          code: "เรทหีบห่อ",
+          price: pckRate,
+          breakdown: `เรทหีบห่อ ${pckRate} บ. (ซองพลาสติกทุกกรณีคิดเรทนี้)`,
+          speedRank: 4,
+          eta: "2–5 วันทำการ",
+          trackable: false,
+          trackText: "❌ เช็คสถานะออนไลน์ไม่ได้",
+          insured: false,
+          indemnityVal: 0,
+          indemnityText: "❌ ไม่มีการชดใช้ค่าเสียหาย",
+          color: "#4F46E5"
+        });
+
+        list.push({
+          id: "reg_pack",
+          name: `ลงทะเบียนหีบห่อ (R...TH ซองพลาสติก/กล่อง)${arLabel}`,
+          code: "R...TH (+15 บ.)",
+          price: pckRate + 15 + arReg,
+          breakdown: `เรทหีบห่อ ${pckRate} + ลงทะเบียนหีบห่อ 15${arReg ? ` + ตอบรับ ${arReg}` : ""} บ.`,
+          speedRank: 3,
+          eta: "2–4 วันทำการ",
+          trackable: true,
+          trackText: "✅ เช็คสถานะต้นทาง–ปลายทางได้",
+          insured: true,
+          indemnityVal: 500,
+          indemnityText: "🛡️ ชดใช้ตามจริงสูงสุด 500 บาท",
+          color: "#0369A1"
+        });
+      }
+    }
+
+    // 3. พัสดุไปรษณีย์ (P...TH) (สูงสุด 20,000g)
+    if (wG <= 20000) {
+      const kgCeil = Math.max(1, Math.ceil(wG / 1000));
+      const pPrice = 25 + (kgCeil - 1) * 20;
+      list.push({
+        id: "parcel_p",
+        name: `พัสดุไปรษณีย์ในประเทศ (P...TH)${arLabel}`,
+        code: "P...TH",
+        price: pPrice + arParcel,
+        breakdown: `คิดพิกัด ${kgCeil} กก. = ${pPrice} บ.${arParcel ? ` + ตอบรับ ${arParcel} บ.` : ""} (ไม่เสีย Fuel / ไม่เสียพื้นที่ห่างไกล)`,
+        speedRank: 4,
+        eta: "3–6 วันทำการ",
+        trackable: false,
+        trackText: "⚠️ เช็คออนไลน์ในเว็บไม่ได้ (เช็คได้ที่ ปณ.)",
+        insured: true,
+        indemnityVal: 1000,
+        indemnityText: "🛡️ ชดใช้ตามจริงสูงสุด 1,000 บาท",
+        color: "#D97706"
+      });
+    }
+
+    // 4. บริการ eCo-Post (O...TH) (สูงสุด 10,000g)
+    if (wG <= 10000) {
+      let ecoBase = 20;
+      if (wG <= 20) ecoBase = 20;
+      else if (wG <= 100) ecoBase = 22;
+      else if (wG <= 250) ecoBase = 26;
+      else if (wG <= 500) ecoBase = 30;
+      else if (wG <= 1000) ecoBase = 40;
+      else if (wG <= 2000) ecoBase = 60;
+      else if (wG <= 3000) ecoBase = 70;
+      else if (wG <= 4000) ecoBase = 80;
+      else if (wG <= 5000) ecoBase = 100;
+      else if (wG <= 6000) ecoBase = 120;
+      else if (wG <= 7000) ecoBase = 130;
+      else if (wG <= 8000) ecoBase = 140;
+      else if (wG <= 9000) ecoBase = 150;
+      else ecoBase = 160;
+
+      list.push({
+        id: "ecopost_o",
+        name: "บริการ eCo-Post (O...TH)",
+        code: "O...TH",
+        price: ecoBase + 3 + remoteFee,
+        breakdown: `ค่าส่ง ${ecoBase} + Fuel 3 บ.${remoteFee ? " + พื้นที่ห่างไกล/เกาะ 20 บ." : ""}`,
+        speedRank: 2,
+        eta: "2–4 วันทำการ",
+        trackable: true,
+        trackText: "✅ เช็คออนไลน์ได้ 3 จุด (รับฝาก–นำจ่าย)",
+        insured: true,
+        indemnityVal: 1500,
+        indemnityText: "🛡️ ชดใช้ตามจริงสูงสุด 1,500 บาท",
+        color: "#0F766E"
+      });
+    }
+
+    // 5. บริการ EMS ในประเทศ (E...TH รหัส 831 / 2886) (สูงสุด 30,000g)
+    if (wG <= 30000) {
+      let emsBase = 32;
+      if (wG <= 20) emsBase = 32;
+      else if (wG <= 100) emsBase = 37;
+      else if (wG <= 250) emsBase = 42;
+      else if (wG <= 500) emsBase = 52;
+      else if (wG <= 1000) emsBase = 67;
+      else if (wG <= 1500) emsBase = 82;
+      else if (wG <= 2000) emsBase = 97;
+      else if (wG <= 2500) emsBase = 100;
+      else if (wG <= 3000) emsBase = 105;
+      else if (wG <= 3500) emsBase = 110;
+      else if (wG <= 5000) emsBase = 120;
+      else if (wG <= 6000) emsBase = 140;
+      else if (wG <= 7000) emsBase = 160;
+      else if (wG <= 8000) emsBase = 180;
+      else if (wG <= 9000) emsBase = 200;
+      else if (wG <= 10000) emsBase = 220;
+      else if (wG <= 24000) emsBase = 220 + Math.ceil((wG - 10000) / 1000) * 10;
+      else emsBase = 360 + Math.ceil((wG - 24000) / 1000) * 20;
+
+      list.push({
+        id: "ems_e",
+        name: `EMS ด่วนพิเศษในประเทศ (E...TH)${arLabel}`,
+        code: "รหัส 831 (หรือ 2886 ถ้ากล่องใหญ่)",
+        price: emsBase + 3 + remoteFee + arEms,
+        breakdown: `ค่าส่ง ${emsBase} + Fuel 3 บ.${remoteFee ? " + พื้นที่ห่างไกล/เกาะ 20 บ." : ""}${arEms ? ` + ตอบรับ ${arEms} บ.` : ""}`,
+        speedRank: 1,
+        eta: "⚡ 1–2 วันทำการ (เร็วที่สุด!)",
+        trackable: true,
+        trackText: "✅ เช็คออนไลน์ได้ตลอดเส้นทาง 24 ชม.",
+        insured: true,
+        indemnityVal: 2000,
+        indemnityText: "🛡️ ชดใช้สูงสุด 2,000 บ. (ซื้อประกันเพิ่มได้ถึง 50,000 บ.)",
+        color: "#E11D48"
+      });
+    }
+
+    return list;
+  }
+
+  function checkPostcodeRemoteInfo(postcodeStr) {
+    const clean = String(postcodeStr || "").trim();
+    if (!clean || clean.length < 5) return { isRemote: false, label: "" };
+    const map = (DATA.domestic && DATA.domestic.remotePostcodes) || {};
+    if (map[clean]) {
+      return { isRemote: true, label: map[clean] };
+    }
+    return { isRemote: false, label: `รหัสไปรษณีย์ ${clean} — พื้นที่ปกติ (ไม่บวกค่าพื้นที่ห่างไกล +20 บ.)` };
+  }
+
+  function setupDomQuickRateFinder() {
+    const wInput = document.getElementById("domQuickWeight");
+    const pcInput = document.getElementById("domQuickPostcode");
+    const packSel = document.getElementById("domQuickPack");
+    const arSel = document.getElementById("domQuickAr");
+    const pcBox = document.getElementById("domPostcodeStatusBox");
+    const outBox = document.getElementById("domQuickRateResults");
+    const jumpBtn = document.getElementById("jumpToInterReverseBtn");
+    if (!wInput || !outBox) return;
+
+    let currentFilter = "price_asc";
+
+    function renderDomQuick() {
+      const wG = parseFloat(wInput.value) || 0;
+      const pcInfo = checkPostcodeRemoteInfo(pcInput ? pcInput.value : "");
+      const packType = packSel ? packSel.value : "env";
+      const arMode = arSel ? arSel.value : "none";
+
+      if (pcBox) {
+        if (pcInput && pcInput.value.trim().length > 0) {
+          if (pcInfo.isRemote) {
+            pcBox.innerHTML = `<div style="background:#FEF2F2; border:1.5px solid #EF4444; color:#991B1B; padding:6px 10px; border-radius:8px; font-size:12.5px; font-weight:700;">🏝️ ตรวจพบรหัสพื้นที่พิเศษ (${escapeHtml(pcInput.value.trim())}): ${escapeHtml(pcInfo.label)} ➔ ระบบบวก +20 บาท ในบริการ EMS และ eCo-Post ให้อัตโนมัติแล้ว!</div>`;
+          } else if (pcInput.value.trim().length === 5) {
+            pcBox.innerHTML = `<div style="background:#ECFDF5; border:1px solid #10B981; color:#065F46; padding:5px 10px; border-radius:8px; font-size:12.5px; font-weight:600;">✅ ${escapeHtml(pcInfo.label)}</div>`;
+          } else {
+            pcBox.innerHTML = `<div style="font-size:12px; color:#64748B;">พิมพ์รหัสไปรษณีย์ให้ครบ 5 หลัก เพื่อเช็คพื้นที่เกาะ/ห่างไกล 85 พื้นที่ (+20 บ.)</div>`;
+          }
+        } else {
+          pcBox.innerHTML = "";
+        }
+      }
+
+      if (wG <= 0 || wG > 30000) {
+        outBox.innerHTML = `<div style="padding:10px; background:#FFFBEB; border:1px solid #F59E0B; border-radius:8px; color:#92400E; font-weight:600; font-size:13px;">กรุณาระบุน้ำหนักระหว่าง 1 – 30,000 กรัม (หากเกิน 30–200 กก. ให้ใช้บริการ 8. EMS Jumbo)</div>`;
+        return;
+      }
+
+      let services = getDomesticServicesForWeight(wG, packType, pcInfo.isRemote, arMode);
+
+      // กรองและเรียงลำดับตามปุ่ม Filter ที่เลือก
+      if (currentFilter === "trackable") {
+        services = services.filter((s) => s.trackable);
+        services.sort((a, b) => a.price - b.price);
+      } else if (currentFilter === "insured") {
+        services = services.filter((s) => s.insured);
+        services.sort((a, b) => b.indemnityVal - a.indemnityVal || a.price - b.price);
+      } else if (currentFilter === "fastest") {
+        services.sort((a, b) => a.speedRank - b.speedRank || a.price - b.price);
+      } else if (currentFilter === "price_desc") {
+        services.sort((a, b) => b.price - a.price);
+      } else {
+        // price_asc
+        services.sort((a, b) => a.price - b.price);
+      }
+
+      const minPrice = services.length ? Math.min(...services.map((s) => s.price)) : 0;
+
+      outBox.innerHTML = services
+        .map((s) => {
+          const isCheapest = s.price === minPrice;
+          const isFastest = s.speedRank === 1;
+          return `
+            <div class="rate-result-card ${isCheapest ? "cheapest" : ""} ${isFastest ? "fastest" : ""}" style="border-left-color:${s.color};">
+              <div style="flex:1;">
+                <div style="display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:3px;">
+                  <span style="font-size:14.5px; font-weight:800; color:#0F172A;">${escapeHtml(s.name)}</span>
+                  <span class="badge" style="background:#F1F5F9; color:#334155; font-size:11px;">${escapeHtml(s.code)}</span>
+                  ${isCheapest ? `<span class="badge badge-emerald" style="font-size:11px;">💰 ประหยัดสุด</span>` : ""}
+                  ${isFastest ? `<span class="badge badge-red" style="font-size:11px;">⚡ เร็วสุด</span>` : ""}
+                </div>
+                <div style="font-size:12.5px; color:#475569; margin-bottom:3px;">${escapeHtml(s.breakdown)}</div>
+                <div style="display:flex; flex-wrap:wrap; gap:8px; font-size:12px; font-weight:600; color:#1E293B;">
+                  <span>⏱️ ${escapeHtml(s.eta)}</span>
+                  <span>• ${escapeHtml(s.trackText)}</span>
+                  <span>• ${escapeHtml(s.indemnityText)}</span>
+                </div>
+              </div>
+              <div class="rate-price-big">
+                ${s.price.toLocaleString()} <span style="font-size:13px; font-weight:600;">บ.</span>
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+    }
+
+    [wInput, pcInput, packSel, arSel].forEach((el) => {
+      if (!el) return;
+      el.addEventListener("input", renderDomQuick);
+      el.addEventListener("change", renderDomQuick);
+    });
+
+    document.querySelectorAll("#domWeightQuickChips .quick-chip-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#domWeightQuickChips .quick-chip-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        wInput.value = btn.getAttribute("data-wg");
+        renderDomQuick();
+      });
+    });
+
+    document.querySelectorAll("#domQuickFilterBar .filter-pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#domQuickFilterBar .filter-pill").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentFilter = btn.getAttribute("data-dfilter") || "price_asc";
+        renderDomQuick();
+      });
+    });
+
+    if (jumpBtn) {
+      jumpBtn.addEventListener("click", () => {
+        switchAppMode("inter");
+        const interCard = document.getElementById("interRateAssistantCard");
+        if (interCard) interCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+
+    renderDomQuick();
+  }
+
+  // สร้างฐานข้อมูลรายการราคาต่างประเทศทั้งหมด (Flattened Price Index) สำหรับค้นหาย้อนกลับ (Reverse Lookup)
+  function buildInterPriceDatabase() {
+    const entries = [];
+    const ir = DATA.interRates;
+    if (!ir) return entries;
+
+    // 1. ePacket มาตรฐาน (LP / LX) 10 โซน
+    if (ir.epacket) {
+      const ep = ir.epacket;
+      ep.weightsG.forEach((maxG, wIdx) => {
+        const minG = wIdx === 0 ? 1 : ep.weightsG[wIdx - 1] + 1;
+        const wLabel = wIdx === 0 ? `ไม่เกิน ${maxG} กรัม` : `${minG.toLocaleString()} – ${maxG.toLocaleString()} กรัม`;
+        const row = ep.matrix[wIdx] || [];
+        row.forEach((price, zIdx) => {
+          const zObj = ep.zones[zIdx];
+          if (!zObj) return;
+          entries.push({
+            cat: "epacket",
+            service: "ePacket มาตรฐาน (LP / LX...TH)",
+            zone: zObj.zone,
+            countries: zObj.countries,
+            minG,
+            maxG,
+            weightLabel: wLabel,
+            basePrice: price,
+            eta: ep.eta,
+            trackable: true,
+            note: "ส่งสิ่งของ/สินค้าย่อยทางอากาศ (เช็คสถานะได้)"
+          });
+        });
+      });
+    }
+
+    // 2. ePacket US รวมภาษี DDP (LA / LI)
+    if (ir.epacketUsDdp) {
+      const us = ir.epacketUsDdp;
+      us.tiers.forEach((t, idx) => {
+        const minG = idx === 0 ? 1 : us.tiers[idx - 1].maxG + 1;
+        entries.push({
+          cat: "epacket",
+          service: "ePacket US รวมภาษี DDP (LA / LI...TH)",
+          zone: "สหรัฐอเมริกา (US DDP)",
+          countries: us.countries,
+          minG,
+          maxG: t.maxG,
+          weightLabel: t.label,
+          basePrice: t.price,
+          eta: us.eta,
+          trackable: true,
+          note: "รวมภาษีนำเข้าสหรัฐฯ (DDP) แล้ว | มูลค่า ≤ 60 USD | ห้ามส่งอาหาร"
+        });
+      });
+    }
+
+    // 3. EMS World (Document ED & Package EE & One Price)
+    if (ir.emsWorld) {
+      const ems = ir.emsWorld;
+      // Document ≤250g & 251-500g
+      [250, 500].forEach((maxG, wIdx) => {
+        const minG = wIdx === 0 ? 1 : 251;
+        const wLabel = wIdx === 0 ? "ไม่เกิน 250 กรัม (เอกสาร)" : "251 – 500 กรัม (เอกสาร)";
+        const row = ems.docMatrix250and500[wIdx] || [];
+        row.forEach((price, zIdx) => {
+          const zObj = ems.zones[zIdx];
+          if (!zObj) return;
+          entries.push({
+            cat: "ems",
+            service: "EMS World เอกสารด่วน (Document - ED...TH)",
+            zone: zObj.zone,
+            countries: zObj.countries,
+            minG,
+            maxG,
+            weightLabel: wLabel,
+            basePrice: price,
+            eta: ems.eta,
+            trackable: true,
+            note: "สำหรับส่งเอกสารล้วน (Document)"
+          });
+        });
+      });
+
+      // Package 250g – 10,000g
+      ems.weightsG.forEach((maxG, wIdx) => {
+        const minG = wIdx === 0 ? 1 : ems.weightsG[wIdx - 1] + 1;
+        const wLabel = wIdx === 0 ? `ไม่เกิน 250 กรัม` : `${minG.toLocaleString()} – ${maxG.toLocaleString()} กรัม (${(maxG / 1000).toFixed(maxG % 1000 === 0 ? 0 : 1)} กก.)`;
+        const row = ems.packageMatrix[wIdx] || [];
+        row.forEach((price, zIdx) => {
+          const zObj = ems.zones[zIdx];
+          if (!zObj) return;
+          entries.push({
+            cat: "ems",
+            service: "EMS World พัสดุด่วนพิเศษ (Package - EE...TH)",
+            zone: zObj.zone,
+            countries: zObj.countries,
+            minG,
+            maxG,
+            weightLabel: wLabel,
+            basePrice: price,
+            eta: ems.eta,
+            trackable: true,
+            note: "ส่งด่วนพิเศษระหว่างประเทศ ชดใช้สูงสุด 7,000 บ."
+          });
+        });
+      });
+
+      // EMS One Price
+      (ems.onePrice || []).forEach((op) => {
+        entries.push({
+          cat: "ems",
+          service: "EMS World One Price (เหมาจ่ายตามขนาดซอง/กล่อง)",
+          zone: "Zone 1 (เอเชียใกล้)",
+          countries: ems.zones[0].countries,
+          minG: 1,
+          maxG: op.maxG,
+          weightLabel: op.pkg,
+          basePrice: op.z1,
+          eta: ems.eta,
+          trackable: true,
+          note: "เหมาจ่าย EMS World One Price"
+        });
+        entries.push({
+          cat: "ems",
+          service: "EMS World One Price (เหมาจ่ายตามขนาดซอง/กล่อง)",
+          zone: "Zone 2 (ญี่ปุ่น/เกาหลี/จีน/ออสเตรเลีย)",
+          countries: [...ems.zones[1].countries, ...ems.zones[3].countries],
+          minG: 1,
+          maxG: op.maxG,
+          weightLabel: op.pkg,
+          basePrice: op.z2,
+          eta: ems.eta,
+          trackable: true,
+          note: "เหมาจ่าย EMS World One Price"
+        });
+        entries.push({
+          cat: "ems",
+          service: "EMS World One Price (เหมาจ่ายตามขนาดซอง/กล่อง)",
+          zone: "Zone 3 (ยุโรป/อเมริกา/ตะวันออกกลาง)",
+          countries: [...ems.zones[5].countries, ...ems.zones[6].countries],
+          minG: 1,
+          maxG: op.maxG,
+          weightLabel: op.pkg,
+          basePrice: op.z3,
+          eta: ems.eta,
+          trackable: true,
+          note: "เหมาจ่าย EMS World One Price"
+        });
+      });
+    }
+
+    // 4. พัสดุย่อยทางอากาศ (Small Packet Air) & จดหมายทางอากาศ (+RR 70 บ.)
+    if (ir.smallPacketAndLetterAir) {
+      const sp = ir.smallPacketAndLetterAir;
+      sp.smallPacketWeightsG.forEach((maxG, wIdx) => {
+        const minG = wIdx === 0 ? 1 : sp.smallPacketWeightsG[wIdx - 1] + 1;
+        const wLabel = wIdx === 0 ? `ไม่เกิน ${maxG} กรัม` : `${minG.toLocaleString()} – ${maxG.toLocaleString()} กรัม`;
+        const row = sp.smallPacketBase[wIdx] || [];
+        row.forEach((price, zIdx) => {
+          const zObj = sp.zones[zIdx];
+          if (!zObj) return;
+          entries.push({
+            cat: "small_letter",
+            service: "พัสดุย่อยทางอากาศ (Small Packet Air - ธรรมดา)",
+            zone: zObj.zone,
+            countries: zObj.countries,
+            minG,
+            maxG,
+            weightLabel: wLabel,
+            basePrice: price,
+            eta: sp.eta,
+            trackable: false,
+            note: "พัสดุย่อยทางอากาศธรรมดา (ถ้ารวมลงทะเบียน RR บวก +70 บ.)"
+          });
+        });
+      });
+
+      sp.letterWeightsG.forEach((maxG, wIdx) => {
+        const minG = wIdx === 0 ? 1 : sp.letterWeightsG[wIdx - 1] + 1;
+        const wLabel = wIdx === 0 ? `ไม่เกิน ${maxG} กรัม` : `${minG.toLocaleString()} – ${maxG.toLocaleString()} กรัม`;
+        const row = sp.letterBase[wIdx] || [];
+        row.forEach((price, zIdx) => {
+          const zObj = sp.zones[zIdx];
+          if (!zObj) return;
+          entries.push({
+            cat: "small_letter",
+            service: "จดหมายทางอากาศระหว่างประเทศ (Air Letter)",
+            zone: zObj.zone,
+            countries: zObj.countries,
+            minG,
+            maxG,
+            weightLabel: wLabel,
+            basePrice: price,
+            eta: sp.eta,
+            trackable: false,
+            note: "จดหมายทางอากาศธรรมดา (ถ้ารวมลงทะเบียน RR บวก +70 บ.)"
+          });
+        });
+      });
+    }
+
+    // 5. พัสดุไปรษณีย์ทางอากาศ (Air Parcel CP...TH) 1–10 กก.
+    if (ir.airParcel && ir.airParcel.zones) {
+      ir.airParcel.zones.forEach((zObj) => {
+        for (let kg = 1; kg <= 10; kg++) {
+          const price = zObj.firstKg + (kg - 1) * zObj.stepKg;
+          const minG = (kg - 1) * 1000 + 1;
+          const maxG = kg * 1000;
+          entries.push({
+            cat: "airparcel",
+            service: "พัสดุไปรษณีย์ทางอากาศ (Air Parcel - CP...TH)",
+            zone: zObj.zone,
+            countries: zObj.countries,
+            minG,
+            maxG,
+            weightLabel: kg === 1 ? "ไม่เกิน 1,000 กรัม (1 กก.)" : `${minG.toLocaleString()} – ${maxG.toLocaleString()} กรัม (${kg} กก.)`,
+            basePrice: price,
+            eta: ir.airParcel.eta,
+            trackable: true,
+            note: `กิโลกรัมแรก ${zObj.firstKg} บ. + กก.ละ ${zObj.stepKg} บ.`
+          });
+        }
+      });
+    }
+
+    return entries;
+  }
+
+  function setupInterRateAssistant() {
+    const revInput = document.getElementById("interRevPriceInput");
+    const revSrvFilter = document.getElementById("interRevServiceFilter");
+    const revOut = document.getElementById("interRevResultBox");
+    const fwdCountrySel = document.getElementById("interFwdCountrySelect");
+    const fwdWeightInput = document.getElementById("interFwdWeightInput");
+    const fwdOut = document.getElementById("interFwdResultBox");
+    const toggleDomBtn = document.getElementById("toggleInlineDomCompareBtn");
+    const domDrawer = document.getElementById("inlineDomCompareDrawer");
+    const inlineDomW = document.getElementById("inlineDomWeightInput");
+    const inlineDomPc = document.getElementById("inlineDomPostcodeInput");
+    const inlineDomOut = document.getElementById("inlineDomCompareOutput");
+
+    if (!revInput || !revOut) return;
+
+    const allEntries = buildInterPriceDatabase();
+    let fwdFilterMode = "price_asc";
+
+    // 1. ฟังก์ชันค้นหาย้อนกลับจากราคา (คีย์ราคา ➔ แสดงประเทศปลายทาง, โซน, บริการ และพิกัดน้ำหนัก)
+    function runReverseLookup() {
+      const targetPrice = parseFloat(revInput.value) || 0;
+      const catFilter = revSrvFilter ? revSrvFilter.value : "all";
+
+      if (targetPrice <= 0) {
+        revOut.innerHTML = `<div style="padding:10px; background:#FFFBEB; border:1px solid #F59E0B; border-radius:8px; color:#92400E; font-weight:600; font-size:13px;">กรุณาคีย์ตัวเลขราคาค่าบริการ (บาท) ที่ต้องการตรวจสอบ เช่น 160, 260, 339, 720, 1460</div>`;
+        return;
+      }
+
+      const pool = catFilter === "all" ? allEntries : allEntries.filter((e) => e.cat === catFilter);
+
+      const exactMatches = [];
+      const addonOrDiscountMatches = [];
+      const nearbyMatches = [];
+
+      pool.forEach((item) => {
+        const diff = Math.abs(item.basePrice - targetPrice);
+        if (diff < 0.01) {
+          exactMatches.push({
+            ...item,
+            matchType: "exact",
+            matchBadge: "🎯 ตรงเรทปกติ 100%",
+            displayPrice: item.basePrice,
+            explain: `เรทมาตรฐาน ${item.basePrice.toLocaleString()} บาท`
+          });
+          return;
+        }
+
+        // เช็คกรณีรวมบริการเสริม ePacket Plus (+30 บ.)
+        if (item.cat === "epacket" && Math.abs(item.basePrice + 30 - targetPrice) < 0.01) {
+          addonOrDiscountMatches.push({
+            ...item,
+            matchType: "addon",
+            matchBadge: "➕ รวม ePacket Plus (+30 บ.)",
+            displayPrice: item.basePrice + 30,
+            explain: `ค่าส่งปกติ ${item.basePrice.toLocaleString()} บ. + บริการเสริม ePacket Plus 30 บ. = ${(item.basePrice + 30).toLocaleString()} บ.`
+          });
+          return;
+        }
+
+        // เช็คกรณีรวมค่าลงทะเบียนระหว่างประเทศ RR (+70 บ. หรือ +65 บ.)
+        if (item.cat === "small_letter" && (Math.abs(item.basePrice + 70 - targetPrice) < 0.01 || Math.abs(item.basePrice + 65 - targetPrice) < 0.01)) {
+          const regFee = Math.round(targetPrice - item.basePrice);
+          addonOrDiscountMatches.push({
+            ...item,
+            matchType: "addon",
+            matchBadge: `🔖 รวมลงทะเบียน RR (+${regFee} บ.)`,
+            displayPrice: targetPrice,
+            explain: `ค่าส่ง ${item.basePrice.toLocaleString()} บ. + ค่าลงทะเบียนระหว่างประเทศ (RR) ${regFee} บ. = ${targetPrice.toLocaleString()} บ.`
+          });
+          return;
+        }
+
+        // เช็คกรณีหักส่วนลดโปรโมชั่น 5% (เช่น POST Family 5% / ePacket DDP 5%) หรือ 3%
+        const disc5 = Math.round(item.basePrice * 0.95);
+        const disc5Exact = +(item.basePrice * 0.95).toFixed(2);
+        if (Math.abs(disc5 - targetPrice) <= 1 || Math.abs(disc5Exact - targetPrice) <= 1) {
+          addonOrDiscountMatches.push({
+            ...item,
+            matchType: "discount",
+            matchBadge: "🏷️ หักส่วนลด 5% แล้ว",
+            displayPrice: targetPrice,
+            explain: `ราคาเต็ม ${item.basePrice.toLocaleString()} บ. หักส่วนลด 5% เหลือประมาณ ${disc5Exact.toLocaleString()} บ.`
+          });
+          return;
+        }
+
+        // เก็บรายการราคาใกล้เคียง (±45 บาท) เผื่อค้นหา
+        if (diff <= 45) {
+          nearbyMatches.push({
+            ...item,
+            diff,
+            matchType: "nearby",
+            matchBadge: `ใกล้เคียง (${item.basePrice > targetPrice ? "+" : ""}${item.basePrice - targetPrice} บ.)`,
+            displayPrice: item.basePrice,
+            explain: `เรทมาตรฐาน ${item.basePrice.toLocaleString()} บาท (ต่างจากที่คีย์ ${Math.abs(item.basePrice - targetPrice).toLocaleString()} บ.)`
+          });
+        }
+      });
+
+      nearbyMatches.sort((a, b) => a.diff - b.diff || a.basePrice - b.basePrice);
+
+      const renderMatchCard = (m, borderCol, bgCol) => {
+        const countriesHtml = m.countries
+          .map((c) => `<span class="country-chip" style="background:#FFFFFF; border-color:#93C5FD; color:#1E3A8A; font-weight:600; padding:2px 8px; font-size:12px;">${escapeHtml(c)}</span>`)
+          .join("");
+        return `
+          <div class="rate-result-card" style="border-left:5px solid ${borderCol}; background:${bgCol}; flex-direction:column; gap:6px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px; width:100%;">
+              <div>
+                <div style="display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:2px;">
+                  <span class="badge" style="background:${borderCol}; color:#FFFFFF; font-size:11px;">${escapeHtml(m.matchBadge)}</span>
+                  <span style="font-size:14.5px; font-weight:800; color:#0F172A;">${escapeHtml(m.service)}</span>
+                </div>
+                <div style="font-size:13px; font-weight:700; color:#B91C1C;">
+                  ⚖️ พิกัดน้ำหนัก: <span style="background:#FEF3C7; color:#92400E; padding:1px 7px; border-radius:6px; border:1px solid #F59E0B;">${escapeHtml(m.weightLabel)}</span>
+                  &nbsp;|&nbsp; 🌍 โซน: <strong style="color:#1E40AF;">${escapeHtml(m.zone)}</strong>
+                </div>
+              </div>
+              <div class="rate-price-big" style="color:${borderCol};">
+                ${m.basePrice.toLocaleString()} <span style="font-size:12.5px;">บ.</span>
+              </div>
+            </div>
+            <div style="font-size:12px; color:#334155;">💡 ${escapeHtml(m.explain)} — <em>${escapeHtml(m.note)}</em></div>
+            <div>
+              <div style="font-size:12px; font-weight:700; color:#1E3A8A; margin-bottom:4px;">🚩 ประเทศปลายทางที่อยู่ในเรทนี้ (${m.countries.length} ประเทศ):</div>
+              <div class="country-chips" style="margin:0;">${countriesHtml}</div>
+            </div>
+          </div>
+        `;
+      };
+
+      let html = "";
+      if (exactMatches.length > 0) {
+        html += `<div style="font-size:13.5px; font-weight:800; color:#047857; margin:6px 0;">✅ พบเรทราคาตรงเป๊ะ ${ targetPrice.toLocaleString() } บาท จำนวน ${exactMatches.length} รายการ:</div>`;
+        html += `<div class="rate-result-grid">${exactMatches.map((m) => renderMatchCard(m, "#059669", "#F0FDF4")).join("")}</div>`;
+      }
+
+      if (addonOrDiscountMatches.length > 0) {
+        html += `<div style="font-size:13.5px; font-weight:800; color:#1D4ED8; margin:10px 0 6px;">🔖 พบเรทที่ตรงเมื่อรวมบริการเสริม (+30/+70 บ.) หรือหักส่วนลด 5% (${addonOrDiscountMatches.length} รายการ):</div>`;
+        html += `<div class="rate-result-grid">${addonOrDiscountMatches.map((m) => renderMatchCard(m, "#2563EB", "#EFF6FF")).join("")}</div>`;
+      }
+
+      if (exactMatches.length === 0 && addonOrDiscountMatches.length === 0) {
+        html += `<div style="padding:10px 12px; background:#FFFBEB; border:1.5px solid #F59E0B; border-radius:10px; color:#92400E; font-size:13px; font-weight:600; margin-bottom:8px;">
+          ⚠️ ไม่พบเรทพื้นฐานที่ตรงกับ <strong>${targetPrice.toLocaleString()} บาท</strong> เป๊ะๆ — ด้านล่างคือเรทราคาที่ใกล้เคียงที่สุด (เผื่อกรณีบวกค่ากล่อง/ค่าภาษีเฉพาะประเทศ):
+        </div>`;
+      }
+
+      if (nearbyMatches.length > 0 && exactMatches.length < 5) {
+        const topNearby = nearbyMatches.slice(0, 6);
+        html += `<div style="font-size:13px; font-weight:700; color:#475569; margin:10px 0 6px;">🔍 เรทราคาใกล้เคียงที่สุด (±45 บาท):</div>`;
+        html += `<div class="rate-result-grid">${topNearby.map((m) => renderMatchCard(m, "#64748B", "#F8FAFC")).join("")}</div>`;
+      }
+
+      revOut.innerHTML = html;
+    }
+
+    // 2. ฟังก์ชันเลือกประเทศ + คีย์น้ำหนัก ➔ เทียบราคาทุกบริการระหว่างประเทศ + Filter
+    function runForwardInterLookup() {
+      if (!fwdCountrySel || !fwdWeightInput || !fwdOut) return;
+      const countryKey = fwdCountrySel.value;
+      const wG = parseFloat(fwdWeightInput.value) || 0;
+
+      if (wG <= 0 || wG > 30000) {
+        fwdOut.innerHTML = `<div style="padding:10px; background:#FFFBEB; border:1px solid #F59E0B; border-radius:8px; color:#92400E; font-weight:600; font-size:13px;">กรุณาระบุน้ำหนักระหว่าง 1 – 30,000 กรัม</div>`;
+        return;
+      }
+
+      // ค้นหารายการที่รองรับประเทศนี้และพิกัดน้ำหนักครอบคลุม wG
+      const matchesByService = new Map();
+      allEntries.forEach((item) => {
+        const hasCountry = item.countries.some((c) => c.includes(countryKey));
+        if (!hasCountry) return;
+        if (wG >= item.minG && wG <= item.maxG) {
+          const key = item.service + "|" + item.zone;
+          if (!matchesByService.has(key)) {
+            matchesByService.set(key, item);
+          }
+        }
+      });
+
+      let list = Array.from(matchesByService.values());
+
+      // หากเป็นพัสดุย่อย/จดหมายทางอากาศ ให้เพิ่มตัวเลือกแบบลงทะเบียน RR (+70 บ.) ด้วยเพื่อให้เปรียบเทียบง่าย
+      const regExtras = [];
+      list.forEach((it) => {
+        if (it.cat === "small_letter") {
+          regExtras.push({
+            ...it,
+            service: it.service.replace("ธรรมดา", "").trim() + " + ลงทะเบียน (RR...TH)",
+            basePrice: it.basePrice + 70,
+            trackable: true,
+            note: `รวมค่าลงทะเบียนระหว่างประเทศ RR +70 บาทแล้ว (ชดใช้สูงสุด ~1,300 บ.)`
+          });
+        }
+      });
+      list = list.concat(regExtras);
+
+      if (fwdFilterMode === "trackable") {
+        list = list.filter((x) => x.trackable);
+        list.sort((a, b) => a.basePrice - b.basePrice);
+      } else if (fwdFilterMode === "fastest") {
+        list.sort((a, b) => {
+          const rankA = a.cat === "ems" ? 1 : a.cat === "epacket" ? 2 : 3;
+          const rankB = b.cat === "ems" ? 1 : b.cat === "epacket" ? 2 : 3;
+          return rankA - rankB || a.basePrice - b.basePrice;
+        });
+      } else if (fwdFilterMode === "price_desc") {
+        list.sort((a, b) => b.basePrice - a.basePrice);
+      } else {
+        list.sort((a, b) => a.basePrice - b.basePrice);
+      }
+
+      if (list.length === 0) {
+        fwdOut.innerHTML = `<div style="padding:10px; background:#FEF2F2; border:1px solid #EF4444; border-radius:8px; color:#991B1B; font-weight:600; font-size:13px;">ไม่พบพิกัดบริการที่ตรงกับน้ำหนัก ${wG.toLocaleString()} กรัม สำหรับปลายทาง ${escapeHtml(countryKey)} (ลองลดน้ำหนักหรือเลือก EMS World / Courier Post)</div>`;
+        return;
+      }
+
+      const minP = Math.min(...list.map((x) => x.basePrice));
+      fwdOut.innerHTML = list
+        .map((it) => {
+          const isCheap = it.basePrice === minP;
+          const isFast = it.cat === "ems";
+          return `
+            <div class="rate-result-card ${isCheap ? "cheapest" : ""} ${isFast ? "fastest" : ""}">
+              <div style="flex:1;">
+                <div style="display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:3px;">
+                  <span style="font-size:14.5px; font-weight:800; color:#0F172A;">${escapeHtml(it.service)}</span>
+                  <span class="badge badge-blue" style="font-size:11px;">${escapeHtml(it.zone)}</span>
+                  ${isCheap ? `<span class="badge badge-emerald" style="font-size:11px;">💰 ประหยัดสุด</span>` : ""}
+                  ${isFast ? `<span class="badge badge-red" style="font-size:11px;">⚡ ด่วนพิเศษ</span>` : ""}
+                </div>
+                <div style="font-size:12.5px; color:#B91C1C; font-weight:700; margin-bottom:2px;">
+                  ⚖️ พิกัดที่ใช้คิดเงิน: ${escapeHtml(it.weightLabel)}
+                </div>
+                <div style="font-size:12px; color:#334155;">
+                  ⏱️ ${escapeHtml(it.eta)} • ${it.trackable ? "✅ เช็คสถานะออนไลน์ได้" : "❌ เช็คออนไลน์ไม่ได้"} • ${escapeHtml(it.note)}
+                </div>
+              </div>
+              <div class="rate-price-big">
+                ${it.basePrice.toLocaleString()} <span style="font-size:12.5px;">บ.</span>
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+    }
+
+    // 3. ฟังก์ชันแสดงค่าบริการในประเทศคู่กันทันทีในหน้าต่างประเทศ (Inline Domestic Compare Drawer)
+    function renderInlineDomCompare() {
+      if (!inlineDomW || !inlineDomOut) return;
+      const wG = parseFloat(inlineDomW.value) || 250;
+      const pcInfo = checkPostcodeRemoteInfo(inlineDomPc ? inlineDomPc.value : "");
+      const domList = getDomesticServicesForWeight(wG, "pack", pcInfo.isRemote, "none");
+      domList.sort((a, b) => a.price - b.price);
+
+      inlineDomOut.innerHTML = domList
+        .map(
+          (s) => `
+          <div class="rate-result-card" style="border-left-color:${s.color}; padding:8px 10px;">
+            <div>
+              <div style="font-size:13.5px; font-weight:700; color:#0F172A;">🇹🇭 ${escapeHtml(s.name)}</div>
+              <div style="font-size:11.5px; color:#475569;">${escapeHtml(s.breakdown)} • ${escapeHtml(s.trackText)}</div>
+            </div>
+            <div class="rate-price-big" style="font-size:16.5px;">
+              ${s.price.toLocaleString()} บ.
+            </div>
+          </div>
+        `
+        )
+        .join("");
+    }
+
+    // ผูก Event โหมดย่อย Reverse vs Forward
+    document.querySelectorAll("#interSubmodeTabs .submode-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#interSubmodeTabs .submode-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const mode = btn.getAttribute("data-isub");
+        const revPane = document.getElementById("interReversePane");
+        const fwdPane = document.getElementById("interForwardPane");
+        if (revPane) revPane.style.display = mode === "reverse" ? "block" : "none";
+        if (fwdPane) fwdPane.style.display = mode === "forward" ? "block" : "none";
+      });
+    });
+
+    revInput.addEventListener("input", runReverseLookup);
+    revInput.addEventListener("change", runReverseLookup);
+    if (revSrvFilter) revSrvFilter.addEventListener("change", runReverseLookup);
+
+    document.querySelectorAll("#interRevPriceChips .quick-chip-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#interRevPriceChips .quick-chip-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        revInput.value = btn.getAttribute("data-rprice");
+        runReverseLookup();
+      });
+    });
+
+    if (fwdCountrySel) fwdCountrySel.addEventListener("change", runForwardInterLookup);
+    if (fwdWeightInput) {
+      fwdWeightInput.addEventListener("input", runForwardInterLookup);
+      fwdWeightInput.addEventListener("change", runForwardInterLookup);
+    }
+
+    document.querySelectorAll("#interFwdWeightChips .quick-chip-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#interFwdWeightChips .quick-chip-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        if (fwdWeightInput) fwdWeightInput.value = btn.getAttribute("data-ifwg");
+        if (inlineDomW) inlineDomW.value = btn.getAttribute("data-ifwg");
+        runForwardInterLookup();
+        renderInlineDomCompare();
+      });
+    });
+
+    document.querySelectorAll("#interFwdFilterBar .filter-pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#interFwdFilterBar .filter-pill").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        fwdFilterMode = btn.getAttribute("data-ifilter") || "price_asc";
+        runForwardInterLookup();
+      });
+    });
+
+    if (toggleDomBtn && domDrawer) {
+      toggleDomBtn.addEventListener("click", () => {
+        const isHidden = domDrawer.style.display === "none";
+        domDrawer.style.display = isHidden ? "block" : "none";
+        toggleDomBtn.innerHTML = isHidden
+          ? "🔼 ซ่อนตารางเทียบค่าบริการในประเทศ"
+          : "🇹🇭 กดแสดงค่าบริการในประเทศคู่กัน";
+        if (isHidden) renderInlineDomCompare();
+      });
+    }
+
+    if (inlineDomW) inlineDomW.addEventListener("input", renderInlineDomCompare);
+    if (inlineDomPc) inlineDomPc.addEventListener("input", renderInlineDomCompare);
+
+    runReverseLookup();
+    runForwardInterLookup();
+  }
+
   // 8. ระบบสลับโหมดทางเข้าแรก (Domestic vs International) & สลับแท็บด้านล่าง
   function switchAppMode(mode) {
     currentMode = mode === "inter" ? "inter" : "domestic";
@@ -6011,6 +7607,7 @@ window.THP_INTER_DATA = {
     }
 
     // โหลดข้อมูลโหมดในประเทศ (Domestic)
+    setupDomQuickRateFinder();
     setupDomWizardEvents();
     renderDomServices();
     renderDomFormsHub();
@@ -6018,6 +7615,7 @@ window.THP_INTER_DATA = {
     setupDomCalculator();
 
     // โหลดข้อมูลโหมดระหว่างประเทศ (International)
+    setupInterRateAssistant();
     setupWizardEvents();
     renderServices();
     renderFormsHub();
