@@ -896,7 +896,19 @@
 
       // 00. ค้นหาในบริการในประเทศ (Domestic Services)
       if (DATA.domestic && DATA.domestic.services) {
-        DATA.domestic.services.forEach((srv) => {
+        const domSearchThemes = [
+          { cls: "theme-1-blue", color: "#1D4ED8" },
+          { cls: "theme-2-purple", color: "#6D28D9" },
+          { cls: "theme-3-emerald", color: "#047857" },
+          { cls: "theme-4-amber", color: "#B45309" },
+          { cls: "theme-5-cyan", color: "#0369A1" },
+          { cls: "theme-6-teal", color: "#0F766E" },
+          { cls: "theme-7-crimson", color: "#BE123C" },
+          { cls: "theme-8-orange", color: "#C2410C" },
+          { cls: "theme-9-slate", color: "#1E293B" }
+        ];
+        DATA.domestic.services.forEach((srv, idx) => {
+          const theme = domSearchThemes[idx % domSearchThemes.length];
           const hay = [
             "ในประเทศ",
             srv.name,
@@ -923,28 +935,30 @@
             const matchedNotes = allNotes.filter((n) => n.toLowerCase().includes(q));
             const notesToShow = matchedNotes.length > 0 ? matchedNotes : allNotes.slice(0, 5);
             matches.push(`
-              <div class="card" style="border: 2px solid #D91920;">
-                <div class="card-header">
+              <div class="card srv-theme-card ${theme.cls}">
+                <div class="srv-theme-banner">
                   <div>
-                    <span class="prefix-tag" style="background:#D91920; color:#FFF;">🇹🇭 บริการในประเทศ • ${escapeHtml(srv.prefix)}</span>
+                    <span class="prefix-tag">🇹🇭 ในประเทศ • ${escapeHtml(srv.prefix)}</span>
                     <div class="card-title">${escapeHtml(srv.name)}</div>
                   </div>
-                  <span class="badge badge-${escapeHtml(srv.badgeColor || "red")}">${escapeHtml(srv.badge)}</span>
+                  <span class="badge">${escapeHtml(srv.badge)}</span>
                 </div>
-                ${
-                  srv.posMode
-                    ? `<div style="background:#FFFBEB; border:1px solid #F59E0B; border-radius:8px; padding:8px; margin-bottom:8px; font-size:13px; color:#92400E; font-weight:600;">💻 <strong>วิธีทำรายการหน้าเคาน์เตอร์:</strong> ${escapeHtml(srv.posMode)}</div>`
-                    : ""
-                }
-                <div class="spec-grid">
-                  <div class="spec-item"><span class="spec-label">⚖️ น้ำหนักสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxWeight)}</span></div>
-                  <div class="spec-item"><span class="spec-label">📏 ขนาดสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxSize)}</span></div>
-                  <div class="spec-item"><span class="spec-label">💰 สรุปอัตราค่าบริการ:</span> <span class="spec-value">${escapeHtml(srv.rateSummary)}</span></div>
-                  <div class="spec-item"><span class="spec-label">🛡️ อัตราชดใช้:</span> <span class="spec-value">${escapeHtml(srv.indemnity)}</span></div>
+                <div class="srv-theme-body">
+                  ${
+                    srv.posMode
+                      ? `<div style="background:#FFFBEB; border:1px solid #F59E0B; border-radius:8px; padding:8px; margin-bottom:8px; font-size:13px; color:#92400E; font-weight:600; white-space:pre-line;">💻 <strong>วิธีทำรายการหน้าเคาน์เตอร์:</strong> ${escapeHtml(srv.posMode)}</div>`
+                      : ""
+                  }
+                  <div class="spec-grid" style="background:#FFFFFF; border:1.5px solid #CBD5E1;">
+                    <div class="spec-item"><span class="spec-label">⚖️ น้ำหนักสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxWeight)}</span></div>
+                    <div class="spec-item"><span class="spec-label">📏 ขนาดสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxSize)}</span></div>
+                    <div class="spec-item"><span class="spec-label">💰 อัตราค่าบริการ:</span> <div class="spec-value">${formatMultilineToBlocks(srv.rateSummary, theme.color)}</div></div>
+                    <div class="spec-item"><span class="spec-label">🛡️ อัตราชดใช้:</span> <span class="spec-value">${escapeHtml(srv.indemnity)}</span></div>
+                  </div>
+                  <ul class="notes-list">
+                    ${notesToShow.map((n) => `<li class="${n.includes("🚨") || n.includes("⚠️") || n.includes("ห้าม") ? "critical" : "good"}" style="white-space:pre-line;">${escapeHtml(n)}</li>`).join("")}
+                  </ul>
                 </div>
-                <ul class="notes-list">
-                  ${notesToShow.map((n) => `<li class="${n.includes("🚨") || n.includes("⚠️") || n.includes("ห้าม") ? "critical" : "good"}">${escapeHtml(n)}</li>`).join("")}
-                </ul>
               </div>
             `);
           }
@@ -2443,11 +2457,10 @@
     calculateDomRates();
   }
 
-  // 8. ระบบสลับโหมดทางเข้าแรก (Domestic = สีทอง vs International = สีน้ำเงิน) & สลับแท็บด้านล่าง
+  // 8. ระบบสลับโหมดทางเข้าแรก (Domestic vs International) & สลับแท็บด้านล่าง
   function switchAppMode(mode) {
     currentMode = mode === "inter" ? "inter" : "domestic";
 
-    // สลับคลาสที่ <body> เพื่อให้ Header / ปุ่ม / แถบเมนู เปลี่ยนเป็น "สีทอง (ในประเทศ)" หรือ "สีน้ำเงิน (ระหว่างประเทศ)" ทันที
     document.body.classList.toggle("mode-domestic", currentMode === "domestic");
     document.body.classList.toggle("mode-inter", currentMode === "inter");
 
@@ -2468,21 +2481,21 @@
     if (headerMainTitle) {
       headerMainTitle.textContent =
         currentMode === "domestic"
-          ? "🇹🇭 คู่มือบริการในประเทศ (โหมดสีทอง • 9 หมวด)"
-          : "🌐 คู่มือบริการระหว่างประเทศ (โหมดสีน้ำเงิน • ทุกโซน)";
+          ? "คู่มือบริการในประเทศ"
+          : "คู่มือบริการระหว่างประเทศ";
     }
 
     if (gwBadgeDom && gwBadgeInter) {
       if (currentMode === "domestic") {
         gwBadgeDom.className = "badge badge-amber";
-        gwBadgeDom.textContent = "🟡 กำลังเปิดดู (ในปท.)";
+        gwBadgeDom.textContent = "กำลังใช้งาน";
         gwBadgeInter.className = "badge badge-slate";
-        gwBadgeInter.textContent = "กดเพื่อสลับไป ตปท.";
+        gwBadgeInter.textContent = "สลับโหมด";
       } else {
         gwBadgeInter.className = "badge badge-blue";
-        gwBadgeInter.textContent = "🔵 กำลังเปิดดู (ตปท.)";
+        gwBadgeInter.textContent = "กำลังใช้งาน";
         gwBadgeDom.className = "badge badge-slate";
-        gwBadgeDom.textContent = "กดเพื่อสลับไป ในปท.";
+        gwBadgeDom.textContent = "สลับโหมด";
       }
     }
 
@@ -2493,7 +2506,7 @@
     if (navBtnDest) navBtnDest.style.display = currentMode === "inter" ? "flex" : "none";
     if (navBtnProhib) navBtnProhib.style.display = currentMode === "inter" ? "flex" : "none";
     if (navLabelServices) {
-      navLabelServices.textContent = currentMode === "domestic" ? "9 หมวดในปท." : "บริการตปท.";
+      navLabelServices.textContent = currentMode === "domestic" ? "บริการ (9)" : "บริการ";
     }
 
     // หากสลับมาโหมดในประเทศแต่แท็บเดิมอยู่ที่ ประเทศ/ของต้องห้าม ให้เด้งกลับมาที่ เช็คด่วน

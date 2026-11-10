@@ -1042,15 +1042,15 @@
   <!-- Header -->
   <header class="app-header">
     <div style="max-width: 1180px; margin: 0 auto;">
-      <!-- ทางเข้าแรก (Gateway Switcher): บริการในประเทศ (สีทอง) vs บริการระหว่างประเทศ (สีน้ำเงิน) -->
+      <!-- ทางเข้าแรก (Gateway Switcher): บริการในประเทศ vs บริการระหว่างประเทศ -->
       <div class="mode-gateway-bar" id="topGatewayBar">
         <button type="button" class="mode-gateway-btn active" data-mode="domestic">
           <span>🇹🇭 บริการในประเทศ</span>
-          <span class="sub-pill">โหมดสีทอง • 9 หมวด</span>
+          <span class="sub-pill">9 หมวด</span>
         </button>
         <button type="button" class="mode-gateway-btn" data-mode="inter">
           <span>🌐 บริการระหว่างประเทศ</span>
-          <span class="sub-pill">โหมดสีน้ำเงิน • ทุกโซน</span>
+          <span class="sub-pill">ทุกโซน</span>
         </button>
       </div>
     </div>
@@ -1060,8 +1060,8 @@
         <div class="brand-title">
           <div class="brand-icon">ปณก.</div>
           <div class="brand-text">
-            <h1 id="headerMainTitle">🇹🇭 คู่มือบริการในประเทศ (โหมดสีทอง)</h1>
-            <p id="headerSubTitle">ฉบับพกพาบนมือถือ & เว็บหน้าเคาน์เตอร์ (อัปเดต พ.ย. 69)</p>
+            <h1 id="headerMainTitle">คู่มือบริการในประเทศ</h1>
+            <p id="headerSubTitle">อัปเดต พฤศจิกายน 2569</p>
           </div>
         </div>
         <span class="update-pill" id="lastUpdatedBadge">อัปเดต พ.ย. 69</span>
@@ -1069,7 +1069,7 @@
 
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="globalSearchInput" placeholder="ค้นหาได้ทั้งในประเทศ & ตปท.: ตราสิน, Admail, eCo-Post, EMS Jumbo, COD, เกาหลี, PID..." autocomplete="off" />
+        <input type="text" id="globalSearchInput" placeholder="ค้นหา: ตราสิน, Admail, eCo-Post, EMS Jumbo, COD, เกาหลี, PID..." autocomplete="off" />
         <button class="clear-search" id="clearSearchBtn" title="ล้างคำค้น">✕</button>
       </div>
     </div>
@@ -1083,7 +1083,7 @@
     </button>
     <button class="nav-btn" data-tab="tab-services">
       <span class="icon">📦</span>
-      <span id="navLabelServices">9 หมวดในปท.</span>
+      <span id="navLabelServices">บริการ (9)</span>
     </button>
     <button class="nav-btn" data-tab="tab-forms">
       <span class="icon">🖨️</span>
@@ -1110,17 +1110,17 @@
     <div class="gateway-hero-cards" id="gatewayHeroCards">
       <button type="button" class="gateway-card active" data-mode="domestic">
         <div class="gateway-card-title">
-          <span>🇹🇭 1. บริการในประเทศ (ธีมสีทอง • ครบ 9 หมวด)</span>
-          <span class="badge badge-amber" id="gwBadgeDom">🟡 กำลังเปิดดู (ในปท.)</span>
+          <span>🇹🇭 บริการในประเทศ</span>
+          <span class="badge badge-amber" id="gwBadgeDom">กำลังใช้งาน</span>
         </div>
         <div class="gateway-card-desc">
-          1. จดหมาย/สิ่งพิมพ์ • 2. ตราสิน • 3. ไม่มีจ่าหน้า • 4. พัสดุ (P) • 5. ลงทะเบียน (R) • 6. eCo-Post • 7. EMS/EMS ใหญ่ (2886) • 8. EMS Jumbo • 9. ความรู้ พนง. (COD/High Value/EMS Point)
+          จดหมาย/สิ่งพิมพ์ • ตราสิน • ไม่มีจ่าหน้า • พัสดุ (P) • ลงทะเบียน (R) • eCo-Post • EMS/EMS ใหญ่ • EMS Jumbo • ความรู้ พนง.
         </div>
       </button>
       <button type="button" class="gateway-card" data-mode="inter">
         <div class="gateway-card-title">
-          <span>🌐 2. บริการระหว่างประเทศ (ธีมสีน้ำเงิน • ทุกโซน)</span>
-          <span class="badge badge-slate" id="gwBadgeInter">กดเพื่อสลับไป ตปท.</span>
+          <span>🌐 บริการระหว่างประเทศ</span>
+          <span class="badge badge-slate" id="gwBadgeInter">สลับโหมด</span>
         </div>
         <div class="gateway-card-desc">
           ePacket DDP ยุโรป 27 ปท. (LE) • ePacket US (LA/LI) • Courier Post Plus • EMS World • รหัส PID • ใบ LOA
@@ -1131,7 +1131,7 @@
     <!-- Search Results View (Hidden unless searching) -->
     <section id="searchResultsSection" style="display: none;">
       <div class="section-heading">
-        <span>🔎 ผลการค้นหาด่วน (ค้นหาทั้งในประเทศ & ระหว่างประเทศ)</span>
+        <span>🔎 ผลการค้นหา</span>
         <button class="btn-secondary" id="closeSearchBtn" style="margin-left:auto;">กลับหน้าหลัก</button>
       </div>
       <div id="searchResultsContainer"></div>
@@ -1145,20 +1145,19 @@
       <!-- DOMESTIC TAB 1: เช็คด่วน & ตัวช่วยคำนวณเรทในประเทศ -->
       <section id="dom-tab-quick" class="tab-section active">
         <div class="urgent-banner">
-          <h3>🇹🇭 สรุปไฮไลท์บริการในประเทศครบ 9 หมวด (อัปเดตล่าสุด พฤศจิกายน 2569)</h3>
+          <h3>🇹🇭 จุดสังเกตสำคัญหน้าเคาน์เตอร์ (ในประเทศ)</h3>
           <p>
-            • <strong>1–3. จดหมาย/สิ่งพิมพ์ • ตราสิน (ป.244) • ไม่มีจ่าหน้า (Admail):</strong> ซองพลาสติกทุกกรณี / ซองป่อง / ซองขยายข้าง (ก+ย+ส &gt; 60 ซม.) <strong>ต้องคิดเรท "หีบห่อ" เสมอ!</strong> | ตราสินลดสูงสุด 50% (ขั้นต่ำ 100 ชิ้น ณ ปณ.ที่ระบุในใบอนุญาต) | Admail เรทเหมาจ่ายตั้งแต่ชิ้นแรก (สื่อเลือกตั้ง ≤50ก. ชิ้นละ 2.50 บ. ไม่มีขั้นต่ำ!)<br>
-            • <strong>4–6. พัสดุ (P) • ลงทะเบียน (R / e-AR) • eCo-Post (O):</strong> พัสดุ (P) เริ่ม 25 บ. + กก.ละ 20 บ. (สูงสุด 20 กก. <em>เช็คออนไลน์ไม่ได้</em>) | ลงทะเบียน (R) ซอง +13 บ. / หีบห่อ +15 บ. (<strong>e-AR +5 บ. แจ้ง SMS ต้นทางและนำจ่ายสำเร็จ!</strong>) | eCo-Post (O) เริ่ม 23 บ. (รวม Fuel +3 บ.) ชดใช้สูงสุด 1,500 บ.<br>
-            • <strong>7–8. EMS ปกติ (831) • EMS ขนาดใหญ่ (2886) • EMS Jumbo:</strong> ถ้ายาวเกิน 60 ซม. หรือ ก+ย+ส &gt; 120 ซม. (แต่ ≤240 ซม.) <strong>ต้องคีย์รหัส <code>2886</code> (EMS ขนาดใหญ่ หารปริมาตร ÷ 6,000)</strong> | <strong>EMS Jumbo:</strong> พิกัด 30–200 กก. หรือสินค้าสำเร็จรูป 44 รายการ (10 โซน) ส่งมอเตอร์ไซค์ต้องหุ้ม <strong>โฟม EPE</strong> + ทำ <strong>ใบตรวจสภาพรถ 3 ฉบับ</strong> + คีย์ที่อยู่ผู้รับให้ครบถ้วน!<br>
-            • <strong>9. ประดับความรู้ พนง.:</strong> <strong>COD (Wallet@POST)</strong> โอนเงินเร็วขึ้นเป็น <strong>T+1 ก่อน 17.00 น.</strong> | ของมีค่า &gt;2,000 บ. แนะนำ <strong>High Value / EMS รับประกัน (สูงสุด 50,000 บ.)</strong> | รับงาน <strong>EMS Point</strong> คีย์รายได้อื่นรหัส <code>694160</code> (ซอง) / <code>694163</code> (กล่อง)
+            • <strong>1–3. จดหมาย/สิ่งพิมพ์ • ตราสิน (ป.244) • ไม่มีจ่าหน้า (Admail):</strong> ซองพลาสติกทุกกรณี / ซองป่อง / ซองขยายข้าง (ก+ย+ส &gt; 60 ซม.) <strong>คิดเรท "หีบห่อ" เสมอ</strong> | ตราสินลดสูงสุด 50% (ขั้นต่ำ 100 ชิ้น ณ ปณ.ที่ระบุในใบอนุญาต) | Admail เลือกตั้ง ≤50ก. ชิ้นละ 2.50 บ. ไม่มีขั้นต่ำ<br>
+            • <strong>4–6. พัสดุ (P) • ลงทะเบียน (R / e-AR) • eCo-Post (O):</strong> พัสดุ (P) เริ่ม 25 บ. + กก.ละ 20 บ. (สูงสุด 20 กก. <em>เช็คออนไลน์ไม่ได้</em>) | ลงทะเบียน (R) ซอง +13 บ. / หีบห่อ +15 บ. (<strong>e-AR +5 บ. แจ้ง SMS</strong>) | eCo-Post (O) เริ่ม 23 บ. (รวม Fuel +3 บ.) ชดใช้สูงสุด 1,500 บ.<br>
+            • <strong>7–8. EMS ปกติ (831) • EMS ขนาดใหญ่ (2886) • EMS Jumbo:</strong> ยาวเกิน 60 ซม. หรือ ก+ย+ส &gt; 120 ซม. (≤240 ซม.) <strong>คีย์รหัส <code>2886</code> (หารปริมาตร ÷ 6,000)</strong> | <strong>EMS Jumbo:</strong> 30–200 กก. หรือสินค้าสำเร็จรูป 44 รายการ (10 โซน) มอเตอร์ไซค์หุ้ม <strong>โฟม EPE</strong> + ทำ <strong>ใบตรวจสภาพรถ 3 ฉบับ</strong><br>
+            • <strong>9. ความรู้ พนง.:</strong> <strong>COD (Wallet@POST)</strong> โอนเงิน <strong>T+1 ก่อน 17.00 น.</strong> | ของมีค่า &gt;2,000 บ. แนะนำ <strong>High Value / EMS รับประกัน (สูงสุด 50,000 บ.)</strong> | งาน <strong>EMS Point</strong> คีย์รหัส <code>694160</code> (ซอง) / <code>694163</code> (กล่อง)
           </p>
         </div>
 
         <!-- Domestic Interactive Decision Wizard -->
         <div class="wizard-box" style="border-color:#F59E0B; background:linear-gradient(180deg,#FFFDF7 0%,#FFFFFF 100%);">
-          <div class="wizard-title" style="color:#92400E;">🧭 ตัวช่วยเลือกบริการ & เช็คกฎรับฝากในประเทศครบ 9 หมวด (แยก 9 สี อ่านง่าย ข้อมูลยิบยับ!)</div>
+          <div class="wizard-title" style="color:#92400E;">🧭 เลือกหมวดบริการในประเทศ</div>
           <div class="form-group">
-            <label class="form-label">แตะเลือกหมวดบริการในประเทศที่ต้องการดูตารางเรทและคัมภีร์เอาตัวรอด:</label>
             <div class="pill-selector" id="domWizGroup">
               <button class="pill-btn active" data-dom-srv="letter">✉️ 1. จดหมาย / สิ่งตีพิมพ์</button>
               <button class="pill-btn" data-dom-srv="trasin">📰 2. หนังสือพิมพ์ตราสิน</button>
@@ -1177,8 +1176,8 @@
         <!-- ตารางเปรียบเทียบเรทด่วนในประเทศ แบบตารางชัดเจน ข้อมูลยิบยับทุกพิกัด -->
         <div class="card" style="border: 2px solid #D97706;">
           <div class="card-header">
-            <div class="card-title" style="color:#92400E;">📊 ตารางโพยเรทราคาในประเทศฉบับสมบูรณ์ (เทียบทุกพิกัดน้ำหนัก • ดูง่ายในตารางเดียว!)</div>
-            <span class="badge badge-amber">โพยละเอียดยิบ</span>
+            <div class="card-title" style="color:#92400E;">📊 ตารางเปรียบเทียบอัตราค่าบริการในประเทศ</div>
+            <span class="badge badge-amber">ตารางรวมเรท</span>
           </div>
 
           <div style="font-size:14px; font-weight:700; color:#1E40AF; margin-bottom:4px;">
@@ -1389,16 +1388,16 @@
 
       <!-- DOMESTIC TAB 2: รายละเอียด 9 หมวดบริการหลักในประเทศครบทุกแง่มุม -->
       <section id="dom-tab-services" class="tab-section">
-        <div class="section-heading">🇹🇭 ข้อมูลบริการในประเทศครบทั้ง 9 หมวด (แบบพิมพ์ • ส่วนลด • คัมภีร์เอาตัวรอด & ความรู้ พนง.)</div>
+        <div class="section-heading">🇹🇭 บริการในประเทศ (9 หมวด)</div>
         <div id="domServicesListContainer" class="grid-2col"></div>
       </section>
 
       <!-- DOMESTIC TAB 3: แบบพิมพ์ประกอบการรับฝากในประเทศ -->
       <section id="dom-tab-forms" class="tab-section">
         <div class="urgent-banner" style="background:#ECFDF5; border-left-color:#059669;">
-          <h3 style="color:#065F46;">🖨️ ศูนย์รวมแบบพิมพ์ & ตารางอัตราค่าบริการในประเทศครบ 9 หมวด (สั่งพิมพ์ A4 / ดาวน์โหลด / แชร์)</h3>
+          <h3 style="color:#065F46;">🖨️ แบบพิมพ์ & ตารางอัตราค่าบริการในประเทศ</h3>
           <p style="color:#047857;">
-            รวมแบบฟอร์มใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail), แบบคำขอฝากส่งหนังสือพิมพ์ตราสิน (ป.244), แบบตรวจสภาพรถจักรยานยนต์ EMS Jumbo (3 ฉบับ), ใบนำส่งรับฝากรวม (RC/พัสดุ/EMS), ตารางอัตรา EMS Jumbo 10 โซน, ตารางรับประกัน & High Value, คู่มือ COD Wallet@POST และเกณฑ์การไม่ชดใช้ค่าเสียหาย สำหรับ <strong>กดสั่งพิมพ์ออกเครื่องปริ้นท์ A4 ทันที</strong>, <strong>ดาวน์โหลด PDF/รูปภาพ</strong> หรือ <strong>แชร์ส่ง LINE</strong>
+            รวมใบนำส่งไม่มีจ่าหน้า (Admail), คำขอฝากส่งหนังสือพิมพ์ตราสิน (ป.244), แบบตรวจสภาพรถจักรยานยนต์ EMS Jumbo (3 ฉบับ), ใบนำส่งรับฝากรวม (RC/พัสดุ/EMS) และตารางอัตราค่าบริการ สำหรับ <strong>สั่งพิมพ์ A4</strong>, <strong>ดาวน์โหลด</strong> หรือ <strong>แชร์ LINE</strong>
           </p>
         </div>
         <div id="domFormsHubContainer" class="grid-2col"></div>
@@ -1409,9 +1408,9 @@
         <div id="domPromoClockBanner" class="urgent-banner" style="background:#EFF6FF; border-left-color:#2563EB; margin-bottom:14px;"></div>
 
         <!-- เครื่องคำนวณค่าบริการในประเทศอัตโนมัติ (Domestic Rate, Volumetric 6000 & Admail Calculator) -->
-        <div class="section-heading">🧮 เครื่องคำนวณค่าส่งไปรษณีย์ในประเทศอัตโนมัติ (เทียบทุกบริการ + เช็ค EMS ขนาดใหญ่ ÷ 6,000 + คำนวณ Admail/ตราสิน)</div>
+        <div class="section-heading">🧮 คำนวณค่าส่งไปรษณีย์ในประเทศ</div>
         <div class="card" style="border: 2px solid #2563EB;">
-          <div class="card-title" style="margin-bottom:10px; color:#1E40AF;">ใส่น้ำหนัก ขนาดกล่อง หรือจำนวนชิ้น เพื่อคำนวณเทียบทุกบริการในประเทศทันที</div>
+          <div class="card-title" style="margin-bottom:10px; color:#1E40AF;">ระบุน้ำหนัก ขนาดกล่อง หรือจำนวนชิ้น</div>
           <div class="calc-input-grid">
             <div>
               <label class="form-label">น้ำหนักชั่งจริง (กรัม)</label>
@@ -1447,14 +1446,14 @@
               </select>
             </div>
           </div>
-          <button class="btn-primary" id="runDomCalcBtn">⚡ คำนวณเปรียบเทียบค่าส่งในประเทศทันที</button>
+          <button class="btn-primary" id="runDomCalcBtn">⚡ คำนวณค่าส่งทันที</button>
           <div id="domCalcResultBox" style="margin-top:12px;"></div>
         </div>
 
-        <div class="section-heading" style="margin-top:20px;">🟢 1. ส่วนลด / อัตราเหมาจ่าย / สิทธิพิเศษในประเทศที่【ใช้ได้ตอนนี้】</div>
+        <div class="section-heading" style="margin-top:20px;">🟢 ส่วนลด / อัตราพิเศษที่ใช้ได้ปัจจุบัน</div>
         <div id="domActivePromosContainer" class="grid-2col"></div>
 
-        <div class="section-heading" style="margin-top:24px; color:#991B1B;">🔴 2. อัตราเดิมที่【ยกเลิก/เปลี่ยนแปลงแล้ว — ระวังจำสับสน!】</div>
+        <div class="section-heading" style="margin-top:24px; color:#991B1B;">🔴 อัตราเดิมที่ยกเลิกแล้ว</div>
         <div id="domExpiredPromosContainer" class="grid-2col"></div>
       </section>
 
@@ -1468,17 +1467,17 @@
     <!-- TAB 1: ตัวช่วยตัดสินใจด่วนหน้าเคาน์เตอร์ (Quick Check) -->
     <section id="tab-quick" class="tab-section active">
       <div class="urgent-banner">
-        <h3>⚡ เตือนความจำสำคัญ (พฤศจิกายน 2569)</h3>
+        <h3>⚡ จุดสังเกตสำคัญ (ระหว่างประเทศ)</h3>
         <p>
-          • <strong>ตั้งแต่วันที่ 1 พ.ย. 69:</strong> บริการ <strong>ePacket DDP (LE)</strong> ขยายครบทั้ง <strong>27 ประเทศสหภาพยุโรป (EU)</strong> (นน.สูงสุด 5 กก., ยาวสุด 60 ซม., ก+ย+ส ไม่เกิน 130 ซม.) + มีส่วนลด 5% สมาชิก POST Family!<br>
-          • <strong>ส่งไป EU 27 ประเทศ:</strong> ต้องทำจ่าหน้าผ่าน <strong>D-Post Inter</strong> และกรอกรหัส <strong>PID (M-PID / NS-PID)</strong> ทุกชิ้น!<br>
-          • <strong>ห้ามส่งอาหาร/อาหารเสริมเด็ดขาด</strong> ในบริการ <strong>ePacket US (LA/LI)</strong> และ <strong>ePacket DDP ยุโรป (LE)</strong> (ฝ่าฝืนโดนปรับขั้นต่ำ 3,100 บ./กล่อง) ต้องเปิดตรวจและประทับตรา <strong>"Content Checked"</strong> ทุกชิ้น!
+          • <strong>ePacket DDP (LE):</strong> ขยายครบ <strong>27 ประเทศสหภาพยุโรป (EU)</strong> (นน.สูงสุด 5 กก., ยาวสุด 60 ซม., ก+ย+ส ≤ 130 ซม.) + ส่วนลด 5% สมาชิก POST Family<br>
+          • <strong>ส่งไป EU 27 ประเทศ:</strong> บังคับทำจ่าหน้าผ่าน <strong>D-Post Inter</strong> และกรอกรหัส <strong>PID (M-PID / NS-PID)</strong> ทุกชิ้น<br>
+          • <strong>ห้ามส่งอาหาร/อาหารเสริมเด็ดขาด</strong> ในบริการ <strong>ePacket US (LA/LI)</strong> และ <strong>ePacket DDP ยุโรป (LE)</strong> (ปรับขั้นต่ำ 3,100 บ./กล่อง) ต้องเปิดตรวจและประทับตรา <strong>"Content Checked"</strong> ทุกชิ้น
         </p>
       </div>
 
       <!-- Interactive Decision Wizard -->
       <div class="wizard-box">
-        <div class="wizard-title">🧭 ตัวช่วยเช็คความชัวร์ก่อนรับฝาก (3 วินาที)</div>
+        <div class="wizard-title">🧭 เช็คเงื่อนไขบริการระหว่างประเทศ</div>
         
         <div class="form-group">
           <label class="form-label">1. ลูกค้าส่งไปประเทศโซนไหน?</label>
@@ -4100,7 +4099,19 @@ window.THP_INTER_DATA = {
 
       // 00. ค้นหาในบริการในประเทศ (Domestic Services)
       if (DATA.domestic && DATA.domestic.services) {
-        DATA.domestic.services.forEach((srv) => {
+        const domSearchThemes = [
+          { cls: "theme-1-blue", color: "#1D4ED8" },
+          { cls: "theme-2-purple", color: "#6D28D9" },
+          { cls: "theme-3-emerald", color: "#047857" },
+          { cls: "theme-4-amber", color: "#B45309" },
+          { cls: "theme-5-cyan", color: "#0369A1" },
+          { cls: "theme-6-teal", color: "#0F766E" },
+          { cls: "theme-7-crimson", color: "#BE123C" },
+          { cls: "theme-8-orange", color: "#C2410C" },
+          { cls: "theme-9-slate", color: "#1E293B" }
+        ];
+        DATA.domestic.services.forEach((srv, idx) => {
+          const theme = domSearchThemes[idx % domSearchThemes.length];
           const hay = [
             "ในประเทศ",
             srv.name,
@@ -4127,28 +4138,30 @@ window.THP_INTER_DATA = {
             const matchedNotes = allNotes.filter((n) => n.toLowerCase().includes(q));
             const notesToShow = matchedNotes.length > 0 ? matchedNotes : allNotes.slice(0, 5);
             matches.push(`
-              <div class="card" style="border: 2px solid #D91920;">
-                <div class="card-header">
+              <div class="card srv-theme-card ${theme.cls}">
+                <div class="srv-theme-banner">
                   <div>
-                    <span class="prefix-tag" style="background:#D91920; color:#FFF;">🇹🇭 บริการในประเทศ • ${escapeHtml(srv.prefix)}</span>
+                    <span class="prefix-tag">🇹🇭 ในประเทศ • ${escapeHtml(srv.prefix)}</span>
                     <div class="card-title">${escapeHtml(srv.name)}</div>
                   </div>
-                  <span class="badge badge-${escapeHtml(srv.badgeColor || "red")}">${escapeHtml(srv.badge)}</span>
+                  <span class="badge">${escapeHtml(srv.badge)}</span>
                 </div>
-                ${
-                  srv.posMode
-                    ? `<div style="background:#FFFBEB; border:1px solid #F59E0B; border-radius:8px; padding:8px; margin-bottom:8px; font-size:13px; color:#92400E; font-weight:600;">💻 <strong>วิธีทำรายการหน้าเคาน์เตอร์:</strong> ${escapeHtml(srv.posMode)}</div>`
-                    : ""
-                }
-                <div class="spec-grid">
-                  <div class="spec-item"><span class="spec-label">⚖️ น้ำหนักสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxWeight)}</span></div>
-                  <div class="spec-item"><span class="spec-label">📏 ขนาดสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxSize)}</span></div>
-                  <div class="spec-item"><span class="spec-label">💰 สรุปอัตราค่าบริการ:</span> <span class="spec-value">${escapeHtml(srv.rateSummary)}</span></div>
-                  <div class="spec-item"><span class="spec-label">🛡️ อัตราชดใช้:</span> <span class="spec-value">${escapeHtml(srv.indemnity)}</span></div>
+                <div class="srv-theme-body">
+                  ${
+                    srv.posMode
+                      ? `<div style="background:#FFFBEB; border:1px solid #F59E0B; border-radius:8px; padding:8px; margin-bottom:8px; font-size:13px; color:#92400E; font-weight:600; white-space:pre-line;">💻 <strong>วิธีทำรายการหน้าเคาน์เตอร์:</strong> ${escapeHtml(srv.posMode)}</div>`
+                      : ""
+                  }
+                  <div class="spec-grid" style="background:#FFFFFF; border:1.5px solid #CBD5E1;">
+                    <div class="spec-item"><span class="spec-label">⚖️ น้ำหนักสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxWeight)}</span></div>
+                    <div class="spec-item"><span class="spec-label">📏 ขนาดสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxSize)}</span></div>
+                    <div class="spec-item"><span class="spec-label">💰 อัตราค่าบริการ:</span> <div class="spec-value">${formatMultilineToBlocks(srv.rateSummary, theme.color)}</div></div>
+                    <div class="spec-item"><span class="spec-label">🛡️ อัตราชดใช้:</span> <span class="spec-value">${escapeHtml(srv.indemnity)}</span></div>
+                  </div>
+                  <ul class="notes-list">
+                    ${notesToShow.map((n) => `<li class="${n.includes("🚨") || n.includes("⚠️") || n.includes("ห้าม") ? "critical" : "good"}" style="white-space:pre-line;">${escapeHtml(n)}</li>`).join("")}
+                  </ul>
                 </div>
-                <ul class="notes-list">
-                  ${notesToShow.map((n) => `<li class="${n.includes("🚨") || n.includes("⚠️") || n.includes("ห้าม") ? "critical" : "good"}">${escapeHtml(n)}</li>`).join("")}
-                </ul>
               </div>
             `);
           }
@@ -5647,11 +5660,10 @@ window.THP_INTER_DATA = {
     calculateDomRates();
   }
 
-  // 8. ระบบสลับโหมดทางเข้าแรก (Domestic = สีทอง vs International = สีน้ำเงิน) & สลับแท็บด้านล่าง
+  // 8. ระบบสลับโหมดทางเข้าแรก (Domestic vs International) & สลับแท็บด้านล่าง
   function switchAppMode(mode) {
     currentMode = mode === "inter" ? "inter" : "domestic";
 
-    // สลับคลาสที่ <body> เพื่อให้ Header / ปุ่ม / แถบเมนู เปลี่ยนเป็น "สีทอง (ในประเทศ)" หรือ "สีน้ำเงิน (ระหว่างประเทศ)" ทันที
     document.body.classList.toggle("mode-domestic", currentMode === "domestic");
     document.body.classList.toggle("mode-inter", currentMode === "inter");
 
@@ -5672,21 +5684,21 @@ window.THP_INTER_DATA = {
     if (headerMainTitle) {
       headerMainTitle.textContent =
         currentMode === "domestic"
-          ? "🇹🇭 คู่มือบริการในประเทศ (โหมดสีทอง • 9 หมวด)"
-          : "🌐 คู่มือบริการระหว่างประเทศ (โหมดสีน้ำเงิน • ทุกโซน)";
+          ? "คู่มือบริการในประเทศ"
+          : "คู่มือบริการระหว่างประเทศ";
     }
 
     if (gwBadgeDom && gwBadgeInter) {
       if (currentMode === "domestic") {
         gwBadgeDom.className = "badge badge-amber";
-        gwBadgeDom.textContent = "🟡 กำลังเปิดดู (ในปท.)";
+        gwBadgeDom.textContent = "กำลังใช้งาน";
         gwBadgeInter.className = "badge badge-slate";
-        gwBadgeInter.textContent = "กดเพื่อสลับไป ตปท.";
+        gwBadgeInter.textContent = "สลับโหมด";
       } else {
         gwBadgeInter.className = "badge badge-blue";
-        gwBadgeInter.textContent = "🔵 กำลังเปิดดู (ตปท.)";
+        gwBadgeInter.textContent = "กำลังใช้งาน";
         gwBadgeDom.className = "badge badge-slate";
-        gwBadgeDom.textContent = "กดเพื่อสลับไป ในปท.";
+        gwBadgeDom.textContent = "สลับโหมด";
       }
     }
 
@@ -5697,7 +5709,7 @@ window.THP_INTER_DATA = {
     if (navBtnDest) navBtnDest.style.display = currentMode === "inter" ? "flex" : "none";
     if (navBtnProhib) navBtnProhib.style.display = currentMode === "inter" ? "flex" : "none";
     if (navLabelServices) {
-      navLabelServices.textContent = currentMode === "domestic" ? "9 หมวดในปท." : "บริการตปท.";
+      navLabelServices.textContent = currentMode === "domestic" ? "บริการ (9)" : "บริการ";
     }
 
     // หากสลับมาโหมดในประเทศแต่แท็บเดิมอยู่ที่ ประเทศ/ของต้องห้าม ให้เด้งกลับมาที่ เช็คด่วน
