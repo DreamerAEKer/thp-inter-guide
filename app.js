@@ -158,6 +158,217 @@
       .join("");
   }
 
+  // ตัวช่วยจับคู่รายการเอกสาร/แบบพิมพ์ที่ต้องใช้ ให้กดไปที่การ์ดแบบพิมพ์ (tab-forms) หรือเปิดตัวอย่าง/พิมพ์ทันที
+  function resolveDocJumpTarget(text, modeHint) {
+    const q = String(text || "").toLowerCase();
+    const mode = modeHint || currentMode || "inter";
+
+    if (mode === "domestic") {
+      if (q.includes("ป.244") || q.includes("ตราสิน") || q.includes("2 × 4")) {
+        return {
+          mode: "domestic",
+          tab: "tab-forms",
+          id: "doc-dom-doc-trasin-p244",
+          pillLabel: "📄 ไปที่แบบ ป.244/ตัวอย่างตรา ➔",
+          directTemplate: "DOM_TRASIN_FORM",
+          directLabel: "🖨️ เปิดพิมพ์ ป.244 & ตัวอย่างตรา"
+        };
+      }
+      if (q.includes("ไม่มีจ่าหน้า") || q.includes("admail") || q.includes("เอกสารหมายเลข 1") || q.includes("เอกสารหมายเลข 2") || q.includes("เอกสารหมายเลข 3")) {
+        return {
+          mode: "domestic",
+          tab: "tab-forms",
+          id: "doc-dom-doc-admail-form",
+          pillLabel: "📄 ไปที่ใบนำส่ง Admail ➔",
+          directTemplate: "DOM_ADMAIL_FORM",
+          directLabel: "🖨️ เปิดพิมพ์ใบนำส่ง Admail"
+        };
+      }
+      if (q.includes("ตรวจสภาพรถ") || q.includes("รถจักรยานยนต์") || q.includes("ป.309") || q.includes("epe foam")) {
+        return {
+          mode: "domestic",
+          tab: "tab-forms",
+          id: "doc-dom-doc-motorcycle-checklist",
+          pillLabel: "📄 ไปที่แบบตรวจสภาพรถ/ป.309 ➔",
+          directTemplate: "DOM_MOTORCYCLE_CHECKLIST",
+          directLabel: "🖨️ เปิดพิมพ์ใบตรวจสภาพรถ"
+        };
+      }
+      if (q.includes("e-ar") || q.includes("พื้นที่ห่างไกล")) {
+        return {
+          mode: "domestic",
+          tab: "tab-forms",
+          id: "doc-dom-doc-remote-fuel-ear",
+          pillLabel: "📄 ไปที่คู่มือ e-AR ➔",
+          directFile: "docs/domestic-ear-guide-2026.pdf",
+          directLabel: "👁️ เปิดคู่มือวิธีปฏิบัติ e-AR"
+        };
+      }
+      if (q.includes("รับประกัน") || q.includes("high value") || q.includes("มูลค่าสูง")) {
+        return {
+          mode: "domestic",
+          tab: "tab-forms",
+          id: "doc-dom-doc-high-value-insurance",
+          pillLabel: "📄 ไปที่ตารางรับประกัน/High Value ➔",
+          directFile: "docs/domestic-high-value-service-2026.pdf",
+          directLabel: "👁️ ดูเกณฑ์ High Value"
+        };
+      }
+      if (q.includes("cod") || q.includes("wallet@post") || q.includes("ems point") || q.includes("694160")) {
+        return {
+          mode: "domestic",
+          tab: "tab-forms",
+          id: "doc-dom-doc-cod-ems-point",
+          pillLabel: "📄 ไปที่คู่มือ COD / EMS Point ➔",
+          directFile: "docs/domestic-cod-wallet-qa-2026.pdf",
+          directLabel: "👁️ ดูคู่มือ COD"
+        };
+      }
+      if (q.includes("ใบนำส่งรับฝาก") || q.includes("rc") || q.includes("ฝากส่งจำนวนมาก") || q.includes("หลายชิ้น")) {
+        return {
+          mode: "domestic",
+          tab: "tab-forms",
+          id: "doc-dom-doc-bulk-rc",
+          pillLabel: "📄 ไปที่ใบนำส่งรับฝากรวม ➔",
+          directTemplate: "DOM_BULK_DEPOSIT_FORM",
+          directLabel: "🖨️ เปิดพิมพ์ใบนำส่ง 20 รายการ"
+        };
+      }
+      if (q.includes("ของตีพิมพ์") || q.includes("สติกเกอร์บาร์โค้ด") || q.includes("ป.133")) {
+        return {
+          mode: "domestic",
+          tab: "tab-forms",
+          id: "doc-dom-doc-rates-all-2026",
+          pillLabel: "📄 ไปที่ตาราง/แบบพิมพ์ในประเทศ ➔",
+          directFile: "docs/domestic-rates-all-2026.pdf",
+          directLabel: "👁️ ดูตารางเรทในประเทศ"
+        };
+      }
+      return null;
+    }
+
+    if (q.includes("loa") || q.includes("letter of authorization") || q.includes("หนังสือยินยอม")) {
+      return {
+        mode: "inter",
+        tab: "tab-forms",
+        id: "doc-form-courier-loa",
+        pillLabel: "📄 ไปที่ใบ LOA ➔",
+        directFile: "docs/official-loa-courier-post-652.pdf",
+        directLabel: "🖨️ เปิดใบ LOA ต้นฉบับ"
+      };
+    }
+    if (q.includes("checklist") || q.includes("14 ข้อ")) {
+      return {
+        mode: "inter",
+        tab: "tab-forms",
+        id: "doc-form-epacket-checklist",
+        pillLabel: "📄 ไปที่ใบ Checklist 14 ข้อ ➔",
+        directTemplate: "CHECKLIST_14",
+        directLabel: "🖨️ เปิดพิมพ์ Checklist"
+      };
+    }
+    if (q.includes("proforma invoice") || q.includes("commercial invoice") || q.includes("ใบกำกับสินค้า") || q.includes("m-pid") || q.includes("ns-pid")) {
+      return {
+        mode: "inter",
+        tab: "tab-forms",
+        id: "doc-form-new-proforma-pid",
+        pillLabel: "📄 ไปที่แบบพิมพ์/ตัวอย่าง Invoice ➔",
+        directFile: "docs/example-proforma-invoice-eu.pdf",
+        directLabel: "👁️ ดูตัวอย่างกรอก Invoice"
+      };
+    }
+    if (q.includes("content checked") || q.includes("duties paid") || q.includes("ชำระค่าบริการแล้ว") || q.includes("epacket plus") || q.includes("ป้ายปากถุง") || q.includes("ป.322") || q.includes("ป.94")) {
+      return {
+        mode: "inter",
+        tab: "tab-forms",
+        id: "doc-form-stamps-bagtags",
+        pillLabel: "📄 ไปที่แผ่นป้ายติดกล่อง/ปากถุง ➔",
+        directTemplate: "COUNTER_STAMPS_SHEET",
+        directLabel: "🖨️ เปิดพิมพ์ป้ายติดกล่อง"
+      };
+    }
+    if (q.includes("cn22") || q.includes("cn23") || q.includes("d-post inter") || q.includes("ป.256")) {
+      return {
+        mode: "inter",
+        tab: "tab-forms",
+        id: "doc-announce-customs-data-th-en",
+        pillLabel: "📄 ไปที่ประกาศ/ตัวอย่าง CN22-CN23 ➔",
+        directFile: "docs/announce-customs-data-th.pdf",
+        directLabel: "👁️ ดูประกาศศุลกากร"
+      };
+    }
+    if (q.includes("cpf") || q.includes("cnpj") || q.includes("บราซิล") || q.includes("ญี่ปุ่น")) {
+      return {
+        mode: "inter",
+        tab: "tab-forms",
+        id: "doc-announce-brazil-japan-customs",
+        pillLabel: "📄 ไปที่ประกาศบราซิล/ญี่ปุ่น ➔"
+      };
+    }
+    if (q.includes("14 รายการเอกสาร") || q.includes("ลงทะเบียน") || q.includes("rr...th") || q.includes("ศิลปากร")) {
+      return {
+        mode: "inter",
+        tab: "tab-forms",
+        id: "doc-doc-size-indemnity-2569",
+        pillLabel: "📄 ไปที่เอกสารอ้างอิง/ลงทะเบียน ➔",
+        directFile: "docs/allowed-registered-documents.pdf",
+        directLabel: "👁️ ดู 14 เอกสารที่ส่ง RR ได้"
+      };
+    }
+    return null;
+  }
+
+  function renderClickableDocListHtml(items, modeHint, defaultStyle) {
+    return (items || [])
+      .map((item) => {
+        const target = resolveDocJumpTarget(item, modeHint);
+        if (!target) {
+          return `<li class="good" style="${defaultStyle || "background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A; white-space:pre-line;"}">${escapeHtml(item)}</li>`;
+        }
+        const attrs = buildJumpAttrs(target);
+        const jumpPill = buildJumpPillHtml(target, target.pillLabel);
+        let directBtn = "";
+        if (target.directTemplate) {
+          directBtn = ` <button type="button" class="jump-link-pill js-print-doc" data-template="${escapeHtml(target.directTemplate)}" style="background:#047857; border:none; cursor:pointer; color:#FFFFFF;">${escapeHtml(target.directLabel || "🖨️ เปิดดูตัวอย่าง/พิมพ์ทันที")}</button>`;
+        } else if (target.directFile) {
+          directBtn = ` <button type="button" class="jump-link-pill js-print-doc" data-file="${escapeHtml(target.directFile)}" style="background:#047857; border:none; cursor:pointer; color:#FFFFFF;">${escapeHtml(target.directLabel || "👁️ เปิดดูตัวอย่าง/PDF")}</button>`;
+        }
+        return `<li class="good js-jump-target" ${attrs} style="${defaultStyle || "background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A; white-space:pre-line;"}">${escapeHtml(item)}<div style="margin-top:5px; display:flex; flex-wrap:wrap; gap:4px; align-items:center;">${jumpPill}${directBtn}</div></li>`;
+      })
+      .join("");
+  }
+
+  function renderSearchNotesListHtml(notesToShow, requiredFormsList, modeHint) {
+    const reqSet = new Set(requiredFormsList || []);
+    return (notesToShow || [])
+      .map((n) => {
+        if (reqSet.has(n)) {
+          return renderClickableDocListHtml([n], modeHint);
+        }
+        const cls = n.includes("🚨") || n.includes("🛡️") || n.includes("⚠️") || n.includes("ห้าม") ? "critical" : "good";
+        return `<li class="${cls}" style="white-space:pre-line;">${escapeHtml(n)}</li>`;
+      })
+      .join("");
+  }
+
+  function openDocFromButton(btn) {
+    const tpl = btn.getAttribute("data-template");
+    const fileUrl = btn.getAttribute("data-file");
+    if (tpl) {
+      const html = getPrintableTemplateHtml(tpl);
+      const win = window.open("", "_blank");
+      if (win) {
+        win.document.open();
+        win.document.write(html);
+        win.document.close();
+      } else {
+        alert("กรุณาอนุญาตให้เบราว์เซอร์เปิดหน้าต่างป๊อปอัป (Pop-up) เพื่อสั่งพิมพ์แบบฟอร์ม");
+      }
+    } else if (fileUrl) {
+      window.open(fileUrl, "_blank");
+    }
+  }
+
   // 1. ระบบค้นหาอัจฉริยะจาก【ชื่อประเทศ】+【สิ่งของที่จะส่ง】➔ แสดงบริการที่รองรับ vs บริการที่ห้ามส่งเด็ดขาด!
   function classifyDestination(rawText) {
     const q = String(rawText || "").trim().toLowerCase();
@@ -684,9 +895,7 @@
             📋 เอกสารบังคับ &amp; สิ่งที่เจ้าหน้าที่ต้องทำหน้าเคาน์เตอร์ (ป้องกันของตีกลับ / ติด No Booking):
           </div>
           <ul class="notes-list" style="margin:0;">
-            ${requiredDocs
-              .map((d) => `<li style="background:#FFFFFF; border-left-color:#2563EB; color:#1E293B; margin-bottom:4px;">${escapeHtml(d)}</li>`)
-              .join("")}
+            ${renderClickableDocListHtml(requiredDocs, "inter", "background:#FFFFFF; border-left-color:#2563EB; color:#1E293B; margin-bottom:4px; white-space:pre-line;")}
             ${destInfo.specialNotes
               .map((n) => `<li style="background:#FFFBEB; border-left-color:#D97706; color:#92400E; margin-bottom:4px; font-weight:600;">${escapeHtml(n)}</li>`)
               .join("")}
@@ -777,9 +986,7 @@
           })
           .join("");
 
-        const formsHtml = (srv.requiredForms || [])
-          .map((f) => `<li class="good" style="background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A; white-space:pre-line;">${escapeHtml(f)}</li>`)
-          .join("");
+        const formsHtml = renderClickableDocListHtml(srv.requiredForms || [], "inter");
 
         const survivalHtml = (srv.survivalGuide || [])
           .map((s) => `<li class="critical" style="white-space:pre-line;">${escapeHtml(s)}</li>`)
@@ -1457,7 +1664,7 @@
                       <div class="spec-item"><span class="spec-label">🛡️ อัตราชดใช้:</span> <span class="spec-value">${escapeHtml(srv.indemnity)}</span></div>
                     </div>
                     <ul class="notes-list">
-                      ${notesToShow.map((n) => `<li class="${n.includes("🚨") || n.includes("⚠️") || n.includes("ห้าม") ? "critical" : "good"}" style="white-space:pre-line;">${escapeHtml(n)}</li>`).join("")}
+                      ${renderSearchNotesListHtml(notesToShow, srv.requiredForms, "domestic")}
                     </ul>
                   </div>
                 </div>
@@ -1719,7 +1926,7 @@
                   <div class="spec-item"><span class="spec-label">🛡️ อัตราชดใช้:</span> <span class="spec-value">${escapeHtml(srv.indemnity)}</span></div>
                 </div>
                 <ul class="notes-list">
-                  ${notesToShow.map((n) => `<li class="${n.includes("🚨") || n.includes("🛡️") ? "critical" : "good"}">${escapeHtml(n)}</li>`).join("")}
+                  ${renderSearchNotesListHtml(notesToShow, srv.requiredForms, "inter")}
                 </ul>
               </div>
             `
@@ -2444,27 +2651,6 @@
   function attachDocActionEvents(rootEl) {
     if (!rootEl) return;
 
-    rootEl.querySelectorAll(".js-print-doc").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const tpl = btn.getAttribute("data-template");
-        const fileUrl = btn.getAttribute("data-file");
-
-        if (tpl) {
-          const html = getPrintableTemplateHtml(tpl);
-          const win = window.open("", "_blank");
-          if (win) {
-            win.document.open();
-            win.document.write(html);
-            win.document.close();
-          } else {
-            alert("กรุณาอนุญาตให้เบราว์เซอร์เปิดหน้าต่างป๊อปอัป (Pop-up) เพื่อสั่งพิมพ์แบบฟอร์ม");
-          }
-        } else if (fileUrl) {
-          window.open(fileUrl, "_blank");
-        }
-      });
-    });
-
     rootEl.querySelectorAll(".js-share-doc").forEach((btn) => {
       btn.addEventListener("click", async () => {
         const title = btn.getAttribute("data-title") || "เอกสารบริการระหว่างประเทศ ปณท";
@@ -2746,9 +2932,7 @@
       .map((srv, idx) => {
         const theme = themeClasses[idx % themeClasses.length];
 
-        const formsHtml = (srv.requiredForms || [])
-          .map((f) => `<li class="good" style="background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A; white-space:pre-line;">${escapeHtml(f)}</li>`)
-          .join("");
+        const formsHtml = renderClickableDocListHtml(srv.requiredForms || [], "domestic");
 
         const survivalHtml = (srv.survivalGuide || [])
           .map((s) => `<li class="critical" style="white-space:pre-line;">${escapeHtml(s)}</li>`)
@@ -4324,6 +4508,12 @@
 
   function setupJumpNavigation() {
     document.body.addEventListener("click", (e) => {
+      const printBtn = e.target.closest(".js-print-doc");
+      if (printBtn) {
+        e.stopPropagation();
+        openDocFromButton(printBtn);
+        return;
+      }
       const targetEl = e.target.closest(".js-jump-target");
       if (!targetEl) return;
       // อย่าแย่งการคลิกถ้ากดปุ่มหรือลิงก์ <a> ที่ซ้อนอยู่ข้างในที่ไม่ใช่ตัว targetEl เอง
