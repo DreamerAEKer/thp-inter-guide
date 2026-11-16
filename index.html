@@ -2161,35 +2161,152 @@
       </div>
 
       <!-- Survival Matrix: D-Post Inter & Required Forms Quick Table -->
-      <div class="card">
+      <div class="card" style="border: 2.5px solid #1E40AF;">
         <div class="card-header">
-          <div class="card-title">📋 ตารางเช็คลิสต์เอาตัวรอด: บริการไหนบังคับ D-Post Inter? ต้องใช้แบบพิมพ์/ตราประทับอะไร?</div>
-          <span class="badge badge-red">โพยกันพลาด</span>
+          <div class="card-title" style="color:#1E3A8A;">📋 ตารางสรุปชัดเจน: บริการไหนต้องทำผ่าน D-Post Inter 100%? บริการไหนใช้ใบกระดาษได้? + เอกสารที่ต้องมีครบทุกบริการ</div>
+          <span class="badge badge-red">โพยหลักหน้าเคาน์เตอร์</span>
         </div>
-        <div class="spec-grid">
-          <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
-            <span class="spec-label" style="color:#B91C1C;">1. ePacket DDP ยุโรป 27 ประเทศ (LE...TH)</span>
-            <span class="spec-value"><strong>D-Post Inter:</strong> 🔴 <strong>บังคับ 100% เท่านั้น!</strong> (ห้ามคีย์มือ/ห้ามใช้สติกเกอร์ LE เก่า มิฉะนั้น ศป.สภ. ตีกลับและต้องคืนเงินลูกค้าตามบันทึก 3363)<br><strong>แบบพิมพ์/สิ่งที่ต้องมี:</strong> ใบจ่าหน้า D-Post Inter (ระบุสกุลเงิน EUR + รหัส M-PID/NS-PID) + ใบ Checklist 14 ข้อ (ลูกค้าเซ็นเก็บที่ ปณ.) + ประทับตรา/เขียน <code>Content Checked</code> และ <code>Duties Paid</code> บนหน้ากล่อง + ป้ายปากถุง ป.322 เขียน 'ePacket DDP'</span>
+
+        <div class="dense-table-wrap" style="margin-bottom:12px;">
+          <table class="dense-table">
+            <thead>
+              <tr>
+                <th>บริการ / หมวดอักษรบาร์โค้ด</th>
+                <th>ต้องทำผ่าน D-Post Inter อย่างเดียวเลยไหม?</th>
+                <th>เอกสาร / ตราประทับ / สิ่งที่ต้องมี (ถ้าขาด = ติด No Booking หรือโดนตีกลับ!)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. ePacket DDP ยุโรป 27 ประเทศ</strong><br><span class="price-chip blue">หมวด LE ... TH</span></td>
+                <td><span class="badge badge-red">🔴 บังคับ D-Post Inter 100%!</span><br><span style="font-size:11.5px; color:#991B1B;">(ห้ามใช้สติกเกอร์ LE เก่า / ห้ามคีย์มือใน POS เด็ดขาด มิฉะนั้น ศป.สภ. ตีกลับและต้องคืนเงินลูกค้าตามบันทึก 3363)</span></td>
+                <td>
+                  • <strong>ใบจ่าหน้า D-Post Inter</strong> (ระบุสกุลเงิน <code>EUR</code> มูลค่า ≤150 EUR + กรอกรหัส <strong>M-PID</strong> & <strong>NS-PID</strong> ทุกชิ้น)<br>
+                  • <strong>ใบ Checklist ของต้องห้าม 14 ข้อ</strong> (ลูกค้าเซ็นเก็บไว้ที่ ปณ.ต้นทาง)<br>
+                  • เปิดตรวจของ 100% + ประทับตรา/ติดป้าย <strong><code>Content Checked</code></strong><br>
+                  • รับชำระภาษีผ่าน Pay@Post (รหัส <code>84415</code>) + ประทับตรา/ติดป้าย <strong><code>Duties Paid</code></strong><br>
+                  • ปิดถุงแยกใช้ป้าย <strong>ป.322</strong> เขียน <code>ePacket DDP</code> ส่ง ศป.สภ.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>2. ePacket สหรัฐอเมริกา (USA)</strong><br><span class="price-chip blue">LA ... TH (48 รัฐแผ่นดินใหญ่)</span><br><span class="price-chip purple">LI ... TH (เกาะ/Alaska/Hawaii/APO)</span></td>
+                <td><span class="badge badge-red">🔴 บังคับ D-Post Inter 100%!</span><br><span style="font-size:11.5px; color:#991B1B;">(ห้ามสลับหมวด LA กับ LI เด็ดขาด! ถ้าส่งไปค่ายทหาร City: APO/FPO/DPO, State: AA/AE/AP ต้องใช้ <strong>LI...TH</strong> เท่านั้น)</span></td>
+                <td>
+                  • <strong>ใบจ่าหน้า D-Post Inter</strong> (สกุลเงิน <code>USD</code> + พิกัด HS Code 6 หลัก + คำสำแดงชัดเจน ห้ามใช้คำว่า Gift/Food)<br>
+                  • <strong>ใบ Checklist ของต้องห้าม 14 ข้อ</strong> (ห้ามส่งอาหาร/อาหารเสริมทุกชนิด ฝ่าฝืนปรับ 3,100 บ.)<br>
+                  • เปิดตรวจของ 100% + ประทับตรา/ติดป้าย <strong><code>Content Checked</code></strong> บนหน้ากล่อง<br>
+                  • ปิดถุงแยกใช้ป้าย <strong>ป.322</strong> เขียน <code>ePacket ปลายทาง US</code> ส่ง ศป.สภ.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>3. Courier Post Plus (UPS / Karton)</strong><br><span class="price-chip">FD ... TH (US 1–20 กก.)</span><br><span class="price-chip">FC ... TH (US &gt;20 กก. &amp; 19 ปท.)</span></td>
+                <td><span class="badge badge-red">🔴 บังคับ D-Post Inter 100%!</span><br><span style="font-size:11.5px; color:#991B1B;">(ต้องเสียบบัตร ปชช. Smart Card ผู้ส่งที่เครื่องอ่านทุกครั้ง ไม่ต้องถ่ายสำเนาบัตร/ไม่ต้องแนบ Invoice กระดาษซ้ำ)</span></td>
+                <td>
+                  • <strong>ใบจ่าหน้า D-Post Inter</strong> (เจ้าหน้าที่ต้องวัดส่วนที่ป่องที่สุดแล้วเขียน <strong>ก×ย×ส และน้ำหนัก</strong> ลงในกรอบเฉพาะเจ้าหน้าที่ ปณท!)<br>
+                  • กรณีส่งหลายกล่อง (Multi-piece) ใช้ไฟล์ Excel คำนวณ และติดป้าย <strong><code>ชำระค่าบริการแล้ว</code></strong> ที่กล่องที่ 2, 3...<br>
+                  • ปิดถุงแยก: รหัส <strong><code>FD</code></strong> ใช้ป้าย <strong>ป.94</strong> ไป ศป.EMS | รหัส <strong><code>FC</code></strong> ใช้ป้าย <strong>ป.94(ก)</strong> ไป ศป.สภ. (สแกนบาร์โค้ดครบทั้ง 13 และ 15 หลัก)
+                </td>
+              </tr>
+              <tr>
+                <td><strong>4. Courier Post (DHL Express)</strong><br><span class="price-chip gold">หมวด KA ... TH / ป.324</span></td>
+                <td><span class="badge badge-amber">🟡 ทำผ่าน D-Post Inter ได้ หรือ ใช้ใบรับฝาก ป.324 ได้</span><br><span style="font-size:11.5px; color:#92400E;">(แนะนำทำผ่าน D-Post Inter เพื่อเชื่อม EDI เข้า DHL ทันที / หากใช้ใบเคมี ป.324 ไป EU ต้องแนบ New Proforma Invoice ที่มีช่อง PID!)</span></td>
+                <td>
+                  • <strong>1. หนังสือยินยอมรับผิดชอบค่าใช้จ่าย (ใบ LOA — บันทึก 870 &amp; 652) บังคับ 100% ทุกชิ้น!</strong> (ผู้ส่งเซ็นเลือกทำลาย Disposal หรือส่งคืน Return ➔ ใส่ซองใสติดหน้ากล่อง 1 ฉบับ + เก็บที่ ปณ. 1 ฉบับ)<br>
+                  • <strong>2. Commercial / Proforma Invoice 2–3 ฉบับ</strong> (ตามบันทึก 3248 ระบุรายละเอียด วัสดุ วัตถุประสงค์ มูลค่า และ HS Code 6–8 หลัก)<br>
+                  • <strong>3. สำเนาบัตร ปชช. / พาสปอร์ตผู้ส่ง</strong> + เอกสารเฉพาะสินค้าต้องกำกัด (เช่น ใบอนุญาตกรมศิลปากรสำหรับพระพุทธรูป)
+                </td>
+              </tr>
+              <tr>
+                <td><strong>5. ส่งไปกลุ่มประเทศยุโรปเข้มงวด (EU Group 2 / EU 27)</strong><br><span class="price-chip">EMS Doc (ED) / บริการไป EU</span></td>
+                <td><span class="badge badge-red">🔴 บังคับ D-Post Inter 100%!</span><br><span style="font-size:11.5px; color:#991B1B;">(กลุ่มเข้มงวด เช่น ฝรั่งเศส, เยอรมนี, อิตาลี, สเปน, เนเธอร์แลนด์, เบลเยียม, สวีเดน, ออสเตรีย, โปแลนด์ <strong>ห้ามเขียนใบ CN22/ป.256 ด้วยมือเด็ดขาด!</strong>)</span></td>
+                <td>
+                  • <strong>ใบจ่าหน้าสร้างจากระบบ D-Post Inter เท่านั้น</strong> (เพื่อส่งข้อมูลอิเล็กทรอนิกส์ล่วงหน้า EAD / ICS2)<br>
+                  • หากเป็นสิ่งของ (Goods) ต้องระบุรหัส <strong>M-PID</strong> และ <strong>NS-PID</strong> (ยกเว้นเอกสารล้วน Document ไม่ต้องใช้ PID)
+                </td>
+              </tr>
+              <tr>
+                <td><strong>6. EMS World (EE / ED / EY) &amp; ePacket ประเทศอื่นๆ นอก US/EU (LP / LX)</strong></td>
+                <td><span class="badge badge-emerald">🟢 ทำผ่าน D-Post Inter (แนะนำ) หรือ ใช้แบบพิมพ์กระดาษ + คีย์ ITMATT ได้</span><br><span style="font-size:11.5px; color:#065F46;">(เฉพาะปลายทางนอกกลุ่ม US/EU หากลูกค้าใช้ใบกระดาษ ป.256 หรือสติกเกอร์ LP/LX <strong>เจ้าหน้าที่ต้องคีย์ข้อมูล ITMATT เข้าระบบ POS ให้ครบทุกชิ้นก่อนปิดถุง!</strong>)</span></td>
+                <td>
+                  • <strong>ใบจ่าหน้า D-Post Inter</strong> หรือ <strong>ใบรับฝาก ป.256 (EMS World) / สติกเกอร์ LP, LX + ใบศุลกากร CN22 / CN23</strong><br>
+                  • แนบ <strong>Commercial / Proforma Invoice</strong> ใส่ซองพลาสติกใสหน้ากล่อง<br>
+                  • <strong>บนใบ ป.256 ต้องติ๊กเลือกคำสั่งกรณีนำจ่ายไม่ได้ (ส่งคืน vs ละทิ้ง)</strong> ให้ชัดเจน (ระวัง 11 ประเทศที่เก็บค่าส่งคืนทุกกรณีเมื่อตีกลับ)<br>
+                  • ปลายทาง <strong>บราซิล</strong> ต้องระบุเลข <code>CPF / CNPJ</code> ในช่อง REFERENCE ID | ปลายทาง <strong>ญี่ปุ่น</strong> ต้องคีย์ ITMATT + HS Code 6 หลักครบถ้วน
+                </td>
+              </tr>
+              <tr>
+                <td><strong>7. พัสดุไปรษณีย์ระหว่างประเทศ (CP...TH) &amp; ลงทะเบียนระหว่างประเทศ (RR...TH)</strong></td>
+                <td><span class="badge badge-emerald">🟢 เอกสารล้วนใช้สติกเกอร์ RR ได้ / สิ่งของนอก US-EU ใช้ใบกระดาษ + คีย์ ITMATT ได้</span><br><span style="font-size:11.5px; color:#991B1B;">(หมายเหตุ: งดส่งสิ่งของด้วยบริการลงทะเบียน RR ไปยัง สหรัฐฯ, EU 27 ประเทศ และมอลตา — ส่งได้เฉพาะเอกสารล้วน!)</span></td>
+                <td>
+                  • <strong>กรณีเอกสารล้วน (Document):</strong> ติดสติกเกอร์ <code>RR...TH</code> (ไม่ต้องแนบ CN22 ยกเว้นปลายทางกำหนด | <strong>ไป US เอกสารต้องหนัก ≤500 กรัม และซองไม่เกิน P/G ห้ามมีสิ่งของปะปนเด็ดขาด!</strong>)<br>
+                  • <strong>กรณีสิ่งของ (เฉพาะประเทศที่ยังเปิดรับ):</strong> ใช้ใบรับฝาก <code>CP...TH</code> (CN23 + Invoice) หรือ พัสดุย่อยลงทะเบียน (CN22) และ<strong>ต้องบันทึกข้อมูล ITMATT / D-Post Inter ทุกชิ้น</strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="background:#FFFBEB; border:1.5px solid #F59E0B; border-radius:10px; padding:10px 12px; font-size:13px; color:#92400E;">
+          <strong>🌿 สรุปเอกสารบังคับเพิ่มเติมกรณีลูกค้าส่ง "สิ่งของต้องกำกัด" (จากแฟ้ม Google Drive สิ่งของต้องกำกัด):</strong><br>
+          • <strong>💊 ยารักษาโรค (Medicines):</strong> ต้องแนบ <strong>ใบรับรองแพทย์ภาษาอังกฤษ (Medical Certificate)</strong> ระบุชื่อคนไข้ โรค ชนิดยา ปริมาณ และความจำเป็น + ใบสั่งยา/เลขทะเบียนยา<br>
+          • <strong>🍜 อาหาร / เครื่องสำอาง / อาหารเสริม (เฉพาะบริการและปลายทางที่ส่งได้):</strong> ต้องมีเครื่องหมาย <strong>อย.</strong> + ฉลากภาษาอังกฤษระบุส่วนประกอบชัดเจน (ห้ามอาหารทำเอง Homecook | ถ้าส่งผ่าน Courier Post ไป US ต้องมี US FDA Prior Notice)<br>
+          • <strong>🌱 พืช / เมล็ดพันธุ์ / ไม้:</strong> ต้องมี <strong>ใบรับรองปลอดศัตรูพืช (Phytosanitary Certificate)</strong> จากกรมวิชาการเกษตร หรือหนังสือรับรองจากกรมป่าไม้ และไม่ติด CITES<br>
+          • <strong>🙏 พระพุทธรูป / ศิลปวัตถุ / โบราณวัตถุ:</strong> ต้องมี <strong>ใบอนุญาตส่งออกจากกรมศิลปากร</strong> แนบหน้ากล่อง (ยกเว้นพระเครื่องขนาดห้อยคอเพื่อความเชื่อส่วนบุคคล ส่งผ่าน ePacket US/EU ได้รวมไม่เกิน 500 กรัม/กล่อง)<br>
+          • <strong>🧴 ของเหลว (Liquids):</strong> ต้องหุ้มห่อมาตรฐาน <strong>3 ชั้น</strong> (ภาชนะเดิมปิดสนิท + ถุง/ภาชนะกันรั่วซึมชั้นที่ 2 + วัสดุดูดซับของเหลวในกล่องแข็งแรง)
+        </div>
+      </div>
+
+      <!-- 🛠️ ศูนย์รวมเครื่องมือตัวช่วยออนไลน์ & วิธีแก้ปัญหาชิ้นงาน "No Booking" -->
+      <div class="card" style="border: 2.5px solid #059669; background: linear-gradient(180deg, #ECFDF5 0%, #FFFFFF 38%);">
+        <div class="card-header">
+          <div class="card-title" style="color:#065F46;">🛠️ เครื่องมือตัวช่วยออนไลน์ (Web Apps) & ขั้นตอนแก้ปัญหาชิ้นงานติด "No Booking"</div>
+          <span class="badge badge-emerald">รวมลิงก์ใช้งานจริง</span>
+        </div>
+
+        <div style="font-size:13.5px; font-weight:700; color:#0F172A; margin-bottom:8px;">
+          📲 1. กดเข้าใช้งานระบบตัวช่วยออนไลน์ของ ปณท ได้โดยตรง:
+        </div>
+        <div class="doc-actions" style="margin-top:0; margin-bottom:12px; padding-top:0; border-top:none;">
+          <a href="https://script.google.com/a/macros/thailandpost.com/s/AKfycbyknH80YwokYFTCN-kTABHptFXAM2OZUiUn5IaK-euY3Ze0s7sAC44AGQCycaqR_loj/exec?hl=en-US" target="_blank" rel="noopener" class="doc-btn print" style="background:#059669;">
+            🔎 แจ้ง/เช็คงาน No Booking &amp; ค้นหาคำสำแดงแทน
+          </a>
+          <a href="https://script.google.com/macros/s/AKfycbxEyKRGW99ppQRgL_tmPoWQ1JvocnLnduioD177VIN9x_gvLuN-Q1Qe7yDXXT3EAws/exec" target="_blank" rel="noopener" class="doc-btn download" style="background:#EFF6FF; color:#1E40AF; border-color:#93C5FD;">
+            🌐 ระบบ Inter.Post (เช็ค ปท.เปิด-ปิด / HS Code)
+          </a>
+          <a href="https://script.google.com/macros/s/AKfycbxjhuRcbzOH2N7lClvLWvtGhGxE-LZOFwNcZxffUv4rSlbBnl-oaTqEX6HOxYifS70g/exec" target="_blank" rel="noopener" class="doc-btn download" style="background:#FEF3C7; color:#92400E; border-color:#F59E0B;">
+            ✈️ ตัวช่วยคำนวณ Courier Post Plus
+          </a>
+          <a href="https://simplebooklet.com/playbookuseu?source=qr#page=1" target="_blank" rel="noopener" class="doc-btn share" style="background:#F5F3FF; color:#5B21B6; border-color:#C4B5FD;">
+            📖 เปิดอ่าน Playbook US &amp; EU (ฉบับเต็ม)
+          </a>
+          <a href="https://drive.google.com/drive/folders/1yfjBif0Ri30NdHiBZyHUXYD3zNhnJES1" target="_blank" rel="noopener" class="doc-btn download">
+            📂 คลัง Google Drive สิ่งของต้องกำกัด (8 หมวด)
+          </a>
+        </div>
+
+        <div class="spec-grid" style="background:#FFFFFF; border:1.5px solid #A7F3D0;">
+          <div class="spec-item" style="border-bottom:1px solid #D1FAE5; padding-bottom:8px;">
+            <span class="spec-label" style="color:#B91C1C;">🚨 "ชิ้นงานติด No Booking" คืออะไร? ทำไมถึงโดนกักที่ ศป.สภ.?</span>
+            <span class="spec-value">
+              คือชิ้นงานระหว่างประเทศที่ส่งไปถึง ศป.สภ. แล้วตรวจพบว่า <strong>(1) ไม่มีข้อมูลสำแดงศุลกากรอิเล็กทรอนิกส์ (EAD / ITMATT) ในระบบ</strong>, <strong>(2) ใช้คำสำแดงคลุมเครือต้องห้าม</strong> (เช่นเขียนแค่ <code>Gift</code>, <code>Sample</code>, <code>Goods</code>, <code>Clothes</code>, <code>Food</code>, <code>Parts</code>, <code>Accessories</code>), หรือ <strong>(3) ติดบาร์โค้ดผิดหมวดอักษร</strong> (เช่น เอา <code>LA</code> ไปติดของส่งไป Hawaii/Alaska/ค่ายทหาร APO ที่ต้องใช้ <code>LI</code>) ทำให้สายการบินไม่อนุญาตให้นำขึ้นเครื่อง!
+            </span>
           </div>
-          <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
-            <span class="spec-label" style="color:#4338CA;">2. ePacket สหรัฐอเมริกา (LA = 48 รัฐ / LI = เกาะ, Alaska, Hawaii, APO)</span>
-            <span class="spec-value"><strong>D-Post Inter:</strong> 🔴 <strong>บังคับ 100% เท่านั้น!</strong> (สกุลเงิน USD มูลค่า ≤ 60 USD)<br><strong>แบบพิมพ์/สิ่งที่ต้องมี:</strong> ใบจ่าหน้า D-Post Inter + ใบ Checklist 14 ข้อ (ลูกค้าเซ็นเก็บที่ ปณ.) + ประทับตรา/เขียน <code>Content Checked</code> บนหน้ากล่อง (ถ้าลูกค้าไม่ยอมให้เปิดตรวจ ให้ปฏิเสธรับฝากทันที!) + ป้ายปากถุง ป.322 เขียน 'ePacket ปลายทาง US'</span>
-          </div>
-          <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
-            <span class="spec-label" style="color:#BE123C;">3. Courier Post Plus (FD = US 1–20 กก. / FC = US >20 กก. & 19 ประเทศ)</span>
-            <span class="spec-value"><strong>D-Post Inter:</strong> 🔴 <strong>บังคับ 100% เท่านั้น!</strong> (เสียบบัตรประชาชน Smart Card ผู้ส่งทุกครั้ง ไม่ต้องแนบสำเนาบัตรและ Invoice กระดาษซ้ำ)<br><strong>แบบพิมพ์/สิ่งที่ต้องมี:</strong> ใบจ่าหน้า D-Post Inter (เจ้าหน้าที่ต้องวัดส่วนที่ป่องที่สุดแล้วเขียน ก×ย×ส และน้ำหนักในกรอบเฉพาะเจ้าหน้าที่ ปณท!) + ถ้าส่งหลายกล่องใช้ไฟล์ Excel คำนวณ และเขียน <code>ชำระค่าบริการแล้ว</code> ที่กล่องที่ 2, 3... + ปิดถุงแยก: <code>FD</code> ใช้ป้าย ป.94 ไป ศป.EMS / <code>FC</code> ใช้ป้าย ป.94(ก) ไป ศป.สภ.</span>
-          </div>
-          <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
-            <span class="spec-label" style="color:#B45309;">4. Courier Post (DHL Express)</span>
-            <span class="spec-value"><strong>D-Post Inter:</strong> 🟡 <strong>ทำผ่าน D-Post Inter ได้ หรือ ใช้ใบรับฝากกระดาษเคมี (ป.324) ได้</strong> (แต่ถ้าไป EU 27 ประเทศแล้วใช้ ป.324 ต้องแนบ <em>Proforma Invoice รูปแบบใหม่ที่มีช่องรหัส PID</em> เท่านั้น!)<br><strong>แบบพิมพ์/สิ่งที่ต้องมี:</strong> ใบจ่าหน้า D-Post Inter หรือ ป.324 + Proforma Invoice + <strong>ใบ LOA (บังคับเซ็นเลือกทำลายหรือส่งกลับกรณีผู้รับไม่จ่ายภาษี แนบหน้ากล่อง 1 ใบ เก็บที่ ปณ. 1 ใบ)</strong> + สำเนาบัตร ปชช. (ถ้าส่งพระพุทธรูป/ศิลปวัตถุ ต้องมีใบอนุญาตกรมศิลปากรแนบหน้ากล่อง)</span>
-          </div>
-          <div class="spec-item" style="border-bottom:1px solid #E2E8F0; padding-bottom:8px;">
-            <span class="spec-label" style="color:#047857;">5. ePacket ปลายทางอื่นๆ นอก US/EU (LP / LX) & EMS World (EE / ED)</span>
-            <span class="spec-value"><strong>D-Post Inter:</strong> 🟢 <strong>นอก EU:</strong> ทำผ่าน D-Post Inter ได้ หรือ ใช้แบบพิมพ์กระดาษ (`LP`/`LX` + `CN22`/`CN23` หรือใบรับฝาก `EE`/`ED` + `CN23`) แล้วคีย์ ITMATT ภาษาอังกฤษใน POS ได้ | 🔴 <strong>ถ้าส่ง EMS World (Document - ED) ไป EU 27 ประเทศ:</strong> บังคับทำผ่าน D-Post Inter เท่านั้น! (ส่วน EMS World Package งดส่งไป EU 27 ประเทศ)</span>
+          <div class="spec-item" style="border-bottom:1px solid #D1FAE5; padding-bottom:8px;">
+            <span class="spec-label" style="color:#047857;">✅ ขั้นตอนการแก้ไขเมื่อชิ้นงานติด "No Booking" (2 กรณี)</span>
+            <span class="spec-value">
+              • <strong>กรณีที่ 1 (แก้ไขข้อมูลได้ — ไม่ผิดหมวดอักษร/ไม่เป็นของต้องห้าม):</strong> ให้ ปณ.ต้นทาง กดเข้าลิงก์ <strong>"แจ้งชิ้นงาน No Booking / ค้นหาคำสำแดงแทน"</strong> ด้านบน ➔ กรอกเลขบาร์โค้ด แก้ไขคำสำแดงภาษาอังกฤษให้ชัดเจนพร้อมระบุ HS Code 6 หลัก ➔ รอตรวจสอบสถานะในเว็บจนขึ้นว่า <strong><code>รอสถานะ Booking สำเร็จ / Booking สำเร็จ</code></strong> ➔ ปิดถุงส่งชิ้นงานกลับไปที่ ศป.สภ. พร้อมแนบตอบ <strong>หนังสือ ป.143</strong> เพื่อส่งออกต่อไป<br>
+              • <strong>กรณีที่ 2 (ส่งต่อไม่ได้ — ติดบาร์โค้ดผิดหมวด เช่น LA/LI สลับกัน, ผิดประเทศ, หรือเป็นของต้องห้าม):</strong> ต้องดำเนินการ <strong>ส่งคืนผู้ฝากส่ง (Return to Sender)</strong> ลงทะเบียนควบคุม ตอบหนังสือ ป.143 และทำเรื่องคืนค่าบริการตามระเบียบ ปณท<br>
+              • 📄 <strong>เอกสารคู่มือต้นฉบับ:</strong> <a href="https://drive.google.com/file/d/1K8cvMv-TWF4NLaSJ4IG6SQN-6raHupQB/view" target="_blank" style="color:#1D4ED8; font-weight:700;">ผังขั้นตอนดำเนินการสิ่งของ No Booking</a> | <a href="https://drive.google.com/file/d/12HT9Zpc54_DILcRfhlvUalkl5AskkuOZ/view" target="_blank" style="color:#1D4ED8; font-weight:700;">ตารางประเภทหมวดอักษร LA / LI / LP / LE</a> | <a href="https://drive.google.com/file/d/18sQXYEY3Wv9DX6vO2ZsbFcSKhJMCXCYr/view" target="_blank" style="color:#1D4ED8; font-weight:700;">สรุปเงื่อนไข ePacket USA</a>
+            </span>
           </div>
           <div class="spec-item">
-            <span class="spec-label" style="color:#334155;">6. ลงทะเบียน (RR) / พัสดุไปรษณีย์ (CP) / พัสดุย่อย / ของตีพิมพ์</span>
-            <span class="spec-value"><strong>D-Post Inter:</strong> 🟢 <strong>เอกสารล้วน:</strong> ใช้สติกเกอร์ `RR...TH` ได้ (ถ้าไป US เอกสารต้องหนัก ≤ 500 กรัม และซองไม่เกิน P/G ห้ามมีของปะปนเด็ดขาด!) | 🔴 <strong>สิ่งของ (เฉพาะประเทศนอก US/EU/มอลตา ที่ยังเปิดรับ):</strong> ใช้ใบรับฝาก `CP...TH` หรือ `CN22`/`CN23` และต้องทำ D-Post Inter หรือคีย์ ITMATT ทุกชิ้น</span>
+            <span class="spec-label" style="color:#1E40AF;">💡 ตัวอย่างการแปลง "คำสำแดงต้องห้าม (ห้ามใช้เด็ดขาด)" ➔ เป็น "คำสำแดงมาตรฐานที่ผ่านศุลกากร"</span>
+            <span class="spec-value">
+              • ❌ ห้ามเขียน <code>Clothes / Shirt / Apparel</code> เฉยๆ ➔ ✅ ให้ระบุเนื้อผ้าและประเภท เช่น <strong><code>Men's 100% Cotton T-Shirt</code></strong> หรือ <strong><code>Women's Knitted Polyester Dress</code></strong><br>
+              • ❌ ห้ามเขียน <code>Gift / Present / Souvenir / Sample</code> ➔ ✅ ให้ระบุชื่อสิ่งของจริงและวัสดุ เช่น <strong><code>Wooden Keychain Souvenir</code></strong> หรือ <strong><code>Plastic Toy Figure</code></strong><br>
+              • ❌ ห้ามเขียน <code>Cosmetics / Cream / Skincare</code> เฉยๆ ➔ ✅ ให้ระบุชัดเจน เช่น <strong><code>Facial Moisturizing Cream (Non-Aerosol)</code></strong> หรือ <strong><code>Herbal Balm Ointment</code></strong><br>
+              • ❌ ห้ามเขียน <code>Food / Snack / Seasoning</code> (สำหรับประเทศที่ส่งอาหารได้ เช่น JP/KR/UK/AU) ➔ ✅ ให้ระบุชัดเจน เช่น <strong><code>Instant Tom Yum Paste (FDA Approved)</code></strong> หรือ <strong><code>Dried Mango Slices (Vacuum Packed)</code></strong>
+            </span>
           </div>
         </div>
       </div>
