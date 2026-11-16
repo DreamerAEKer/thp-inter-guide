@@ -1028,6 +1028,18 @@ window.THP_INTER_DATA = {
       epacketRule: "ตรวจสอบสถานะพื้นที่ปลายทางก่อนรับฝาก",
       courierPlusRule: "ใช้บริการ EMS World หรือ Courier Post",
       notes: "🚨 อัปเดต ลว. 2 ต.ค. 69: ปรับปรุงเงื่อนไขการรับฝาก EMS World ไปเมียนมา และอยู่ในกลุ่ม 11 ประเทศที่เรียกเก็บค่าส่งคืน EMS World ทุกกรณีหากนำจ่ายไม่ได้/ถูกตีกลับ"
+    },
+    {
+      code: "ZA",
+      th: "แอฟริกาใต้",
+      en: "South Africa (Republic of South Africa)",
+      zone: "แอฟริกา (นอกกลุ่ม US/EU — EMS Zone 9 / พัสดุย่อย Zone 4)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม.",
+      emsEta: "5–10 วันทำการ | แนบ Commercial / Proforma Invoice ภาษาอังกฤษ",
+      epacketRule: "✅ ส่ง ePacket (LX...TH) ได้ (สูงสุด 2 กก.) — ส่งสินค้าทั่วไปและอาหารแห้งสำเร็จรูปที่มี อย. ได้",
+      courierPlusRule: "ใช้บริการ Courier Post (DHL), EMS World (EE/ED), ePacket (LX), พัสดุไปรษณีย์ (CP) หรือ พัสดุย่อย/ลงทะเบียน (RR)",
+      notes: "คีย์ข้อมูลศุลกากรล่วงหน้า (D-Post Inter หรือ ITMATT) เป็นภาษาอังกฤษ พร้อมระบุ HS Code 6 หลักและเบอร์โทรศัพท์ผู้รับในแอฟริกาใต้ทุกชิ้น"
     }
   ],
 

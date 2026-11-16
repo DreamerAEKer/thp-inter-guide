@@ -3601,6 +3601,18 @@ window.THP_INTER_DATA = {
       epacketRule: "ตรวจสอบสถานะพื้นที่ปลายทางก่อนรับฝาก",
       courierPlusRule: "ใช้บริการ EMS World หรือ Courier Post",
       notes: "🚨 อัปเดต ลว. 2 ต.ค. 69: ปรับปรุงเงื่อนไขการรับฝาก EMS World ไปเมียนมา และอยู่ในกลุ่ม 11 ประเทศที่เรียกเก็บค่าส่งคืน EMS World ทุกกรณีหากนำจ่ายไม่ได้/ถูกตีกลับ"
+    },
+    {
+      code: "ZA",
+      th: "แอฟริกาใต้",
+      en: "South Africa (Republic of South Africa)",
+      zone: "แอฟริกา (นอกกลุ่ม US/EU — EMS Zone 9 / พัสดุย่อย Zone 4)",
+      emsMaxWeight: "30 กก.",
+      emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม.",
+      emsEta: "5–10 วันทำการ | แนบ Commercial / Proforma Invoice ภาษาอังกฤษ",
+      epacketRule: "✅ ส่ง ePacket (LX...TH) ได้ (สูงสุด 2 กก.) — ส่งสินค้าทั่วไปและอาหารแห้งสำเร็จรูปที่มี อย. ได้",
+      courierPlusRule: "ใช้บริการ Courier Post (DHL), EMS World (EE/ED), ePacket (LX), พัสดุไปรษณีย์ (CP) หรือ พัสดุย่อย/ลงทะเบียน (RR)",
+      notes: "คีย์ข้อมูลศุลกากรล่วงหน้า (D-Post Inter หรือ ITMATT) เป็นภาษาอังกฤษ พร้อมระบุ HS Code 6 หลักและเบอร์โทรศัพท์ผู้รับในแอฟริกาใต้ทุกชิ้น"
     }
   ],
 
@@ -6041,6 +6053,133 @@ window.THP_INTER_DATA = {
     });
   }
 
+  function getEffectiveQueryLength(str) {
+    return String(str || "")
+      .replace(/[\u0E31\u0E34-\u0E3A\u0E47-\u0E4E]/g, "")
+      .trim().length;
+  }
+
+  function cleanBodyForSearch(text, q) {
+    let s = String(text || "").toLowerCase();
+    if (!String(q || "").includes("ภายใต้")) {
+      s = s.replace(/ภายใต้/g, " ");
+    }
+    return s;
+  }
+
+  function getFullCountryDirectory() {
+    const manualList = DATA.countryDirectory || [];
+    const existingCodes = new Set(manualList.map((c) => String(c.code || "").toUpperCase()));
+    const existingThai = new Set(
+      manualList.map((c) => String(c.th || "").split("(")[0].trim().toLowerCase())
+    );
+    const euCodeMap = {
+      "ออสเตรีย": "AT",
+      "เบลเยียม": "BE",
+      "บัลแกเรีย": "BG",
+      "โครเอเชีย": "HR",
+      "ไซปรัส": "CY",
+      "เช็กเกีย": "CZ",
+      "เดนมาร์ก": "DK",
+      "เอสโตเนีย": "EE",
+      "ฟินแลนด์": "FI",
+      "ฝรั่งเศส": "FR",
+      "เยอรมนี": "DE",
+      "กรีซ": "GR",
+      "ฮังการี": "HU",
+      "ไอร์แลนด์": "IE",
+      "อิตาลี": "IT",
+      "ลัตเวีย": "LV",
+      "ลิทัวเนีย": "LT",
+      "ลักเซมเบิร์ก": "LU",
+      "มอลตา": "MT",
+      "เนเธอร์แลนด์": "NL",
+      "โปแลนด์": "PL",
+      "โปรตุเกส": "PT",
+      "โรมาเนีย": "RO",
+      "สโลวาเกีย": "SK",
+      "สโลวีเนีย": "SI",
+      "สเปน": "ES",
+      "สวีเดน": "SE"
+    };
+    const derived = [];
+
+    (DATA.destinations || []).forEach((dest) => {
+      if (dest.id !== "dest-eu" && dest.id !== "dest-other") return;
+      (dest.countries || []).forEach((rawStr) => {
+        const match = String(rawStr || "").match(/^(.+?)\s*\((.+)\)\s*$/);
+        if (!match) return;
+        const thRaw = match[1].trim();
+        const thBase = thRaw.split("/")[0].trim();
+        const parenContent = match[2].trim();
+        const tokens = parenContent
+          .split("/")
+          .map((s) => s.trim())
+          .filter(Boolean);
+
+        let code = "";
+        for (let i = tokens.length - 1; i >= 0; i--) {
+          if (/^[A-Z]{2}$/.test(tokens[i])) {
+            code = tokens[i];
+            break;
+          }
+        }
+        if (!code && euCodeMap[thBase]) {
+          code = euCodeMap[thBase];
+        }
+        const enParts = tokens.filter((t) => !/^[A-Z]{2}$/.test(t));
+        const en = enParts.join(" / ") || parenContent;
+
+        if ((code && existingCodes.has(code)) || existingThai.has(thBase.toLowerCase())) {
+          return;
+        }
+        if (code) existingCodes.add(code);
+        existingThai.add(thBase.toLowerCase());
+
+        const info = classifyDestination(thBase);
+        if (dest.id === "dest-eu") {
+          derived.push({
+            code: code || "EU",
+            th: thRaw,
+            en,
+            zone: "🇪🇺 สมาชิกสหภาพยุโรป (EU 27 ประเทศ)",
+            emsMaxWeight:
+              "🚨 รับเฉพาะ EMS World (Document - เอกสารล้วน ≤ 5 กก.) เท่านั้น! (งดส่งสิ่งของด้วย EMS World Package)",
+            emsSize: "บังคับทำจ่าหน้าผ่าน D-Post Inter และกรอกรหัส PID (M-PID / NS-PID) ทุกชิ้น",
+            emsEta: "4–9 วันทำการ",
+            epacketRule:
+              "🚨 ต้องใช้ ePacket DDP (LE...TH) เท่านั้น! (นน. ≤ 5 กก., มูลค่า ≤ 150 EUR, ❌ ห้ามส่งอาหารเด็ดขาด! ต้องทำ D-Post Inter + กรอกรหัส PID + เปิดตรวจ 100% + เขียน Content Checked & Duties Paid)",
+            courierPlusRule: info.hasCpp
+              ? "✅ เปิดบริการ Courier Post Plus (FC...TH โดย UPS) ทั้ง DDU และ DDP (ส่งอาหารแปรรูปมี อย. ได้)"
+              : "ใช้บริการ Courier Post (DHL) หรือ ePacket DDP (LE)",
+            notes:
+              (info.specialNotes || []).join(" | ") ||
+              "บังคับทำจ่าหน้าผ่าน D-Post Inter และกรอกรหัสสินค้า M-PID / NS-PID ทุกชิ้น (ยกเว้นเอกสารล้วน Document)"
+          });
+        } else {
+          derived.push({
+            code: code || "-",
+            th: thRaw,
+            en,
+            zone: "🌏 ปลายทางอื่นๆ (นอกกลุ่ม US/EU)",
+            emsMaxWeight: "20–30 กก. (ตรวจสอบพิกัดสูงสุดของประเทศนี้ใน CA POS)",
+            emsSize: "ยาวสุด ≤ 1.50 ม. | ยาวสุด+รอบตัวห่อ ≤ 3.00 ม. (ตรวจสอบเงื่อนไขรายประเทศ)",
+            emsEta: "4–10 วันทำการ | แนบ Commercial / Proforma Invoice ภาษาอังกฤษ",
+            epacketRule:
+              "✅ ส่ง ePacket (LP / LX...TH) ได้ (สูงสุด 2 กก.) — ส่งสินค้าทั่วไปและอาหารแห้งมี อย. ได้ (ตรวจสอบประเทศที่เปิดรับใน CA POS)",
+            courierPlusRule:
+              "ใช้บริการ Courier Post (DHL), Courier Post Plus (เฉพาะประเทศที่เปิดบริการ), EMS World หรือ พัสดุไปรษณีย์ (CP)",
+            notes: info.returnFee11
+              ? "🚨 อยู่ในกลุ่ม 11 ประเทศปลายทางที่เรียกเก็บค่าส่งคืน EMS World ทุกกรณีหากถูกตีกลับ! | คีย์ข้อมูลศุลกากร (D-Post Inter / ITMATT) พร้อม HS Code 6 หลัก"
+              : "คีย์ข้อมูลศุลกากรล่วงหน้า (D-Post Inter หรือ ITMATT) เป็นภาษาอังกฤษ พร้อมระบุ HS Code 6 หลักให้ชัดเจนทุกชิ้น"
+          });
+        }
+      });
+    });
+
+    return [...manualList, ...derived];
+  }
+
   // 7. ระบบค้นหาด่วนทั่วทั้งแอป (Global Instant Search — แยกตามโหมดที่เปิดอยู่ & จัดลำดับความเกี่ยวข้องแม่นยำ 100%)
   function setupGlobalSearch() {
     const input = document.getElementById("globalSearchInput");
@@ -6070,7 +6209,7 @@ window.THP_INTER_DATA = {
     // ฟังก์ชันค้นหาสำหรับโหมดในประเทศ (Domestic Only)
     function getDomesticMatches(q) {
       const scored = [];
-      const isShort = q.length <= 2;
+      const isShort = getEffectiveQueryLength(q) <= 2;
 
       if (DATA.domestic && DATA.domestic.services) {
         const domSearchThemes = [
@@ -6087,18 +6226,19 @@ window.THP_INTER_DATA = {
         DATA.domestic.services.forEach((srv, idx) => {
           const theme = domSearchThemes[idx % domSearchThemes.length];
           const titleHay = [srv.name, srv.prefix, srv.badge].join(" ").toLowerCase();
-          const bodyHay = [
-            srv.posMode || "",
-            srv.maxWeight,
-            srv.maxSize,
-            srv.rateSummary,
-            srv.indemnity,
-            ...(srv.requiredForms || []),
-            ...(srv.survivalGuide || []),
-            ...(srv.criticalNotes || [])
-          ]
-            .join(" ")
-            .toLowerCase();
+          const bodyHay = cleanBodyForSearch(
+            [
+              srv.posMode || "",
+              srv.maxWeight,
+              srv.maxSize,
+              srv.rateSummary,
+              srv.indemnity,
+              ...(srv.requiredForms || []),
+              ...(srv.survivalGuide || []),
+              ...(srv.criticalNotes || [])
+            ].join(" "),
+            q
+          );
 
           const inTitle = titleHay.includes(q);
           const inBody = !isShort && bodyHay.includes(q);
@@ -6177,7 +6317,7 @@ window.THP_INTER_DATA = {
       if (DATA.domestic && DATA.domestic.promotions) {
         [...(DATA.domestic.promotions.active || []), ...(DATA.domestic.promotions.expired || [])].forEach((p) => {
           const titleHay = [p.title, p.posButton || ""].join(" ").toLowerCase();
-          const bodyHay = [p.period, p.target || "", p.reason || "", ...(p.services || []), ...(p.conditions || [])].join(" ").toLowerCase();
+          const bodyHay = cleanBodyForSearch([p.period, p.target || "", p.reason || "", ...(p.services || []), ...(p.conditions || [])].join(" "), q);
           if (titleHay.includes(q) || (!isShort && bodyHay.includes(q))) {
             scored.push({
               score: titleHay.includes(q) ? 80 : 30,
@@ -6190,7 +6330,7 @@ window.THP_INTER_DATA = {
       if (DATA.domestic && DATA.domestic.printableDocs) {
         DATA.domestic.printableDocs.forEach((doc) => {
           const titleHay = [doc.title, doc.serviceTag].join(" ").toLowerCase();
-          const bodyHay = [doc.category, doc.description].join(" ").toLowerCase();
+          const bodyHay = cleanBodyForSearch([doc.category, doc.description].join(" "), q);
           if (titleHay.includes(q) || (!isShort && bodyHay.includes(q))) {
             scored.push({
               score: titleHay.includes(q) ? 75 : 25,
@@ -6207,7 +6347,7 @@ window.THP_INTER_DATA = {
     // ฟังก์ชันค้นหาสำหรับโหมดระหว่างประเทศ (International Only)
     function getInternationalMatches(q, rawInputVal) {
       const scored = [];
-      const isShort = q.length <= 2;
+      const isShort = getEffectiveQueryLength(q) <= 2;
 
       // 1. ตรวจจับอัตโนมัติว่าผู้ใช้งานกำลังค้นหา "ชื่อประเทศ" และ/หรือ "สิ่งของที่จะส่ง"
       const detectedDest = classifyDestination(q);
@@ -6216,7 +6356,7 @@ window.THP_INTER_DATA = {
         detectedDest.zoneType !== "ALL" &&
         !(
           detectedDest.zoneType === "OTHER" &&
-          !/(ญี่ปุ่น|japan|เกาหลี|korea|ออสเตรเลีย|australia|บราซิล|brazil|ไต้หวัน|taiwan|ดูไบ|เอมิเรตส์|uae|อิสราเอล|israel|จีน|china|ฮ่องกง|สิงคโปร์|มาเลเซีย|เวียดนาม|ลาว|กัมพูชา|เมียนมา|พม่า|อินเดีย|แคนาดา|นิวซีแลนด์|รัสเซีย)/.test(
+          !/(ญี่ปุ่น|japan|เกาหลี|korea|ออสเตรเลีย|australia|บราซิล|brazil|ไต้หวัน|taiwan|ดูไบ|เอมิเรตส์|uae|อิสราเอล|israel|จีน|china|ฮ่องกง|สิงคโปร์|มาเลเซีย|เวียดนาม|ลาว|กัมพูชา|เมียนมา|พม่า|อินเดีย|แคนาดา|นิวซีแลนด์|รัสเซีย|แอฟริกาใต้|south africa|แอฟริกา|อินโดนีเซีย|ฟิลิปปินส์|อียิปต์|ตุรกี|ซาอุ|กาตาร์)/.test(
             q
           )
         );
@@ -6251,10 +6391,10 @@ window.THP_INTER_DATA = {
         }
       }
 
-      // 2. ค้นหาในฐานข้อมูลรายประเทศ (Country Directory) — ให้ความสำคัญกับชื่อประเทศและรหัสประเทศเป็นอันดับแรก
-      (DATA.countryDirectory || []).forEach((cty) => {
+      // 2. ค้นหาในฐานข้อมูลรายประเทศ (Country Directory — รวมทุกประเทศในโซนปลายทาง) ให้ความสำคัญกับชื่อประเทศและรหัสประเทศเป็นอันดับแรก
+      getFullCountryDirectory().forEach((cty) => {
         const nameHay = [cty.code, cty.th, cty.en].join(" ").toLowerCase();
-        const detailHay = [cty.zone, cty.emsMaxWeight, cty.emsSize, cty.emsEta, cty.epacketRule, cty.courierPlusRule, cty.notes].join(" ").toLowerCase();
+        const detailHay = cleanBodyForSearch([cty.zone, cty.emsMaxWeight, cty.emsSize, cty.emsEta, cty.epacketRule, cty.courierPlusRule, cty.notes].join(" "), q);
 
         const inName = cty.code.toLowerCase() === q || nameHay.includes(q);
         const inDetail = !isShort && detailHay.includes(q);
@@ -6310,7 +6450,7 @@ window.THP_INTER_DATA = {
       DATA.destinations.forEach((d) => {
         const matchedCountries = d.countries.filter((c) => c.toLowerCase().includes(q));
         const titleHay = [d.zone, ...d.countries].join(" ").toLowerCase();
-        const bodyHay = [d.nonEuWarning || "", ...d.allowedForDocs, ...d.allowedForGoods, ...d.mandatoryRules].join(" ").toLowerCase();
+        const bodyHay = cleanBodyForSearch([d.nonEuWarning || "", ...d.allowedForDocs, ...d.allowedForGoods, ...d.mandatoryRules].join(" "), q);
 
         const inTitleOrCountry = matchedCountries.length > 0 || titleHay.includes(q);
         const inBody = !isShort && bodyHay.includes(q);
@@ -6350,20 +6490,21 @@ window.THP_INTER_DATA = {
       // 4. ค้นหาในบริการระหว่างประเทศ (Services)
       DATA.services.forEach((srv) => {
         const titleHay = [srv.name, srv.prefix, srv.partner || ""].join(" ").toLowerCase();
-        const bodyHay = [
-          srv.maxWeight,
-          srv.maxSize,
-          srv.allowedBoxes,
-          srv.maxValue,
-          srv.indemnity,
-          srv.dpostInterMode || "",
-          ...(srv.requiredForms || []),
-          ...(srv.survivalGuide || []),
-          srv.customsRule,
-          ...srv.criticalNotes
-        ]
-          .join(" ")
-          .toLowerCase();
+        const bodyHay = cleanBodyForSearch(
+          [
+            srv.maxWeight,
+            srv.maxSize,
+            srv.allowedBoxes,
+            srv.maxValue,
+            srv.indemnity,
+            srv.dpostInterMode || "",
+            ...(srv.requiredForms || []),
+            ...(srv.survivalGuide || []),
+            srv.customsRule,
+            ...srv.criticalNotes
+          ].join(" "),
+          q
+        );
 
         const inTitle = titleHay.includes(q);
         const inBody = !isShort && bodyHay.includes(q);
@@ -6408,15 +6549,16 @@ window.THP_INTER_DATA = {
 
       // 5. ค้นหาในสิ่งของต้องห้าม & ข้อยกเว้น (เฉพาะเมื่อคำค้นยาวพอหรือตรงกับหมวดของต้องห้าม)
       const pg = DATA.prohibitedGuide;
-      const prohibHay = [
-        pg.strictBanEpacketUsEu.title,
-        pg.strictBanEpacketUsEu.penalty,
-        pg.strictBanEpacketUsEu.alternativeForFood,
-        ...pg.strictBanEpacketUsEu.items,
-        ...pg.strictBanEpacketUsEu.allowedExceptions.map((e) => `${e.category} ${e.limit} ${e.condition}`)
-      ]
-        .join(" ")
-        .toLowerCase();
+      const prohibHay = cleanBodyForSearch(
+        [
+          pg.strictBanEpacketUsEu.title,
+          pg.strictBanEpacketUsEu.penalty,
+          pg.strictBanEpacketUsEu.alternativeForFood,
+          ...pg.strictBanEpacketUsEu.items,
+          ...pg.strictBanEpacketUsEu.allowedExceptions.map((e) => `${e.category} ${e.limit} ${e.condition}`)
+        ].join(" "),
+        q
+      );
 
       if (!isShort && prohibHay.includes(q)) {
         scored.push({
@@ -6446,7 +6588,7 @@ window.THP_INTER_DATA = {
       // 6. ค้นหาในส่วนลด/โปรโมชั่น และ แบบพิมพ์ระหว่างประเทศ
       DATA.promotions.active.forEach((p) => {
         const titleHay = [p.title, p.posButton].join(" ").toLowerCase();
-        const bodyHay = [p.period, p.target, ...p.services, ...p.conditions].join(" ").toLowerCase();
+        const bodyHay = cleanBodyForSearch([p.period, p.target, ...p.services, ...p.conditions].join(" "), q);
         if (titleHay.includes(q) || (!isShort && bodyHay.includes(q))) {
           scored.push({ score: titleHay.includes(q) ? 80 : 30, html: buildPromoCardHtml(p) });
         }
@@ -6454,7 +6596,7 @@ window.THP_INTER_DATA = {
 
       DATA.promotions.expired.forEach((ex) => {
         const titleHay = ex.title.toLowerCase();
-        const bodyHay = [ex.period, ex.reason].join(" ").toLowerCase();
+        const bodyHay = cleanBodyForSearch([ex.period, ex.reason].join(" "), q);
         if (titleHay.includes(q) || (!isShort && bodyHay.includes(q))) {
           scored.push({ score: titleHay.includes(q) ? 60 : 20, html: buildPromoCardHtml(ex) });
         }
@@ -6462,7 +6604,7 @@ window.THP_INTER_DATA = {
 
       (DATA.printableDocs || []).forEach((doc) => {
         const titleHay = [doc.title, doc.serviceTag].join(" ").toLowerCase();
-        const bodyHay = [doc.category, doc.description, doc.updated].join(" ").toLowerCase();
+        const bodyHay = cleanBodyForSearch([doc.category, doc.description, doc.updated].join(" "), q);
         if (titleHay.includes(q) || (!isShort && bodyHay.includes(q))) {
           scored.push({ score: titleHay.includes(q) ? 85 : 25, html: buildDocCardHtml(doc) });
         }
@@ -8614,7 +8756,7 @@ window.THP_INTER_DATA = {
       { key: "กาตาร์", aliases: ["กาตาร์", "qatar", "qa", "qat"] },
       { key: "ตุรกี", aliases: ["ตุรกี", "turkey", "turkiye", "tr", "tur"] },
       { key: "รัสเซีย", aliases: ["รัสเซีย", "russia", "ru", "rus"] },
-      { key: "แอฟริกาใต้", aliases: ["แอฟริกาใต้", "south africa", "za", "zaf"] },
+      { key: "แอฟริกาใต้", aliases: ["แอฟริกาใต้", "แอฟริกา", "south africa", "africa", "za", "zaf"] },
       { key: "บราซิล", aliases: ["บราซิล", "brazil", "br", "bra"] }
     ];
 
