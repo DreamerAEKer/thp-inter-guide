@@ -1269,39 +1269,60 @@
     }
 
     if (templateType === "LOA_COURIER_POST") {
-      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>หนังสือยินยอม LOA - บริการ Courier Post</title>${baseStyle}</head><body>
-        <div class="no-print" style="background:#EFF6FF; padding:10px; border:1px solid #2563EB; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
-          <span><strong>พร้อมพิมพ์ A4 (พิมพ์ 2 ฉบับ):</strong> ติดหน้ากล่องในซองพลาสติกใส 1 ฉบับ + เก็บเป็นหลักฐานที่ ปณ.ต้นทาง 1 ฉบับ</span>
-          <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์ใบ LOA (2 ฉบับ)</button>
+      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>หนังสือยินยอมชำระค่าภาษีและค่าใช้จ่ายอื่นๆ (LOA) — บริการ Courier Post</title>${baseStyle}</head><body>
+        <div class="no-print" style="background:#EFF6FF; padding:10px; border:1px solid #2563EB; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <span><strong>เอกสารแนบ 2 (แนบท้ายบันทึก ด่วนที่สุด ที่ ปณท บร.(จร.2)/652 ลว. 18 มิ.ย. 2569 & บร.(จร.2)/870 ลว. 7 พ.ค. 2569):</strong> พิมพ์ 2 ฉบับ (ติดหน้ากล่องในซองพลาสติกใส 1 ฉบับ + เก็บที่ ปณ.ต้นทาง 1 ฉบับ)</span>
+          <div style="display:flex; gap:8px;">
+            <a href="docs/official-loa-courier-post-652.pdf" target="_blank" style="background:#1D4ED8; color:#fff; text-decoration:none; padding:8px 14px; border-radius:6px; font-weight:700;">📄 เปิดไฟล์ PDF ต้นฉบับจริง (มีลายน้ำ ปณท)</a>
+            <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์หน้านี้ (A4)</button>
+          </div>
         </div>
-        <h1>หนังสือแจ้งความประสงค์และยินยอมรับผิดชอบค่าใช้จ่าย (LOA) — บริการ Courier Post</h1>
-        <h2>Letter of Authorization (LOA) for Customs Duties, Taxes & Undeliverable Shipment (มีผลบังคับใช้ตั้งแต่วันที่ 7 พฤษภาคม 2569 ตามบันทึก ปณท บร.(จร.2)/870)</h2>
-        <p>เรียน บริษัท ไปรษณีย์ไทย จำกัด (ปณท) / พันธมิตรผู้ให้บริการขนส่งระหว่างประเทศ</p>
-        <p>ข้าพเจ้า (ชื่อผู้ฝากส่ง): ................................................................................................................... โทรศัพท์: .................................................................<br>
-        ได้ฝากส่งสิ่งของบริการ <strong>Courier Post</strong> หมายเลขสิ่งของ (Tracking No.): <strong>.........................................................................................................</strong><br>
-        ไปยังประเทศปลายทาง: ......................................................................................... (1 ใบ LOA ต่อ 1 Shipment / Tracking No.)</p>
-        <p><strong>ข้าพเจ้ารับทราบและยินยอมรับผิดชอบค่าภาษีอากรและค่าใช้จ่ายอื่นๆ ที่อาจเกิดขึ้น ณ ประเทศปลายทาง โดยหากผู้รับปลายทางปฏิเสธการชำระค่าภาษีอากร หรือไม่สามารถนำจ่ายได้ ข้าพเจ้าขอเลือกแนวทางดำเนินการดังนี้ (โปรดเลือกเพียง 1 ข้อ):</strong></p>
+        <div style="text-align:right; font-size:12.5px; font-weight:700;">เอกสารแนบ 2<br>แนบท้ายบันทึก ด่วนที่สุด ที่ ปณท บร.(จร.2)/652 ลงวันที่ 18 มิถุนายน 2569 (และ บร.(จร.2)/870 ลว. 7 พ.ค. 2569)</div>
+        <h1 style="text-align:center; margin-top:6px;">หนังสือยินยอมชำระค่าภาษีและค่าใช้จ่ายอื่นๆ (ถ้ามี) ที่อาจเกิดขึ้นสำหรับบริการ Courier Post</h1>
+        <h2 style="text-align:center;">Consent form for payment of duty taxes and other expenses (if any) that may arise for Courier Post services.</h2>
+        <div style="display:inline-block; border:1.5px solid #0F172A; padding:3px 12px; font-weight:700; margin-bottom:6px;">Sender Part / Post Office Copy</div>
+        <p style="margin:4px 0;">
+          <strong>Date (วันที่):</strong> ........................................................................................<br>
+          I, (Sender) ................................................................................................................... acknowledge and accept the condition that in the event the recipient refuses to pay the import duty taxes and/or any other related expenses (if any), regardless of whether the sender has provided prior instructions or not, all such duty taxes and expenses shall be the responsibility of the sender as specified on the deposit receipt in all cases.<br>
+          <strong>ข้าพเจ้า (ผู้ฝากส่งตามจ่าหน้า) รับทราบและยอมรับเงื่อนไขว่า ในกรณีที่ผู้รับปลายทางปฏิเสธการชำระค่าภาษีอากรขาเข้า และ/หรือค่าใช้จ่ายอื่นใดที่เกี่ยวข้อง (ถ้ามี) ไม่ว่าผู้ฝากส่งจะได้มีคำสั่งไว้ล่วงหน้าหรือไม่ก็ตาม การชำระค่าภาษีอากรและค่าใช้จ่ายดังกล่าวทั้งหมดให้ถือเป็นความรับผิดชอบของผู้ฝากส่งตามจ่าหน้าบนใบรับฝากทุกกรณี</strong>
+        </p>
+        <p style="margin:6px 0;">
+          <strong>ข้าพเจ้ายินยอมและตกลงให้ดำเนินการตามแนวทางที่ได้เลือกไว้ด้านล่างนี้ โดยถือเป็นคำสั่งและความยินยอมอย่างชัดแจ้ง และยอมรับภาระค่าใช้จ่ายที่เกิดขึ้นทั้งหมด โดยไม่เรียกร้องค่าเสียหายใด ๆ จาก บริษัท ไปรษณีย์ไทย จำกัด (ปณท) ดังนี้ (โปรดเลือก 1 ข้อ):</strong>
+        </p>
         <div class="box-choice">
-          <div style="font-size:15px; font-weight:700; color:#B91C1C;">☐ ทางเลือกที่ 1: DISPOSAL (ทำลาย / ละทิ้งสิ่งของ ณ ประเทศปลายทาง)</div>
-          <p style="margin:4px 0 0 22px;">หากผู้รับปลายทางไม่ชำระค่าภาษีอากรหรือปฏิเสธการรับ ให้ดำเนินการทำลายหรือละทิ้งสิ่งของ ณ ประเทศปลายทาง โดยข้าพเจ้ายินยอมรับผิดชอบค่าทำลาย/ค่าภาษีอากร/ค่าใช้จ่ายที่เกิดขึ้นตามเงื่อนไขที่ผู้ขนส่งเรียกเก็บจริง</p>
+          <div style="font-size:14.5px; font-weight:700; color:#B91C1C;">☐ In the case of "Disposal" (กรณีทำลาย/ละทิ้งสิ่งของ ณ ประเทศปลายทาง)</div>
+          <p style="margin:4px 0 0 18px;">
+            ผู้ฝากส่งรับทราบและยินยอมให้ดำเนินการละทิ้งสิ่งของ โดยยอมรับภาระค่าใช้จ่าย ครบทั้ง 2 รายการ ดังต่อไปนี้:<br>
+            ✓ <strong>All duty and/or tax charges</strong> (ค่าภาษีและ/หรืออากรทั้งหมดที่เกิดขึ้นที่ปลายทาง)<br>
+            ✓ <strong>Disposal</strong> (ค่าทำลาย/ละทิ้งสิ่งของ)
+          </p>
         </div>
         <div class="box-choice">
-          <div style="font-size:15px; font-weight:700; color:#047857;">☐ ทางเลือกที่ 2: RETURN SHIPMENT TO ORIGIN (ส่งคืนสิ่งของกลับมายังต้นทางประเทศไทย)</div>
-          <p style="margin:4px 0 0 22px;">หากผู้รับปลายทางไม่ชำระค่าภาษีอากรหรือปฏิเสธการรับ ให้ดำเนินการส่งคืนสิ่งของกลับมายังต้นทาง โดยข้าพเจ้ายินยอมรับผิดชอบค่าธรรมเนียมการส่งคืนสิ่งของ ค่าภาษีอากร และค่าใช้จ่ายทั้งหมดที่เกิดขึ้นตามเงื่อนไขที่ผู้ขนส่งเรียกเก็บจริง</p>
+          <div style="font-size:14.5px; font-weight:700; color:#047857;">☐ In the case of "Return shipment to origin" (กรณีส่งคืนสิ่งของกลับมายังต้นทางประเทศไทย)</div>
+          <p style="margin:4px 0 0 18px;">
+            ผู้ฝากส่งรับทราบและยินยอมให้ดำเนินการส่งคืนสิ่งของกลับต้นทาง โดยยอมรับภาระค่าใช้จ่าย ครบทั้ง 3 รายการ ดังต่อไปนี้:<br>
+            ✓ <strong>Both transport charges and duty and/or tax charges</strong> (ค่าขนส่งและค่าภาษีและ/หรืออากรทั้งหมดที่เกิดขึ้นที่ปลายทางและขากลับประเทศไทย)<br>
+            ✓ <strong>Return of shipment fee</strong> (ค่าธรรมเนียมในการส่งคืนสิ่งของ)
+          </p>
         </div>
-        <div class="sig-row">
+        <p style="margin:6px 0;">
+          <strong>For the item number (สำหรับสิ่งของหมายเลข):</strong> <code>KA____________________________________TH</code> (ระบุหมายเลข Track จำนวน 1 หมายเลขต่อ 1 เอกสาร)<br>
+          <strong>สำหรับผู้ขนส่ง — Waybill Number:</strong> ................................................................. <strong>Account Number:</strong> .................................................................
+        </p>
+        <p style="font-size:11.5px; color:#334155; margin:4px 0;">
+          *หากติดต่อผู้ฝากส่งไม่ได้ภายใน 14 วัน นับจากวันที่สิ่งของรับเข้าประเทศปลายทาง ปณท ขอสงวนสิทธิ์ในการละทิ้งสินค้าในทุกๆ กรณี | เอกสารฉบับนี้มีผลบังคับใช้ 3 เดือนนับจากวันที่ลงนาม (This LOA is applicable to this shipment only and shall remain valid for a period of 3 months from the date of signing.)
+        </p>
+        <div class="sig-row" style="margin-top:14px;">
           <div class="sig-box">
-            <strong>ลงชื่อผู้ฝากส่ง (Sender's Signature)</strong><br><br><br>
-            ลงชื่อ: ..........................................................................................<br>
-            (..........................................................................................)<br>
-            วันที่: ............... / ................................. / 2569
+            <strong>ลายเซ็นผู้ฝากส่ง (Sender's Signature)</strong><br><br><br>
+            Signature: .................................................................................<br>
+            (...............................................................................................)
           </div>
           <div class="sig-box">
-            <strong>สำหรับเจ้าหน้าที่รับฝาก ปณท</strong><br><br>
-            ☐ อธิบายเงื่อนไขภาษี/ค่าใช้จ่ายให้ผู้ฝากส่งทราบแล้ว<br>
-            ☐ แนบใส่ซองพลาสติกติดหน้ากล่อง 1 ฉบับ<br>
-            ☐ จัดเก็บเป็นหลักฐานที่ ปณ.ต้นทาง 1 ฉบับ<br><br>
-            ลงชื่อเจ้าหน้าที่: .......................................... ปณ.: ..............................
+            <strong>ลายเซ็นเจ้าหน้าที่รับฝาก พร้อมประทับตราประจำวัน</strong><br><br>
+            Signature: ................................................ (Receiving Officer)<br>
+            Tel. No.: .................................................................................<br>
+            Email: postalcare@thailandpost.com &nbsp;|&nbsp; (ประทับตราประจำวัน)
           </div>
         </div>
       </body></html>`;
