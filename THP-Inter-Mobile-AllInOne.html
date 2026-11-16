@@ -1378,6 +1378,47 @@
       color: #1E3A8A;
     }
 
+    /* ปุ่มและรายการที่กดเพื่อกระโดดไปยังรายละเอียดบริการ/เนื้อหาที่เกี่ยวข้องได้ทันที */
+    .js-jump-target {
+      cursor: pointer;
+      transition: transform 0.14s ease, box-shadow 0.14s ease, background-color 0.14s ease;
+    }
+
+    .js-jump-target:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.16);
+    }
+
+    .jump-link-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #1D4ED8;
+      color: #FFFFFF;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 999px;
+      margin-left: 6px;
+      white-space: nowrap;
+      box-shadow: 0 1px 4px rgba(29, 78, 216, 0.25);
+    }
+
+    .jump-link-pill.gold {
+      background: #B45309;
+      color: #FEF08A;
+    }
+
+    @keyframes pulseHighlightCard {
+      0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.75); outline: 3px solid #E11D48; }
+      50% { box-shadow: 0 0 0 12px rgba(225, 29, 72, 0); outline: 3px solid #F59E0B; }
+      100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); outline: none; }
+    }
+
+    .jump-highlight-flash {
+      animation: pulseHighlightCard 2.2s ease-out;
+    }
+
     /* Desktop & Tablet Responsive Layout (ทำงานได้ดีทั้งบนมือถือส่วนตัวและคอมหน้าเคาน์เตอร์) */
     @media (min-width: 900px) {
       body {
@@ -4470,6 +4511,125 @@ window.THP_INTER_DATA = {
       .replace(/"/g, "&quot;");
   }
 
+  // ตัวช่วยแปลงชื่อบริการ/ข้อความ ให้เป็นปลายทางสำหรับคลิกกระโดดไปอ่านรายละเอียดฉบับเต็ม
+  function resolveServiceJumpTarget(text, modeHint) {
+    const q = String(text || "").toLowerCase();
+    const mode = modeHint || currentMode || "inter";
+
+    if (mode === "domestic") {
+      if (q.includes("ตราสิน") || q.includes("ป.244")) return { mode: "domestic", tab: "tab-services", id: "dom-service-dom-newspaper-trasin" };
+      if (q.includes("ไม่มีจ่าหน้า") || q.includes("admail")) return { mode: "domestic", tab: "tab-services", id: "dom-service-dom-unaddressed-admail" };
+      if (q.includes("ems jumbo") || q.includes("มอเตอร์ไซค์") || q.includes("รถจักรยานยนต์")) return { mode: "domestic", tab: "tab-services", id: "dom-service-dom-ems-jumbo" };
+      if (q.includes("ems") || q.includes("2886") || q.includes("831")) return { mode: "domestic", tab: "tab-services", id: "dom-service-dom-ems-large" };
+      if (q.includes("eco-post") || q.includes("ecopost") || q.includes("o...th")) return { mode: "domestic", tab: "tab-services", id: "dom-service-dom-ecopost" };
+      if (q.includes("พัสดุไปรษณีย์") || q.includes("p...th")) return { mode: "domestic", tab: "tab-services", id: "dom-service-dom-parcel-all" };
+      if (q.includes("ลงทะเบียน") || q.includes("r...th") || q.includes("e-ar")) return { mode: "domestic", tab: "tab-services", id: "dom-service-dom-registered-r" };
+      if (q.includes("จดหมาย") || q.includes("ของตีพิมพ์") || q.includes("สิ่งพิมพ์")) return { mode: "domestic", tab: "tab-services", id: "dom-service-dom-letter-printed" };
+      if (q.includes("cod") || q.includes("high value") || q.includes("ems point") || q.includes("wallet")) return { mode: "domestic", tab: "tab-services", id: "dom-service-dom-staff-knowledge" };
+      return null;
+    }
+
+    if (q.includes("epacket ddp") || q.includes("le...th") || q.includes("le ... th") || q.includes("(le)")) {
+      return { mode: "inter", tab: "tab-services", id: "service-epacket-ddp" };
+    }
+    if (q.includes("epacket us") || q.includes("epacket สหรัฐ") || q.includes("la/li") || q.includes("la...th") || q.includes("li...th")) {
+      return { mode: "inter", tab: "tab-services", id: "service-epacket-us" };
+    }
+    if (q.includes("epacket") || q.includes("lp/lx") || q.includes("lp ... th") || q.includes("lx ... th")) {
+      return { mode: "inter", tab: "tab-services", id: "service-epacket-other" };
+    }
+    if (q.includes("courier post plus") || q.includes("fd...th") || q.includes("fc...th") || q.includes("fd 1") || q.includes("fc ")) {
+      return { mode: "inter", tab: "tab-services", id: "service-courier-post-plus" };
+    }
+    if (q.includes("courier post") || q.includes("ka...th") || q.includes("dhl")) {
+      return { mode: "inter", tab: "tab-services", id: "service-courier-post" };
+    }
+    if (q.includes("ems world") || q.includes("ee...th") || q.includes("ed...th") || q.includes("ee / ed") || q.includes("one price")) {
+      return { mode: "inter", tab: "tab-services", id: "service-ems-world" };
+    }
+    if (
+      q.includes("พัสดุไปรษณีย์") ||
+      q.includes("พัสดุย่อย") ||
+      q.includes("small packet") ||
+      q.includes("ลงทะเบียน") ||
+      q.includes("ของตีพิมพ์") ||
+      q.includes("m-bag") ||
+      q.includes("ไปรษณียบัตร") ||
+      q.includes("จดหมาย") ||
+      q.includes("cp...th") ||
+      q.includes("rr...th") ||
+      q.includes("เครื่องอ่านสำหรับคนเสียจักษุ")
+    ) {
+      return { mode: "inter", tab: "tab-services", id: "service-registered-parcel-doc" };
+    }
+    return null;
+  }
+
+  function buildJumpAttrs(target) {
+    if (!target) return "";
+    return `data-jump-mode="${escapeHtml(target.mode)}" data-jump-tab="${escapeHtml(target.tab)}" data-jump-id="${escapeHtml(target.id)}"`;
+  }
+
+  function buildJumpPillHtml(target, labelText) {
+    if (!target) return "";
+    const cls = target.mode === "domestic" ? "jump-link-pill gold" : "jump-link-pill";
+    return `<span class="${cls}">${escapeHtml(labelText || "ดูรายละเอียด ➔")}</span>`;
+  }
+
+  function jumpToCard(mode, tabName, elementId) {
+    const targetMode = mode === "domestic" ? "domestic" : "inter";
+    if (currentMode !== targetMode) {
+      switchAppMode(targetMode);
+    }
+
+    const searchSection = document.getElementById("searchResultsSection");
+    const searchInput = document.getElementById("globalSearchInput");
+    const clearBtn = document.getElementById("clearSearchBtn");
+    if (searchSection) searchSection.style.display = "none";
+    if (searchInput) searchInput.value = "";
+    if (clearBtn) clearBtn.style.display = "none";
+
+    const rawNavTab = String(tabName || "tab-services").replace(/^dom-/, "");
+    const sectionId = targetMode === "domestic" ? "dom-" + rawNavTab : rawNavTab;
+
+    document.querySelectorAll(".bottom-nav .nav-btn").forEach((b) => {
+      b.classList.toggle("active", b.getAttribute("data-tab") === rawNavTab);
+    });
+    document.querySelectorAll(".tab-section").forEach((sec) => {
+      sec.classList.toggle("active", sec.id === sectionId);
+    });
+
+    const el = elementId ? document.getElementById(elementId) : null;
+    if (el) {
+      requestAnimationFrame(() => {
+        const headerH = (document.querySelector(".app-header") || {}).offsetHeight || 120;
+        const desktopNavH =
+          window.innerWidth >= 900 ? ((document.getElementById("mainBottomNav") || {}).offsetHeight || 56) + 18 : 12;
+        const targetY = Math.max(0, el.getBoundingClientRect().top + window.scrollY - headerH - desktopNavH);
+        window.scrollTo({ top: targetY, behavior: "smooth" });
+        el.classList.remove("jump-highlight-flash");
+        void el.offsetWidth;
+        el.classList.add("jump-highlight-flash");
+        setTimeout(() => el.classList.remove("jump-highlight-flash"), 2300);
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  function renderClickableServiceListHtml(items, icon, liClass, modeHint, extraStyle, pillLabel) {
+    return (items || [])
+      .map((item) => {
+        const target = resolveServiceJumpTarget(item, modeHint);
+        const jumpCls = target ? " js-jump-target" : "";
+        const attrs = target ? " " + buildJumpAttrs(target) : "";
+        const pill = target ? " " + buildJumpPillHtml(target, pillLabel || "กดดูบริการนี้ ➔") : "";
+        const styleAttr = extraStyle ? ` style="${extraStyle}"` : "";
+        return `<li class="${liClass}${jumpCls}"${attrs}${styleAttr}>${icon ? escapeHtml(icon) + " " : ""}${escapeHtml(item)}${pill}</li>`;
+      })
+      .join("");
+  }
+
   // 1. ระบบค้นหาอัจฉริยะจาก【ชื่อประเทศ】+【สิ่งของที่จะส่ง】➔ แสดงบริการที่รองรับ vs บริการที่ห้ามส่งเด็ดขาด!
   function classifyDestination(rawText) {
     const q = String(rawText || "").trim().toLowerCase();
@@ -4976,9 +5136,7 @@ window.THP_INTER_DATA = {
             </div>
             ${
               allowedServices.length > 0
-                ? `<ul class="notes-list" style="margin:0;">${allowedServices
-                    .map((s) => `<li class="good" style="background:#FFFFFF; margin-bottom:5px;">${escapeHtml(s)}</li>`)
-                    .join("")}</ul>`
+                ? `<ul class="notes-list" style="margin:0;">${renderClickableServiceListHtml(allowedServices, "", "good", "inter", "background:#FFFFFF; margin-bottom:5px;")}</ul>`
                 : `<div style="font-size:13px; color:#991B1B; font-weight:700;">❌ ไม่มีบริการไปรษณีย์ที่สามารถรับฝากสิ่งของรายการนี้ได้</div>`
             }
           </div>
@@ -4988,9 +5146,7 @@ window.THP_INTER_DATA = {
               🚫 บริการที่【ห้ามส่งเด็ดขาด / ข้อจำกัดสำคัญ】:
             </div>
             <ul class="notes-list" style="margin:0;">
-              ${bannedServices
-                .map((b) => `<li class="critical" style="background:#FFFFFF; margin-bottom:5px;">${escapeHtml(b)}</li>`)
-                .join("")}
+              ${renderClickableServiceListHtml(bannedServices, "", "critical", "inter", "background:#FFFFFF; margin-bottom:5px;")}
             </ul>
           </div>
         </div>
@@ -5219,20 +5375,16 @@ window.THP_INTER_DATA = {
           .map((c) => `<span class="country-chip">${escapeHtml(c)}</span>`)
           .join("");
 
-        const docsHtml = d.allowedForDocs
-          .map((item) => `<li class="good">📄 ${escapeHtml(item)}</li>`)
-          .join("");
+        const docsHtml = renderClickableServiceListHtml(d.allowedForDocs, "📄", "good", "inter");
 
-        const goodsHtml = d.allowedForGoods
-          .map((item) => `<li class="good">📦 ${escapeHtml(item)}</li>`)
-          .join("");
+        const goodsHtml = renderClickableServiceListHtml(d.allowedForGoods, "📦", "good", "inter");
 
         const rulesHtml = d.mandatoryRules
           .map((r) => `<li class="critical" style="white-space:pre-line;">${escapeHtml(r)}</li>`)
           .join("");
 
         return `
-          <div class="card">
+          <div class="card" id="dest-${escapeHtml(d.id)}">
             <div class="card-header">
               <div class="card-title">${escapeHtml(d.zone)}</div>
               <span class="badge badge-blue">อัปเดตล่าสุด</span>
@@ -5757,10 +5909,10 @@ window.THP_INTER_DATA = {
               score,
               html: `
                 <div class="card srv-theme-card ${theme.cls}">
-                  <div class="srv-theme-banner">
+                  <div class="srv-theme-banner js-jump-target" data-jump-mode="domestic" data-jump-tab="tab-services" data-jump-id="dom-service-${escapeHtml(srv.id)}">
                     <div>
                       <span class="prefix-tag">🇹🇭 บริการในประเทศ • ${escapeHtml(srv.prefix)}</span>
-                      <div class="card-title">${escapeHtml(srv.name)}</div>
+                      <div class="card-title">${escapeHtml(srv.name)} <span class="jump-link-pill gold">เปิดอ่านเต็ม ➔</span></div>
                     </div>
                     <span class="badge">${escapeHtml(srv.badge)}</span>
                   </div>
@@ -5901,6 +6053,17 @@ window.THP_INTER_DATA = {
         const inDetail = !isShort && detailHay.includes(q);
 
         if (inName || inDetail) {
+          const epTarget =
+            cty.code === "US"
+              ? { mode: "inter", tab: "tab-services", id: "service-epacket-us" }
+              : cty.epacketRule.toLowerCase().includes("ddp") || cty.epacketRule.includes("(LE")
+              ? { mode: "inter", tab: "tab-services", id: "service-epacket-ddp" }
+              : { mode: "inter", tab: "tab-services", id: "service-epacket-other" };
+          const emsTarget = { mode: "inter", tab: "tab-services", id: "service-ems-world" };
+          const cppTarget = cty.courierPlusRule.toLowerCase().includes("courier post plus")
+            ? { mode: "inter", tab: "tab-services", id: "service-courier-post-plus" }
+            : { mode: "inter", tab: "tab-services", id: "service-courier-post" };
+
           scored.push({
             score: inName ? 110 : 45,
             html: `
@@ -5913,16 +6076,16 @@ window.THP_INTER_DATA = {
                   <span class="badge badge-blue">${escapeHtml(cty.zone)}</span>
                 </div>
                 <div class="spec-grid">
-                  <div class="spec-item">
-                    <span class="spec-label">📦 บริการ ePacket:</span>
+                  <div class="spec-item js-jump-target" ${buildJumpAttrs(epTarget)} style="background:#FFFFFF; padding:6px 8px; border-radius:8px; border:1px solid #DBEAFE;">
+                    <span class="spec-label">📦 บริการ ePacket: ${buildJumpPillHtml(epTarget, "ดูเงื่อนไข ePacket ➔")}</span>
                     <span class="spec-value" style="font-weight:600; color:${cty.epacketRule.includes("❌") || cty.epacketRule.includes("🚨") ? "#B91C1C" : "#047857"};">${escapeHtml(cty.epacketRule)}</span>
                   </div>
-                  <div class="spec-item">
-                    <span class="spec-label">🚀 บริการ EMS World:</span>
+                  <div class="spec-item js-jump-target" ${buildJumpAttrs(emsTarget)} style="background:#FFFFFF; padding:6px 8px; border-radius:8px; border:1px solid #DBEAFE;">
+                    <span class="spec-label">🚀 บริการ EMS World: ${buildJumpPillHtml(emsTarget, "ดูเงื่อนไข EMS World ➔")}</span>
                     <span class="spec-value"><strong>น้ำหนักสูงสุด:</strong> ${escapeHtml(cty.emsMaxWeight)} | <strong>ขนาด/เงื่อนไข:</strong> ${escapeHtml(cty.emsSize)} | <strong>ระยะเวลานำจ่าย:</strong> ${escapeHtml(cty.emsEta)}</span>
                   </div>
-                  <div class="spec-item">
-                    <span class="spec-label">🚛 บริการ Courier Post Plus / Courier Post:</span>
+                  <div class="spec-item js-jump-target" ${buildJumpAttrs(cppTarget)} style="background:#FFFFFF; padding:6px 8px; border-radius:8px; border:1px solid #DBEAFE;">
+                    <span class="spec-label">🚛 บริการ Courier Post Plus / Courier Post: ${buildJumpPillHtml(cppTarget, "ดูเงื่อนไข Courier ➔")}</span>
                     <span class="spec-value">${escapeHtml(cty.courierPlusRule)}</span>
                   </div>
                   <div class="spec-item">
@@ -5950,8 +6113,8 @@ window.THP_INTER_DATA = {
             score: matchedCountries.length > 0 ? 105 : inTitleOrCountry ? 90 : 35,
             html: `
               <div class="card">
-                <div class="card-header">
-                  <div class="card-title">${escapeHtml(d.zone)}</div>
+                <div class="card-header js-jump-target" data-jump-mode="inter" data-jump-tab="tab-destinations" data-jump-id="dest-${escapeHtml(d.id)}">
+                  <div class="card-title">${escapeHtml(d.zone)} <span class="jump-link-pill">ดูหน้าโซนประเทศ ➔</span></div>
                   <span class="badge badge-blue">โซนปลายทาง</span>
                 </div>
                 ${
@@ -5959,9 +6122,13 @@ window.THP_INTER_DATA = {
                     ? `<div style="margin-bottom:8px; font-size:13.5px; color:#047857; font-weight:700;">🎯 ประเทศที่ตรงกับคำค้น: ${escapeHtml(matchedCountries.join(", "))}</div>`
                     : ""
                 }
-                <div style="font-size:13px; font-weight:700; color:var(--thp-navy);">บริการส่งสิ่งของที่ใช้ได้:</div>
+                <div style="font-size:13px; font-weight:700; color:var(--thp-navy);">บริการส่งเอกสาร (Document) ที่ใช้ได้ (กดเพื่ออ่านรายละเอียด):</div>
                 <ul class="notes-list">
-                  ${d.allowedForGoods.map((g) => `<li class="good">${escapeHtml(g)}</li>`).join("")}
+                  ${renderClickableServiceListHtml(d.allowedForDocs, "📄", "good", "inter")}
+                </ul>
+                <div style="font-size:13px; font-weight:700; color:var(--thp-navy); margin-top:6px;">บริการส่งสิ่งของที่ใช้ได้ (กดเพื่ออ่านรายละเอียด):</div>
+                <ul class="notes-list">
+                  ${renderClickableServiceListHtml(d.allowedForGoods, "📦", "good", "inter")}
                 </ul>
                 <div style="font-size:13px; font-weight:700; color:#991B1B; margin-top:6px;">กฎเหล็กปลายทางนี้:</div>
                 <ul class="notes-list">
@@ -6006,10 +6173,10 @@ window.THP_INTER_DATA = {
             score: inTitle ? 95 : 40,
             html: `
               <div class="card">
-                <div class="card-header">
+                <div class="card-header js-jump-target" data-jump-mode="inter" data-jump-tab="tab-services" data-jump-id="service-${escapeHtml(srv.id)}">
                   <div>
                     <span class="prefix-tag">🌐 ระหว่างประเทศ • ${escapeHtml(srv.prefix)}</span>
-                    <div class="card-title">${escapeHtml(srv.name)}</div>
+                    <div class="card-title">${escapeHtml(srv.name)} <span class="jump-link-pill">เปิดอ่านฉบับเต็ม ➔</span></div>
                   </div>
                   <span class="badge badge-${escapeHtml(srv.badgeColor)}">บริการตปท.</span>
                 </div>
@@ -6049,8 +6216,8 @@ window.THP_INTER_DATA = {
           score: 70,
           html: `
             <div class="card">
-              <div class="card-header">
-                <div class="card-title">🚫 เกณฑ์สิ่งของต้องห้าม / ของเหลว / อาหาร (ePacket US &amp; EU)</div>
+              <div class="card-header js-jump-target" data-jump-mode="inter" data-jump-tab="tab-prohibited" data-jump-id="prohibitedContainer">
+                <div class="card-title">🚫 เกณฑ์สิ่งของต้องห้าม / ของเหลว / อาหาร (ePacket US &amp; EU) <span class="jump-link-pill">ดูหมวดของต้องห้าม ➔</span></div>
                 <span class="badge badge-red">ข้อห้ามสำคัญ</span>
               </div>
               <div style="font-size:13px; color:#7F1D1D; font-weight:600; margin-bottom:8px;">
@@ -7762,14 +7929,19 @@ window.THP_INTER_DATA = {
         .map((s) => {
           const isCheapest = s.price === minPrice;
           const isFastest = s.speedRank === 1;
+          const target = resolveServiceJumpTarget(s.name, "domestic");
+          const jumpCls = target ? " js-jump-target" : "";
+          const attrs = target ? " " + buildJumpAttrs(target) : "";
+          const pill = target ? " " + buildJumpPillHtml(target, "รายละเอียด ➔") : "";
           return `
-            <div class="rate-result-card ${isCheapest ? "cheapest" : ""} ${isFastest ? "fastest" : ""}" style="border-left-color:${s.color};">
+            <div class="rate-result-card ${isCheapest ? "cheapest" : ""} ${isFastest ? "fastest" : ""}${jumpCls}"${attrs} style="border-left-color:${s.color};">
               <div style="flex:1;">
                 <div style="display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:3px;">
                   <span style="font-size:14.5px; font-weight:800; color:#0F172A;">${escapeHtml(s.name)}</span>
                   <span class="badge" style="background:#F1F5F9; color:#334155; font-size:11px;">${escapeHtml(s.code)}</span>
                   ${isCheapest ? `<span class="badge badge-emerald" style="font-size:11px;">💰 ประหยัดสุด</span>` : ""}
                   ${isFastest ? `<span class="badge badge-red" style="font-size:11px;">⚡ เร็วสุด</span>` : ""}
+                  ${pill}
                 </div>
                 <div style="font-size:12.5px; color:#475569; margin-bottom:3px;">${escapeHtml(s.breakdown)}</div>
                 <div style="display:flex; flex-wrap:wrap; gap:8px; font-size:12px; font-weight:600; color:#1E293B;">
@@ -8153,13 +8325,18 @@ window.THP_INTER_DATA = {
         const countriesHtml = m.countries
           .map((c) => `<span class="country-chip" style="background:#FFFFFF; border-color:#93C5FD; color:#1E3A8A; font-weight:600; padding:2px 8px; font-size:12px;">${escapeHtml(c)}</span>`)
           .join("");
+        const target = resolveServiceJumpTarget(m.service, "inter");
+        const jumpCls = target ? " js-jump-target" : "";
+        const attrs = target ? " " + buildJumpAttrs(target) : "";
+        const pill = target ? " " + buildJumpPillHtml(target, "ดูเงื่อนไขบริการนี้ ➔") : "";
         return `
-          <div class="rate-result-card" style="border-left:5px solid ${borderCol}; background:${bgCol}; flex-direction:column; gap:6px;">
+          <div class="rate-result-card${jumpCls}"${attrs} style="border-left:5px solid ${borderCol}; background:${bgCol}; flex-direction:column; gap:6px;">
             <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px; width:100%;">
               <div>
                 <div style="display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:2px;">
                   <span class="badge" style="background:${borderCol}; color:#FFFFFF; font-size:11px;">${escapeHtml(m.matchBadge)}</span>
                   <span style="font-size:14.5px; font-weight:800; color:#0F172A;">${escapeHtml(m.service)}</span>
+                  ${pill}
                 </div>
                 <div style="font-size:13px; font-weight:700; color:#B91C1C;">
                   ⚖️ พิกัดน้ำหนัก: <span style="background:#FEF3C7; color:#92400E; padding:1px 7px; border-radius:6px; border:1px solid #F59E0B;">${escapeHtml(m.weightLabel)}</span>
@@ -8350,14 +8527,19 @@ window.THP_INTER_DATA = {
         .map((it) => {
           const isCheap = it.basePrice === minP;
           const isFast = it.cat === "ems";
+          const target = resolveServiceJumpTarget(it.service, "inter");
+          const jumpCls = target ? " js-jump-target" : "";
+          const attrs = target ? " " + buildJumpAttrs(target) : "";
+          const pill = target ? " " + buildJumpPillHtml(target, "รายละเอียด ➔") : "";
           return `
-            <div class="rate-result-card ${isCheap ? "cheapest" : ""} ${isFast ? "fastest" : ""}">
+            <div class="rate-result-card ${isCheap ? "cheapest" : ""} ${isFast ? "fastest" : ""}${jumpCls}"${attrs}>
               <div style="flex:1;">
                 <div style="display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:3px;">
                   <span style="font-size:14.5px; font-weight:800; color:#0F172A;">${escapeHtml(it.service)}</span>
                   <span class="badge badge-blue" style="font-size:11px;">${escapeHtml(it.zone)}</span>
                   ${isCheap ? `<span class="badge badge-emerald" style="font-size:11px;">💰 ประหยัดสุด</span>` : ""}
                   ${isFast ? `<span class="badge badge-red" style="font-size:11px;">⚡ ด่วนพิเศษ</span>` : ""}
+                  ${pill}
                 </div>
                 <div style="font-size:12.5px; color:#B91C1C; font-weight:700; margin-bottom:2px;">
                   ⚖️ พิกัดที่ใช้คิดเงิน: ${escapeHtml(it.weightLabel)}
@@ -8384,19 +8566,23 @@ window.THP_INTER_DATA = {
       domList.sort((a, b) => a.price - b.price);
 
       inlineDomOut.innerHTML = domList
-        .map(
-          (s) => `
-          <div class="rate-result-card" style="border-left-color:${s.color}; padding:8px 10px;">
+        .map((s) => {
+          const target = resolveServiceJumpTarget(s.name, "domestic");
+          const jumpCls = target ? " js-jump-target" : "";
+          const attrs = target ? " " + buildJumpAttrs(target) : "";
+          const pill = target ? " " + buildJumpPillHtml(target, "ดูวิธีรับฝากในประเทศ ➔") : "";
+          return `
+          <div class="rate-result-card${jumpCls}"${attrs} style="border-left-color:${s.color}; padding:8px 10px;">
             <div>
-              <div style="font-size:13.5px; font-weight:700; color:#0F172A;">🇹🇭 ${escapeHtml(s.name)}</div>
+              <div style="font-size:13.5px; font-weight:700; color:#0F172A;">🇹🇭 ${escapeHtml(s.name)} ${pill}</div>
               <div style="font-size:11.5px; color:#475569;">${escapeHtml(s.breakdown)} • ${escapeHtml(s.trackText)}</div>
             </div>
             <div class="rate-price-big" style="font-size:16.5px;">
               ${s.price.toLocaleString()} บ.
             </div>
           </div>
-        `
-        )
+        `;
+        })
         .join("");
     }
 
@@ -8608,6 +8794,22 @@ window.THP_INTER_DATA = {
     });
   }
 
+  function setupJumpNavigation() {
+    document.body.addEventListener("click", (e) => {
+      const targetEl = e.target.closest(".js-jump-target");
+      if (!targetEl) return;
+      // อย่าแย่งการคลิกถ้ากดปุ่มหรือลิงก์ <a> ที่ซ้อนอยู่ข้างในที่ไม่ใช่ตัว targetEl เอง
+      const innerInteractive = e.target.closest("a, button");
+      if (innerInteractive && innerInteractive !== targetEl && targetEl.contains(innerInteractive)) {
+        return;
+      }
+      const mode = targetEl.getAttribute("data-jump-mode") || currentMode;
+      const tab = targetEl.getAttribute("data-jump-tab") || "tab-services";
+      const id = targetEl.getAttribute("data-jump-id") || "";
+      jumpToCard(mode, tab, id);
+    });
+  }
+
   // Initialize เมื่อโหลดหน้าเว็บเสร็จ
   document.addEventListener("DOMContentLoaded", () => {
     const badge = document.getElementById("lastUpdatedBadge");
@@ -8633,10 +8835,11 @@ window.THP_INTER_DATA = {
     renderPromosAndContacts();
     setupCalculator();
 
-    // ระบบค้นหารวม + สลับโหมดทางเข้าแรก + แท็บเมนู
+    // ระบบค้นหารวม + สลับโหมดทางเข้าแรก + แท็บเมนู + กดข้ามไปยังบริการที่เกี่ยวข้อง
     setupGlobalSearch();
     setupModeGateway();
     setupTabNavigation();
+    setupJumpNavigation();
     switchAppMode("domestic");
   });
 })();

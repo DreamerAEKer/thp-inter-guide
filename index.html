@@ -1378,6 +1378,47 @@
       color: #1E3A8A;
     }
 
+    /* ปุ่มและรายการที่กดเพื่อกระโดดไปยังรายละเอียดบริการ/เนื้อหาที่เกี่ยวข้องได้ทันที */
+    .js-jump-target {
+      cursor: pointer;
+      transition: transform 0.14s ease, box-shadow 0.14s ease, background-color 0.14s ease;
+    }
+
+    .js-jump-target:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.16);
+    }
+
+    .jump-link-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #1D4ED8;
+      color: #FFFFFF;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 999px;
+      margin-left: 6px;
+      white-space: nowrap;
+      box-shadow: 0 1px 4px rgba(29, 78, 216, 0.25);
+    }
+
+    .jump-link-pill.gold {
+      background: #B45309;
+      color: #FEF08A;
+    }
+
+    @keyframes pulseHighlightCard {
+      0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.75); outline: 3px solid #E11D48; }
+      50% { box-shadow: 0 0 0 12px rgba(225, 29, 72, 0); outline: 3px solid #F59E0B; }
+      100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); outline: none; }
+    }
+
+    .jump-highlight-flash {
+      animation: pulseHighlightCard 2.2s ease-out;
+    }
+
     /* Desktop & Tablet Responsive Layout (ทำงานได้ดีทั้งบนมือถือส่วนตัวและคอมหน้าเคาน์เตอร์) */
     @media (min-width: 900px) {
       body {
