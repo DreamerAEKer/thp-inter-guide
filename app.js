@@ -201,7 +201,7 @@
           id: "doc-dom-doc-remote-fuel-ear",
           pillLabel: "📄 ไปที่คู่มือ e-AR ➔",
           directFile: "docs/domestic-ear-guide-2026.pdf",
-          directLabel: "👁️ เปิดคู่มือวิธีปฏิบัติ e-AR"
+          directLabel: "📄 เปิดคู่มือวิธีปฏิบัติ e-AR"
         };
       }
       if (q.includes("รับประกัน") || q.includes("high value") || q.includes("มูลค่าสูง")) {
@@ -211,7 +211,7 @@
           id: "doc-dom-doc-high-value-insurance",
           pillLabel: "📄 ไปที่ตารางรับประกัน/High Value ➔",
           directFile: "docs/domestic-high-value-service-2026.pdf",
-          directLabel: "👁️ ดูเกณฑ์ High Value"
+          directLabel: "📄 ดูเกณฑ์ High Value"
         };
       }
       if (q.includes("cod") || q.includes("wallet@post") || q.includes("ems point") || q.includes("694160")) {
@@ -221,7 +221,7 @@
           id: "doc-dom-doc-cod-ems-point",
           pillLabel: "📄 ไปที่คู่มือ COD / EMS Point ➔",
           directFile: "docs/domestic-cod-wallet-qa-2026.pdf",
-          directLabel: "👁️ ดูคู่มือ COD"
+          directLabel: "📄 ดูคู่มือ COD"
         };
       }
       if (q.includes("ใบนำส่งรับฝาก") || q.includes("rc") || q.includes("ฝากส่งจำนวนมาก") || q.includes("หลายชิ้น")) {
@@ -241,7 +241,7 @@
           id: "doc-dom-doc-rates-all-2026",
           pillLabel: "📄 ไปที่ตาราง/แบบพิมพ์ในประเทศ ➔",
           directFile: "docs/domestic-rates-all-2026.pdf",
-          directLabel: "👁️ ดูตารางเรทในประเทศ"
+          directLabel: "📄 ดูตารางเรทในประเทศ"
         };
       }
       return null;
@@ -274,7 +274,7 @@
         id: "doc-form-new-proforma-pid",
         pillLabel: "📄 ไปที่แบบพิมพ์/ตัวอย่าง Invoice ➔",
         directFile: "docs/example-proforma-invoice-eu.pdf",
-        directLabel: "👁️ ดูตัวอย่างกรอก Invoice"
+        directLabel: "📄 ดูตัวอย่างกรอก Invoice"
       };
     }
     if (q.includes("content checked") || q.includes("duties paid") || q.includes("ชำระค่าบริการแล้ว") || q.includes("epacket plus") || q.includes("ป้ายปากถุง") || q.includes("ป.322") || q.includes("ป.94")) {
@@ -294,7 +294,7 @@
         id: "doc-announce-customs-data-th-en",
         pillLabel: "📄 ไปที่ประกาศ/ตัวอย่าง CN22-CN23 ➔",
         directFile: "docs/announce-customs-data-th.pdf",
-        directLabel: "👁️ ดูประกาศศุลกากร"
+        directLabel: "📄 ดูประกาศศุลกากร"
       };
     }
     if (q.includes("cpf") || q.includes("cnpj") || q.includes("บราซิล") || q.includes("ญี่ปุ่น")) {
@@ -312,7 +312,7 @@
         id: "doc-doc-size-indemnity-2569",
         pillLabel: "📄 ไปที่เอกสารอ้างอิง/ลงทะเบียน ➔",
         directFile: "docs/allowed-registered-documents.pdf",
-        directLabel: "👁️ ดู 14 เอกสารที่ส่ง RR ได้"
+        directLabel: "📄 ดู 14 เอกสารที่ส่ง RR ได้"
       };
     }
     return null;
@@ -331,7 +331,7 @@
         if (target.directTemplate) {
           directBtn = ` <button type="button" class="jump-link-pill js-print-doc" data-template="${escapeHtml(target.directTemplate)}" style="background:#047857; border:none; cursor:pointer; color:#FFFFFF;">${escapeHtml(target.directLabel || "🖨️ เปิดดูตัวอย่าง/พิมพ์ทันที")}</button>`;
         } else if (target.directFile) {
-          directBtn = ` <button type="button" class="jump-link-pill js-print-doc" data-file="${escapeHtml(target.directFile)}" style="background:#047857; border:none; cursor:pointer; color:#FFFFFF;">${escapeHtml(target.directLabel || "👁️ เปิดดูตัวอย่าง/PDF")}</button>`;
+          directBtn = ` <button type="button" class="jump-link-pill js-print-doc" data-file="${escapeHtml(target.directFile)}" style="background:#047857; border:none; cursor:pointer; color:#FFFFFF;">${escapeHtml(target.directLabel || "📄 เปิดดูตัวอย่าง/PDF")}</button>`;
         }
         return `<li class="good js-jump-target" ${attrs} style="${defaultStyle || "background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A; white-space:pre-line;"}">${escapeHtml(item)}<div style="margin-top:5px; display:flex; flex-wrap:wrap; gap:4px; align-items:center;">${jumpPill}${directBtn}</div></li>`;
       })
