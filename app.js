@@ -1251,7 +1251,7 @@
     });
   }
 
-  // 7. ระบบค้นหาด่วนทั่วทั้งแอป (Global Instant Search)
+  // 7. ระบบค้นหาด่วนทั่วทั้งแอป (Global Instant Search — แยกตามโหมดที่เปิดอยู่ & จัดลำดับความเกี่ยวข้องแม่นยำ 100%)
   function setupGlobalSearch() {
     const input = document.getElementById("globalSearchInput");
     const clearBtn = document.getElementById("clearSearchBtn");
@@ -1277,52 +1277,11 @@
     clearBtn.addEventListener("click", hideSearch);
     if (closeBtn) closeBtn.addEventListener("click", hideSearch);
 
-    input.addEventListener("input", () => {
-      const q = input.value.trim().toLowerCase();
-      if (!q) {
-        hideSearch();
-        return;
-      }
+    // ฟังก์ชันค้นหาสำหรับโหมดในประเทศ (Domestic Only)
+    function getDomesticMatches(q) {
+      const scored = [];
+      const isShort = q.length <= 2;
 
-      clearBtn.style.display = "flex";
-      tabSections.forEach((sec) => sec.classList.remove("active"));
-      searchSection.style.display = "block";
-
-      const matches = [];
-
-      // 000. ตรวจจับอัตโนมัติว่าผู้ใช้งานกำลังค้นหา "สิ่งของที่จะส่ง" และ/หรือ "ชื่อประเทศ" เพื่อแสดงสรุป ✅ บริการที่รองรับ vs 🚫 บริการที่ห้ามส่งเด็ดขาด ไว้บนสุด!
-      const detectedDest = classifyDestination(q);
-      const detectedItem = classifyItemQuery(q);
-      const isSpecificDest = detectedDest.zoneType !== "ALL" && !(detectedDest.zoneType === "OTHER" && !/(ญี่ปุ่น|japan|เกาหลี|korea|ออสเตรเลีย|australia|บราซิล|brazil|ไต้หวัน|taiwan|ดูไบ|เอมิเรตส์|uae|อิสราเอล|israel|จีน|china|ฮ่องกง|สิงคโปร์|มาเลเซีย|เวียดนาม|ลาว|กัมพูชา|เมียนมา|พม่า|อินเดีย|แคนาดา|นิวซีแลนด์|รัสเซีย)/.test(q));
-      const isSpecificItem = detectedItem.cat !== "general";
-
-      if (isSpecificDest || isSpecificItem) {
-        const tempCInput = document.getElementById("smartCheckerCountryInput");
-        const tempIInput = document.getElementById("smartCheckerItemInput");
-        const origC = tempCInput ? tempCInput.value : "";
-        const origI = tempIInput ? tempIInput.value : "";
-
-        if (tempCInput) tempCInput.value = isSpecificDest ? input.value.trim() : "";
-        if (tempIInput) tempIInput.value = isSpecificItem ? input.value.trim() : "สินค้าทั่วไป";
-        renderSmartCountryItemChecker();
-        const smartHtml = (document.getElementById("smartCheckerOutput") || {}).innerHTML || "";
-        if (tempCInput) tempCInput.value = origC;
-        if (tempIInput) tempIInput.value = origI;
-        renderSmartCountryItemChecker();
-
-        if (smartHtml) {
-          matches.push(`
-            <div class="card" style="border:2.5px solid #059669; background:#F0FDF4; padding:12px;">
-              <div style="font-size:14px; font-weight:800; color:#065F46; margin-bottom:4px;">
-                🎯 สรุปบริการที่รองรับ &amp; บริการที่ห้ามส่งเด็ดขาด สำหรับคำค้น "${escapeHtml(input.value.trim())}"
-              </div>
-              ${smartHtml}
-            </div>
-          `);
-        }
-      }
-
-      // 00. ค้นหาในบริการในประเทศ (Domestic Services)
       if (DATA.domestic && DATA.domestic.services) {
         const domSearchThemes = [
           { cls: "theme-1-blue", color: "#1D4ED8" },
@@ -1337,11 +1296,8 @@
         ];
         DATA.domestic.services.forEach((srv, idx) => {
           const theme = domSearchThemes[idx % domSearchThemes.length];
-          const hay = [
-            "ในประเทศ",
-            srv.name,
-            srv.prefix,
-            srv.category,
+          const titleHay = [srv.name, srv.prefix, srv.badge].join(" ").toLowerCase();
+          const bodyHay = [
             srv.posMode || "",
             srv.maxWeight,
             srv.maxSize,
@@ -1354,121 +1310,242 @@
             .join(" ")
             .toLowerCase();
 
-          if (hay.includes(q)) {
+          const inTitle = titleHay.includes(q);
+          const inBody = !isShort && bodyHay.includes(q);
+
+          if (inTitle || inBody) {
+            const score = inTitle ? 100 : 40;
             const allNotes = [
               ...(srv.requiredForms || []),
               ...(srv.survivalGuide || []),
               ...(srv.criticalNotes || [])
             ];
             const matchedNotes = allNotes.filter((n) => n.toLowerCase().includes(q));
-            const notesToShow = matchedNotes.length > 0 ? matchedNotes : allNotes.slice(0, 5);
-            matches.push(`
-              <div class="card srv-theme-card ${theme.cls}">
-                <div class="srv-theme-banner">
-                  <div>
-                    <span class="prefix-tag">🇹🇭 ในประเทศ • ${escapeHtml(srv.prefix)}</span>
-                    <div class="card-title">${escapeHtml(srv.name)}</div>
+            const notesToShow = matchedNotes.length > 0 ? matchedNotes : allNotes.slice(0, 4);
+            scored.push({
+              score,
+              html: `
+                <div class="card srv-theme-card ${theme.cls}">
+                  <div class="srv-theme-banner">
+                    <div>
+                      <span class="prefix-tag">🇹🇭 บริการในประเทศ • ${escapeHtml(srv.prefix)}</span>
+                      <div class="card-title">${escapeHtml(srv.name)}</div>
+                    </div>
+                    <span class="badge">${escapeHtml(srv.badge)}</span>
                   </div>
-                  <span class="badge">${escapeHtml(srv.badge)}</span>
-                </div>
-                <div class="srv-theme-body">
-                  ${
-                    srv.posMode
-                      ? `<div style="background:#FFFBEB; border:1px solid #F59E0B; border-radius:8px; padding:8px; margin-bottom:8px; font-size:13px; color:#92400E; font-weight:600; white-space:pre-line;">💻 <strong>วิธีทำรายการหน้าเคาน์เตอร์:</strong> ${escapeHtml(srv.posMode)}</div>`
-                      : ""
-                  }
-                  <div class="spec-grid" style="background:#FFFFFF; border:1.5px solid #CBD5E1;">
-                    <div class="spec-item"><span class="spec-label">⚖️ น้ำหนักสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxWeight)}</span></div>
-                    <div class="spec-item"><span class="spec-label">📏 ขนาดสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxSize)}</span></div>
-                    <div class="spec-item"><span class="spec-label">💰 อัตราค่าบริการ:</span> <div class="spec-value">${formatMultilineToBlocks(srv.rateSummary, theme.color)}</div></div>
-                    <div class="spec-item"><span class="spec-label">🛡️ อัตราชดใช้:</span> <span class="spec-value">${escapeHtml(srv.indemnity)}</span></div>
+                  <div class="srv-theme-body">
+                    ${
+                      srv.posMode
+                        ? `<div style="background:#FFFBEB; border:1px solid #F59E0B; border-radius:8px; padding:8px; margin-bottom:8px; font-size:13px; color:#92400E; font-weight:600; white-space:pre-line;">💻 <strong>วิธีทำรายการหน้าเคาน์เตอร์:</strong> ${escapeHtml(srv.posMode)}</div>`
+                        : ""
+                    }
+                    <div class="spec-grid" style="background:#FFFFFF; border:1.5px solid #CBD5E1;">
+                      <div class="spec-item"><span class="spec-label">⚖️ น้ำหนักสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxWeight)}</span></div>
+                      <div class="spec-item"><span class="spec-label">📏 ขนาดสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxSize)}</span></div>
+                      <div class="spec-item"><span class="spec-label">💰 อัตราค่าบริการ:</span> <div class="spec-value">${formatMultilineToBlocks(srv.rateSummary, theme.color)}</div></div>
+                      <div class="spec-item"><span class="spec-label">🛡️ อัตราชดใช้:</span> <span class="spec-value">${escapeHtml(srv.indemnity)}</span></div>
+                    </div>
+                    <ul class="notes-list">
+                      ${notesToShow.map((n) => `<li class="${n.includes("🚨") || n.includes("⚠️") || n.includes("ห้าม") ? "critical" : "good"}" style="white-space:pre-line;">${escapeHtml(n)}</li>`).join("")}
+                    </ul>
                   </div>
-                  <ul class="notes-list">
-                    ${notesToShow.map((n) => `<li class="${n.includes("🚨") || n.includes("⚠️") || n.includes("ห้าม") ? "critical" : "good"}" style="white-space:pre-line;">${escapeHtml(n)}</li>`).join("")}
-                  </ul>
                 </div>
-              </div>
-            `);
+              `
+            });
           }
         });
       }
 
-      // 00b. ค้นหาในส่วนลดและอัตราพิเศษในประเทศ (Domestic Promotions)
+      // ค้นหารหัสไปรษณีย์พื้นที่ห่างไกล/เกาะ 85 พื้นที่ (+20 บ.)
+      if (DATA.domestic && DATA.domestic.remotePostcodes) {
+        const pcMatches = Object.entries(DATA.domestic.remotePostcodes).filter(
+          ([code, name]) => code.includes(q) || name.toLowerCase().includes(q)
+        );
+        if (pcMatches.length > 0) {
+          scored.push({
+            score: 95,
+            html: `
+              <div class="card" style="border:2px solid #D97706; background:#FFFBEB;">
+                <div class="card-header">
+                  <div class="card-title" style="color:#92400E;">🏝️ รหัสไปรษณีย์พื้นที่พิเศษ / เกาะ / ห่างไกล (+20 บาท สำหรับ EMS &amp; eCo-Post)</div>
+                  <span class="badge badge-amber">พบ ${pcMatches.length} พื้นที่</span>
+                </div>
+                <div class="spec-grid" style="background:#FFFFFF;">
+                  ${pcMatches
+                    .map(
+                      ([code, name]) =>
+                        `<div class="spec-item"><span class="spec-label">📮 รหัสไปรษณีย์ ${escapeHtml(code)}</span><span class="spec-value">${escapeHtml(name)}</span></div>`
+                    )
+                    .join("")}
+                </div>
+              </div>
+            `
+          });
+        }
+      }
+
       if (DATA.domestic && DATA.domestic.promotions) {
         [...(DATA.domestic.promotions.active || []), ...(DATA.domestic.promotions.expired || [])].forEach((p) => {
-          const hay = ["ในประเทศ", p.title, p.period, p.target || "", p.posButton || "", p.reason || "", ...(p.services || []), ...(p.conditions || [])].join(" ").toLowerCase();
-          if (hay.includes(q)) {
-            matches.push(buildPromoCardHtml(p));
+          const titleHay = [p.title, p.posButton || ""].join(" ").toLowerCase();
+          const bodyHay = [p.period, p.target || "", p.reason || "", ...(p.services || []), ...(p.conditions || [])].join(" ").toLowerCase();
+          if (titleHay.includes(q) || (!isShort && bodyHay.includes(q))) {
+            scored.push({
+              score: titleHay.includes(q) ? 80 : 30,
+              html: buildPromoCardHtml(p)
+            });
           }
         });
       }
 
-      // 00c. ค้นหาในแบบพิมพ์ในประเทศ (Domestic Printable Docs)
       if (DATA.domestic && DATA.domestic.printableDocs) {
         DATA.domestic.printableDocs.forEach((doc) => {
-          const hay = ["ในประเทศ", doc.title, doc.category, doc.serviceTag, doc.description, doc.updated].join(" ").toLowerCase();
-          if (hay.includes(q)) {
-            matches.push(buildDocCardHtml(doc));
+          const titleHay = [doc.title, doc.serviceTag].join(" ").toLowerCase();
+          const bodyHay = [doc.category, doc.description].join(" ").toLowerCase();
+          if (titleHay.includes(q) || (!isShort && bodyHay.includes(q))) {
+            scored.push({
+              score: titleHay.includes(q) ? 75 : 25,
+              html: buildDocCardHtml(doc)
+            });
           }
         });
       }
 
-      // 0. ค้นหาในฐานข้อมูลรายประเทศโดยตรง (Country Directory - รองรับทั้งชื่ออังกฤษ ชื่อไทย และรหัส 2 ตัวอักษร เช่น Korea, KR, เกาหลี, Japan, JP, UK, US, Germany)
-      (DATA.countryDirectory || []).forEach((cty) => {
-        const hay = [
-          cty.code,
-          cty.th,
-          cty.en,
-          cty.zone,
-          cty.emsMaxWeight,
-          cty.emsSize,
-          cty.emsEta,
-          cty.epacketRule,
-          cty.courierPlusRule,
-          cty.notes
-        ]
-          .join(" ")
-          .toLowerCase();
+      scored.sort((a, b) => b.score - a.score);
+      return scored.map((x) => x.html);
+    }
 
-        if (hay.includes(q)) {
-          matches.push(`
-            <div class="card" style="border: 2px solid #2563EB;">
-              <div class="card-header">
-                <div>
-                  <span class="prefix-tag" style="background:#1E40AF; color:#FDE047;">รหัสประเทศ: ${escapeHtml(cty.code)}</span>
-                  <div class="card-title">🏳️ ${escapeHtml(cty.th)} — ${escapeHtml(cty.en)}</div>
+    // ฟังก์ชันค้นหาสำหรับโหมดระหว่างประเทศ (International Only)
+    function getInternationalMatches(q, rawInputVal) {
+      const scored = [];
+      const isShort = q.length <= 2;
+
+      // 1. ตรวจจับอัตโนมัติว่าผู้ใช้งานกำลังค้นหา "ชื่อประเทศ" และ/หรือ "สิ่งของที่จะส่ง"
+      const detectedDest = classifyDestination(q);
+      const detectedItem = classifyItemQuery(q);
+      const isSpecificDest =
+        detectedDest.zoneType !== "ALL" &&
+        !(
+          detectedDest.zoneType === "OTHER" &&
+          !/(ญี่ปุ่น|japan|เกาหลี|korea|ออสเตรเลีย|australia|บราซิล|brazil|ไต้หวัน|taiwan|ดูไบ|เอมิเรตส์|uae|อิสราเอล|israel|จีน|china|ฮ่องกง|สิงคโปร์|มาเลเซีย|เวียดนาม|ลาว|กัมพูชา|เมียนมา|พม่า|อินเดีย|แคนาดา|นิวซีแลนด์|รัสเซีย)/.test(
+            q
+          )
+        );
+      const isSpecificItem = detectedItem.cat !== "general";
+
+      if (isSpecificDest || isSpecificItem) {
+        const tempCInput = document.getElementById("smartCheckerCountryInput");
+        const tempIInput = document.getElementById("smartCheckerItemInput");
+        const origC = tempCInput ? tempCInput.value : "";
+        const origI = tempIInput ? tempIInput.value : "";
+
+        if (tempCInput) tempCInput.value = isSpecificDest ? rawInputVal : "";
+        if (tempIInput) tempIInput.value = isSpecificItem ? rawInputVal : "สินค้าทั่วไป";
+        renderSmartCountryItemChecker();
+        const smartHtml = (document.getElementById("smartCheckerOutput") || {}).innerHTML || "";
+        if (tempCInput) tempCInput.value = origC;
+        if (tempIInput) tempIInput.value = origI;
+        renderSmartCountryItemChecker();
+
+        if (smartHtml) {
+          scored.push({
+            score: 120,
+            html: `
+              <div class="card" style="border:2.5px solid #059669; background:#F0FDF4; padding:12px;">
+                <div style="font-size:14px; font-weight:800; color:#065F46; margin-bottom:4px;">
+                  🎯 สรุปบริการระหว่างประเทศที่รองรับ &amp; บริการที่ห้ามส่งเด็ดขาด สำหรับคำค้น "${escapeHtml(rawInputVal)}"
                 </div>
-                <span class="badge badge-blue">${escapeHtml(cty.zone)}</span>
+                ${smartHtml}
               </div>
-              <div class="spec-grid">
-                <div class="spec-item">
-                  <span class="spec-label">📦 บริการ ePacket:</span>
-                  <span class="spec-value" style="font-weight:600; color:${cty.epacketRule.includes("❌") || cty.epacketRule.includes("🚨") ? "#B91C1C" : "#047857"};">${escapeHtml(cty.epacketRule)}</span>
+            `
+          });
+        }
+      }
+
+      // 2. ค้นหาในฐานข้อมูลรายประเทศ (Country Directory) — ให้ความสำคัญกับชื่อประเทศและรหัสประเทศเป็นอันดับแรก
+      (DATA.countryDirectory || []).forEach((cty) => {
+        const nameHay = [cty.code, cty.th, cty.en].join(" ").toLowerCase();
+        const detailHay = [cty.zone, cty.emsMaxWeight, cty.emsSize, cty.emsEta, cty.epacketRule, cty.courierPlusRule, cty.notes].join(" ").toLowerCase();
+
+        const inName = cty.code.toLowerCase() === q || nameHay.includes(q);
+        const inDetail = !isShort && detailHay.includes(q);
+
+        if (inName || inDetail) {
+          scored.push({
+            score: inName ? 110 : 45,
+            html: `
+              <div class="card" style="border: 2px solid #2563EB;">
+                <div class="card-header">
+                  <div>
+                    <span class="prefix-tag" style="background:#1E40AF; color:#FDE047;">🌐 รหัสประเทศ: ${escapeHtml(cty.code)}</span>
+                    <div class="card-title">🏳️ ${escapeHtml(cty.th)} — ${escapeHtml(cty.en)}</div>
+                  </div>
+                  <span class="badge badge-blue">${escapeHtml(cty.zone)}</span>
                 </div>
-                <div class="spec-item">
-                  <span class="spec-label">🚀 บริการ EMS World:</span>
-                  <span class="spec-value"><strong>น้ำหนักสูงสุด:</strong> ${escapeHtml(cty.emsMaxWeight)} | <strong>ขนาด/เงื่อนไข:</strong> ${escapeHtml(cty.emsSize)} | <strong>ระยะเวลานำจ่าย:</strong> ${escapeHtml(cty.emsEta)}</span>
-                </div>
-                <div class="spec-item">
-                  <span class="spec-label">🚛 บริการ Courier Post Plus / Courier Post:</span>
-                  <span class="spec-value">${escapeHtml(cty.courierPlusRule)}</span>
-                </div>
-                <div class="spec-item">
-                  <span class="spec-label">📌 ข้อสังเกตสำคัญหน้าเคาน์เตอร์:</span>
-                  <span class="spec-value" style="color:#92400E; font-weight:600;">${escapeHtml(cty.notes)}</span>
+                <div class="spec-grid">
+                  <div class="spec-item">
+                    <span class="spec-label">📦 บริการ ePacket:</span>
+                    <span class="spec-value" style="font-weight:600; color:${cty.epacketRule.includes("❌") || cty.epacketRule.includes("🚨") ? "#B91C1C" : "#047857"};">${escapeHtml(cty.epacketRule)}</span>
+                  </div>
+                  <div class="spec-item">
+                    <span class="spec-label">🚀 บริการ EMS World:</span>
+                    <span class="spec-value"><strong>น้ำหนักสูงสุด:</strong> ${escapeHtml(cty.emsMaxWeight)} | <strong>ขนาด/เงื่อนไข:</strong> ${escapeHtml(cty.emsSize)} | <strong>ระยะเวลานำจ่าย:</strong> ${escapeHtml(cty.emsEta)}</span>
+                  </div>
+                  <div class="spec-item">
+                    <span class="spec-label">🚛 บริการ Courier Post Plus / Courier Post:</span>
+                    <span class="spec-value">${escapeHtml(cty.courierPlusRule)}</span>
+                  </div>
+                  <div class="spec-item">
+                    <span class="spec-label">📌 ข้อสังเกตสำคัญหน้าเคาน์เตอร์:</span>
+                    <span class="spec-value" style="color:#92400E; font-weight:600;">${escapeHtml(cty.notes)}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          `);
+            `
+          });
         }
       });
 
-      // ค้นหาในบริการ (Services)
+      // 3. ค้นหาในโซนประเทศปลายทาง (Destinations) — เช็ครายชื่อประเทศในโซนก่อน
+      DATA.destinations.forEach((d) => {
+        const matchedCountries = d.countries.filter((c) => c.toLowerCase().includes(q));
+        const titleHay = [d.zone, ...d.countries].join(" ").toLowerCase();
+        const bodyHay = [d.nonEuWarning || "", ...d.allowedForDocs, ...d.allowedForGoods, ...d.mandatoryRules].join(" ").toLowerCase();
+
+        const inTitleOrCountry = matchedCountries.length > 0 || titleHay.includes(q);
+        const inBody = !isShort && bodyHay.includes(q);
+
+        if (inTitleOrCountry || inBody) {
+          scored.push({
+            score: matchedCountries.length > 0 ? 105 : inTitleOrCountry ? 90 : 35,
+            html: `
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">${escapeHtml(d.zone)}</div>
+                  <span class="badge badge-blue">โซนปลายทาง</span>
+                </div>
+                ${
+                  matchedCountries.length > 0
+                    ? `<div style="margin-bottom:8px; font-size:13.5px; color:#047857; font-weight:700;">🎯 ประเทศที่ตรงกับคำค้น: ${escapeHtml(matchedCountries.join(", "))}</div>`
+                    : ""
+                }
+                <div style="font-size:13px; font-weight:700; color:var(--thp-navy);">บริการส่งสิ่งของที่ใช้ได้:</div>
+                <ul class="notes-list">
+                  ${d.allowedForGoods.map((g) => `<li class="good">${escapeHtml(g)}</li>`).join("")}
+                </ul>
+                <div style="font-size:13px; font-weight:700; color:#991B1B; margin-top:6px;">กฎเหล็กปลายทางนี้:</div>
+                <ul class="notes-list">
+                  ${d.mandatoryRules.map((r) => `<li class="critical" style="white-space:pre-line;">${escapeHtml(r)}</li>`).join("")}
+                </ul>
+              </div>
+            `
+          });
+        }
+      });
+
+      // 4. ค้นหาในบริการระหว่างประเทศ (Services)
       DATA.services.forEach((srv) => {
-        const hay = [
-          srv.name,
-          srv.prefix,
-          srv.partner,
+        const titleHay = [srv.name, srv.prefix, srv.partner || ""].join(" ").toLowerCase();
+        const bodyHay = [
           srv.maxWeight,
           srv.maxSize,
           srv.allowedBoxes,
@@ -1483,7 +1560,10 @@
           .join(" ")
           .toLowerCase();
 
-        if (hay.includes(q)) {
+        const inTitle = titleHay.includes(q);
+        const inBody = !isShort && bodyHay.includes(q);
+
+        if (inTitle || inBody) {
           const allNotes = [
             ...(srv.requiredForms || []),
             ...(srv.survivalGuide || []),
@@ -1491,73 +1571,37 @@
           ];
           const matchedNotes = allNotes.filter((n) => n.toLowerCase().includes(q));
           const notesToShow = matchedNotes.length > 0 ? matchedNotes : allNotes.slice(0, 4);
-          matches.push(`
-            <div class="card">
-              <div class="card-header">
-                <div>
-                  <span class="prefix-tag">${escapeHtml(srv.prefix)}</span>
-                  <div class="card-title">${escapeHtml(srv.name)}</div>
+          scored.push({
+            score: inTitle ? 95 : 40,
+            html: `
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <span class="prefix-tag">🌐 ระหว่างประเทศ • ${escapeHtml(srv.prefix)}</span>
+                    <div class="card-title">${escapeHtml(srv.name)}</div>
+                  </div>
+                  <span class="badge badge-${escapeHtml(srv.badgeColor)}">บริการตปท.</span>
                 </div>
-                <span class="badge badge-${escapeHtml(srv.badgeColor)}">บริการ</span>
+                ${
+                  srv.dpostInterMode
+                    ? `<div style="background:#FEF2F2; border:1px solid #EF4444; border-radius:8px; padding:8px; margin-bottom:8px; font-size:13px; color:#991B1B; font-weight:600;">💻 <strong>D-Post Inter:</strong> ${escapeHtml(srv.dpostInterMode)}</div>`
+                    : ""
+                }
+                <div class="spec-grid">
+                  <div class="spec-item"><span class="spec-label">⚖️ น้ำหนักสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxWeight)}</span></div>
+                  <div class="spec-item"><span class="spec-label">📏 ขนาดสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxSize)}</span></div>
+                  <div class="spec-item"><span class="spec-label">🛡️ อัตราชดใช้:</span> <span class="spec-value">${escapeHtml(srv.indemnity)}</span></div>
+                </div>
+                <ul class="notes-list">
+                  ${notesToShow.map((n) => `<li class="${n.includes("🚨") || n.includes("🛡️") ? "critical" : "good"}">${escapeHtml(n)}</li>`).join("")}
+                </ul>
               </div>
-              ${
-                srv.dpostInterMode
-                  ? `<div style="background:#FEF2F2; border:1px solid #EF4444; border-radius:8px; padding:8px; margin-bottom:8px; font-size:13px; color:#991B1B; font-weight:600;">💻 <strong>D-Post Inter:</strong> ${escapeHtml(srv.dpostInterMode)}</div>`
-                  : ""
-              }
-              <div class="spec-grid">
-                <div class="spec-item"><span class="spec-label">⚖️ น้ำหนักสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxWeight)}</span></div>
-                <div class="spec-item"><span class="spec-label">📏 ขนาดสูงสุด:</span> <span class="spec-value">${escapeHtml(srv.maxSize)}</span></div>
-                <div class="spec-item"><span class="spec-label">🛡️ อัตราชดใช้:</span> <span class="spec-value">${escapeHtml(srv.indemnity)}</span></div>
-              </div>
-              <ul class="notes-list">
-                ${notesToShow.map((n) => `<li class="${n.includes("🚨") || n.includes("🛡️") ? "critical" : "good"}">${escapeHtml(n)}</li>`).join("")}
-              </ul>
-            </div>
-          `);
+            `
+          });
         }
       });
 
-      // ค้นหาในประเทศปลายทาง (Destinations)
-      DATA.destinations.forEach((d) => {
-        const hay = [
-          d.zone,
-          d.nonEuWarning || "",
-          ...d.countries,
-          ...d.allowedForDocs,
-          ...d.allowedForGoods,
-          ...d.mandatoryRules
-        ]
-          .join(" ")
-          .toLowerCase();
-
-        if (hay.includes(q)) {
-          const matchedCountries = d.countries.filter((c) => c.toLowerCase().includes(q));
-          matches.push(`
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">${escapeHtml(d.zone)}</div>
-                <span class="badge badge-blue">โซนปลายทาง</span>
-              </div>
-              ${
-                matchedCountries.length > 0
-                  ? `<div style="margin-bottom:8px; font-size:13.5px; color:#047857; font-weight:700;">🎯 ประเทศที่ตรงกับคำค้น: ${escapeHtml(matchedCountries.join(", "))}</div>`
-                  : ""
-              }
-              <div style="font-size:13px; font-weight:700; color:var(--thp-navy);">บริการส่งสิ่งของที่ใช้ได้:</div>
-              <ul class="notes-list">
-                ${d.allowedForGoods.map((g) => `<li class="good">${escapeHtml(g)}</li>`).join("")}
-              </ul>
-              <div style="font-size:13px; font-weight:700; color:#991B1B; margin-top:6px;">กฎเหล็กปลายทางนี้:</div>
-              <ul class="notes-list">
-                ${d.mandatoryRules.map((r) => `<li class="critical" style="white-space:pre-line;">${escapeHtml(r)}</li>`).join("")}
-              </ul>
-            </div>
-          `);
-        }
-      });
-
-      // ค้นหาในสิ่งของต้องห้าม & ข้อยกเว้น
+      // 5. ค้นหาในสิ่งของต้องห้าม & ข้อยกเว้น (เฉพาะเมื่อคำค้นยาวพอหรือตรงกับหมวดของต้องห้าม)
       const pg = DATA.prohibitedGuide;
       const prohibHay = [
         pg.strictBanEpacketUsEu.title,
@@ -1569,63 +1613,135 @@
         .join(" ")
         .toLowerCase();
 
-      if (prohibHay.includes(q)) {
-        matches.push(`
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">🚫 เกณฑ์สิ่งของต้องห้าม / ของเหลว / อาหาร (ePacket US & EU)</div>
-              <span class="badge badge-red">ข้อห้ามสำคัญ</span>
+      if (!isShort && prohibHay.includes(q)) {
+        scored.push({
+          score: 70,
+          html: `
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">🚫 เกณฑ์สิ่งของต้องห้าม / ของเหลว / อาหาร (ePacket US &amp; EU)</div>
+                <span class="badge badge-red">ข้อห้ามสำคัญ</span>
+              </div>
+              <div style="font-size:13px; color:#7F1D1D; font-weight:600; margin-bottom:8px;">
+                ${escapeHtml(pg.strictBanEpacketUsEu.penalty)}
+              </div>
+              <div style="font-size:13px; color:#065F46; font-weight:600; margin-bottom:8px;">
+                ${escapeHtml(pg.strictBanEpacketUsEu.alternativeForFood)}
+              </div>
+              <ul class="notes-list">
+                ${pg.strictBanEpacketUsEu.allowedExceptions
+                  .map((e) => `<li class="good"><strong>${escapeHtml(e.category)}:</strong> ${escapeHtml(e.limit)} (${escapeHtml(e.condition)})</li>`)
+                  .join("")}
+              </ul>
             </div>
-            <div style="font-size:13px; color:#7F1D1D; font-weight:600; margin-bottom:8px;">
-              ${escapeHtml(pg.strictBanEpacketUsEu.penalty)}
-            </div>
-            <div style="font-size:13px; color:#065F46; font-weight:600; margin-bottom:8px;">
-              ${escapeHtml(pg.strictBanEpacketUsEu.alternativeForFood)}
-            </div>
-            <ul class="notes-list">
-              ${pg.strictBanEpacketUsEu.allowedExceptions
-                .map((e) => `<li class="good"><strong>${escapeHtml(e.category)}:</strong> ${escapeHtml(e.limit)} (${escapeHtml(e.condition)})</li>`)
-                .join("")}
-            </ul>
-          </div>
-        `);
+          `
+        });
       }
 
-      // ค้นหาในส่วนลด/โปรโมชั่น
+      // 6. ค้นหาในส่วนลด/โปรโมชั่น และ แบบพิมพ์ระหว่างประเทศ
       DATA.promotions.active.forEach((p) => {
-        const hay = [p.title, p.period, p.target, p.posButton, ...p.services, ...p.conditions].join(" ").toLowerCase();
-        if (hay.includes(q)) {
-          matches.push(buildPromoCardHtml(p));
+        const titleHay = [p.title, p.posButton].join(" ").toLowerCase();
+        const bodyHay = [p.period, p.target, ...p.services, ...p.conditions].join(" ").toLowerCase();
+        if (titleHay.includes(q) || (!isShort && bodyHay.includes(q))) {
+          scored.push({ score: titleHay.includes(q) ? 80 : 30, html: buildPromoCardHtml(p) });
         }
       });
 
       DATA.promotions.expired.forEach((ex) => {
-        const hay = [ex.title, ex.period, ex.reason].join(" ").toLowerCase();
-        if (hay.includes(q)) {
-          matches.push(buildPromoCardHtml(ex));
+        const titleHay = ex.title.toLowerCase();
+        const bodyHay = [ex.period, ex.reason].join(" ").toLowerCase();
+        if (titleHay.includes(q) || (!isShort && bodyHay.includes(q))) {
+          scored.push({ score: titleHay.includes(q) ? 60 : 20, html: buildPromoCardHtml(ex) });
         }
       });
 
-      // ค้นหาในแบบพิมพ์และเอกสาร (Printable Docs)
       (DATA.printableDocs || []).forEach((doc) => {
-        const hay = [doc.title, doc.category, doc.serviceTag, doc.description, doc.updated].join(" ").toLowerCase();
-        if (hay.includes(q)) {
-          matches.push(buildDocCardHtml(doc));
+        const titleHay = [doc.title, doc.serviceTag].join(" ").toLowerCase();
+        const bodyHay = [doc.category, doc.description, doc.updated].join(" ").toLowerCase();
+        if (titleHay.includes(q) || (!isShort && bodyHay.includes(q))) {
+          scored.push({ score: titleHay.includes(q) ? 85 : 25, html: buildDocCardHtml(doc) });
         }
       });
 
-      if (matches.length === 0) {
-        resultsContainer.innerHTML = `
-          <div class="card" style="text-align:center; padding:24px;">
-            <div style="font-size:15px; font-weight:700; color:var(--text-muted);">ไม่พบข้อมูลที่ตรงกับ "${escapeHtml(input.value)}"</div>
-            <p style="font-size:13px; color:var(--text-muted); margin-top:6px;">ลองค้นหาด้วยคำว่า: ยุโรป, อเมริกา, มอลตา, เยอรมนี, อาหาร, ยาดม, พระเครื่อง, PID, LOA, แบบพิมพ์, กล่อง, ส่วนลด</p>
-          </div>
-        `;
-      } else {
-        resultsContainer.innerHTML = matches.join("");
-        attachDocActionEvents(resultsContainer);
+      scored.sort((a, b) => b.score - a.score);
+      return scored.map((x) => x.html);
+    }
+
+    function runSearchNow() {
+      const rawVal = input.value.trim();
+      const q = rawVal.toLowerCase();
+      if (!q) {
+        hideSearch();
+        return;
       }
-    });
+
+      clearBtn.style.display = "flex";
+      tabSections.forEach((sec) => sec.classList.remove("active"));
+      searchSection.style.display = "block";
+
+      // ค้นหาเฉพาะในโหมดที่กำลังเปิดอยู่เป็นหลัก! (เพื่อไม่ให้ข้อมูลในประเทศมาปนเวลาอยู่โหมดต่างประเทศ และไม่ให้ข้อมูลต่างประเทศมาปนเวลาอยู่โหมดในประเทศ)
+      const primaryMatches =
+        currentMode === "inter" ? getInternationalMatches(q, rawVal) : getDomesticMatches(q);
+      const otherModeMatches =
+        currentMode === "inter" ? getDomesticMatches(q) : getInternationalMatches(q, rawVal);
+
+      const modeBadgeHtml =
+        currentMode === "inter"
+          ? `<div style="background:#EFF6FF; border:1.5px solid #93C5FD; color:#1E3A8A; padding:8px 12px; border-radius:10px; margin-bottom:12px; font-size:13px; font-weight:700; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <span>🌐 กำลังค้นหาเฉพาะในโหมด【บริการระหว่างประเทศ】(${primaryMatches.length} รายการ)</span>
+              ${
+                otherModeMatches.length > 0
+                  ? `<button type="button" id="switchSearchModeBtn" style="background:#FEF3C7; color:#92400E; border:1px solid #F59E0B; padding:4px 10px; border-radius:999px; font-family:inherit; font-size:12px; font-weight:700; cursor:pointer;">🇹🇭 ดูผลในโหมดในประเทศ (${otherModeMatches.length} รายการ)</button>`
+                  : ""
+              }
+            </div>`
+          : `<div style="background:#FFFBEB; border:1.5px solid #F59E0B; color:#92400E; padding:8px 12px; border-radius:10px; margin-bottom:12px; font-size:13px; font-weight:700; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <span>🇹🇭 กำลังค้นหาเฉพาะในโหมด【บริการในประเทศ】(${primaryMatches.length} รายการ)</span>
+              ${
+                otherModeMatches.length > 0
+                  ? `<button type="button" id="switchSearchModeBtn" style="background:#DBEAFE; color:#1E40AF; border:1px solid #3B82F6; padding:4px 10px; border-radius:999px; font-family:inherit; font-size:12px; font-weight:700; cursor:pointer;">🌐 ดูผลในโหมดระหว่างประเทศ (${otherModeMatches.length} รายการ)</button>`
+                  : ""
+              }
+            </div>`;
+
+      if (primaryMatches.length === 0) {
+        if (otherModeMatches.length > 0) {
+          resultsContainer.innerHTML = `
+            ${modeBadgeHtml}
+            <div class="card" style="text-align:center; padding:18px; border:2px dashed #CBD5E1;">
+              <div style="font-size:14.5px; font-weight:700; color:var(--text-main); margin-bottom:8px;">
+                ไม่พบคำว่า "${escapeHtml(rawVal)}" ใน${currentMode === "inter" ? "บริการระหว่างประเทศ" : "บริการในประเทศ"} — แต่พบในโหมด${currentMode === "inter" ? "บริการในประเทศ" : "บริการระหว่างประเทศ"} จำนวน ${otherModeMatches.length} รายการ:
+              </div>
+            </div>
+            ${otherModeMatches.join("")}
+          `;
+        } else {
+          resultsContainer.innerHTML = `
+            ${modeBadgeHtml}
+            <div class="card" style="text-align:center; padding:24px;">
+              <div style="font-size:15px; font-weight:700; color:var(--text-muted);">ไม่พบข้อมูลที่ตรงกับ "${escapeHtml(rawVal)}"</div>
+              <p style="font-size:13px; color:var(--text-muted); margin-top:6px;">ลองค้นหาด้วยคำว่า: เกาหลี, ญี่ปุ่น, อเมริกา, ยุโรป, บราซิล, อาหาร, ยาดม, พระเครื่อง, PID, LOA, ตราสิน, Admail, EMS Jumbo</p>
+            </div>
+          `;
+        }
+      } else {
+        resultsContainer.innerHTML = modeBadgeHtml + primaryMatches.join("");
+      }
+
+      attachDocActionEvents(resultsContainer);
+
+      const switchBtn = document.getElementById("switchSearchModeBtn");
+      if (switchBtn) {
+        switchBtn.addEventListener("click", () => {
+          const savedVal = input.value;
+          switchAppMode(currentMode === "inter" ? "domestic" : "inter");
+          input.value = savedVal;
+          runSearchNow();
+        });
+      }
+    }
+
+    input.addEventListener("input", runSearchNow);
   }
 
   // 7.5 ศูนย์รวมแบบพิมพ์ เอกสารประกอบการรับฝาก (แชร์ / ดาวน์โหลด / สั่งพิมพ์ A4)
@@ -3964,6 +4080,14 @@
         currentMode === "domestic"
           ? "คู่มือบริการในประเทศ"
           : "คู่มือบริการระหว่างประเทศ";
+    }
+
+    const searchInputEl = document.getElementById("globalSearchInput");
+    if (searchInputEl) {
+      searchInputEl.placeholder =
+        currentMode === "domestic"
+          ? "ค้นหาในประเทศ: ตราสิน, Admail, eCo-Post, EMS Jumbo, COD, รหัส ปณ. 83000..."
+          : "ค้นหาต่างประเทศ: เกาหลี, ไต้หวัน, ยุโรป, อาหารแห้ง, ยาดม, PID, LOA, No Booking...";
     }
 
     if (gwBadgeDom && gwBadgeInter) {
