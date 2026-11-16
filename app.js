@@ -39,202 +39,598 @@
       .replace(/"/g, "&quot;");
   }
 
-  // 1. Render ตัวช่วยตัดสินใจด่วน 3 วินาที (Wizard)
-  function renderWizardOutput() {
-    const out = document.getElementById("wizardOutput");
-    if (!out) return;
-
-    const { dest, item } = wizardState;
-    let html = "";
-
-    if (dest === "eu") {
-      if (item === "food") {
-        html = `
-          <div style="color:#991B1B; font-weight:700; font-size:15px; margin-bottom:8px;">
-            🚫 ห้ามรับฝากด้วยบริการ ePacket DDP (LE) เด็ดขาด!
-          </div>
-          <ul class="notes-list" style="margin-top:0;">
-            <li class="critical"><strong>กฎเหล็ก EU (ปณท บร.(จร.1)/1921):</strong> ห้ามส่งอาหารทุกชนิด อาหารเสริม วิตามิน ขนม ชา กาแฟ เครื่องปรุง นมผง อาหารสัตว์ ในบริการ <strong>ePacket DDP (LE)</strong> โดยเด็ดขาด! (แม้มี อย. ก็ห้ามส่ง ฝ่าฝืนโดนปรับขั้นต่ำ <strong>3,100 บาท/กล่อง</strong>)</li>
-            <li class="good"><strong>✅ ทางเลือกที่ส่งได้:</strong> แนะนำให้ลูกค้าเปลี่ยนไปส่งด้วยบริการ <strong>Courier Post Plus</strong> (เฉพาะประเทศ EU ที่เปิดบริการ เช่น ฝรั่งเศส, เยอรมนี, อิตาลี, เนเธอร์แลนด์, สวีเดน — ต้องเป็นอาหารแปรรูปมีฉลากและ อย. ชัดเจน ห้ามอาหารทำเอง Homecook) หรือ <strong>Courier Post (Merchandise)</strong></li>
-            <li><strong>⚠️ หมายเหตุ:</strong> บริการ EMS World (Package) ปัจจุบันไม่เปิดรับฝากสิ่งของไปกลุ่มประเทศ EU 27 ประเทศสำหรับลูกค้าทั่วไป</li>
-            <li><strong>🆔 ต้องทำจ่าหน้าผ่าน D-Post Inter และกรอกรหัส PID (M-PID / NS-PID) ทุกชิ้น!</strong></li>
-          </ul>
-        `;
-      } else if (item === "doc") {
-        html = `
-          <div style="color:#1E40AF; font-weight:700; font-size:15px; margin-bottom:8px;">
-            📄 ส่งเอกสารล้วน (Document) ไปสหภาพยุโรป (EU 27 ประเทศ)
-          </div>
-          <ul class="notes-list" style="margin-top:0;">
-            <li class="good"><strong>✅ บริการที่ใช้ได้:</strong> <strong>EMS World (Document - ED)</strong>, <strong>Courier Post (Document)</strong>, <strong>จดหมาย / จดหมายลงทะเบียน (RR)</strong>, <strong>ของตีพิมพ์ / ถุงรวมของตีพิมพ์ (M-Bag)</strong></li>
-            <li class="critical"><strong>⚠️ ข้อควรระวัง:</strong> ต้องเป็นเอกสารล้วนตามเกณฑ์เท่านั้น ห้ามสอดไส้สินค้าหรือสิ่งของเด็ดขาด! (และปลายทาง <strong>เยอรมนี</strong> งดบริการทางภาคพื้น/ทางเรือทุกประเภท)</li>
-          </ul>
-        `;
-      } else if (item === "cosmetic") {
-        html = `
-          <div style="color:#065F46; font-weight:700; font-size:15px; margin-bottom:8px;">
-            🧴 ส่งยาดม / ครีม / เครื่องสำอาง / แชมพู ไป EU 27 ประเทศ
-          </div>
-          <ul class="notes-list" style="margin-top:0;">
-            <li class="good"><strong>✅ ส่งผ่าน ePacket DDP (LE) ได้ (ภายใต้เงื่อนไขเคร่งครัด):</strong>
-              <br>• <strong>ยาดม ยาหม่อง ยาลม พิมเสนน้ำ:</strong> ขวดละไม่เกิน 100 ml และ <strong>รวมไม่เกิน 6 ชิ้น/กล่อง</strong> (ต้องมี อย. ห้ามสเปรย์/แอลกอฮอล์สูง)
-              <br>• <strong>เครื่องสำอาง (Toner, Serum, ครีม):</strong> ขวดละไม่เกิน 100 ml และน้ำหนักรวมของเหลวทั้งหมด <strong>ไม่เกิน 1 กก./กล่อง</strong>
-              <br>• <strong>แชมพู ครีมนวด สบู่เหลว:</strong> ไม่จำกัดปริมาตรต่อขวด แต่น้ำหนักรวมของเหลวทั้งหมดในกล่องต้อง <strong>ไม่เกิน 1 กก./กล่อง</strong>
-            </li>
-            <li class="critical"><strong>🚨 สิ่งที่เจ้าหน้าที่ต้องทำหน้าเคาน์เตอร์ (ePacket DDP - LE):</strong>
-              <br>1. ลูกค้าต้องทำจ่าหน้าผ่าน <strong>D-Post Inter</strong> (สกุลเงิน <strong>EUR</strong> มูลค่ารวมไม่เกิน <strong>150 EUR/กล่อง</strong>) + กรอกรหัส <strong>M-PID</strong> และ <strong>NS-PID</strong>
-              <br>2. <strong>เปิดตรวจของจริง 100%</strong> ให้ลูกค้าติ๊กใบ Checklist 14 ข้อ แล้วประทับตรา/เขียน <strong>"Content Checked"</strong> หน้ากล่อง
-              <br>3. รับชำระค่าภาษีผ่าน <strong>Pay@Post (รหัส 84415)</strong> แล้วต้องประทับตรา/เขียน <strong>"Duties Paid"</strong> บนใบจ่าหน้าทุกชิ้น!
-              <br>4. 🎁 <strong>โปรโมชั่น 1 พ.ย. – 31 ธ.ค. 69:</strong> สมาชิก POST Family ลด 5% (ปุ่ม <code>ส่วนลดตามแคมเปญ ePacket DDP 5%</code>)
-            </li>
-          </ul>
-        `;
-      } else {
-        html = `
-          <div style="color:#1E40AF; font-weight:700; font-size:15px; margin-bottom:8px;">
-            🇪🇺 ส่งสินค้าทั่วไป ไปสหภาพยุโรป (EU 27 ประเทศ) — อัปเดต 1 พ.ย. 69
-          </div>
-          <ul class="notes-list" style="margin-top:0;">
-            <li class="good"><strong>✅ บริการที่แนะนำ:</strong>
-              <br>1. <strong>ePacket DDP (LE):</strong> ขยายครบทั้ง 27 ประเทศ EU แล้ว! (นน.สูงสุด <strong>5 กก.</strong>, ด้านยาวสุดไม่เกิน <strong>60 ซม.</strong>, อีก 2 ด้านไม่เกิน 40 และ 30 ซม., ก+ย+ส ไม่เกิน <strong>130 ซม.</strong>, มูลค่าไม่เกิน <strong>150 EUR</strong>)
-              <br>2. <strong>Courier Post (Merchandise)</strong> หรือ <strong>Courier Post Plus</strong> (สำหรับของเกิน 5 กก. หรือมูลค่าเกิน 150 EUR)
-            </li>
-            <li class="critical"><strong>🚨 เช็คลิสต์บังคับหน้าเคาน์เตอร์ (ห้ามลืมเด็ดขาด!):</strong>
-              <br>• ต้องทำจ่าหน้าผ่าน <strong>D-Post Inter</strong> เท่านั้น + ต้องกรอกรหัสสินค้า <strong>M-PID</strong> และ <strong>NS-PID</strong> ทุกชิ้น!
-              <br>• <strong>เปิดตรวจสิ่งของ 100%</strong> (ห้ามมีอาหาร/อาหารเสริม/แบตเตอรี่/แม่เหล็ก) ให้ลูกค้าเซ็นใบ Checklist และเขียน/ประทับตรา <strong>"Content Checked"</strong> บนหน้ากล่อง
-              <br>• ยิงบาร์โค้ดที่ 2 รับชำระภาษีผ่าน <strong>Pay@Post (รหัส 84415)</strong> แล้วเขียน/ประทับตรา <strong>"Duties Paid"</strong> บนใบจ่าหน้า!
-              <br>• <strong>ห้ามใช้คำกำกวม:</strong> ห้ามสำแดงว่า Gift, Sample, Accessories, Clothes เฉยๆ (ต้องระบุชัด เช่น Men's Cotton T-Shirt)
-              <br>• 🎁 <strong>ส่วนลด 5% (1 พ.ย. – 31 ธ.ค. 69):</strong> สมาชิก POST Family กดปุ่ม <code>ส่วนลดตามแคมเปญ ePacket DDP 5%</code>
-            </li>
-          </ul>
-        `;
-      }
-    } else if (dest === "us") {
-      if (item === "food") {
-        html = `
-          <div style="color:#991B1B; font-weight:700; font-size:15px; margin-bottom:8px;">
-            🚫 ห้ามส่งอาหารผ่าน ePacket US (LA/LI) เด็ดขาด! (แต่ส่งผ่านบริการอื่นได้)
-          </div>
-          <ul class="notes-list" style="margin-top:0;">
-            <li class="critical"><strong>❌ ห้ามใช้ ePacket US (LA/LI):</strong> บริการ ePacket ไปสหรัฐอเมริกา ห้ามส่งอาหารทุกชนิด อาหารเสริม วิตามิน ขนม ชา กาแฟ เครื่องปรุง นมผง อาหารสัตว์ โดยเด็ดขาด! (ฝ่าฝืนถูกปรับขั้นต่ำ <strong>3,100 บาท/กล่อง</strong>)</li>
-            <li class="good"><strong>✅ บริการที่ส่งอาหารแห้งมี อย. ไปสหรัฐฯ ได้:</strong>
-              <br>1. <strong>EMS World (Package - EE)</strong> — ส่งอาหารแห้ง/ไม่เน่าเสียง่ายที่มีเครื่องหมาย อย. และฉลากภาษาอังกฤษชัดเจนได้ตามปกติ
-              <br>2. <strong>Courier Post Plus (FD 1–20 กก. / FC >20–5,000 กก.)</strong> — ส่งอาหารแปรรูปที่มีฉลากและ อย. ได้ (ห้ามอาหารทำเอง Homecook) *และช่วง 1 ต.ค.–30 พ.ย. 69 มีโปรแชร์สื่อลด 5% ปุ่ม <code>PostPlusDDP5%</code>*
-              <br>3. <strong>พัสดุไปรษณีย์ทางอากาศ (CP)</strong> หรือ <strong>Courier Post (Merchandise)</strong>
-            </li>
-          </ul>
-        `;
-      } else if (item === "doc") {
-        html = `
-          <div style="color:#991B1B; font-weight:700; font-size:15px; margin-bottom:8px;">
-            📄 กฎเหล็กส่งเอกสาร (Document) ไปสหรัฐอเมริกา (US)!
-          </div>
-          <ul class="notes-list" style="margin-top:0;">
-            <li class="critical"><strong>🚨 จำกัดน้ำหนักไม่เกิน 500 กรัม! (ปณท รร.(ปร.3)/2826):</strong>
-              <br>การฝากส่งบริการ <strong>EMS World (Document)</strong>, <strong>ไปรษณียภัณฑ์ลงทะเบียน (เอกสาร)</strong>, <strong>จดหมาย</strong> และ <strong>ของตีพิมพ์</strong> ไปสหรัฐอเมริกา:
-              <br>• ต้องบรรจุเฉพาะ <strong>เอกสารเท่านั้น</strong> (ห้ามมีสินค้า/สิ่งของปะปนเด็ดขาด)
-              <br>• น้ำหนักต้อง <strong>ไม่เกิน 500 กรัม</strong>
-              <br>• ขนาดต้องไม่เกินซอง P/G (<strong>30.5 × 38.1 × 2 ซม.</strong>)
-            </li>
-            <li class="good"><strong>💡 หากเอกสารหนักเกิน 500 กรัม หรือมีสิ่งของปะปน:</strong> ให้แนะนำใช้บริการ <strong>Courier Post (Document ไม่เกิน 2 กก.)</strong> หรือหากเป็นสิ่งของให้ใช้ <strong>ePacket US (LA/LI)</strong> / <strong>EMS World (Package)</strong> แทน</li>
-          </ul>
-        `;
-      } else if (item === "cosmetic") {
-        html = `
-          <div style="color:#065F46; font-weight:700; font-size:15px; margin-bottom:8px;">
-            🧴 ส่งยาดม / ครีม / เครื่องสำอาง / แชมพู ไปสหรัฐอเมริกา (US)
-          </div>
-          <ul class="notes-list" style="margin-top:0;">
-            <li class="good"><strong>✅ ส่งผ่าน ePacket US (LA/LI) ได้ตามโควตาที่กำหนด:</strong>
-              <br>• <strong>ยาดม ยาหม่อง ยาลม พิมเสนน้ำ:</strong> ขวดละไม่เกิน 100 ml และ <strong>รวมไม่เกิน 6 ชิ้น/กล่อง</strong> (ต้องมี อย.)
-              <br>• <strong>เครื่องสำอาง (Toner, Serum, ครีม):</strong> ขวดละไม่เกิน 100 ml และน้ำหนักรวมของเหลวทั้งหมด <strong>ไม่เกิน 1 กก./กล่อง</strong>
-              <br>• <strong>แชมพู ครีมนวด สบู่เหลว:</strong> น้ำหนักรวมของเหลวทั้งหมดในกล่องต้อง <strong>ไม่เกิน 1 กก./กล่อง</strong>
-            </li>
-            <li class="critical"><strong>🚨 สิ่งที่ต้องตรวจก่อนรับฝาก ePacket US (LA/LI):</strong>
-              <br>• ทำจ่าหน้าผ่าน <strong>D-Post Inter</strong> (สกุลเงิน <strong>USD</strong> มูลค่ารวมไม่เกิน <strong>60 USD/กล่อง</strong>, นน.ไม่เกิน <strong>5 กก.</strong>, ยาวสุดไม่เกิน 55 ซม., ก+ย+ส ไม่เกิน 100 ซม.)
-              <br>• <strong>เปิดตรวจของจริง 100%</strong> ให้ลูกค้าเซ็นใบ Checklist และประทับตรา/เขียน <strong>"Content Checked"</strong> บนหน้ากล่อง!
-            </li>
-          </ul>
-        `;
-      } else {
-        html = `
-          <div style="color:#1E40AF; font-weight:700; font-size:15px; margin-bottom:8px;">
-            🇺🇸 ส่งสินค้าทั่วไป ไปสหรัฐอเมริกา (US)
-          </div>
-          <ul class="notes-list" style="margin-top:0;">
-            <li class="good"><strong>✅ บริการยอดนิยมที่เลือกใช้ได้:</strong>
-              <br>1. <strong>ePacket US (LA = 48 รัฐแผ่นดินใหญ่ / LI = Alaska, Hawaii, เกาะ, APO):</strong> รวมภาษี DDP ในค่าส่งแล้ว! นน.ไม่เกิน <strong>5 กก.</strong>, มูลค่าไม่เกิน <strong>60 USD/กล่อง</strong>, ยาวสุดไม่เกิน <strong>55 ซม.</strong> และ ก+ย+ส ไม่เกิน <strong>100 ซม.</strong>
-              <br>2. <strong>Courier Post Plus (FD 1–20 กก. / FC >20–5,000 กก.):</strong> รวมภาษี DDP ได้ ส่งหลายกล่องรวมน้ำหนักได้ (มีโปรแชร์สื่อลด 5% ปุ่ม <code>PostPlusDDP5%</code> ถึง 30 พ.ย. 69)
-              <br>3. <strong>EMS World (Package - EE)</strong> หรือ <strong>Courier Post (Merchandise)</strong>
-            </li>
-            <li class="critical"><strong>🚨 เช็คลิสต์บังคับสำหรับ ePacket US (LA/LI):</strong>
-              <br>• ต้องทำจ่าหน้าผ่าน <strong>D-Post Inter</strong> (สกุลเงิน <strong>USD</strong> เท่านั้น)
-              <br>• <strong>เปิดตรวจของ 100% ทุกชิ้น!</strong> ให้ลูกค้าทำใบ Checklist และประทับตรา/เขียน <strong>"Content Checked"</strong> บนหน้ากล่อง (ห้ามมีอาหาร/อาหารเสริม/ยา/แบตเตอรี่/แม่เหล็ก/พระองค์ใหญ่)
-              <br>• พระเครื่องขนาดห้อยคอส่งได้น้ำหนักรวมไม่เกิน <strong>500 กรัม/กล่อง</strong>
-              <br>• ปิดถุงแยกเฉพาะ เขียนป้าย ป.322 ว่า <strong>"ePacket ปลายทาง US"</strong>
-            </li>
-          </ul>
-        `;
-      }
-    } else if (dest === "uk") {
-      html = `
-        <div style="color:#065F46; font-weight:700; font-size:15px; margin-bottom:8px;">
-          🇬🇧 ส่งไปสหราชอาณาจักร (อังกฤษ / UK) — *อยู่นอกสหภาพยุโรป (Non-EU)*
-        </div>
-        <ul class="notes-list" style="margin-top:0;">
-          <li class="good"><strong>💡 ข้อสังเกตสำคัญ:</strong> สหราชอาณาจักร (UK) <strong>ไม่ใช่สมาชิก EU 27 ประเทศ</strong> (เช่นเดียวกับ สวิตเซอร์แลนด์ และ นอร์เวย์) จึงใช้บริการปกติได้ครบทุกบริการ!</li>
-          <li class="good"><strong>✅ บริการที่ใช้ได้:</strong>
-            <br>• <strong>ePacket ปกติ (บาร์โค้ด LX):</strong> พิเศษ! ปลายทาง UK รับน้ำหนักได้สูงสุดถึง <strong>5 กก.</strong> (ประเทศอื่นนอก US/EU รับได้ 2 กก.) และ <strong>สามารถส่งอาหารแห้งที่มี อย. ได้!</strong>
-            <br>• <strong>EMS World (Document & Package):</strong> ส่งได้ทั้งเอกสารและสิ่งของ (สูงสุด 30 กก.)
-            <br>• <strong>Courier Post Plus (FC):</strong> ส่งแบบ DDU หรือ DDP ได้ (มีส่วนลด 5% ปุ่ม <code>PostPlusDDP5%</code> เมื่อลูกค้าแชร์สื่อสาธารณะ ถึง 30 พ.ย. 69)
-            <br>• <strong>Courier Post</strong> / <strong>พัสดุไปรษณีย์ระหว่างประเทศ</strong>
-          </li>
-          <li><strong>📝 การคีย์ข้อมูลศุลกากร:</strong> บันทึกข้อมูล ITMATT ภาษาอังกฤษให้ครบถ้วน (ไม่ต้องใช้ Pay@Post 84415 ของ EU)</li>
-        </ul>
-      `;
-    } else {
-      html = `
-        <div style="color:#1E40AF; font-weight:700; font-size:15px; margin-bottom:8px;">
-          🌏 ส่งไปประเทศอื่นๆ (เอเชีย / ญี่ปุ่น / เกาหลีใต้ / ออสเตรเลีย / แคนาดา ฯลฯ)
-        </div>
-        <ul class="notes-list" style="margin-top:0;">
-          <li class="good"><strong>✅ บริการที่ใช้ได้ครบถ้วน:</strong>
-            <br>• <strong>ePacket (LP / LX):</strong> น้ำหนักไม่เกิน <strong>2 กก.</strong> (ยาวสุดไม่เกิน 60 ซม., ก+ย+ส ไม่เกิน 90 ซม.) — <strong>ส่งอาหารแห้งที่มีเครื่องหมาย อย. และฉลากชัดเจนได้!</strong> (ซื้อ ePacket Plus +30 บ. คุ้มครองสูงสุด 1,500 บ.)
-            <br>• <strong>EMS World (EE / ED):</strong> ส่งได้ทั้งเอกสารและพัสดุ (รวมถึงอาหารแห้งมี อย.) *ระวัง: ออสเตรเลียจำกัดยาวสุดไม่เกิน 105 ซม. และนน.ไม่เกิน 20 กก.*
-            <br>• <strong>Courier Post Plus (FC):</strong> เปิดบริการใน ญี่ปุ่น, เกาหลีใต้, ออสเตรเลีย, สิงคโปร์, ไต้หวัน, แคนาดา, จีน, ฮ่องกง, มาเลเซีย, อิสราเอล (ลด 5% ปุ่ม <code>PostPlusDDP5%</code> ถึง 30 พ.ย. 69)
-            <br>• <strong>Courier Post</strong> / <strong>พัสดุไปรษณีย์</strong> / <strong>พัสดุย่อย</strong>
-          </li>
-          <li><strong>📝 ข้อควรจำ:</strong> บันทึกข้อมูลศุลกากรล่วงหน้า (ITMATT) เป็นภาษาอังกฤษให้ชัดเจนทุกชิ้น (ห้ามเขียนแค่ Gift หรือ Food)</li>
-        </ul>
-      `;
+  // 1. ระบบค้นหาอัจฉริยะจาก【ชื่อประเทศ】+【สิ่งของที่จะส่ง】➔ แสดงบริการที่รองรับ vs บริการที่ห้ามส่งเด็ดขาด!
+  function classifyDestination(rawText) {
+    const q = String(rawText || "").trim().toLowerCase();
+    if (!q) {
+      return {
+        zoneType: "ALL",
+        displayName: "ทุกประเทศปลายทาง (ภาพรวม)",
+        flag: "🌍",
+        isEu: false,
+        isEuEx4: false,
+        isUs: false,
+        isUk: false,
+        hasCpp: true,
+        returnFee11: false,
+        specialNotes: []
+      };
     }
 
-    out.innerHTML = html;
+    if (q.includes("สหรัฐอเมริกา") || q.includes("อเมริกา") || q.includes("สหรัฐ") || /\b(us|usa|america|hawaii|alaska|apo|fpo)\b/.test(q)) {
+      return {
+        zoneType: "US",
+        displayName: "สหรัฐอเมริกา (USA)",
+        flag: "🇺🇸",
+        isEu: false,
+        isEuEx4: false,
+        isUs: true,
+        isUk: false,
+        hasCpp: true,
+        returnFee11: false,
+        specialNotes: [
+          "🚨 แยกหมวดอักษร ePacket US ให้ถูก: 48 รัฐแผ่นดินใหญ่ใช้รหัส LA...TH | ส่วนเกาะ/รัฐนอกแผ่นดินใหญ่ (Hawaii, Alaska, Guam, Puerto Rico) และค่ายทหาร (City: APO/FPO/DPO, State: AA/AE/AP) ต้องใช้รหัส LI...TH เท่านั้น!",
+          "🚨 บริการประเภทเอกสาร (EMS Document / ลงทะเบียนเอกสาร RR) ไปสหรัฐฯ น้ำหนักต้องไม่เกิน 500 กรัม และซองไม่เกิน P/G (30.5×38.1×2 ซม.) ห้ามมีสิ่งของปะปนเด็ดขาด!",
+          "🚨 สินค้าควบคุม CPSC 600 พิกัด (ของเล่น/สินค้าเด็ก/เครื่องใช้ไฟฟ้า) ผู้รับต้องลงทะเบียน IOR และยื่น CPSC eFiling"
+        ]
+      };
+    }
+
+    if (q.includes("อังกฤษ") || q.includes("สหราชอาณาจักร") || /\b(uk|gb|united kingdom|england|britain)\b/.test(q)) {
+      return {
+        zoneType: "UK",
+        displayName: "สหราชอาณาจักร (อังกฤษ / UK — นอกกลุ่ม EU)",
+        flag: "🇬🇧",
+        isEu: false,
+        isEuEx4: false,
+        isUs: false,
+        isUk: true,
+        hasCpp: true,
+        returnFee11: false,
+        specialNotes: [
+          "✅ อังกฤษ (UK) ไม่ใช่สมาชิกสหภาพยุโรป (EU 27 ประเทศ) จึงส่ง EMS World (Package) และ ePacket ปกติ (LX...TH) ได้ตามปกติ!",
+          "✅ พิเศษเฉพาะ UK: บริการ ePacket ปกติ (LX...TH) รับน้ำหนักได้สูงสุดถึง 5 กก. (ประเทศอื่นนอก US/EU รับได้ 2 กก.) และส่งอาหารแห้งที่มี อย. ได้!"
+        ]
+      };
+    }
+
+    if (q.includes("สวิตเซอร์แลนด์") || q.includes("สวิส") || q.includes("นอร์เวย์") || /\b(ch|switzerland|swiss|no|norway)\b/.test(q)) {
+      const isNo = q.includes("นอร์เวย์") || /\b(no|norway)\b/.test(q);
+      return {
+        zoneType: "NON_EU_EUROPE",
+        displayName: isNo ? "นอร์เวย์ (Norway — นอกกลุ่ม EU)" : "สวิตเซอร์แลนด์ (Switzerland — นอกกลุ่ม EU)",
+        flag: isNo ? "🇳🇴" : "🇨🇭",
+        isEu: false,
+        isEuEx4: false,
+        isUs: false,
+        isUk: false,
+        hasCpp: true,
+        returnFee11: false,
+        specialNotes: [
+          `✅ ${isNo ? "นอร์เวย์" : "สวิตเซอร์แลนด์"} อยู่ในทวีปยุโรปแต่ "ไม่ใช่สมาชิกสหภาพยุโรป (EU 27 ประเทศ)" จึงใช้บริการปกติได้ครบทุกบริการ (ส่ง EMS World Package และ ePacket LX สูงสุด 2 กก. ได้ตามปกติ!)`
+        ]
+      };
+    }
+
+    // เช็คสมาชิก EU 27 ประเทศ
+    const euEx4List = ["สวีเดน", "sweden", "เดนมาร์ก", "denmark", "โครเอเชีย", "croatia", "สโลวีเนีย", "slovenia"];
+    const isEuEx4 = euEx4List.some((w) => q.includes(w));
+    const isMalta = q.includes("มอลตา") || q.includes("malta");
+    const isGermany = q.includes("เยอรมนี") || q.includes("เยอรมัน") || q.includes("germany");
+
+    const eu27Keywords = [
+      "ยุโรป", "eu", "เยอรมนี", "เยอรมัน", "germany", "ฝรั่งเศส", "france", "อิตาลี", "italy",
+      "สเปน", "spain", "เนเธอร์แลนด์", "ฮอลแลนด์", "netherlands", "เบลเยียม", "belgium",
+      "สวีเดน", "sweden", "ออสเตรีย", "austria", "โปแลนด์", "poland", "เดนมาร์ก", "denmark",
+      "ฟินแลนด์", "finland", "โปรตุเกส", "portugal", "กรีซ", "greece", "ไอร์แลนด์", "ireland",
+      "เช็ก", "czech", "ฮังการี", "hungary", "โรมาเนีย", "romania", "บัลแกเรีย", "bulgaria",
+      "สโลวาเกีย", "slovakia", "โครเอเชีย", "croatia", "สโลวีเนีย", "slovenia", "ลิทัวเนีย", "lithuania",
+      "ลัตเวีย", "latvia", "เอสโตเนีย", "estonia", "ลักเซมเบิร์ก", "luxembourg", "ไซปรัส", "cyprus", "มอลตา", "malta"
+    ];
+
+    if (eu27Keywords.some((w) => q.includes(w))) {
+      const notes = [
+        "🚨 กฎเหล็ก EU 27 ประเทศ (เริ่ม 1 พ.ย. 69 บันทึก 3247 & 3363): ต้องทำจ่าหน้าผ่าน D-Post Inter และต้องกรอกรหัสสินค้า M-PID และ NS-PID ทุกชิ้น! (ยกเว้นเอกสารล้วน Document ไม่ต้องใช้ PID)",
+        "🚨 สำหรับ ePacket DDP (LE...TH): ต้องเปิดตรวจของ 100% + เขียน 'Content Checked' + รับชำระภาษีผ่าน Pay@Post (รหัส 84415) + เขียน 'Duties Paid' หน้ากล่อง (และหากนำจ่ายไม่ได้ ณ ปลายทาง จะถูกละทิ้งทันที ไม่มีการส่งคืนต้นทาง!)"
+      ];
+      if (isGermany) {
+        notes.push("🚫 เฉพาะปลายทางเยอรมนี: งดให้บริการทางภาคพื้น (ทางเรือ / Surface) ทุกประเภท ตั้งแต่วันที่ 24 ก.ค. 2569");
+      }
+      if (isMalta) {
+        notes.push("🚫 เฉพาะปลายทางมอลตา (Malta): การไปรษณีย์มอลตาระงับบริการไปรษณียภัณฑ์ลงทะเบียนประเภทสิ่งของ (รับเฉพาะบริการ DDP เช่น ePacket DDP เท่านั้น)");
+      }
+      if (isEuEx4) {
+        notes.push("💡 ข้อยกเว้นพิเศษ 4 ประเทศ EU (โครเอเชีย, สโลวีเนีย, เดนมาร์ก, สวีเดน): นอกจาก ePacket DDP แล้ว ยังอนุญาตให้ส่งบริการไปรษณีย์ทั่วไป (พัสดุย่อย / ePacket ปกติ / EMS World Package) ได้หากมีเลข IOSS ตามเงื่อนไข");
+      }
+      if (q.includes("อิตาลี") || q.includes("italy") || q.includes("โปรตุเกส") || q.includes("portugal")) {
+        notes.push("⚠️ อยู่ในกลุ่ม 11 ประเทศที่เรียกเก็บค่าส่งคืน EMS World ทุกกรณีหากพัสดุถูกตีกลับ");
+      }
+
+      const cppEuCountries = ["ฝรั่งเศส", "france", "เยอรมนี", "เยอรมัน", "germany", "อิตาลี", "italy", "สเปน", "spain", "เนเธอร์แลนด์", "netherlands", "สวีเดน", "sweden", "เบลเยียม", "belgium", "เดนมาร์ก", "denmark"];
+      const hasCppEu = cppEuCountries.some((w) => q.includes(w)) || q.includes("ยุโรป") || q === "eu";
+
+      return {
+        zoneType: "EU",
+        displayName: `${rawText.trim()} — สมาชิกสหภาพยุโรป (EU 27 ประเทศ)`,
+        flag: "🇪🇺",
+        isEu: true,
+        isEuEx4,
+        isMalta,
+        isUs: false,
+        isUk: false,
+        hasCpp: hasCppEu,
+        returnFee11: q.includes("อิตาลี") || q.includes("โปรตุเกส"),
+        specialNotes: notes
+      };
+    }
+
+    // ประเทศอื่นๆ นอก US/EU
+    const notes = [
+      "✅ อยู่นอกกลุ่ม US/EU: สามารถใช้บริการมาตรฐานได้ครบทุกบริการ ทั้ง EMS World (Package & Document), ePacket (LP / LX), Courier Post, พัสดุไปรษณีย์ (CP) และพัสดุย่อย",
+      "📝 ต้องคีย์ข้อมูลศุลกากรล่วงหน้า (D-Post Inter หรือ ITMATT) เป็นภาษาอังกฤษ พร้อมระบุ HS Code 6 หลักให้ชัดเจนทุกชิ้น (ห้ามเขียนคำกำกวม เช่น Gift / Food / Clothes เฉยๆ เพื่อป้องกันติดสถานะ No Booking)"
+    ];
+
+    let hasCppOther = true;
+    if (q.includes("บราซิล") || q.includes("brazil") || q === "br") {
+      hasCppOther = false;
+      notes.unshift("🚨 กฎเหล็กบราซิล (มีผล 1 ต.ค. 69): บังคับระบุเลขประจำตัวผู้เสียภาษีของผู้รับในบราซิล (บุคคลธรรมดา = CPF 11 หลัก / นิติบุคคล = CNPJ 14 หลัก) ในช่อง REFERENCE ID บนระบบ D-Post Inter และบนใบ CN22/CN23 พร้อม HS Code 6 หลัก หากไม่ระบุจะถูกศุลกากรบราซิลตีกลับทันที!");
+    }
+    if (q.includes("ญี่ปุ่น") || q.includes("japan") || q === "jp") {
+      notes.unshift("🚨 กฎศุลกากรญี่ปุ่นใหม่ (ประกาศ ลว. 10 ก.ย. 69): ต้องส่งข้อมูล ITMATT ผ่าน D-Post Inter ครบถ้วนทุกช่อง (ชื่อ-ที่อยู่ เบอร์โทร อีเมล รายการของ น้ำหนัก มูลค่า ประเทศกำเนิด และ HS Code 6 หลัก) และห้ามส่งเนื้อสัตว์แปรรูป/หมูแผ่น/กุนเชียง/ผลไม้สดเด็ดขาด!");
+    }
+    if (q.includes("ไต้หวัน") || q.includes("taiwan") || q === "tw") {
+      notes.unshift("⚠️ ปลายทางไต้หวัน: จำกัดน้ำหนัก EMS World สูงสุดไม่เกิน 20 กก. และห้ามส่งเนื้อหมู/ผลิตภัณฑ์จากเนื้อสัตว์ทุกชนิดเด็ดขาด (ศุลกากรไต้หวันปรับหนักมาก!)");
+    }
+    if (q.includes("ออสเตรเลีย") || q.includes("australia") || q === "au") {
+      notes.unshift("⚠️ ปลายทางออสเตรเลีย: บริการ EMS World จำกัดน้ำหนักสูงสุด 20 กก. และด้านยาวสุดไม่เกิน 105 ซม. (ยาว+รอบตัวห่อ ≤ 200 ซม.) + อยู่ในกลุ่ม 11 ประเทศที่เก็บค่าส่งคืน EMS World ทุกกรณีเมื่อถูกตีกลับ!");
+    }
+    if (q.includes("ดูไบ") || q.includes("เอมิเรตส์") || q.includes("uae") || q === "ae") {
+      hasCppOther = false;
+      notes.unshift("⚠️ ปลายทาง UAE (ดูไบ): บริการ EMS World จำกัดด้านยาวสุดไม่เกิน 105 ซม. และยาว+รอบตัวห่อไม่เกิน 200 ซม.");
+    }
+    if (q.includes("อิสราเอล") || q.includes("israel") || q === "il") {
+      notes.unshift("⚠️ ปลายทางอิสราเอล: จำกัดน้ำหนัก EMS World ไม่เกิน 20 กก. และอยู่ในกลุ่ม 11 ประเทศที่เก็บค่าส่งคืน EMS World ทุกกรณีเมื่อถูกตีกลับ");
+    }
+
+    const return11Names = ["ออสเตรเลีย", "นิวซีแลนด์", "โปรตุเกส", "รัสเซีย", "กัมพูชา", "อิสราเอล", "อิตาลี", "มาเลเซีย", "เมียนมา", "พม่า", "ซาอุดีอาระเบีย", "ยูเครน"];
+    const isRet11 = return11Names.some((n) => q.includes(n));
+    if (isRet11 && !q.includes("ออสเตรเลีย") && !q.includes("อิสราเอล")) {
+      notes.push("🚨 ประเทศนี้อยู่ในกลุ่ม 11 ประเทศปลายทางที่ 'เรียกเก็บค่าส่งคืน EMS World ทุกกรณี' หากพัสดุนำจ่ายไม่ได้และถูกตีกลับ!");
+    }
+
+    return {
+      zoneType: "OTHER",
+      displayName: `${rawText.trim()} (ประเทศนอกกลุ่ม US/EU)`,
+      flag: "🌏",
+      isEu: false,
+      isEuEx4: false,
+      isUs: false,
+      isUk: false,
+      hasCpp: hasCppOther,
+      returnFee11: isRet11,
+      specialNotes: notes,
+      rawQuery: q
+    };
+  }
+
+  function classifyItemQuery(rawItem) {
+    const q = String(rawItem || "").trim().toLowerCase();
+    if (!q) return { cat: "general", label: "สินค้าทั่วไป / ไม่ระบุชนิดสิ่งของ" };
+
+    if (q.includes("หมู") || q.includes("กุนเชียง") || q.includes("แหนม") || q.includes("เนื้อสัตว์") || q.includes("ไส้กรอก") || q.includes("ลูกชิ้น") || q.includes("แคบหมู") || q.includes("เนื้อแดดเดียว")) {
+      return { cat: "meat_food", label: `🥩 เนื้อสัตว์แปรรูป / หมูแผ่น / กุนเชียง (${rawItem.trim()})` };
+    }
+    if (q.includes("อาหารเสริม") || q.includes("วิตามิน") || q.includes("คอลลาเจน") || q.includes("เวย์") || q.includes("โปรตีน") || q.includes("ลดน้ำหนัก") || q.includes("อาหารสัตว์")) {
+      return { cat: "supplement", label: `💊 อาหารเสริม / วิตามิน / ผลิตภัณฑ์เสริมอาหาร (${rawItem.trim()})` };
+    }
+    if (q.includes("อาหาร") || q.includes("ขนม") || q.includes("น้ำพริก") || q.includes("พริกแกง") || q.includes("มาม่า") || q.includes("บะหมี่") || q.includes("เครื่องปรุง") || q.includes("ชา") || q.includes("กาแฟ") || q.includes("ผลไม้อบแห้ง") || q.includes("ทุเรียน") || q.includes("ปลาแห้ง") || q.includes("กุ้งแห้ง") || q.includes("กะปิ") || q.includes("น้ำปลา") || q.includes("นมผง") || q.includes("ข้าวสาร")) {
+      return { cat: "dry_food", label: `🍜 อาหารแห้ง / ขนม / เครื่องปรุง / ชา-กาแฟ (${rawItem.trim()})` };
+    }
+    if (q.includes("ยาดม") || q.includes("ยาหม่อง") || q.includes("พิมเสน") || q.includes("ยาลม") || q.includes("น้ำมันเหลือง") || q.includes("โป๊ยเซียน") || q.includes("หงส์ไทย")) {
+      return { cat: "inhaler", label: `🌿 ยาดม / ยาหม่อง / พิมเสนน้ำ (${rawItem.trim()})` };
+    }
+    if (q.includes("ครีม") || q.includes("เครื่องสำอาง") || q.includes("เซรั่ม") || q.includes("โลชั่น") || q.includes("แชมพู") || q.includes("สบู่เหลว") || q.includes("โทนเนอร์") || q.includes("ลิป") || q.includes("แป้งพัฟ") || q.includes("ของเหลว")) {
+      return { cat: "cosmetic", label: `🧴 ครีม / เครื่องสำอาง / แชมพู / ของเหลว (${rawItem.trim()})` };
+    }
+    if (q.includes("น้ำหอม") || q.includes("สเปรย์") || q.includes("แอลกอฮอล์") || q.includes("สีทาเล็บ")) {
+      return { cat: "flammable_liquid", label: `🔥 น้ำหอมที่มีแอลกอฮอล์ / สเปรย์อัดแก๊ส / วัตถุไวไฟ (${rawItem.trim()})` };
+    }
+    if (q.includes("พระพุทธรูป") || q.includes("พระบูชา") || q.includes("โบราณวัตถุ") || q.includes("ศิลปวัตถุ") || q.includes("เทวรูป")) {
+      return { cat: "buddha_statue", label: `🙏 พระพุทธรูปบูชา / เทวรูป / ศิลปวัตถุ (${rawItem.trim()})` };
+    }
+    if (q.includes("พระเครื่อง") || q.includes("ตะกรุด") || q.includes("ผ้ายันต์") || q.includes("วัตถุมงคล") || q.includes("พระห้อยคอ")) {
+      return { cat: "amulet", label: `📿 พระเครื่องขนาดห้อยคอ / วัตถุมงคลพกพา (${rawItem.trim()})` };
+    }
+    if (q.includes("ยา") || q.includes("พารา") || q.includes("ยาประจำตัว") || q.includes("สมุนไพรรักษาโรค")) {
+      return { cat: "medicine", label: `🏥 ยารักษาโรค / ยาสามัญ / ยาประจำตัว (${rawItem.trim()})` };
+    }
+    if (q.includes("แบต") || q.includes("พาวเวอร์แบงก์") || q.includes("powerbank") || q.includes("power bank") || q.includes("แม่เหล็ก") || q.includes("ลำโพง") || q.includes("มือถือ") || q.includes("โน้ตบุ๊ก") || q.includes("หูฟังไร้สาย")) {
+      return { cat: "battery_magnet", label: `🔋 แบตเตอรี่ / พาวเวอร์แบงก์ / อุปกรณ์มีแบต / แม่เหล็ก (${rawItem.trim()})` };
+    }
+    if (q.includes("พืช") || q.includes("ต้นไม้") || q.includes("เมล็ด") || q.includes("ไม้") || q.includes("ผลไม้สด")) {
+      return { cat: "plant", label: `🌱 พืช / ต้นไม้ / เมล็ดพันธุ์ / ไม้ (${rawItem.trim()})` };
+    }
+    if (q.includes("เงิน") || q.includes("ทองคำ") || q.includes("เพชร") || q.includes("บุหรี่") || q.includes("กัญชา") || q.includes("กระท่อม") || q.includes("ปืน") || q.includes("อาวุธ") || q.includes("มีด") || q.includes("ของปลอม") || q.includes("ลิขสิทธิ์")) {
+      return { cat: "strictly_prohibited", label: `🚫 สิ่งของต้องห้ามเด็ดขาดทุกบริการ (${rawItem.trim()})` };
+    }
+    if (q.includes("เอกสาร") || q.includes("จดหมาย") || q.includes("สัญญา") || q.includes("ใบรับรอง") || q.includes("กระดาษ") || q.includes("document")) {
+      return { cat: "doc", label: `📄 เอกสารล้วน (${rawItem.trim()})` };
+    }
+    return { cat: "general", label: `📦 สินค้าทั่วไป / เสื้อผ้า / ของใช้ (${rawItem.trim()})` };
+  }
+
+  function renderSmartCountryItemChecker() {
+    const out = document.getElementById("smartCheckerOutput");
+    const cInput = document.getElementById("smartCheckerCountryInput");
+    const iInput = document.getElementById("smartCheckerItemInput");
+    if (!out) return;
+
+    const destInfo = classifyDestination(cInput ? cInput.value : "");
+    const itemInfo = classifyItemQuery(iInput ? iInput.value : "");
+
+    const allowedServices = [];
+    const bannedServices = [];
+    const requiredDocs = [];
+
+    const z = destInfo.zoneType; // "US" | "EU" | "UK" | "NON_EU_EUROPE" | "OTHER" | "ALL"
+    const ic = itemInfo.cat;
+
+    // กรณีสิ่งของต้องห้ามเด็ดขาดทุกบริการ
+    if (ic === "strictly_prohibited") {
+      bannedServices.push(
+        "🚫 ห้ามรับฝากทุกบริการโดยเด็ดขาด! (EMS World, ePacket ทุกประเภท, Courier Post, Courier Post Plus, พัสดุไปรษณีย์, ลงทะเบียน)",
+        "🚫 เงินสด ธนบัตร ทองคำแท่ง บัตรเครดิต บุหรี่ไฟฟ้า กัญชา กระท่อม ยาเสพติด อาวุธ สิ่งเทียมอาวุธ และสินค้าละเมิดลิขสิทธิ์/ของปลอมแบรนด์เนม เป็นสิ่งของต้องห้ามส่งออกทางไปรษณีย์และศุลกากรทั่วโลก"
+      );
+      requiredDocs.push("❌ ให้ปฏิเสธการรับฝากทันที (หากฝ่าฝืนส่งไป US/EU มีค่าปรับขั้นต่ำ 3,100 บาท/กล่อง และถูกยึดทำลาย)");
+    } else if (ic === "flammable_liquid") {
+      bannedServices.push(
+        "🚫 ห้ามส่งทางอากาศทุกบริการ! (น้ำหอมที่มีแอลกอฮอล์, สเปรย์อัดแก๊ส Aerosol, ทินเนอร์, สีทาเล็บ, น้ำมันสน จัดเป็นวัตถุไวไฟอันตราย Dangerous Goods ห้ามขึ้นเครื่องบินเด็ดขาด)",
+        "🚫 ห้ามส่งผ่าน ePacket US (LA/LI), ePacket DDP (LE), EMS World และลงทะเบียนโดยเด็ดขาด"
+      );
+      allowedServices.push(
+        "⚠️ ยกเว้นเฉพาะลูกค้าธุรกิจที่ได้รับอนุมัติส่งสินค้าอันตรายในปริมาณจำกัด (Excepted Quantities - EQ) ผ่านบริการ Courier Post Plus (UPS รหัส FC) โดยมีค่าบริการพิเศษ +700 บาท/ชิ้น และต้องตรวจเอกสาร MSDS ล่วงหน้าเท่านั้น"
+      );
+    } else if (ic === "doc") {
+      // เอกสารล้วน (Document)
+      if (z === "US") {
+        allowedServices.push(
+          "✅ EMS World (Document - ED...TH): น้ำหนักต้องไม่เกิน 500 กรัม และซองไม่เกินขนาด P/G (30.5×38.1×2 ซม.) เท่านั้น!",
+          "✅ ไปรษณียภัณฑ์ลงทะเบียน เอกสาร (RR...TH) / จดหมายทางอากาศ: น้ำหนักต้องไม่เกิน 500 กรัม และบรรจุเฉพาะเอกสารล้วนเท่านั้น",
+          "✅ Courier Post (Document - DHL): รับเอกสารด่วนน้ำหนักไม่เกิน 2 กก. (เหมาะสำหรับเอกสารที่หนักเกิน 500 กรัม)"
+        );
+        bannedServices.push(
+          "🚫 ห้ามส่งเอกสารที่หนักเกิน 500 กรัม หรือมีสิ่งของ/สินค้าปะปนในบริการ EMS World Document และลงทะเบียน RR ไปสหรัฐฯ เด็ดขาด (โดนตีกลับ 100% ตามบันทึก ปณท รร.(ปร.3)/2826)",
+          "🚫 บริการ ePacket US (LA/LI) และ Courier Post Plus เป็นบริการสำหรับส่งสินค้า (Merchandise) ไม่ใช่บริการสำหรับส่งเอกสารล้วน"
+        );
+        requiredDocs.push("📄 สติกเกอร์บาร์โค้ด ED หรือ RR (เอกสารล้วนไป US/EU ได้รับยกเว้นไม่ต้องใช้รหัส PID และไม่ต้องแนบ Invoice สินค้า)");
+      } else if (z === "EU") {
+        allowedServices.push(
+          "✅ EMS World (Document - ED...TH): ส่งเอกสารล้วนไป EU 27 ประเทศได้สูงสุด 5 กก. (บังคับทำจ่าหน้าผ่าน D-Post Inter เท่านั้น!)",
+          "✅ Courier Post (Document - DHL): ส่งเอกสารด่วนไป EU ได้ (ไม่เกิน 2 กก.)",
+          "✅ จดหมายทางอากาศ / ลงทะเบียนเอกสารล้วน (RR...TH) / ของตีพิมพ์ (M-Bag)"
+        );
+        bannedServices.push(
+          "🚫 ห้ามสอดไส้สินค้าหรือสิ่งของใดๆ ในซองเอกสารไป EU เด็ดขาด! (หากเป็นสิ่งของ ต้องเปลี่ยนไปใช้ ePacket DDP รหัส LE หรือ Courier Post Merchandise เท่านั้น)",
+          "🚫 ปลายทางเยอรมนี: ห้ามฝากส่งทางภาคพื้น (ทางเรือ / Surface) ทุกบริการ"
+        );
+        requiredDocs.push("📄 ทำใบจ่าหน้าผ่านระบบ D-Post Inter (เอกสารล้วน Document ได้รับยกเว้นไม่ต้องกรอกรหัส PID ตามบันทึก 3247)");
+      } else {
+        allowedServices.push(
+          "✅ EMS World (Document - ED...TH): ด่วนพิเศษเอกสาร (สูงสุด 5 กก.)",
+          "✅ ไปรษณียภัณฑ์ลงทะเบียน เอกสาร (RR...TH): ประหยัด เช็คสถานะได้ (สูงสุด 2 กก.)",
+          "✅ Courier Post (Document - DHL): ด่วนพรีเมียม (สูงสุด 2 กก.)"
+        );
+        bannedServices.push("🚫 ห้ามสอดไส้สินค้าหรือสิ่งของมีค่าในบริการประเภทเอกสาร (Document)");
+        requiredDocs.push("📄 ใช้สติกเกอร์ RR...TH หรือใบรับฝาก ED...TH (ไม่ต้องแนบใบกำกับสินค้า Invoice)");
+      }
+    } else if (ic === "dry_food" || ic === "supplement" || ic === "meat_food") {
+      // อาหารแห้ง / อาหารเสริม / เนื้อสัตว์แปรรูป
+      if (ic === "meat_food") {
+        bannedServices.push(
+          "🚫 เนื้อสัตว์แปรรูป (หมูแผ่น, หมูหยอง, กุนเชียง, แหนม, ไส้กรอก, เนื้อแดดเดียว): ห้ามส่งเข้า ญี่ปุ่น, ไต้หวัน, เกาหลีใต้, ออสเตรเลีย, นิวซีแลนด์, สหรัฐอเมริกา และ สหภาพยุโรป (EU) ทุกบริการโดยเด็ดขาด! เนื่องจากติดกฎหมายกักกันโรคระบาดสัตว์ (ASF) โทษปรับที่ปลายทางสูงมากและถูกยึดทำลายทันที"
+        );
+      }
+      if (z === "US") {
+        bannedServices.push(
+          "🚫 ห้ามส่งด้วยบริการ ePacket US (LA...TH / LI...TH) โดยเด็ดขาด! (บันทึก ปณท บร.(จร.1)/1921 ห้ามส่งอาหาร ขนม เครื่องปรุง ชา กาแฟ นมผง วิตามิน อาหารเสริมทุกชนิดใน ePacket US แม้มี อย. ก็ห้ามส่ง! ฝ่าฝืนโดนปรับขั้นต่ำ 3,100 บาท/กล่อง)",
+          "🚫 ห้ามส่งอาหารทำเอง (Homecook / อาหารไม่มีฉลาก อย.) ในทุกบริการ"
+        );
+        if (ic !== "meat_food") {
+          allowedServices.push(
+            "✅ EMS World (Package - EE...TH): ส่งอาหารแห้ง/เครื่องปรุง/ขนมสำเร็จรูปที่มีเครื่องหมาย อย. และฉลากภาษาอังกฤษชัดเจนไปสหรัฐฯ ได้ตามปกติ (สูงสุด 30 กก.)",
+            "✅ Courier Post Plus (รหัส FD 1–20 กก. / FC >20 กก.): ส่งอาหารแปรรูปที่มีฉลากมาตรฐานและเลข อย. ได้ (ห้ามอาหารทำเอง Homecook) — มีโปรแชร์สื่อลด 5% ปุ่ม PostPlusDDP5% ถึง 30 พ.ย. 69",
+            "✅ Courier Post (Merchandise - DHL) และ พัสดุไปรษณีย์ทางอากาศ (CP...TH): ส่งได้แต่ต้องมี US FDA Prior Notice"
+          );
+          requiredDocs.push(
+            "📋 1. ทำจ่าหน้าผ่าน D-Post Inter ระบุชื่ออาหารภาษาอังกฤษให้ชัดเจน (เช่น Dried Mango Slices / Instant Tom Yum Paste ห้ามเขียนแค่ Food หรือ Snack) + HS Code 6 หลัก",
+            "📋 2. สินค้าต้องมีฉลากภาษาอังกฤษและเลข อย. บนบรรจุภัณฑ์ชัดเจน (หากส่งผ่าน Courier Post ต้องแนบใบ LOA + Invoice + US FDA Prior Notice)"
+          );
+        }
+      } else if (z === "EU") {
+        bannedServices.push(
+          "🚫 ห้ามส่งด้วยบริการ ePacket DDP ยุโรป (LE...TH) โดยเด็ดขาด! (ห้ามส่งอาหาร ขนม เครื่องปรุง ชา กาแฟ นมผง วิตามิน อาหารเสริมทุกชนิดใน ePacket DDP แม้มี อย. ก็ห้ามส่ง! ฝ่าฝืนโดนปรับขั้นต่ำ 3,100 บาท/กล่อง)",
+          "🚫 บริการ EMS World (Package - EE) และ พัสดุไปรษณีย์ (CP) งดรับฝากสิ่งของไป EU 27 ประเทศ",
+          "🚫 ห้ามส่งอาหารทำเอง (Homecook) หรือผลิตภัณฑ์ที่มีส่วนผสมของเนื้อสัตว์/นมเข้า EU เด็ดขาด"
+        );
+        if (ic !== "meat_food") {
+          allowedServices.push(
+            "✅ Courier Post Plus (FC...TH โดย UPS): ส่งอาหารแปรรูปที่มีฉลากภาษาอังกฤษและเลข อย. ชัดเจนได้ (เฉพาะประเทศ EU ที่เปิดบริการ เช่น ฝรั่งเศส, เยอรมนี, อิตาลี, เนเธอร์แลนด์, สวีเดน, สเปน, เบลเยียม, เดนมาร์ก — ห้ามอาหารทำเอง Homecook!)",
+            "✅ Courier Post (Merchandise - DHL): ส่งได้สำหรับอาหารแห้งสำเร็จรูปที่ไม่ติดข้อห้ามศุลกากร EU (ต้องแนบใบ LOA + Invoice ที่มีรหัส PID)"
+          );
+          requiredDocs.push(
+            "📋 1. ทำใบจ่าหน้าผ่าน D-Post Inter + กรอกรหัสสินค้า M-PID และ NS-PID ทุกชิ้น",
+            "📋 2. กรณีส่งด้วย Courier Post ต้องให้ลูกค้าเซ็นใบ LOA (2 ฉบับ) + แนบ Commercial/Proforma Invoice ที่มีรหัส PID"
+          );
+        }
+      } else {
+        // UK, สวิตเซอร์แลนด์, นอร์เวย์, ญี่ปุ่น, เกาหลี, ออสเตรเลีย ฯลฯ
+        if (ic !== "meat_food") {
+          allowedServices.push(
+            `✅ ePacket ปกติ (LP / LX...TH): ส่งอาหารแห้ง/ขนม/เครื่องปรุงที่มี อย. และฉลากภาษาอังกฤษชัดเจนได้! (${z === "UK" ? "พิเศษ! อังกฤษ UK ส่ง ePacket LX ได้สูงสุดถึง 5 กก." : "น้ำหนักสูงสุดไม่เกิน 2 กก."})`,
+            "✅ EMS World (Package - EE...TH): ส่งอาหารแห้งและอาหารเสริมที่มี อย. ได้ (สูงสุด 20–30 กก. ตามเกณฑ์ประเทศ)",
+            "✅ Courier Post Plus (FC...TH โดย UPS): ส่งอาหารแปรรูปมี อย. ได้ (ใน 19 ประเทศที่เปิดบริการ เช่น UK, ญี่ปุ่น, เกาหลีใต้, ออสเตรเลีย, สิงคโปร์, ไต้หวัน, ฮ่องกง, มาเลเซีย, แคนาดา)",
+            "✅ พัสดุไปรษณีย์ทางอากาศ (CP...TH) & Courier Post (DHL)"
+          );
+          bannedServices.push(
+            "🚫 ห้ามส่งอาหารสด ของเน่าเสียง่าย ผลไม้สด และอาหารที่มีส่วนผสมของเนื้อสัตว์ต้องห้ามเข้าประเทศปลายทาง"
+          );
+          requiredDocs.push(
+            "📋 บันทึกข้อมูลศุลกากรล่วงหน้า (D-Post Inter หรือ ITMATT) ระบุชื่ออาหารภาษาอังกฤษให้ชัดเจน + HS Code 6 หลัก (ห้ามเขียนคำว่า Food เฉยๆ เพราะจะติด No Booking!)"
+          );
+        }
+      }
+    } else if (ic === "inhaler" || ic === "cosmetic") {
+      // ยาดม / ยาหม่อง / ครีม / เครื่องสำอาง / แชมพู
+      if (z === "US" || z === "EU") {
+        allowedServices.push(
+          `✅ ${z === "US" ? "ePacket US (LA / LI...TH)" : "ePacket DDP ยุโรป 27 ประเทศ (LE...TH)"} — อนุญาตให้ส่งได้ภายใต้โควตาจำกัดต่อกล่องดังนี้:`,
+          "   • 🌿 ยาดม ยาหม่อง ยาลม พิมเสนน้ำ: ขวด/หลอดละไม่เกิน 100 ml และรวมไม่เกิน 6 ชิ้น/กล่อง (ต้องมีเลขทะเบียน/อย. ชัดเจน)",
+          "   • 🧴 เครื่องสำอาง (ครีม, เซรั่ม, โทนเนอร์, โลชั่น): ขวดละไม่เกิน 100 ml และน้ำหนักรวมของเหลวทั้งหมดในกล่องต้องไม่เกิน 1 กก./กล่อง",
+          "   • 🧼 แชมพู ครีมนวด สบู่เหลว: ไม่จำกัดปริมาตรต่อขวด แต่น้ำหนักรวมของเหลวทั้งหมดในกล่องต้องไม่เกิน 1 กก./กล่อง",
+          "✅ Courier Post Plus (FD / FC) และ Courier Post (DHL) (กรณีส่งเกินโควตาของ ePacket)"
+        );
+        if (z === "US") {
+          allowedServices.push("✅ EMS World (Package - EE...TH): ส่งไปสหรัฐฯ ได้ (หุ้มห่อกันรั่วซึม 3 ชั้น)");
+        }
+        bannedServices.push(
+          "🚫 ห้ามส่งเกินโควตาที่กำหนดในบริการ ePacket US / ePacket DDP EU เด็ดขาด!",
+          "🚫 ห้ามส่งสเปรย์อัดแก๊ส (Aerosol), น้ำหอมที่มีแอลกอฮอล์ไวไฟ, หรือครีมเถื่อนที่ไม่มี อย. / มีสารปรอท-สเตียรอยด์ต้องห้าม"
+        );
+        requiredDocs.push(
+          `📋 1. บังคับทำผ่าน D-Post Inter เท่านั้น! (${z === "EU" ? "ต้องกรอกรหัส M-PID & NS-PID + ชำระภาษี Pay@Post 84415 + เขียน Duties Paid" : "ระบุสกุลเงิน USD มูลค่า ≤60–100 USD"})`,
+          "📋 2. เปิดตรวจของจริง 100% นับจำนวนขวด/น้ำหนักของเหลว + ให้ลูกค้าเซ็นใบ Checklist 14 ข้อ + ประทับตรา/ติดป้าย 'Content Checked'",
+          "📋 3. ของเหลวต้องหุ้มห่อมาตรฐาน 3 ชั้น (ภาชนะเดิมปิดสนิท + ถุงซิปล็อก/กันรั่วซึม + วัสดุดูดซับแรงกระแทก)"
+        );
+      } else {
+        allowedServices.push(
+          "✅ ePacket (LP / LX...TH), EMS World (Package - EE...TH), Courier Post Plus (FC), Courier Post และ พัสดุไปรษณีย์ (CP)",
+          "💡 แนะนำหุ้มห่อของเหลวแบบ 3 ชั้นกันรั่วซึม และต้องมีฉลากภาษาอังกฤษ/เลขจดแจ้ง อย."
+        );
+        bannedServices.push("🚫 ห้ามส่งน้ำหอมที่มีแอลกอฮอล์ไวไฟ หรือสเปรย์อัดแก๊สทางอากาศ");
+        requiredDocs.push("📋 คีย์ข้อมูล D-Post Inter / ITMATT เป็นภาษาอังกฤษชัดเจน (เช่น Herbal Nasal Inhaler / Facial Moisturizing Cream) + HS Code 6 หลัก");
+      }
+    } else if (ic === "amulet" || ic === "buddha_statue") {
+      // พระเครื่องห้อยคอ vs พระพุทธรูปบูชา
+      if (ic === "buddha_statue") {
+        bannedServices.push(
+          "🚫 ห้ามส่ง 'พระพุทธรูปบูชาองค์ใหญ่ / เทวรูป / ชิ้นส่วนโบราณวัตถุ' ผ่านบริการ ePacket US (LA/LI) และ ePacket DDP ยุโรป (LE) โดยเด็ดขาด! (ข้อห้ามหมวดที่ 9 ในใบ Checklist)",
+          "🚫 ห้ามรับฝากทุกบริการ หากผู้ฝากส่งไม่มี 'ใบอนุญาตส่งออกโบราณวัตถุ/ศิลปวัตถุจากกรมศิลปากร' มาแสดง!"
+        );
+        allowedServices.push(
+          "✅ กรณีมีใบอนุญาตจากกรมศิลปากรครบถ้วน: สามารถฝากส่งผ่านบริการ Courier Post (DHL), Courier Post Plus หรือ EMS World (เฉพาะประเทศที่เปิดรับ) ได้"
+        );
+        requiredDocs.push("📋 ต้องแนบ 'ใบอนุญาตส่งออกศิลปวัตถุ/โบราณวัตถุ จากกรมศิลปากร' ตัวจริงติดหน้ากล่องคู่กับ Invoice และใบ LOA ทุกครั้ง!");
+      } else {
+        // พระเครื่องขนาดห้อยคอ
+        allowedServices.push(
+          "✅ ePacket US (LA/LI) และ ePacket DDP ยุโรป (LE): อนุญาตให้ส่งเฉพาะ 'พระเครื่องขนาดห้อยคอ / ตะกรุด / ผ้ายันต์ / เหรียญวัตถุมงคลพกพาเพื่อความเชื่อส่วนบุคคล' โดยมีน้ำหนักรวมกันไม่เกิน 500 กรัมต่อกล่อง เท่านั้น!",
+          "✅ EMS World (Package), Courier Post Plus, Courier Post (สำหรับประเทศที่เปิดรับและมีใบอนุญาตกรณีส่งจำนวนมาก)"
+        );
+        bannedServices.push(
+          "🚫 ห้ามส่งพระเครื่องห้อยคอน้ำหนักรวมเกิน 500 กรัม/กล่อง ในบริการ ePacket US & ePacket DDP EU",
+          "🚫 ห้ามส่งพระเลี่ยมทองคำแท้หรือมูลค่าสูงในบริการไปรษณีย์ทั่วไปโดยไม่ซื้อประกัน (และบริการ ePacket ห้ามส่งทองคำ)"
+        );
+        requiredDocs.push(
+          "📋 ทำจ่าหน้าผ่าน D-Post Inter สำแดงเป็นภาษาอังกฤษให้ชัดเจน (เช่น Small Clay Amulet Pendant for Personal Belief) + เปิดตรวจและติดป้าย Content Checked"
+        );
+      }
+    } else if (ic === "medicine") {
+      // ยารักษาโรค
+      bannedServices.push(
+        "🚫 ห้ามส่งยารักษาโรค ยาสามัญประจำบ้าน ยาสมุนไพรทุกชนิด ในบริการ ePacket US (LA/LI) และ ePacket DDP ยุโรป (LE) โดยเด็ดขาด! (เป็นของต้องห้ามหมวดที่ 1 ในใบ Checklist 14 ข้อ ฝ่าฝืนโดนปรับ 3,100 บ.)",
+        "🚫 ห้ามส่งยาเสพติด ยานอนหลับ ยาจิตเวชควบคุม หรือยาที่ไม่มีฉลากภาษาอังกฤษในทุกบริการ"
+      );
+      allowedServices.push(
+        "✅ กรณีส่งยาประจำตัวให้ผู้ป่วยในต่างประเทศ (เฉพาะบริการ Courier Post / EMS World ในประเทศที่อนุญาต): ต้องมีเอกสารทางการแพทย์ประกอบครบถ้วนเท่านั้น!"
+      );
+      requiredDocs.push(
+        "📋 เอกสารบังคับสำหรับการส่งยารักษาโรค (จากแฟ้มสิ่งของต้องกำกัด ปณท):",
+        "   1. ใบรับรองแพทย์ภาษาอังกฤษ (Doctor / Medical Certificate) ระบุชื่อผู้ป่วย โรคประจำตัว ชื่อยาสามัญ ปริมาณ และความจำเป็นในการใช้ยา",
+        "   2. ใบสั่งยา (Prescription) และส่งในปริมาณใช้ส่วนตัวไม่เกิน 30–90 วันตามเกณฑ์ศุลกากรปลายทาง",
+        "   3. สำเนาทะเบียนยา (อย.) และฉลากยาภาษาอังกฤษบนกล่องยาเดิม"
+      );
+    } else if (ic === "battery_magnet") {
+      // แบตเตอรี่ / พาวเวอร์แบงก์ / แม่เหล็ก
+      bannedServices.push(
+        "🚫 ห้ามส่งพาวเวอร์แบงก์ (Power Bank) และแบตเตอรี่สำรองแบบแยกเดี่ยว (Loose Lithium Battery) ทางอากาศทุกบริการโดยเด็ดขาด!",
+        "🚫 บริการไปรษณีย์ทั่วไป (EMS World, ePacket ทุกประเภท, พัสดุไปรษณีย์ CP, ลงทะเบียน RR): ห้ามส่งอุปกรณ์ที่มีแบตเตอรี่ลิเธียมทุกชนิด และห้ามส่งแม่เหล็ก/ลำโพงแม่เหล็ก!"
+      );
+      allowedServices.push(
+        "✅ บริการเดียวที่ส่งอุปกรณ์ที่มีแบตเตอรี่ติดตั้งอยู่ในตัวเครื่องได้: บริการ Courier Post Plus (UPS รหัส FC...TH) อนุญาตให้ส่งอุปกรณ์ที่มีแบตเตอรี่ลิเธียมติดตั้งในตัว (UN3091 / UN3481 เช่น มือถือ โน้ตบุ๊ก นาฬิกาสมาร์ทวอทช์) ได้ไม่เกิน 2 ชิ้นต่อกล่อง โดยไม่เสียค่าธรรมเนียมเพิ่ม! (หากเกิน 2 ชิ้น/กล่อง มีค่าธรรมเนียมพิเศษ)"
+      );
+      requiredDocs.push("📋 ต้องทำผ่าน D-Post Inter (บริการ Courier Post Plus รหัส FC) และแจ้งเจ้าหน้าที่ตรวจสอบจำนวนอุปกรณ์ที่มีแบตเตอรี่ในกล่อง");
+    } else if (ic === "plant") {
+      // พืช / ต้นไม้ / เมล็ดพันธุ์ / ไม้
+      bannedServices.push(
+        "🚫 ห้ามส่งพืช ต้นไม้ ส่วนของพืช เมล็ดพันธุ์ และไม้ ในบริการ ePacket US (LA/LI) และ ePacket DDP ยุโรป (LE) โดยเด็ดขาด! (ของต้องห้ามหมวดที่ 2 และ 12)",
+        "🚫 ห้ามส่งพืชติดอนุสัญญา CITES หรือส่งโดยไม่มีใบรับรองปลอดศัตรูพืชในทุกบริการ"
+      );
+      allowedServices.push(
+        "✅ ส่งได้เฉพาะบริการ Courier Post หรือ EMS World (ในประเทศปลายทางที่อนุญาต) โดยผู้ส่งต้องขอเอกสารอนุญาตครบถ้วนก่อนมาฝากส่งเท่านั้น"
+      );
+      requiredDocs.push(
+        "📋 1. ใบรับรองปลอดศัตรูพืช (Phytosanitary Certificate) จากกรมวิชาการเกษตร (www.doa.go.th)",
+        "📋 2. ใบอนุญาตนำเข้า (Import Permit) จากประเทศปลายทาง (ถ้ามี) และหนังสือรับรองจากกรมป่าไม้กรณีผลิตภัณฑ์จากไม้"
+      );
+    } else {
+      // สินค้าทั่วไป / เสื้อผ้า / ของใช้ (general)
+      if (z === "US") {
+        allowedServices.push(
+          "✅ 1. ePacket US รวมภาษี DDP (LA...TH = 48 รัฐแผ่นดินใหญ่ / LI...TH = เกาะ, Alaska, Hawaii, ค่ายทหาร APO): นน.สูงสุด 5 กก., มูลค่า ≤ 60–100 USD (รวมภาษีนำเข้าสหรัฐฯ แล้ว!)",
+          "✅ 2. Courier Post Plus (FD...TH พิกัด 1–20 กก. / FC...TH พิกัด >20–5,000 กก.): ส่งหลายกล่องรวมน้ำหนักได้ (มีส่วนลด 5% ปุ่ม PostPlusDDP5% ถึง 30 พ.ย. 69)",
+          "✅ 3. EMS World (Package - EE...TH): ด่วนพิเศษถึงไว สูงสุด 30 กก. ชดใช้สูงสุด 7,000 บ.",
+          "✅ 4. Courier Post (DHL - KA...TH) และ พัสดุไปรษณีย์ทางอากาศ (CP...TH)"
+        );
+        bannedServices.push(
+          "🚫 ห้ามส่งสิ่งของด้วยบริการไปรษณียภัณฑ์ลงทะเบียน (RR...TH) ไปสหรัฐอเมริกา (RR ไปสหรัฐฯ รับเฉพาะเอกสารล้วน ≤500 กรัมเท่านั้น!)"
+        );
+        requiredDocs.push(
+          "📋 กรณี ePacket US (LA/LI): บังคับทำผ่าน D-Post Inter 100% + เปิดตรวจของ 100% + ลูกค้าเซ็นใบ Checklist 14 ข้อ + เขียน/ประทับตรา 'Content Checked' หน้ากล่อง",
+          "📋 กรณี Courier Post (DHL): บังคับเซ็นใบ LOA (2 ฉบับ) + แนบ Commercial/Proforma Invoice 2–3 ฉบับ"
+        );
+      } else if (z === "EU") {
+        allowedServices.push(
+          "✅ 1. ePacket DDP ยุโรป 27 ประเทศ (LE...TH): นน.สูงสุด 5 กก., ขนาด ≤ 60×40×30 ซม. (ก+ย+ส ≤ 130 ซม.), มูลค่า ≤ 150 EUR (สมาชิก POST Family ลด 5% ถึง 31 ธ.ค. 69)",
+          destInfo.hasCpp
+            ? "✅ 2. Courier Post Plus (FC...TH โดย UPS): ส่งได้ทั้งแบบ DDU และ DDP (เหมาะมากสำหรับกล่องเกิน 5 กก. หรือมูลค่าเกิน 150 EUR)"
+            : "ℹ️ 2. Courier Post Plus (FC): ตรวจสอบรายชื่อประเทศ EU ที่เปิดบริการในระบบ D-Post Inter",
+          "✅ 3. Courier Post (Merchandise - DHL รหัส KA...TH): ส่งด่วนพรีเมียมได้ทุกประเทศใน EU (สูงสุด 200 กก.)",
+          ...(destInfo.isEuEx4
+            ? ["✅ 4. พิเศษเฉพาะ 4 ประเทศ (สวีเดน/เดนมาร์ก/โครเอเชีย/สโลวีเนีย): สามารถส่งบริการไปรษณีย์ทั่วไป (ePacket ปกติ / EMS World Package) ได้หากมีเลข IOSS ตามเงื่อนไข"]
+            : [])
+        );
+        bannedServices.push(
+          "🚫 งดฝากส่งสิ่งของด้วยบริการ EMS World (Package - EE), พัสดุไปรษณีย์ (CP), พัสดุย่อย และลงทะเบียนสิ่งของ (RR) ไปยังกลุ่มประเทศ EU 27 ประเทศ (ยกเว้น 4 ประเทศที่มี IOSS ข้างต้น)",
+          "🚫 ปลายทางเยอรมนี: งดบริการทางภาคพื้น (ทางเรือ / Surface) ทุกประเภท"
+        );
+        requiredDocs.push(
+          "📋 1. บังคับทำใบจ่าหน้าผ่าน D-Post Inter 100% และต้องกรอกรหัสสินค้า M-PID และ NS-PID ทุกชิ้น! (ห้ามใช้สติกเกอร์ LE เก่าคีย์มือเด็ดขาด)",
+          "📋 2. สำหรับ ePacket DDP (LE): เปิดตรวจของ 100% + ลูกค้าเซ็นใบ Checklist 14 ข้อ + เขียน 'Content Checked' + รับชำระภาษีผ่าน Pay@Post (รหัส 84415) + เขียน 'Duties Paid' หน้ากล่อง",
+          "📋 3. สำหรับ Courier Post (DHL): ลูกค้าเซ็นใบ LOA (2 ฉบับ) + แนบ Proforma Invoice รูปแบบใหม่ที่มีช่องรหัส PID"
+        );
+      } else {
+        // UK, สวิตเซอร์แลนด์, นอร์เวย์, เอเชีย, ออสเตรเลีย, บราซิล ฯลฯ
+        allowedServices.push(
+          `✅ 1. ePacket มาตรฐาน (LP / LX...TH): ประหยัด เช็คสถานะได้ (${z === "UK" ? "พิเศษ! อังกฤษ UK ส่งได้สูงสุดถึง 5 กก." : "น้ำหนักสูงสุดไม่เกิน 2 กก., ยาวสุด ≤60 ซม., ก+ย+ส ≤90 ซม."}) — ซื้อ ePacket Plus (+30 บ.) ชดใช้สูงสุด 1,500 บ.`,
+          "✅ 2. EMS World (Package - EE...TH): ส่งด่วนพิเศษระหว่างประเทศ (สูงสุด 20–30 กก.) ชดใช้สูงสุด 7,000 บ.",
+          destInfo.hasCpp
+            ? "✅ 3. Courier Post Plus (FC...TH โดย UPS): ส่งได้หลายกล่อง (มีโปรแชร์สื่อลด 5% ปุ่ม PostPlusDDP5% ถึง 30 พ.ย. 69)"
+            : "ℹ️ 3. Courier Post (DHL Express - KA...TH): ส่งด่วนพรีเมียม (สูงสุด 200 กก. แนบใบ LOA + Invoice)",
+          "✅ 4. พัสดุไปรษณีย์ทางอากาศ (CP...TH) & พัสดุย่อยทางอากาศ (Small Packet)"
+        );
+        bannedServices.push(
+          "🚫 ห้ามใช้คำสำแดงคลุมเครือเด็ดขาด (เช่นเขียนแค่ Gift, Sample, Clothes, Goods, Accessories) เพราะจะทำให้ติดสถานะ No Booking ที่ ศป.สภ.!"
+        );
+        requiredDocs.push(
+          "📋 1. ทำจ่าหน้าผ่าน D-Post Inter (แนะนำ) หรือใช้ใบรับฝากกระดาษ (ป.256 / CN22 / CN23) แล้วเจ้าหน้าที่คีย์ข้อมูล ITMATT เข้าระบบ POS ให้ครบทุกชิ้นก่อนปิดถุง",
+          "📋 2. แนบ Commercial / Proforma Invoice ใส่ซองพลาสติกใสหน้ากล่อง (สำหรับ EMS World / พัสดุ CP / Courier Post)"
+        );
+      }
+    }
+
+    out.innerHTML = `
+      <div style="background:#FFFFFF; border:2px solid #059669; border-radius:12px; padding:12px 14px; margin-top:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; border-bottom:1.5px solid #E2E8F0; padding-bottom:8px; margin-bottom:10px;">
+          <div style="font-size:15.5px; font-weight:800; color:#0F172A;">
+            ${destInfo.flag} ปลายทาง: <span style="color:#1D4ED8;">${escapeHtml(destInfo.displayName)}</span>
+            &nbsp;|&nbsp; สิ่งของ: <span style="color:#047857;">${escapeHtml(itemInfo.label)}</span>
+          </div>
+          <span class="badge badge-emerald">ผลตรวจสอบทันที</span>
+        </div>
+
+        <div class="grid-2col" style="gap:12px;">
+          <div style="background:#F0FDF4; border:1.5px solid #10B981; border-radius:10px; padding:10px 12px;">
+            <div style="font-size:14px; font-weight:800; color:#065F46; margin-bottom:6px;">
+              ✅ บริการที่【รองรับ / ส่งได้】(${allowedServices.length} รายการ):
+            </div>
+            ${
+              allowedServices.length > 0
+                ? `<ul class="notes-list" style="margin:0;">${allowedServices
+                    .map((s) => `<li class="good" style="background:#FFFFFF; margin-bottom:5px;">${escapeHtml(s)}</li>`)
+                    .join("")}</ul>`
+                : `<div style="font-size:13px; color:#991B1B; font-weight:700;">❌ ไม่มีบริการไปรษณีย์ที่สามารถรับฝากสิ่งของรายการนี้ได้</div>`
+            }
+          </div>
+
+          <div style="background:#FEF2F2; border:1.5px solid #EF4444; border-radius:10px; padding:10px 12px;">
+            <div style="font-size:14px; font-weight:800; color:#991B1B; margin-bottom:6px;">
+              🚫 บริการที่【ห้ามส่งเด็ดขาด / ข้อจำกัดสำคัญ】:
+            </div>
+            <ul class="notes-list" style="margin:0;">
+              ${bannedServices
+                .map((b) => `<li class="critical" style="background:#FFFFFF; margin-bottom:5px;">${escapeHtml(b)}</li>`)
+                .join("")}
+            </ul>
+          </div>
+        </div>
+
+        <div style="background:#EFF6FF; border:1.5px solid #93C5FD; border-radius:10px; padding:10px 12px; margin-top:10px;">
+          <div style="font-size:13.5px; font-weight:800; color:#1E3A8A; margin-bottom:4px;">
+            📋 เอกสารบังคับ &amp; สิ่งที่เจ้าหน้าที่ต้องทำหน้าเคาน์เตอร์ (ป้องกันของตีกลับ / ติด No Booking):
+          </div>
+          <ul class="notes-list" style="margin:0;">
+            ${requiredDocs
+              .map((d) => `<li style="background:#FFFFFF; border-left-color:#2563EB; color:#1E293B; margin-bottom:4px;">${escapeHtml(d)}</li>`)
+              .join("")}
+            ${destInfo.specialNotes
+              .map((n) => `<li style="background:#FFFBEB; border-left-color:#D97706; color:#92400E; margin-bottom:4px; font-weight:600;">${escapeHtml(n)}</li>`)
+              .join("")}
+          </ul>
+        </div>
+      </div>
+    `;
   }
 
   function setupWizardEvents() {
-    const destBtns = document.querySelectorAll("#wizDestGroup .pill-btn");
-    const itemBtns = document.querySelectorAll("#wizItemGroup .pill-btn");
+    const cInput = document.getElementById("smartCheckerCountryInput");
+    const iInput = document.getElementById("smartCheckerItemInput");
+    const clearCBtn = document.getElementById("clearSmartCountryBtn");
+    const clearIBtn = document.getElementById("clearSmartItemBtn");
 
-    destBtns.forEach((btn) => {
+    if (cInput) {
+      cInput.addEventListener("input", renderSmartCountryItemChecker);
+      cInput.addEventListener("change", renderSmartCountryItemChecker);
+      cInput.addEventListener("focus", () => cInput.select());
+    }
+    if (iInput) {
+      iInput.addEventListener("input", renderSmartCountryItemChecker);
+      iInput.addEventListener("change", renderSmartCountryItemChecker);
+      iInput.addEventListener("focus", () => iInput.select());
+    }
+    if (clearCBtn && cInput) {
+      clearCBtn.addEventListener("click", () => {
+        cInput.value = "";
+        cInput.focus();
+        renderSmartCountryItemChecker();
+      });
+    }
+    if (clearIBtn && iInput) {
+      clearIBtn.addEventListener("click", () => {
+        iInput.value = "";
+        iInput.focus();
+        renderSmartCountryItemChecker();
+      });
+    }
+
+    document.querySelectorAll("#smartCountryChips .quick-chip-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
-        destBtns.forEach((b) => b.classList.remove("active"));
+        document.querySelectorAll("#smartCountryChips .quick-chip-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        wizardState.dest = btn.getAttribute("data-dest");
-        renderWizardOutput();
+        if (cInput) cInput.value = btn.getAttribute("data-scountry") || "";
+        renderSmartCountryItemChecker();
       });
     });
 
-    itemBtns.forEach((btn) => {
+    document.querySelectorAll("#smartItemChips .quick-chip-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
-        itemBtns.forEach((b) => b.classList.remove("active"));
+        document.querySelectorAll("#smartItemChips .quick-chip-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        wizardState.item = btn.getAttribute("data-item");
-        renderWizardOutput();
+        if (iInput) iInput.value = btn.getAttribute("data-sitem") || "";
+        renderSmartCountryItemChecker();
       });
     });
 
-    renderWizardOutput();
+    renderSmartCountryItemChecker();
   }
 
   // 2. Render ข้อมูลบริการทั้งหมด + ตารางขนาดกล่อง ปณท
@@ -893,6 +1289,38 @@
       searchSection.style.display = "block";
 
       const matches = [];
+
+      // 000. ตรวจจับอัตโนมัติว่าผู้ใช้งานกำลังค้นหา "สิ่งของที่จะส่ง" และ/หรือ "ชื่อประเทศ" เพื่อแสดงสรุป ✅ บริการที่รองรับ vs 🚫 บริการที่ห้ามส่งเด็ดขาด ไว้บนสุด!
+      const detectedDest = classifyDestination(q);
+      const detectedItem = classifyItemQuery(q);
+      const isSpecificDest = detectedDest.zoneType !== "ALL" && !(detectedDest.zoneType === "OTHER" && !/(ญี่ปุ่น|japan|เกาหลี|korea|ออสเตรเลีย|australia|บราซิล|brazil|ไต้หวัน|taiwan|ดูไบ|เอมิเรตส์|uae|อิสราเอล|israel|จีน|china|ฮ่องกง|สิงคโปร์|มาเลเซีย|เวียดนาม|ลาว|กัมพูชา|เมียนมา|พม่า|อินเดีย|แคนาดา|นิวซีแลนด์|รัสเซีย)/.test(q));
+      const isSpecificItem = detectedItem.cat !== "general";
+
+      if (isSpecificDest || isSpecificItem) {
+        const tempCInput = document.getElementById("smartCheckerCountryInput");
+        const tempIInput = document.getElementById("smartCheckerItemInput");
+        const origC = tempCInput ? tempCInput.value : "";
+        const origI = tempIInput ? tempIInput.value : "";
+
+        if (tempCInput) tempCInput.value = isSpecificDest ? input.value.trim() : "";
+        if (tempIInput) tempIInput.value = isSpecificItem ? input.value.trim() : "สินค้าทั่วไป";
+        renderSmartCountryItemChecker();
+        const smartHtml = (document.getElementById("smartCheckerOutput") || {}).innerHTML || "";
+        if (tempCInput) tempCInput.value = origC;
+        if (tempIInput) tempIInput.value = origI;
+        renderSmartCountryItemChecker();
+
+        if (smartHtml) {
+          matches.push(`
+            <div class="card" style="border:2.5px solid #059669; background:#F0FDF4; padding:12px;">
+              <div style="font-size:14px; font-weight:800; color:#065F46; margin-bottom:4px;">
+                🎯 สรุปบริการที่รองรับ &amp; บริการที่ห้ามส่งเด็ดขาด สำหรับคำค้น "${escapeHtml(input.value.trim())}"
+              </div>
+              ${smartHtml}
+            </div>
+          `);
+        }
+      }
 
       // 00. ค้นหาในบริการในประเทศ (Domestic Services)
       if (DATA.domestic && DATA.domestic.services) {

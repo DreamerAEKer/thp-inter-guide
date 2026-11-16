@@ -2133,31 +2133,90 @@
         </div>
       </div>
 
-      <!-- Interactive Decision Wizard -->
-      <div class="wizard-box">
-        <div class="wizard-title">🧭 เช็คเงื่อนไขบริการระหว่างประเทศ</div>
-        
-        <div class="form-group">
-          <label class="form-label">1. ลูกค้าส่งไปประเทศโซนไหน?</label>
-          <div class="pill-selector" id="wizDestGroup">
-            <button class="pill-btn active" data-dest="eu">🇪🇺 ยุโรป EU (27 ปท.)</button>
-            <button class="pill-btn" data-dest="us">🇺🇸 สหรัฐอเมริกา (US)</button>
-            <button class="pill-btn" data-dest="uk">🇬🇧 อังกฤษ (UK - นอก EU)</button>
-            <button class="pill-btn" data-dest="other">🌏 ประเทศอื่นๆ (ญี่ปุ่น/เอเชียฯ)</button>
+      <!-- 🧭 ตัวช่วยเช็คด่วน: พิมพ์ชื่อประเทศ + พิมพ์สิ่งของที่จะส่ง ➔ แสดงบริการที่ส่งได้ vs บริการที่ห้ามส่งเด็ดขาด! -->
+      <div class="wizard-box" style="border: 2.5px solid #059669; background: linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 45%);">
+        <div class="wizard-title" style="color:#065F46; font-size:16.5px;">
+          🔎 ค้นหาจาก【ชื่อประเทศ】และ/หรือ【สิ่งของที่จะส่ง】➔ แสดงบริการที่รองรับ &amp; บริการที่ห้ามส่งเด็ดขาด!
+        </div>
+
+        <div class="calc-input-grid" style="margin-bottom:8px;">
+          <div>
+            <label class="form-label" style="color:#065F46;">1. พิมพ์ค้นหาประเทศปลายทาง (หรือกดปุ่มลัดด้านล่าง)</label>
+            <div style="position:relative;">
+              <input
+                type="text"
+                id="smartCheckerCountryInput"
+                list="interFwdCountryDatalist"
+                placeholder="เช่น สหรัฐอเมริกา, เยอรมนี, ญี่ปุ่น, เกาหลี, อังกฤษ, บราซิล, มอลตา..."
+                value="สหรัฐอเมริกา (USA)"
+                autocomplete="off"
+                style="padding-right:34px; border-color:#10B981;"
+              />
+              <button
+                type="button"
+                id="clearSmartCountryBtn"
+                title="ล้างชื่อประเทศ"
+                style="position:absolute; right:8px; top:50%; transform:translateY(-50%); border:none; background:#E2E8F0; color:#334155; width:24px; height:24px; border-radius:50%; font-size:12px; font-weight:700; cursor:pointer;"
+              >✕</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label" style="color:#065F46;">2. พิมพ์สิ่งของที่จะส่ง (เพื่อเช็คว่าบริการไหนส่งได้ / บริการไหนห้ามส่ง!)</label>
+            <div style="position:relative;">
+              <input
+                type="text"
+                id="smartCheckerItemInput"
+                placeholder="พิมพ์เช่น อาหารแห้ง, พริกแกง, ยาดม, ครีม, พระเครื่อง, ยา, เสื้อผ้า, เอกสาร, แบตเตอรี่..."
+                value="อาหารแห้ง / ขนม / เครื่องปรุง"
+                autocomplete="off"
+                style="padding-right:34px; border-color:#10B981;"
+              />
+              <button
+                type="button"
+                id="clearSmartItemBtn"
+                title="ล้างชื่อสิ่งของ"
+                style="position:absolute; right:8px; top:50%; transform:translateY(-50%); border:none; background:#E2E8F0; color:#334155; width:24px; height:24px; border-radius:50%; font-size:12px; font-weight:700; cursor:pointer;"
+              >✕</button>
+            </div>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label">2. สิ่งของข้างในเป็นอะไร?</label>
-          <div class="pill-selector" id="wizItemGroup">
-            <button class="pill-btn active" data-item="general">📦 สินค้าทั่วไป / เสื้อผ้า</button>
-            <button class="pill-btn" data-item="food">🍜 อาหารแห้ง / อาหารเสริม</button>
-            <button class="pill-btn" data-item="cosmetic">🧴 ยาดม / ครีม / แชมพู</button>
-            <button class="pill-btn" data-item="doc">📄 เอกสารล้วน (Document)</button>
-          </div>
+        <!-- ปุ่มลัดเลือกประเทศยอดฮิต -->
+        <div class="quick-chips-row" id="smartCountryChips" style="margin-bottom:6px;">
+          <span style="font-size:12px; color:#065F46; font-weight:700; align-self:center;">🌍 ประเทศยอดฮิต:</span>
+          <button type="button" class="quick-chip-btn active" data-scountry="สหรัฐอเมริกา (USA)">🇺🇸 สหรัฐฯ (US)</button>
+          <button type="button" class="quick-chip-btn" data-scountry="เยอรมนี (Germany - EU)">🇩🇪 เยอรมนี (EU)</button>
+          <button type="button" class="quick-chip-btn" data-scountry="ฝรั่งเศส (France - EU)">🇫🇷 ฝรั่งเศส (EU)</button>
+          <button type="button" class="quick-chip-btn" data-scountry="สวีเดน (Sweden - EU)">🇸🇪 สวีเดน (EU ข้อยกเว้น)</button>
+          <button type="button" class="quick-chip-btn" data-scountry="มอลตา (Malta - EU)">🇲🇹 มอลตา (EU)</button>
+          <button type="button" class="quick-chip-btn" data-scountry="สหราชอาณาจักร (UK - นอก EU)">🇬🇧 อังกฤษ (UK)</button>
+          <button type="button" class="quick-chip-btn" data-scountry="สวิตเซอร์แลนด์ (Switzerland - นอก EU)">🇨🇭 สวิตเซอร์แลนด์</button>
+          <button type="button" class="quick-chip-btn" data-scountry="ญี่ปุ่น (Japan)">🇯🇵 ญี่ปุ่น</button>
+          <button type="button" class="quick-chip-btn" data-scountry="เกาหลีใต้ (South Korea)">🇰🇷 เกาหลีใต้</button>
+          <button type="button" class="quick-chip-btn" data-scountry="ออสเตรเลีย (Australia)">🇦🇺 ออสเตรเลีย</button>
+          <button type="button" class="quick-chip-btn" data-scountry="บราซิล (Brazil)">🇧🇷 บราซิล</button>
+          <button type="button" class="quick-chip-btn" data-scountry="ไต้หวัน (Taiwan)">🇹🇼 ไต้หวัน</button>
         </div>
 
-        <div class="wizard-result" id="wizardOutput"></div>
+        <!-- ปุ่มลัดเลือกสิ่งของยอดฮิต -->
+        <div class="quick-chips-row" id="smartItemChips" style="margin-bottom:10px;">
+          <span style="font-size:12px; color:#991B1B; font-weight:700; align-self:center;">📦 สิ่งของที่จะส่ง:</span>
+          <button type="button" class="quick-chip-btn active" data-sitem="อาหารแห้ง / ขนม / เครื่องปรุง">🍜 อาหารแห้ง/ขนม/น้ำพริก</button>
+          <button type="button" class="quick-chip-btn" data-sitem="อาหารเสริม / วิตามิน / กาแฟลดน้ำหนัก">💊 อาหารเสริม/วิตามิน</button>
+          <button type="button" class="quick-chip-btn" data-sitem="หมูแผ่น / กุนเชียง / เนื้อสัตว์แปรรูป">🥩 หมูแผ่น/กุนเชียง/เนื้อสัตว์</button>
+          <button type="button" class="quick-chip-btn" data-sitem="ยาดม / ยาหม่อง / พิมเสนน้ำ">🌿 ยาดม/ยาหม่อง</button>
+          <button type="button" class="quick-chip-btn" data-sitem="ครีม / เครื่องสำอาง / แชมพู / ของเหลว">🧴 ครีม/เครื่องสำอาง/แชมพู</button>
+          <button type="button" class="quick-chip-btn" data-sitem="พระเครื่องห้อยคอ / พระพุทธรูป">🙏 พระเครื่อง/พระพุทธรูป</button>
+          <button type="button" class="quick-chip-btn" data-sitem="ยารักษาโรค / ยาประจำตัว">🏥 ยารักษาโรค</button>
+          <button type="button" class="quick-chip-btn" data-sitem="เสื้อผ้า / สินค้าทั่วไป">👕 เสื้อผ้า/ของใช้ทั่วไป</button>
+          <button type="button" class="quick-chip-btn" data-sitem="เอกสารล้วน (Document)">📄 เอกสารล้วน</button>
+          <button type="button" class="quick-chip-btn" data-sitem="แบตเตอรี่ / พาวเวอร์แบงก์ / แม่เหล็ก">🔋 แบตเตอรี่/พาวเวอร์แบงก์</button>
+          <button type="button" class="quick-chip-btn" data-sitem="ต้นไม้ / พืช / เมล็ดพันธุ์">🌱 ต้นไม้/เมล็ดพันธุ์</button>
+          <button type="button" class="quick-chip-btn" data-sitem="เงินสด / ทองคำ / บุหรี่ไฟฟ้า">🚫 เงินสด/ทอง/บุหรี่ไฟฟ้า</button>
+        </div>
+
+        <div id="smartCheckerOutput"></div>
       </div>
 
       <!-- Survival Matrix: D-Post Inter & Required Forms Quick Table -->
