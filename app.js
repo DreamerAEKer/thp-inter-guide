@@ -2133,6 +2133,60 @@
       return scored.map((x) => x.html);
     }
 
+    function highlightSearchMatches(container, rawQuery) {
+      const term = String(rawQuery || "").trim();
+      if (!term || !container || typeof document.createTreeWalker !== "function") return;
+      const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const regex = new RegExp(escaped, "gi");
+
+      const cards = container.querySelectorAll(".card");
+      cards.forEach((card) => {
+        const walker = document.createTreeWalker(card, NodeFilter.SHOW_TEXT, null);
+        const nodesToProcess = [];
+        let node;
+        while ((node = walker.nextNode())) {
+          const parentTag = node.parentNode ? node.parentNode.nodeName : "";
+          if (
+            parentTag === "SCRIPT" ||
+            parentTag === "STYLE" ||
+            parentTag === "MARK" ||
+            parentTag === "BUTTON" ||
+            (node.parentNode && node.parentNode.closest && node.parentNode.closest("button, .jump-link-pill, .badge"))
+          ) {
+            continue;
+          }
+          if (node.nodeValue && regex.test(node.nodeValue)) {
+            nodesToProcess.push(node);
+          }
+          regex.lastIndex = 0;
+        }
+
+        nodesToProcess.forEach((textNode) => {
+          const text = textNode.nodeValue;
+          regex.lastIndex = 0;
+          let lastIdx = 0;
+          let match;
+          const frag = document.createDocumentFragment();
+          while ((match = regex.exec(text)) !== null) {
+            if (match.index > lastIdx) {
+              frag.appendChild(document.createTextNode(text.slice(lastIdx, match.index)));
+            }
+            const mark = document.createElement("mark");
+            mark.className = "search-hl";
+            mark.textContent = match[0];
+            frag.appendChild(mark);
+            lastIdx = match.index + match[0].length;
+          }
+          if (lastIdx < text.length) {
+            frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+          }
+          if (textNode.parentNode) {
+            textNode.parentNode.replaceChild(frag, textNode);
+          }
+        });
+      });
+    }
+
     function runSearchNow() {
       const rawVal = input.value.trim();
       const q = rawVal.toLowerCase();
@@ -2194,6 +2248,7 @@
         resultsContainer.innerHTML = modeBadgeHtml + primaryMatches.join("");
       }
 
+      highlightSearchMatches(resultsContainer, rawVal);
       attachDocActionEvents(resultsContainer);
 
       const switchBtn = document.getElementById("switchSearchModeBtn");
