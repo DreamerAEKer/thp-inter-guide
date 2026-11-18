@@ -401,7 +401,8 @@
         specialNotes: [
           "🚨 แยกหมวดอักษร ePacket US ให้ถูก: 48 รัฐแผ่นดินใหญ่ใช้รหัส LA...TH | ส่วนเกาะ/รัฐนอกแผ่นดินใหญ่ (Hawaii, Alaska, Guam, Puerto Rico) และค่ายทหาร (City: APO/FPO/DPO, State: AA/AE/AP) ต้องใช้รหัส LI...TH เท่านั้น!",
           "🚨 บริการประเภทเอกสาร (EMS Document / ลงทะเบียนเอกสาร RR) ไปสหรัฐฯ น้ำหนักต้องไม่เกิน 500 กรัม และซองไม่เกิน P/G (30.5×38.1×2 ซม.) ห้ามมีสิ่งของปะปนเด็ดขาด!",
-          "🚨 สินค้าควบคุม CPSC 600 พิกัด (ของเล่น/สินค้าเด็ก/เครื่องใช้ไฟฟ้า) ผู้รับต้องลงทะเบียน IOR และยื่น CPSC eFiling"
+          "🚨 สินค้าควบคุม CPSC 600 พิกัด (ของเล่น/สินค้าเด็ก/เครื่องใช้ไฟฟ้า) ผู้รับต้องลงทะเบียน IOR และยื่น CPSC eFiling",
+          "💰 เกณฑ์ภาษีนำเข้าสหรัฐฯ (ส่งกี่บาทไม่โดนภาษี?): สหรัฐฯ ยกเลิกกฎ De Minimis 800 USD ตั้งแต่ 29 ส.ค. 2568 แล้ว — ปัจจุบันสินค้าทั่วไปเสียภาษีตั้งแต่บาทแรก (ไม่มีขั้นต่ำที่ไม่โดนภาษี)! หากต้องการให้ผู้รับไม่โดนเรียกเก็บภาษีเพิ่ม แนะนำ ePacket US (LA/LI) มูลค่าไม่เกิน 60 USD (~1,900–2,000 บ.) ซึ่งรวมภาษี DDP ในค่าส่งแล้ว (ห้ามส่งอาหาร/ยา) | เอกสารล้วน (≤ 500 ก.) ไม่เสียภาษีสินค้า | ของขวัญแท้บุคคลธรรมดา (Bona Fide Gift) ≤ 100 USD มีข้อยกเว้นตาม 19 U.S.C. § 1321(a)(2)(A) แต่ห้ามเขียนสำแดงว่า 'Gift' เฉยๆ"
         ]
       };
     }
@@ -1866,7 +1867,9 @@
       const isShort = getEffectiveQueryLength(q) <= 2;
 
       // 1. ตรวจจับอัตโนมัติว่าผู้ใช้งานกำลังค้นหา "ชื่อประเทศ" และ/หรือ "สิ่งของที่จะส่ง"
-      const detectedDest = classifyDestination(q);
+      const isUsTaxQuery = /(ไม่โดนภาษี|เสียภาษี|กี่บาท|de minimis|800 usd|60 usd)/.test(q);
+      const effectiveDestQuery = isUsTaxQuery && !q.includes("ยุโรป") && !q.includes("eu") ? "สหรัฐอเมริกา" : q;
+      const detectedDest = classifyDestination(effectiveDestQuery);
       const detectedItem = classifyItemQuery(q);
       const isSpecificDest =
         detectedDest.zoneType !== "ALL" &&
@@ -1884,7 +1887,7 @@
         const origC = tempCInput ? tempCInput.value : "";
         const origI = tempIInput ? tempIInput.value : "";
 
-        if (tempCInput) tempCInput.value = isSpecificDest ? rawInputVal : "";
+        if (tempCInput) tempCInput.value = isSpecificDest ? (isUsTaxQuery && detectedDest.zoneType === "US" ? "สหรัฐอเมริกา" : rawInputVal) : "";
         if (tempIInput) tempIInput.value = isSpecificItem ? rawInputVal : "สินค้าทั่วไป";
         renderSmartCountryItemChecker();
         const smartHtml = (document.getElementById("smartCheckerOutput") || {}).innerHTML || "";

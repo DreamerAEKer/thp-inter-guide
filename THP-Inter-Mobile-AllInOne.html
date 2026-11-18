@@ -3025,7 +3025,8 @@ window.THP_INTER_DATA = {
       mandatoryRules: [
         "1. กฎเหล็กบริการประเภทเอกสาร (EMS World Document, ลงทะเบียน, จดหมาย, ของตีพิมพ์): ต้องเป็นเอกสารล้วน น้ำหนักไม่เกิน 500 กรัม และขนาดไม่เกินซอง P/G (30.5 x 38.1 x 2 ซม.) ห้ามมีสิ่งของ/สินค้าปะปนเด็ดขาด! หากพบให้ปฏิเสธและแนะนำใช้ ePacket แทน",
         "2. กฎเหล็ก ePacket US (LA/LI): มูลค่ารวมต่อกล่องไม่เกิน 60 USD (ระบุสกุลเงิน USD เท่านั้นใน D-Post Inter) ต้องเปิดตรวจ 100% ห้ามมีอาหาร/อาหารเสริม/วิตามิน/ยา/แม่เหล็ก/แบตเตอรี่ ให้ลูกค้าเซ็นใบ Checklist และประทับตรา 'Content Checked' หน้ากล่อง",
-        "3. กฎ CPSC eFiling (เริ่ม ก.ย. 2569): สินค้าอุปโภคบริโภคที่อยู่ภายใต้การกำกับของ CPSC สหรัฐฯ ผู้นำเข้าต้องมีข้อมูลใบรับรองความปลอดภัย 7 ข้อ และผู้ฝากส่งต้องกรอก CN22/CN23 ให้ครบถ้วนชัดเจน"
+        "3. กฎ CPSC eFiling (เริ่ม ก.ย. 2569): สินค้าอุปโภคบริโภคที่อยู่ภายใต้การกำกับของ CPSC สหรัฐฯ ผู้นำเข้าต้องมีข้อมูลใบรับรองความปลอดภัย 7 ข้อ และผู้ฝากส่งต้องกรอก CN22/CN23 ให้ครบถ้วนชัดเจน",
+        "4. 💰 เกณฑ์ภาษีนำเข้าสหรัฐฯ (คำถามลูกค้า: ส่งกี่บาทไม่โดนภาษี?): สหรัฐฯ ยกเลิกกฎ De Minimis 800 USD แล้วตั้งแต่ 29 ส.ค. 2568! ปัจจุบัน 'ไม่มีขั้นต่ำที่ไม่โดนภาษี' สินค้าทั่วไป/พาณิชย์ถูกคิดภาษีตั้งแต่บาทแรก (ขึ้นอยู่กับ HS Code + มูลค่า + ถิ่นกำเนิดสินค้า; ไทยมี Reciprocal Tariff 19% + MFN Rate) | วิธีไม่ให้ผู้รับจ่ายเพิ่มหน้าบ้าน: ใช้ ePacket US (LA/LI) มูลค่า ≤ 60 USD (~1,900–2,000 บ.) ซึ่งรวมภาษี DDP ในค่าส่งแล้ว | ข้อยกเว้น: (ก) เอกสารล้วน (Document ≤ 500 ก.) ไม่เสียภาษีสินค้า, (ข) ของขวัญแท้ระหว่างบุคคลธรรมดา (Bona Fide Gift) ไม่เกิน 100 USD ตาม 19 U.S.C. § 1321(a)(2)(A) แต่ห้ามเขียนสำแดงว่า 'Gift' เฉยๆ ต้องระบุชื่อสิ่งของจริง + HS Code"
       ]
     },
     {
@@ -3468,7 +3469,7 @@ window.THP_INTER_DATA = {
       emsEta: "5–7 วันทำการ (ไม่นำจ่ายวันอาทิตย์) | แนบ Commercial/Proforma Invoice",
       epacketRule: "🚨 ePacket US (LA = 48 รัฐแผ่นดินใหญ่ / LI = Alaska, Hawaii, เกาะ, APO): นน. ≤ 5 กก., มูลค่า ≤ 60 USD (รวมภาษี DDP แล้ว) — ❌ ห้ามส่งอาหาร/อาหารเสริมทุกชนิดเด็ดขาด! ต้องทำผ่าน D-Post Inter + เปิดตรวจ 100% + เขียน Content Checked",
       courierPlusRule: "✅ เปิดบริการ Courier Post Plus: พิกัด 1–20 กก. รหัส FD (ปิดถุง ป.94 ไป ศป.EMS) / พิกัด >20–5,000 กก. รหัส FC (ปิดถุง ป.94ก ไป ศป.สภ.) — ส่งอาหารแปรรูปมี อย. ได้!",
-      notes: "ถ้าลูกค้าส่งอาหารแห้งมี อย. ไปอเมริกา ห้ามใช้ ePacket เด็ดขาด ให้ใช้ EMS World (Package) หรือ Courier Post Plus แทน"
+      notes: "💰 เกณฑ์ภาษีสหรัฐฯ (ไม่มีขั้นต่ำที่ไม่โดนภาษีแล้ว!): สหรัฐฯ ยกเลิก De Minimis 800 USD ตั้งแต่ 29 ส.ค. 2568 ทำให้สินค้าทั่วไปเสียภาษีตั้งแต่บาทแรก (Courier Post เป็น DDU ผู้รับจ่ายปลายทาง) | ถ้าลูกค้าอยากจ่ายจบไม่ให้ผู้รับโดนเก็บเพิ่ม ใช้ ePacket US (LA/LI) มูลค่า ≤ 60 USD (~1,900–2,000 บ.) ซึ่งรวมภาษี DDP แล้ว (แต่ห้ามส่งอาหาร/อาหารเสริม/ยา) | เอกสารล้วน (≤ 500 ก.) ไม่เสียภาษีสินค้า | ของขวัญแท้บุคคลธรรมดา (Bona Fide Gift) ≤ 100 USD มีข้อยกเว้นตามกฎหมาย 19 U.S.C. § 1321(a)(2)(A) แต่ห้ามเขียนแค่คำว่า 'Gift' บน D-Post Inter | ถ้าส่งอาหารแห้งมี อย. ห้ามใช้ ePacket เด็ดขาด ให้ใช้ EMS World (Package) หรือ Courier Post Plus แทน"
     },
     {
       code: "CA",
@@ -4885,7 +4886,8 @@ window.THP_INTER_DATA = {
         specialNotes: [
           "🚨 แยกหมวดอักษร ePacket US ให้ถูก: 48 รัฐแผ่นดินใหญ่ใช้รหัส LA...TH | ส่วนเกาะ/รัฐนอกแผ่นดินใหญ่ (Hawaii, Alaska, Guam, Puerto Rico) และค่ายทหาร (City: APO/FPO/DPO, State: AA/AE/AP) ต้องใช้รหัส LI...TH เท่านั้น!",
           "🚨 บริการประเภทเอกสาร (EMS Document / ลงทะเบียนเอกสาร RR) ไปสหรัฐฯ น้ำหนักต้องไม่เกิน 500 กรัม และซองไม่เกิน P/G (30.5×38.1×2 ซม.) ห้ามมีสิ่งของปะปนเด็ดขาด!",
-          "🚨 สินค้าควบคุม CPSC 600 พิกัด (ของเล่น/สินค้าเด็ก/เครื่องใช้ไฟฟ้า) ผู้รับต้องลงทะเบียน IOR และยื่น CPSC eFiling"
+          "🚨 สินค้าควบคุม CPSC 600 พิกัด (ของเล่น/สินค้าเด็ก/เครื่องใช้ไฟฟ้า) ผู้รับต้องลงทะเบียน IOR และยื่น CPSC eFiling",
+          "💰 เกณฑ์ภาษีนำเข้าสหรัฐฯ (ส่งกี่บาทไม่โดนภาษี?): สหรัฐฯ ยกเลิกกฎ De Minimis 800 USD ตั้งแต่ 29 ส.ค. 2568 แล้ว — ปัจจุบันสินค้าทั่วไปเสียภาษีตั้งแต่บาทแรก (ไม่มีขั้นต่ำที่ไม่โดนภาษี)! หากต้องการให้ผู้รับไม่โดนเรียกเก็บภาษีเพิ่ม แนะนำ ePacket US (LA/LI) มูลค่าไม่เกิน 60 USD (~1,900–2,000 บ.) ซึ่งรวมภาษี DDP ในค่าส่งแล้ว (ห้ามส่งอาหาร/ยา) | เอกสารล้วน (≤ 500 ก.) ไม่เสียภาษีสินค้า | ของขวัญแท้บุคคลธรรมดา (Bona Fide Gift) ≤ 100 USD มีข้อยกเว้นตาม 19 U.S.C. § 1321(a)(2)(A) แต่ห้ามเขียนสำแดงว่า 'Gift' เฉยๆ"
         ]
       };
     }
@@ -6350,7 +6352,9 @@ window.THP_INTER_DATA = {
       const isShort = getEffectiveQueryLength(q) <= 2;
 
       // 1. ตรวจจับอัตโนมัติว่าผู้ใช้งานกำลังค้นหา "ชื่อประเทศ" และ/หรือ "สิ่งของที่จะส่ง"
-      const detectedDest = classifyDestination(q);
+      const isUsTaxQuery = /(ไม่โดนภาษี|เสียภาษี|กี่บาท|de minimis|800 usd|60 usd)/.test(q);
+      const effectiveDestQuery = isUsTaxQuery && !q.includes("ยุโรป") && !q.includes("eu") ? "สหรัฐอเมริกา" : q;
+      const detectedDest = classifyDestination(effectiveDestQuery);
       const detectedItem = classifyItemQuery(q);
       const isSpecificDest =
         detectedDest.zoneType !== "ALL" &&
@@ -6368,7 +6372,7 @@ window.THP_INTER_DATA = {
         const origC = tempCInput ? tempCInput.value : "";
         const origI = tempIInput ? tempIInput.value : "";
 
-        if (tempCInput) tempCInput.value = isSpecificDest ? rawInputVal : "";
+        if (tempCInput) tempCInput.value = isSpecificDest ? (isUsTaxQuery && detectedDest.zoneType === "US" ? "สหรัฐอเมริกา" : rawInputVal) : "";
         if (tempIInput) tempIInput.value = isSpecificItem ? rawInputVal : "สินค้าทั่วไป";
         renderSmartCountryItemChecker();
         const smartHtml = (document.getElementById("smartCheckerOutput") || {}).innerHTML || "";
