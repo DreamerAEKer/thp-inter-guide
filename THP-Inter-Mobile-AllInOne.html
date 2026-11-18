@@ -6828,60 +6828,166 @@ window.THP_INTER_DATA = {
     }
 
     if (templateType === "LOA_COURIER_POST") {
-      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>หนังสือยินยอมชำระค่าภาษีและค่าใช้จ่ายอื่นๆ (LOA) — บริการ Courier Post</title>${baseStyle}</head><body>
-        <div class="no-print" style="background:#EFF6FF; padding:10px; border:1px solid #2563EB; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-          <span><strong>เอกสารแนบ 2 (แนบท้ายบันทึก ด่วนที่สุด ที่ ปณท บร.(จร.2)/652 ลว. 18 มิ.ย. 2569 & บร.(จร.2)/870 ลว. 7 พ.ค. 2569):</strong> พิมพ์ 2 ฉบับ (ติดหน้ากล่องในซองพลาสติกใส 1 ฉบับ + เก็บที่ ปณ.ต้นทาง 1 ฉบับ)</span>
+      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>หนังสือยินยอมชำระค่าภาษีและค่าใช้จ่ายอื่นๆ (LOA) — บริการ Courier Post</title>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+          @page { size: A4 portrait; margin: 10mm 14mm; }
+          * { box-sizing: border-box; }
+          body { font-family: 'Sarabun', 'TH Sarabun New', sans-serif; color: #0F172A; margin: 12mm auto; max-width: 190mm; font-size: 12.2px; line-height: 1.38; background: #FFFFFF; }
+          .no-print { background:#EFF6FF; padding:10px 12px; border:1px solid #2563EB; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:13px; }
+          .doc-top-ref { text-align: right; font-size: 12.5px; line-height: 1.35; margin-bottom: 6px; }
+          .doc-main-title { text-align: center; font-size: 15.5px; font-weight: 700; margin: 0 0 8px; }
+          .outer-frame { position: relative; border: 1.2px solid #1E293B; padding: 14px 20px 14px; overflow: hidden; }
+          .watermark-layer { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; opacity: 0.11; z-index: 0; }
+          .content-layer { position: relative; z-index: 1; }
+          .top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+          .sender-part-box { border: 1px solid #334155; padding: 4px 18px; font-size: 12.5px; font-weight: 600; display: inline-block; margin-top: 6px; }
+          .thp-logo-wrap { display: flex; align-items: center; gap: 8px; }
+          .form-heading { text-align: center; margin: 2px 0 12px; }
+          .form-heading .en { font-size: 14.5px; font-weight: 700; line-height: 1.3; }
+          .form-heading .th { font-size: 12px; font-style: italic; margin-top: 2px; }
+          .p-block { margin: 0 0 9px; text-align: left; }
+          .p-italic { font-style: italic; }
+          .opt-block { margin: 0 0 9px; }
+          .opt-sub { margin: 2px 0 0 22px; }
+          .carrier-box { background: #E2E8F0; border: 1.2px solid #1E293B; padding: 7px 12px; margin: 8px 0 10px; width: 68%; font-size: 12px; line-height: 1.45; }
+          .sig-area { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 14px; gap: 16px; }
+          .sig-col { flex: 1; font-size: 11.8px; line-height: 1.55; }
+          .sig-col-title { text-align: center; font-weight: 600; margin-bottom: 14px; }
+          .stamp-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+          .stamp-circle { width: 92px; height: 92px; border: 1.4px solid #0F172A; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; margin-top: 2px; }
+          @media print {
+            .no-print { display: none !important; }
+            body { margin: 0; max-width: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+          }
+        </style>
+      </head><body>
+        <div class="no-print">
+          <span><strong>ฉบับเหมือนต้นฉบับ ปณท (คมชัด A4):</strong> แนบท้ายบันทึก ด่วนที่สุด ที่ ปณท บร.(จร.2)/652 ลว. 18 มิ.ย. 2569 — พิมพ์ 2 ฉบับ</span>
           <div style="display:flex; gap:8px;">
-            <a href="docs/official-loa-courier-post-652.pdf" target="_blank" style="background:#1D4ED8; color:#fff; text-decoration:none; padding:8px 14px; border-radius:6px; font-weight:700;">📄 เปิดไฟล์ PDF ต้นฉบับจริง (มีลายน้ำ ปณท)</a>
-            <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์หน้านี้ (A4)</button>
+            <a href="docs/official-loa-courier-post-652.pdf" target="_blank" style="background:#1D4ED8; color:#fff; text-decoration:none; padding:7px 13px; border-radius:6px; font-weight:700;">📄 ดูไฟล์สแกนต้นฉบับ</a>
+            <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:7px 15px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์หน้านี้ (A4)</button>
           </div>
         </div>
-        <div style="text-align:right; font-size:12.5px; font-weight:700;">เอกสารแนบ 2<br>แนบท้ายบันทึก ด่วนที่สุด ที่ ปณท บร.(จร.2)/652 ลงวันที่ 18 มิถุนายน 2569 (และ บร.(จร.2)/870 ลว. 7 พ.ค. 2569)</div>
-        <h1 style="text-align:center; margin-top:6px;">หนังสือยินยอมชำระค่าภาษีและค่าใช้จ่ายอื่นๆ (ถ้ามี) ที่อาจเกิดขึ้นสำหรับบริการ Courier Post</h1>
-        <h2 style="text-align:center;">Consent form for payment of duty taxes and other expenses (if any) that may arise for Courier Post services.</h2>
-        <div style="display:inline-block; border:1.5px solid #0F172A; padding:3px 12px; font-weight:700; margin-bottom:6px;">Sender Part / Post Office Copy</div>
-        <p style="margin:4px 0;">
-          <strong>Date (วันที่):</strong> ........................................................................................<br>
-          I, (Sender) ................................................................................................................... acknowledge and accept the condition that in the event the recipient refuses to pay the import duty taxes and/or any other related expenses (if any), regardless of whether the sender has provided prior instructions or not, all such duty taxes and expenses shall be the responsibility of the sender as specified on the deposit receipt in all cases.<br>
-          <strong>ข้าพเจ้า (ผู้ฝากส่งตามจ่าหน้า) รับทราบและยอมรับเงื่อนไขว่า ในกรณีที่ผู้รับปลายทางปฏิเสธการชำระค่าภาษีอากรขาเข้า และ/หรือค่าใช้จ่ายอื่นใดที่เกี่ยวข้อง (ถ้ามี) ไม่ว่าผู้ฝากส่งจะได้มีคำสั่งไว้ล่วงหน้าหรือไม่ก็ตาม การชำระค่าภาษีอากรและค่าใช้จ่ายดังกล่าวทั้งหมดให้ถือเป็นความรับผิดชอบของผู้ฝากส่งตามจ่าหน้าบนใบรับฝากทุกกรณี</strong>
-        </p>
-        <p style="margin:6px 0;">
-          <strong>ข้าพเจ้ายินยอมและตกลงให้ดำเนินการตามแนวทางที่ได้เลือกไว้ด้านล่างนี้ โดยถือเป็นคำสั่งและความยินยอมอย่างชัดแจ้ง และยอมรับภาระค่าใช้จ่ายที่เกิดขึ้นทั้งหมด โดยไม่เรียกร้องค่าเสียหายใด ๆ จาก บริษัท ไปรษณีย์ไทย จำกัด (ปณท) ดังนี้ (โปรดเลือก 1 ข้อ):</strong>
-        </p>
-        <div class="box-choice">
-          <div style="font-size:14.5px; font-weight:700; color:#B91C1C;">☐ In the case of "Disposal" (กรณีทำลาย/ละทิ้งสิ่งของ ณ ประเทศปลายทาง)</div>
-          <p style="margin:4px 0 0 18px;">
-            ผู้ฝากส่งรับทราบและยินยอมให้ดำเนินการละทิ้งสิ่งของ โดยยอมรับภาระค่าใช้จ่าย ครบทั้ง 2 รายการ ดังต่อไปนี้:<br>
-            ✓ <strong>All duty and/or tax charges</strong> (ค่าภาษีและ/หรืออากรทั้งหมดที่เกิดขึ้นที่ปลายทาง)<br>
-            ✓ <strong>Disposal</strong> (ค่าทำลาย/ละทิ้งสิ่งของ)
-          </p>
+
+        <div class="doc-top-ref">
+          เอกสารแนบ 2<br>
+          แนบท้ายบันทึก ด่วนที่สุด ที่ ปณท บร.(จร.2)/652 ลงวันที่ 18 มิถุนายน 2569
         </div>
-        <div class="box-choice">
-          <div style="font-size:14.5px; font-weight:700; color:#047857;">☐ In the case of "Return shipment to origin" (กรณีส่งคืนสิ่งของกลับมายังต้นทางประเทศไทย)</div>
-          <p style="margin:4px 0 0 18px;">
-            ผู้ฝากส่งรับทราบและยินยอมให้ดำเนินการส่งคืนสิ่งของกลับต้นทาง โดยยอมรับภาระค่าใช้จ่าย ครบทั้ง 3 รายการ ดังต่อไปนี้:<br>
-            ✓ <strong>Both transport charges and duty and/or tax charges</strong> (ค่าขนส่งและค่าภาษีและ/หรืออากรทั้งหมดที่เกิดขึ้นที่ปลายทางและขากลับประเทศไทย)<br>
-            ✓ <strong>Return of shipment fee</strong> (ค่าธรรมเนียมในการส่งคืนสิ่งของ)
-          </p>
-        </div>
-        <p style="margin:6px 0;">
-          <strong>For the item number (สำหรับสิ่งของหมายเลข):</strong> <code>KA____________________________________TH</code> (ระบุหมายเลข Track จำนวน 1 หมายเลขต่อ 1 เอกสาร)<br>
-          <strong>สำหรับผู้ขนส่ง — Waybill Number:</strong> ................................................................. <strong>Account Number:</strong> .................................................................
-        </p>
-        <p style="font-size:11.5px; color:#334155; margin:4px 0;">
-          *หากติดต่อผู้ฝากส่งไม่ได้ภายใน 14 วัน นับจากวันที่สิ่งของรับเข้าประเทศปลายทาง ปณท ขอสงวนสิทธิ์ในการละทิ้งสินค้าในทุกๆ กรณี | เอกสารฉบับนี้มีผลบังคับใช้ 3 เดือนนับจากวันที่ลงนาม (This LOA is applicable to this shipment only and shall remain valid for a period of 3 months from the date of signing.)
-        </p>
-        <div class="sig-row" style="margin-top:14px;">
-          <div class="sig-box">
-            <strong>ลายเซ็นผู้ฝากส่ง (Sender's Signature)</strong><br><br><br>
-            Signature: .................................................................................<br>
-            (...............................................................................................)
+        <div class="doc-main-title">หนังสือยินยอมชำระค่าภาษีและค่าใช้จ่ายอื่นๆ (ถ้ามี) ที่อาจเกิดขึ้นสำหรับบริการ Courier Post</div>
+
+        <div class="outer-frame">
+          <div class="watermark-layer" aria-hidden="true">
+            <svg width="165" height="62" viewBox="0 0 180 68" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="8,14 148,8 82,42 58,30" fill="#1E293B"/>
+              <polygon points="82,42 148,8 96,56" fill="#64748B"/>
+            </svg>
+            <div style="font-size:48px; font-weight:700; letter-spacing:2px; color:#1E293B; line-height:1.05;">ไปรษณีย์ไทย</div>
+            <div style="font-size:32px; font-weight:700; letter-spacing:1px; color:#1E293B; line-height:1.05;">Thailand Post</div>
           </div>
-          <div class="sig-box">
-            <strong>ลายเซ็นเจ้าหน้าที่รับฝาก พร้อมประทับตราประจำวัน</strong><br><br>
-            Signature: ................................................ (Receiving Officer)<br>
-            Tel. No.: .................................................................................<br>
-            Email: postalcare@thailandpost.com &nbsp;|&nbsp; (ประทับตราประจำวัน)
+
+          <div class="content-layer">
+            <div class="top-row">
+              <div class="sender-part-box">Sender Part</div>
+              <div class="thp-logo-wrap">
+                <svg width="78" height="32" viewBox="0 0 180 68" xmlns="http://www.w3.org/2000/svg">
+                  <polygon points="8,14 148,8 82,42 58,30" fill="#1E293B"/>
+                  <polygon points="82,42 148,8 96,56" fill="#64748B"/>
+                </svg>
+                <div style="line-height:1.1;">
+                  <div style="font-size:15px; font-weight:700;">ไปรษณีย์ไทย</div>
+                  <div style="font-size:10.5px; font-weight:700;">Thailand Post</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-heading">
+              <div class="en">Consent form for payment of duty taxes and other expenses<br>(if any) that may arise for Courier Post services.</div>
+              <div class="th">หนังสือยินยอมชำระค่าภาษีและค่าใช้จ่ายอื่นๆ (ถ้ามี) ที่อาจเกิดขึ้นสำหรับบริการ Courier Post</div>
+            </div>
+
+            <div class="p-block">
+              <div class="p-italic">Date.................................................</div>
+              <div class="p-italic">
+                I, (Sender) .................................................................... , acknowledge and accept the condition that in the event the recipient refuses to pay the import duty taxes and/or any other related expenses (if any), regardless of whether the sender has provided prior instructions or not, all such duty taxes and expenses shall be the responsibility of the sender as specified on the deposit receipt in all cases.
+              </div>
+              <div>
+                ข้าพเจ้า (ผู้ฝากส่งตามจ่าหน้า) รับทราบและยอมรับเงื่อนไขว่า ในกรณีที่ผู้รับปลายทางปฏิเสธการชำระค่าภาษีอากรขาเข้า และ/หรือค่าใช้จ่ายอื่นใดที่เกี่ยวข้อง (ถ้ามี) ไม่ว่าผู้ฝากส่งจะได้มีคำสั่งไว้ล่วงหน้าหรือไม่ก็ตาม ภาระค่าภาษีอากรและค่าใช้จ่ายดังกล่าวทั้งหมดให้ถือเป็นความรับผิดชอบของผู้ฝากส่งตามจ่าหน้าบนใบรับฝากทุกกรณี
+              </div>
+            </div>
+
+            <div class="p-block">
+              <div class="p-italic">
+                I consent and agree to proceed according to the selected option below, considering it as explicit instruction and consent, and accept all incurred expenses without claiming any damages from Thailand Post Co., Ltd (Thailand Post) as follows:
+              </div>
+              <div>
+                ข้าพเจ้ายินยอมและตกลงให้ดำเนินการตามแนวทางที่ได้เลือกไว้ด้านล่างนี้ โดยถือเป็นคำสั่งและความยินยอมอย่างชัดแจ้ง และยอมรับภาระค่าใช้จ่ายที่เกิดขึ้นทั้งหมด โดยไม่เรียกร้องค่าเสียหายใด ๆ จากบริษัท ไปรษณีย์ไทย จำกัด (ปณท) ดังนี้
+              </div>
+            </div>
+
+            <div class="opt-block">
+              <div>
+                ☐ &nbsp;<span class="p-italic">In the case of “Disposal,” the sender acknowledges and agrees to dispose of the items, accepting the full responsibility for the following two expenses:</span> ผู้ฝากส่งรับทราบและยินยอมให้ดำเนินการละทิ้งสิ่งของ โดยยอมรับภาระค่าใช้จ่าย ครบทั้ง 2 รายการ ดังต่อไปนี้
+              </div>
+              <div class="opt-sub">
+                ✓ <span class="p-italic">All duty and/or tax charges</span> (ค่าภาษีและ/หรืออากรทั้งหมดที่เกิดขึ้นที่ปลายทาง)<br>
+                ✓ <span class="p-italic">Disposal</span> (ค่าทำลาย/ละทิ้งสิ่งของ)
+              </div>
+            </div>
+
+            <div class="opt-block">
+              <div>
+                ☐ &nbsp;<span class="p-italic">In the case of “Return shipment to origin,” the sender acknowledges and agrees to return the items to the origin, accepting the full responsibility for the following three expenses:</span><br>
+                <span style="margin-left:18px; display:inline-block;">ผู้ฝากส่งรับทราบและยินยอมให้ดำเนินการส่งคืนสิ่งของกลับต้นทาง โดยยอมรับภาระค่าใช้จ่าย ครบทั้ง 3 รายการ ดังต่อไปนี้</span>
+              </div>
+              <div class="opt-sub">
+                ✓ <span class="p-italic">Both transport charges and duty and/or tax charges</span> (ค่าขนส่งและค่าภาษีและ/หรืออากรทั้งหมดที่เกิดขึ้นที่ปลายทางและขากลับประเทศไทย)<br>
+                ✓ <span class="p-italic">Return of shipment fee</span> (ค่าธรรมเนียมในการส่งคืนสิ่งของ)
+              </div>
+            </div>
+
+            <div class="p-block" style="margin-bottom:6px;">
+              <span class="p-italic">For the item number</span> (สำหรับสิ่งของหมายเลข) KA ..........................................................................................................<br>
+              <span class="p-italic">(Please specify one tracking number per document)</span> (ระบุหมายเลข Track จำนวน 1 หมายเลขต่อ 1 เอกสาร)
+            </div>
+
+            <div class="carrier-box">
+              <strong>สำหรับผู้ขนส่ง</strong><br>
+              Waybill Number: ....................................................................................<br>
+              Account Number: ...................................................................................
+            </div>
+
+            <div class="p-block" style="margin-bottom:8px;">
+              <div>
+                <span class="p-italic">If the sender cannot be contacted within 14 days from the date the items are received in the destination country, Thailand Post reserves the right to dispose of the goods in any cases.</span> (หากติดต่อผู้ฝากส่งไม่ได้ภายใน 14 วัน นับจากวันที่สิ่งของรับเข้าประเทศปลายทาง ปณท ขอสงวนสิทธิ์ ในการละทิ้งสินค้าในทุกๆ กรณี)
+              </div>
+              <div>
+                <span class="p-italic">The selection of any of the above options shall be considered as the sender's complete consent and instruction, accepting all expenses incurred as selected.</span> ทั้งนี้ การเลือกแนวทางใดแนวทางหนึ่งข้างต้น ให้ถือเป็นความยินยอมและคำสั่งของผู้ฝากส่งโดยสมบูรณ์และยอมรับภาระค่าใช้จ่ายที่เกิดขึ้นทั้งหมดตามที่เลือกไว้
+              </div>
+              <div class="p-italic">
+                This LOA is applicable to this shipment only and shall remain valid for a period of 3 months from the date of signing.
+              </div>
+            </div>
+
+            <div class="sig-area">
+              <div class="sig-col">
+                <div class="sig-col-title">ลายเซ็นผู้ฝากส่ง</div>
+                Signature ................................................. (Sender)<br>
+                ( ................................................................. )
+              </div>
+              <div class="sig-col">
+                <div class="sig-col-title">ลายเซ็นเจ้าหน้าที่รับฝาก พร้อมประทับตราประจำวัน</div>
+                <div class="stamp-row">
+                  <div>
+                    Signature ..................................... (Receiving Officer)<br>
+                    ( ........................................................ )<br>
+                    Tel. No. .......................................................<br>
+                    Email postalcare@thailandpost.com
+                  </div>
+                  <div class="stamp-circle">ตราประจำวัน</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </body></html>`;
