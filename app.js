@@ -145,6 +145,32 @@
     }
   }
 
+  function formatRichGuideText(rawText) {
+    let safe = escapeHtml(rawText);
+
+    // 1. เน้นหัวข้อนำหน้าก่อนเครื่องหมาย ':' (เช่น ชื่อบริการ/หัวข้อกฎ)
+    const colonMatch = safe.match(/^([^:\n]{4,95}):(\s*)/);
+    if (colonMatch && !/https?$/i.test(colonMatch[1])) {
+      safe = `<strong class="hl-lead">${colonMatch[1]}:</strong>${colonMatch[2]}` + safe.slice(colonMatch[0].length);
+    }
+
+    // 2. ไฮไลต์ชื่อบริการและจุดสำคัญโดยแยกข้อความนอกแท็ก HTML
+    const srvRe = /(Courier Post Plus|Courier Post|ePacket DDP|ePacket Plus|ePacket US|ePacket|EMS World|EMS Jumbo|eCo-Post|ไปรษณียภัณฑ์ลงทะเบียน|พัสดุไปรษณีย์|พัสดุย่อย|D-Post Inter|Pay@Post|CA POS|ITMATT)/g;
+    const keyRe = /(ห้ามส่งเด็ดขาด|ห้ามรับฝาก|ห้ามใช้คำสำแดง[^,.)]*|ห้ามมีสิ่งของปะปน[^!.)]*|ปรับขั้นต่ำ 3,100 บาท(?:\/กล่อง)?|De Minimis 800 USD|CPSC eFiling|600 พิกัด(?: HTS)?|Content Checked|Duties Paid|M-PID|NS-PID|HS Code 10 หลัก|HS Code 6 หลัก|≤\s*500 กรัม|≤\s*60 USD|≤\s*150 EUR|≤\s*100 USD|8 ก\.ค\. 2569|29 ส\.ค\. 2568|1 พ\.ย\. 2569)/g;
+
+    return safe
+      .split(/(<[^>]+>)/g)
+      .map((part) => {
+        if (!part || part.startsWith("<")) return part;
+        return part
+          .replace(srvRe, '<span class="hl-srv">$1</span>')
+          .split(/(<[^>]+>)/g)
+          .map((sub) => (sub && !sub.startsWith("<") ? sub.replace(keyRe, '<span class="hl-key">$1</span>') : sub))
+          .join("");
+      })
+      .join("");
+  }
+
   function renderClickableServiceListHtml(items, icon, liClass, modeHint, extraStyle, pillLabel) {
     return (items || [])
       .map((item) => {
@@ -153,7 +179,7 @@
         const attrs = target ? " " + buildJumpAttrs(target) : "";
         const pill = target ? " " + buildJumpPillHtml(target, pillLabel || "กดดูบริการนี้ ➔") : "";
         const styleAttr = extraStyle ? ` style="${extraStyle}"` : "";
-        return `<li class="${liClass}${jumpCls}"${attrs}${styleAttr}>${icon ? escapeHtml(icon) + " " : ""}${escapeHtml(item)}${pill}</li>`;
+        return `<li class="${liClass}${jumpCls}"${attrs}${styleAttr}>${icon ? escapeHtml(icon) + " " : ""}${formatRichGuideText(item)}${pill}</li>`;
       })
       .join("");
   }
@@ -323,7 +349,7 @@
       .map((item) => {
         const target = resolveDocJumpTarget(item, modeHint);
         if (!target) {
-          return `<li class="good" style="${defaultStyle || "background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A; white-space:pre-line;"}">${escapeHtml(item)}</li>`;
+          return `<li class="good" style="${defaultStyle || "background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A; white-space:pre-line;"}">${formatRichGuideText(item)}</li>`;
         }
         const attrs = buildJumpAttrs(target);
         const jumpPill = buildJumpPillHtml(target, target.pillLabel);
@@ -333,7 +359,7 @@
         } else if (target.directFile) {
           directBtn = ` <button type="button" class="jump-link-pill js-print-doc" data-file="${escapeHtml(target.directFile)}" style="background:#047857; border:none; cursor:pointer; color:#FFFFFF;">${escapeHtml(target.directLabel || "📄 เปิดดูตัวอย่าง/PDF")}</button>`;
         }
-        return `<li class="good js-jump-target" ${attrs} style="${defaultStyle || "background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A; white-space:pre-line;"}">${escapeHtml(item)}<div style="margin-top:5px; display:flex; flex-wrap:wrap; gap:4px; align-items:center;">${jumpPill}${directBtn}</div></li>`;
+        return `<li class="good js-jump-target" ${attrs} style="${defaultStyle || "background:#EFF6FF; border-left-color:#2563EB; color:#1E3A8A; white-space:pre-line;"}">${formatRichGuideText(item)}<div style="margin-top:5px; display:flex; flex-wrap:wrap; gap:4px; align-items:center;">${jumpPill}${directBtn}</div></li>`;
       })
       .join("");
   }
@@ -346,7 +372,7 @@
           return renderClickableDocListHtml([n], modeHint);
         }
         const cls = n.includes("🚨") || n.includes("🛡️") || n.includes("⚠️") || n.includes("ห้าม") ? "critical" : "good";
-        return `<li class="${cls}" style="white-space:pre-line;">${escapeHtml(n)}</li>`;
+        return `<li class="${cls}" style="white-space:pre-line;">${formatRichGuideText(n)}</li>`;
       })
       .join("");
   }
@@ -807,7 +833,7 @@
       // สินค้าทั่วไป / เสื้อผ้า / ของใช้ (general)
       if (z === "US") {
         allowedServices.push(
-          "✅ 1. ePacket US รวมภาษี DDP (LA...TH = 48 รัฐแผ่นดินใหญ่ / LI...TH = เกาะ, Alaska, Hawaii, ค่ายทหาร APO): นน.สูงสุด 5 กก., มูลค่า ≤ 60–100 USD (รวมภาษีนำเข้าสหรัฐฯ แล้ว!)",
+          "✅ 1. ePacket US รวมภาษี DDP (LA...TH = 48 รัฐแผ่นดินใหญ่ / LI...TH = เกาะ, Alaska, Hawaii, ค่ายทหาร APO): นน.สูงสุด 5 กก., มูลค่า ≤ 60 USD (รวมภาษีนำเข้าสหรัฐฯ แล้ว!)",
           "✅ 2. Courier Post Plus (FD...TH พิกัด 1–20 กก. / FC...TH พิกัด >20–5,000 กก.): ส่งหลายกล่องรวมน้ำหนักได้ (มีส่วนลด 5% ปุ่ม PostPlusDDP5% ถึง 30 พ.ย. 69)",
           "✅ 3. EMS World (Package - EE...TH): ด่วนพิเศษถึงไว สูงสุด 30 กก. ชดใช้สูงสุด 7,000 บ.",
           "✅ 4. Courier Post (DHL - KA...TH) และ พัสดุไปรษณีย์ทางอากาศ (CP...TH)"
@@ -898,7 +924,7 @@
           <ul class="notes-list" style="margin:0;">
             ${renderClickableDocListHtml(requiredDocs, "inter", "background:#FFFFFF; border-left-color:#2563EB; color:#1E293B; margin-bottom:4px; white-space:pre-line;")}
             ${destInfo.specialNotes
-              .map((n) => `<li style="background:#FFFBEB; border-left-color:#D97706; color:#92400E; margin-bottom:4px; font-weight:600;">${escapeHtml(n)}</li>`)
+              .map((n) => `<li style="background:#FFFBEB; border-left-color:#D97706; color:#92400E; margin-bottom:4px;">${formatRichGuideText(n)}</li>`)
               .join("")}
           </ul>
         </div>
