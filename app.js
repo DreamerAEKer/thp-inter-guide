@@ -402,7 +402,7 @@
           "🚨 แยกหมวดอักษร ePacket US ให้ถูก: 48 รัฐแผ่นดินใหญ่ใช้รหัส LA...TH | ส่วนเกาะ/รัฐนอกแผ่นดินใหญ่ (Hawaii, Alaska, Guam, Puerto Rico) และค่ายทหาร (City: APO/FPO/DPO, State: AA/AE/AP) ต้องใช้รหัส LI...TH เท่านั้น!",
           "🚨 บริการประเภทเอกสาร (EMS Document / ลงทะเบียนเอกสาร RR) ไปสหรัฐฯ น้ำหนักต้องไม่เกิน 500 กรัม และซองไม่เกิน P/G (30.5×38.1×2 ซม.) ห้ามมีสิ่งของปะปนเด็ดขาด!",
           "🚨 สินค้าควบคุม CPSC 600 พิกัด HTS (มีผล 8 ก.ค. 2569 — Courier Post & ePacket US): เช่น เสื้อผ้า (Ch.61/62/65), รองเท้า (Ch.64), ของเล่น, ผลิตภัณฑ์เด็ก/ที่นอน, เครื่องประดับแฟชั่น, ถ่านกระดุม, พรม — ผู้ส่งไทยต้องระบุ HS Code 10 หลัก + มูลค่า + ประเทศต้นกำเนิด และผู้รับในสหรัฐฯ ต้องลงทะเบียน IOR + ยื่น eFiling ที่ efiling.saferproducts.gov/efiling/self-registration",
-          "💰 เกณฑ์ภาษีนำเข้าสหรัฐฯ (ส่งกี่บาทไม่โดนภาษี?): สหรัฐฯ ยกเลิกกฎ De Minimis 800 USD ตั้งแต่ 29 ส.ค. 2568 แล้ว — ปัจจุบันสินค้าทั่วไปเสียภาษีตั้งแต่บาทแรก (ไม่มีขั้นต่ำที่ไม่โดนภาษี)! หากต้องการให้ผู้รับไม่โดนเรียกเก็บภาษีเพิ่ม แนะนำ ePacket US (LA/LI) มูลค่าไม่เกิน 60 USD (~1,900–2,000 บ.) ซึ่งรวมภาษี DDP ในค่าส่งแล้ว (ห้ามส่งอาหาร/ยา) | เอกสารล้วน (≤ 500 ก.) ไม่เสียภาษีสินค้า | ของขวัญแท้บุคคลธรรมดา (Bona Fide Gift) ≤ 100 USD มีข้อยกเว้นตาม 19 U.S.C. § 1321(a)(2)(A) แต่ห้ามเขียนสำแดงว่า 'Gift' เฉยๆ"
+          "💰 เกณฑ์ภาษีนำเข้าสหรัฐอเมริกา (อัปเดตหลังยกเลิก De Minimis 800 USD): สินค้าทั่วไปเสียภาษีตั้งแต่บาทแรก (ไม่มีขั้นต่ำที่ไม่โดนภาษีแล้ว) | หากต้องการส่งแบบรวมภาษีปลายทาง แนะนำ ePacket US (LA/LI) มูลค่าไม่เกิน 60 USD (~1,900–2,000 บ.) ซึ่งรวมภาษี DDP ในค่าส่งแล้ว (ห้ามส่งอาหาร/ยา) | เอกสารล้วน (≤ 500 ก.) ไม่เสียภาษีสินค้า | ของขวัญแท้บุคคลธรรมดา (Bona Fide Gift) ≤ 100 USD มีข้อยกเว้นตาม 19 U.S.C. § 1321(a)(2)(A) แต่ห้ามเขียนสำแดงว่า 'Gift' เฉยๆ"
         ]
       };
     }
@@ -1007,7 +1007,7 @@
               ${
                 srv.dpostInterMode
                   ? `<div style="background:${srv.dpostInterMode.includes("🔴") ? "#FEF2F2" : srv.dpostInterMode.includes("🟡") ? "#FFFBEB" : "#ECFDF5"}; border:1.5px solid ${srv.dpostInterMode.includes("🔴") ? "#EF4444" : srv.dpostInterMode.includes("🟡") ? "#F59E0B" : "#10B981"}; border-radius:10px; padding:10px 12px; margin-bottom:12px; font-size:13.5px; font-weight:600; color:${srv.dpostInterMode.includes("🔴") ? "#991B1B" : srv.dpostInterMode.includes("🟡") ? "#92400E" : "#065F46"}; white-space:pre-line;">
-                      💻 <strong>ต้องทำผ่าน D-Post Inter เท่านั้นไหม?:</strong><br>${escapeHtml(srv.dpostInterMode)}
+                      💻 <strong>ระบบจัดทำจ่าหน้า (D-Post Inter / ITMATT):</strong><br>${escapeHtml(srv.dpostInterMode)}
                     </div>`
                   : ""
               }
