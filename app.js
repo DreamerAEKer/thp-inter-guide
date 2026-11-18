@@ -215,9 +215,9 @@
           mode: "domestic",
           tab: "tab-forms",
           id: "doc-dom-doc-motorcycle-checklist",
-          pillLabel: "📄 ไปที่แบบตรวจสภาพรถ/ป.309 ➔",
-          directTemplate: "DOM_MOTORCYCLE_CHECKLIST",
-          directLabel: "🖨️ เปิดพิมพ์ใบตรวจสภาพรถ"
+          pillLabel: "📄 ไปที่คู่มือ/บันทึก EMS Jumbo ➔",
+          directFile: "docs/domestic-motorcycle-packing-guide.pdf",
+          directLabel: "📄 เปิดคู่มือหุ้มห่อมอเตอร์ไซค์ (PDF)"
         };
       }
       if (q.includes("e-ar") || q.includes("พื้นที่ห่างไกล")) {
@@ -255,9 +255,9 @@
           mode: "domestic",
           tab: "tab-forms",
           id: "doc-dom-doc-bulk-rc",
-          pillLabel: "📄 ไปที่ใบนำส่งรับฝากรวม ➔",
-          directTemplate: "DOM_BULK_DEPOSIT_FORM",
-          directLabel: "🖨️ เปิดพิมพ์ใบนำส่ง 20 รายการ"
+          pillLabel: "📄 ไปที่เอกสารฝากส่งในประเทศ ➔",
+          directFile: "docs/domestic-rates-all-2026.pdf",
+          directLabel: "📄 เปิดตารางเรทในประเทศ (PDF)"
         };
       }
       if (q.includes("ของตีพิมพ์") || q.includes("สติกเกอร์บาร์โค้ด") || q.includes("ป.133")) {
@@ -2311,49 +2311,127 @@
     `;
 
     if (templateType === "CHECKLIST_14") {
-      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>Checklist 14 ข้อ ePacket US & DDP EU</title>${baseStyle}</head><body>
-        <div class="no-print" style="background:#FEF2F2; padding:10px; border:1px solid #EF4444; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
-          <span><strong>พร้อมพิมพ์ขนาด A4:</strong> ให้ผู้ฝากส่งติ๊กและลงนามก่อนรับฝาก ePacket US (LA/LI) และ ePacket DDP ยุโรป (LE)</span>
-          <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์หน้านี้ทันที</button>
-        </div>
-        <h1>บริษัท ไปรษณีย์ไทย จำกัด (THAILAND POST)</h1>
-        <h2>แบบตรวจสอบรายการสิ่งของต้องห้ามฝากส่งบริการ ePacket USA (LA/LI) และ ePacket DDP ยุโรป 27 ประเทศ (LE)</h2>
-        <p style="margin:4px 0;"><strong>สิ่งของที่จะฝากส่งของท่าน มีรายการของต้องห้ามต่อไปนี้หรือไม่? (DOES YOUR PARCEL CONTAIN ANY PROHIBITED ITEMS?)</strong></p>
-        <table>
-          <thead>
-            <tr><th style="width:40px;">ตรวจ</th><th>รายการสิ่งของต้องห้าม (Prohibited Items Checklist - 14 หมวด)</th><th style="width:40px;">ตรวจ</th><th>รายการสิ่งของต้องห้าม (Prohibited Items Checklist)</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>☐</td><td><strong>1. ยาเสพติด กัญชา กระท่อม และยาสามัญ/ยารักษาโรค</strong><br>(Narcotics & Medicine)</td><td>☐</td><td><strong>8. อาวุธ สิ่งเทียมอาวุธ วัตถุมีคม มีด ปืนปลอม</strong><br>(Weapons, Imitation Firearms, Sharp object)</td></tr>
-            <tr><td>☐</td><td><strong>2. สัตว์มีชีวิต ซากพืช ซากสัตว์</strong><br>(Live Animals, Plant materials and Animal remains)</td><td>☐</td><td><strong>9. องค์พระ เทวรูป และวัตถุโบราณ</strong> (ยกเว้นพระเครื่องห้อยคอรวมไม่เกิน 500 กรัม/กล่อง)</td></tr>
-            <tr><td>☐</td><td><strong>3. อาหารสดและของเน่าเสียง่าย</strong><br>(Fresh Food & Perishables)</td><td>☐</td><td><strong>10. วัตถุไวไฟทุกชนิด สเปรย์ น้ำหอมที่มีแอลกอฮอล์</strong><br>(All types of Flammable Substances)</td></tr>
-            <tr><td>☐</td><td><strong>4. วัตถุลามกอนาจาร</strong> (Pornography)</td><td>☐</td><td><strong>11. แม่เหล็ก และลำโพงแม่เหล็ก</strong> (Magnet)</td></tr>
-            <tr><td>☐</td><td><strong>5. เงินสด ทองคำ บัตรเครดิต/เดบิต</strong><br>(Bank Notes, Gold Bullion, Credit/Debit card)</td><td>☐</td><td><strong>12. ไม้ พืชพันธุ์ ส่วนของพืช และเมล็ดพันธุ์พืช</strong><br>(Wood, Plant, Part of plants and Seeds)</td></tr>
-            <tr><td>☐</td><td><strong>6. สิ่งของละเมิดลิขสิทธิ์ / ของปลอมแบรนด์เนม</strong><br>(Copyright-infringing items)</td><td>☐</td><td><strong>13. สารอันตรายและเชื้อโรค</strong><br>(Hazardous and Infectious Substances)</td></tr>
-            <tr><td>☐</td><td><strong>7. แบตเตอรี่ และแบตเตอรี่ลิเธียม-ไอออนทุกชนิด</strong><br>(Battery and Lithium-Ion Battery)</td><td>☐</td><td><strong>14. 🚫 อาหาร เครื่องดื่ม ขนม ลูกอม ช็อกโกแลต ชา กาแฟ เครื่องปรุง ข้าว แป้ง ถั่ว ผลไม้อบแห้ง เนื้อสัตว์/อาหารทะเลแปรรูป นมผง โปรตีนผง วิตามิน อาหารเสริม และอาหารสัตว์ทุกชนิด!</strong></td></tr>
-          </tbody>
-        </table>
-        <div class="box-choice" style="text-align:center; font-size:14px; font-weight:700;">
-          พัสดุของคุณมีรายการสิ่งของต้องห้ามตามที่ระบุข้างต้นหรือไม่?<br><br>
-          ☐ <strong>มี (YES - ไม่สามารถฝากส่งได้)</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ☐ <strong>ไม่มี (NO - สามารถฝากส่งได้)</strong>
-        </div>
-        <div style="background:#FFFBEB; border:1.5px solid #D97706; padding:8px 10px; border-radius:6px; font-size:12px;">
-          ⚠️ <strong>คำเตือนสำคัญ:</strong> โปรดสำแดงสินค้าให้ถูกต้องและชัดเจน (ห้ามใช้คำกำกวม เช่น Gift, Sample, Accessories, Daily Necessities) หากศุลกากรหรือผู้ขนส่งตรวจพบการสำแดงเท็จหรือพบสิ่งของต้องห้าม พัสดุจะถูกอายัด/ส่งกลับ/ทำลาย โดย<strong>ผู้ฝากส่งต้องรับผิดชอบค่าปรับขั้นต่ำ 3,100 บาท/กล่อง</strong> และไม่คืนค่าฝากส่ง/ค่าภาษีทุกกรณี (อ้างอิง ปณท บร.(จร.1)/1921)
-        </div>
-        <div class="sig-row">
-          <div class="sig-box">
-            <strong>สำหรับผู้ฝากส่ง (Sender)</strong><br><br>
-            หมายเลขสิ่งของ (Tracking No.): .......................................................<br><br>
-            ลงชื่อผู้ฝากส่ง: ....................................................................................<br>
-            (....................................................................................)<br>
-            เบอร์โทรศัพท์: .......................................... วันที่: ........../........../2569
+      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>Checklist สิ่งของต้องห้าม ePacket USA และ ePacket DDP (เอกสารแนบ 3)</title>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap');
+          @page { size: A4 portrait; margin: 10mm 14mm; }
+          * { box-sizing: border-box; }
+          body { font-family: 'Sarabun', 'TH Sarabun New', sans-serif; color: #0F172A; margin: 10mm auto; max-width: 190mm; font-size: 13.5px; line-height: 1.38; background: #FFFFFF; }
+          .no-print { background:#FEF2F2; padding:10px 12px; border:1px solid #EF4444; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:13px; }
+          .sheet { position: relative; padding: 6px 8px; overflow: hidden; }
+          .wm { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; opacity: 0.13; z-index: 0; }
+          .inner { position: relative; z-index: 1; }
+          .top-ref { text-align: right; font-size: 13px; margin-bottom: 4px; }
+          .brand-head { display: flex; align-items: center; gap: 18px; margin: 4px 0 10px; }
+          .brand-title { font-size: 27px; font-weight: 800; color: #1E3A8A; letter-spacing: -0.2px; }
+          .brand-title .red { color: #B91C1C; }
+          .q-row { display: flex; align-items: center; gap: 14px; margin: 8px 0 12px; }
+          .q-text { font-size: 15.5px; font-weight: 800; color: #1E3A8A; line-height: 1.5; }
+          .q-text .red { color: #B91C1C; }
+          .pill-hdr { display: inline-block; background: #1E3A5F; color: #FFFFFF; font-size: 14px; font-weight: 700; padding: 5px 18px; border-radius: 999px; margin-bottom: 14px; }
+          .chk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; margin-bottom: 16px; }
+          .chk-col { display: flex; flex-direction: column; gap: 10px; }
+          .chk-item { display: flex; align-items: flex-start; gap: 10px; }
+          .chk-box { width: 18px; height: 18px; border: 1.6px solid #CBD5E1; border-radius: 3px; flex-shrink: 0; margin-top: 2px; background: rgba(255,255,255,0.75); }
+          .chk-txt { font-size: 12.6px; line-height: 1.35; color: #1E293B; }
+          .chk-txt strong { color: #1E3A5F; font-weight: 700; display: block; }
+          .chk-txt .ex { font-size: 11.4px; color: #334155; display: block; margin-top: 2px; }
+          .confirm-q { text-align: center; font-size: 15px; font-weight: 800; color: #1E3A8A; margin: 12px 0 10px; line-height: 1.4; }
+          .yn-row { display: flex; justify-content: center; gap: 22px; margin-bottom: 16px; flex-wrap: wrap; }
+          .yn-pill { display: inline-flex; align-items: center; gap: 10px; border: 1.5px solid #94A3B8; border-radius: 999px; padding: 5px 18px 5px 8px; font-weight: 700; font-size: 13.5px; color: #1E3A8A; background: #FFFFFF; }
+          .yn-circle { width: 22px; height: 22px; border: 1.5px solid #94A3B8; border-radius: 50%; display: inline-block; }
+          .warn-box { border: 1.5px solid #F87171; border-radius: 14px; padding: 10px 14px; font-size: 11.5px; line-height: 1.42; color: #B91C1C; background: rgba(255,255,255,0.92); }
+          @media print { .no-print { display: none !important; } body { margin: 0; max-width: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+        </style>
+      </head><body>
+        <div class="no-print">
+          <span><strong>ฉบับเหมือนต้นฉบับ ปณท (เอกสารแนบ 3 — บันทึก ปณท บร.(จร.1)/1921):</strong> สำหรับ ePacket USA และ ePacket DDP</span>
+          <div style="display:flex; gap:8px;">
+            <a href="docs/epacket-prohibited-checklist-1921.pdf#page=7" target="_blank" style="background:#1D4ED8; color:#fff; text-decoration:none; padding:7px 13px; border-radius:6px; font-weight:700;">📄 ดูไฟล์ PDF ต้นฉบับ (หน้า 7)</a>
+            <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:7px 15px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์หน้านี้ (A4)</button>
           </div>
-          <div class="sig-box">
-            <strong>สำหรับเจ้าหน้าที่รับฝาก ปณท</strong><br><br>
-            ☐ เปิดตรวจสอบสิ่งของภายในเรียบร้อยแล้ว<br>
-            ☐ ประทับตรา/เขียน <strong>"Content Checked"</strong> บนกล่องแล้ว<br>
-            ☐ (กรณี EU) รับชำระภาษี Pay@Post 84415 และเขียน <strong>"Duties Paid"</strong> แล้ว<br><br>
-            ปณ.ต้นทาง: ................................................ วันที่: ........../........../2569
+        </div>
+
+        <div class="sheet">
+          <div class="wm" aria-hidden="true">
+            <svg width="210" height="78" viewBox="0 0 180 68" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="8,14 148,8 82,42 58,30" fill="#1E293B"/>
+              <polygon points="82,42 148,8 96,56" fill="#64748B"/>
+            </svg>
+            <div style="font-size:54px; font-weight:700; color:#1E293B; line-height:1.05;">ไปรษณีย์ไทย</div>
+            <div style="font-size:36px; font-weight:700; color:#1E293B; line-height:1.05;">Thailand Post</div>
+          </div>
+
+          <div class="inner">
+            <div class="top-ref">เอกสารแนบ 3</div>
+
+            <div class="brand-head">
+              <div style="text-align:center;">
+                <svg width="88" height="34" viewBox="0 0 180 68" xmlns="http://www.w3.org/2000/svg">
+                  <polygon points="8,14 148,8 82,42 58,30" fill="#334155"/>
+                  <polygon points="82,42 148,8 96,56" fill="#94A3B8"/>
+                  <polygon points="10,20 90,26 58,32" fill="#D91920"/>
+                </svg>
+                <div style="font-size:16px; font-weight:800; color:#D91920; line-height:1;">ไปรษณีย์ไทย</div>
+                <div style="font-size:11px; font-weight:700; color:#1E3A8A;">Thailand Post</div>
+              </div>
+              <div class="brand-title">ePacket USA <span style="font-weight:700;">และ</span> <span class="red">ePacket DDP</span></div>
+            </div>
+
+            <div class="q-row">
+              <svg width="64" height="58" viewBox="0 0 64 58" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+                <path d="M32 4 L60 52 Q61 55 57 55 L7 55 Q3 55 4 52 Z" fill="#E11D48"/>
+                <rect x="29" y="19" width="6" height="19" rx="3" fill="#FFFFFF"/>
+                <circle cx="32" cy="45" r="3.5" fill="#FFFFFF"/>
+              </svg>
+              <div class="q-text">
+                สิ่งของที่จะฝากส่งของท่าน <span class="red">มีรายการของต้องห้าม</span>หรือไม่?<br>
+                DOES YOUR PARCEL CONTAINS <span class="red">ANY PROHIBITED ITEMS</span> ?
+              </div>
+            </div>
+
+            <div><span class="pill-hdr">รายการสิ่งของต้องห้าม / PROHIBITED ITEMS CHECKLIST</span></div>
+
+            <div class="chk-grid">
+              <div class="chk-col">
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>Narcotics &amp; Medicine</strong>ยาเสพติด กัญชา กระท่อม<br>และยารักษาโรค</div></div>
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>Live Animals, Plant materials and Animal Remains</strong>สัตว์มีชีวิต ซากพืช ซากสัตว์</div></div>
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>Fresh Food &amp; Perishables</strong>อาหารสดและของเน่าเสียง่าย</div></div>
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>Pornography</strong>วัตถุลามกอนาจาร</div></div>
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>Bank Notes, Gold Bullion, Credit card, Debit card</strong>เงินสด ทอง บัตรเครดิต/เดบิต</div></div>
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>Copyright-infringing</strong>สิ่งของละเมิดลิขสิทธิ์</div></div>
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>Firearms, Sharp object, Imitation Firearm</strong>อาวุธ วัตถุมีคม สิ่งเทียมอาวุธ</div></div>
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>Battery and Lithium-Ion Battery</strong>แบตเตอรี่ และ แบตเตอรี่ลิเธียม-ไอออน</div></div>
+              </div>
+
+              <div class="chk-col">
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>Buddha Images, Religious Statues and Antiques</strong>องค์พระ เทวรูป และวัตถุโบราณ</div></div>
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>All types of Flammable Substances</strong>วัตถุไวไฟทุกชนิด</div></div>
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>Magnet</strong>แม่เหล็ก</div></div>
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>Wood, Plant, Part of plants and Seeds</strong>ไม้, พืชพันธุ์, ส่วนของพืช และเมล็ดพันธุ์พืช</div></div>
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt"><strong>Hazardous and Infectious Substances</strong>สารอันตรายและเชื้อโรค</div></div>
+                <div class="chk-item"><div class="chk-box"></div><div class="chk-txt">
+                  <strong>Food &amp; Consumable Products and Dietary Supplements</strong>
+                  <span class="ex"><b>Examples:</b> Food, beverages, snacks, candy, cookies, chocolate, tea, coffee, seasonings, rice, flour, grains, cooking oil, nuts, dried fruits, processed meat and seafood, powdered milk, powdered beverages, protein powder, vitamins, dietary supplements, and pet food.</span>
+                  <span class="ex"><b>ตัวอย่าง</b> อาหาร เครื่องดื่ม ขนม ลูกอม บิสกิต ช็อกโกแลต ชา กาแฟ เครื่องปรุง ข้าว แป้ง ธัญพืช น้ำมัน ถั่ว ผลไม้อบแห้ง เนื้อสัตว์/อาหารทะเลแปรรูป นมผง เครื่องดื่มผง โปรตีนผง วิตามิน อาหารเสริม และอาหารสัตว์ เป็นต้น</span>
+                </div></div>
+              </div>
+            </div>
+
+            <div class="confirm-q">
+              Does your parcel contains any prohibited items as listed above?<br>
+              พัสดุของคุณมีรายการสิ่งของต้องห้ามตามที่ระบุข้างต้นหรือไม่?
+            </div>
+
+            <div class="yn-row">
+              <div class="yn-pill"><span class="yn-circle"></span> YES (Cannot be shipped) มี (ไม่สามารถส่งได้)</div>
+              <div class="yn-pill"><span class="yn-circle"></span> NO (Can be shipped) ไม่มี (สามารถส่งได้)</div>
+            </div>
+
+            <div class="warn-box">
+              <strong>⚠️ PLEASE DECLARE ITEMS ACCURATELY AND CLEARLY.</strong> If the carrier partners of customs detects a false declaration, item renaming, or vague description intended to avoid inspection, the parcel may be detained / returned / destroyed, with a minimum charge of <strong>THB 3,100</strong> per item or subject to the rates charged by customs or the customs clearance service provider.<br>
+              <strong>โปรดสำแดงสินค้าให้ถูกต้องและชัดเจน</strong> หากศุลกากรตรวจพบ การสำแดงเท็จ เปลี่ยนชื่อสินค้า หรือใช้คำคลุมเครือเพื่อหลีกเลี่ยงการตรวจสอบ พัสดุอาจถูกอายัด / ส่งกลับ / ทำลาย และมีค่าใช้จ่าย <strong>ขั้นต่ำ 3,100 บาท/รายการ</strong> หรือเป็นไปตามอัตราที่ศุลกากรหรือตัวแทนผู้ให้บริการดำเนินพิธีการศุลกากรเรียกเก็บ
+            </div>
           </div>
         </div>
       </body></html>`;
@@ -2526,62 +2604,145 @@
     }
 
     if (templateType === "PROFORMA_PID_EU") {
-      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>New Proforma Invoice (พร้อมช่องรหัส PID สำหรับ EU 27 ประเทศ)</title>${baseStyle}</head><body>
-        <div class="no-print" style="background:#EFF6FF; padding:10px; border:1px solid #2563EB; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
-          <span><strong>แบบฟอร์ม Proforma Invoice รูปแบบใหม่ (มีช่องรหัส PID):</strong> ใช้แนบคู่กับ ป.324 สำหรับบริการ Courier Post ไป EU 27 ประเทศ</span>
-          <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์ Proforma Invoice (PID)</button>
+      let emptyRows = "";
+      for (let r = 1; r <= 10; r++) {
+        emptyRows += `<tr><td style="text-align:center; height:24px;">${r}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;
+      }
+      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>PROFORMA INVOICE — บริการ Courier Post</title>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+          @page { size: A4 portrait; margin: 9mm 12mm; }
+          * { box-sizing: border-box; }
+          body { font-family: 'Sarabun', 'TH Sarabun New', sans-serif; color: #0F172A; margin: 10mm auto; max-width: 190mm; font-size: 11px; line-height: 1.32; background: #FFFFFF; }
+          .no-print { background:#EFF6FF; padding:10px 12px; border:1px solid #2563EB; margin-bottom:10px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:13px; }
+          .inv-hdr { background: #CBD5E1; border: 1.4px solid #0F172A; text-align: center; font-size: 16.5px; font-weight: 700; padding: 4px 8px; letter-spacing: 0.4px; }
+          table.inv-tbl { width: 100%; border-collapse: collapse; margin: 0; }
+          table.inv-tbl th, table.inv-tbl td { border: 1.1px solid #0F172A; padding: 3.5px 6px; vertical-align: top; font-size: 10.6px; }
+          .sec-bar { background: #CBD5E1; font-weight: 700; padding: 2.5px 6px !important; }
+          .info-line { margin-bottom: 3.5px; }
+          .goods-wrap { position: relative; margin-top: 4px; }
+          .goods-wm { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; opacity: 0.14; z-index: 0; }
+          table.goods-tbl { width: 100%; border-collapse: collapse; position: relative; z-index: 1; background: transparent; }
+          table.goods-tbl th, table.goods-tbl td { border: 1.1px solid #0F172A; padding: 3px 4px; font-size: 10px; vertical-align: middle; }
+          table.goods-tbl th { background: rgba(203, 213, 225, 0.85); text-align: center; font-weight: 700; line-height: 1.2; }
+          .origin-box { border: 1.3px solid #0F172A; padding: 5px 8px; margin-top: 6px; font-size: 10.5px; font-style: italic; line-height: 1.38; }
+          .cert-foot { margin-top: 6px; font-size: 10.4px; line-height: 1.45; }
+          @media print { .no-print { display: none !important; } body { margin: 0; max-width: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+        </style>
+      </head><body>
+        <div class="no-print">
+          <span><strong>ฉบับเหมือนต้นฉบับ ปณท (New Invoice.pdf — บันทึก 3248):</strong> แบบฟอร์ม Proforma Invoice เปล่า</span>
+          <div style="display:flex; gap:8px;">
+            <a href="docs/official-blank-proforma-invoice.pdf" target="_blank" style="background:#1D4ED8; color:#fff; text-decoration:none; padding:7px 13px; border-radius:6px; font-weight:700;">📄 ดูไฟล์ PDF ต้นฉบับ</a>
+            <a href="docs/example-proforma-invoice-eu.pdf" target="_blank" style="background:#047857; color:#fff; text-decoration:none; padding:7px 13px; border-radius:6px; font-weight:700;">📄 ดูตัวอย่างการกรอกไป EU</a>
+            <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:7px 15px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์หน้านี้ (A4)</button>
+          </div>
         </div>
-        <h1>PROFORMA / COMMERCIAL INVOICE (NEW EU ICS2 / PID FORMAT)</h1>
-        <h2>เอกสารสำแดงศุลกากรรูปแบบใหม่ (บังคับระบุรหัส PID สำหรับปลายทางสหภาพยุโรป 27 ประเทศ ตั้งแต่วันที่ 1 พ.ย. 2569)</h2>
-        <table>
+
+        <div class="inv-hdr">PROFORMA INVOICE</div>
+        <table class="inv-tbl" style="border-top:none;">
           <tr>
-            <td style="width:50%;">
-              <strong>SENDER / EXPORTER (ผู้ฝากส่ง - กรอกภาษาอังกฤษ):</strong><br>
-              Name: ..........................................................................................................<br>
-              Address: .....................................................................................................<br>
-              .....................................................................................................................<br>
-              Phone: ........................................... Tax/ID No.: .......................................
+            <td class="sec-bar" style="width:57%;">SENDER <span style="font-weight:400;">(ผู้ฝากส่ง)</span></td>
+            <td class="sec-bar" style="width:43%;">GENERAL INFORMATION <span style="font-weight:400;">(ข้อมูลทั่วไป)</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="info-line"><strong>Company Name</strong> (ชื่อหน่วยงาน):</div>
+              <div class="info-line"><strong>Contact Name</strong> (ชื่อ - นามสกุล):</div>
+              <div class="info-line"><strong>Building Name</strong> (อาคาร):</div>
+              <div class="info-line" style="margin-bottom:8px;"><strong>Street Name &amp; Number</strong> (ที่อยู่):</div>
+              <div class="info-line"><strong>Postcode</strong> (รหัสไปรษณีย์):</div>
+              <div class="info-line"><strong>City</strong> (เมือง):</div>
+              <div class="info-line"><strong>Country</strong> (ประเทศต้นทาง):</div>
+              <div class="info-line"><strong>Business/Private</strong> (บริษัท/บุคคลธรรมดา):</div>
+              <div class="info-line"><strong>Phone</strong> (โทร.):</div>
+              <div class="info-line" style="margin-bottom:0;"><strong>Email</strong> (อีเมล):</div>
             </td>
-            <td style="width:50%;">
-              <strong>RECIPIENT / CONSIGNEE (ผู้รับปลายทาง EU - กรอกภาษาอังกฤษ):</strong><br>
-              Name: ..........................................................................................................<br>
-              Address: .....................................................................................................<br>
-              City / Postcode / Country: ........................................................................<br>
-              <strong>Phone (บังคับ):</strong> ............................. <strong>Email (บังคับ):</strong> .............................
+            <td>
+              <div class="info-line" style="margin-bottom:10px;"><strong>Date</strong> (วันที่):</div>
+              <div class="info-line" style="margin-bottom:12px;"><strong>Invoice Number:</strong><br>(หมายเลขใบกำกับสินค้า)</div>
+              <div class="info-line" style="margin-bottom:12px;"><strong>Shipment Reference No.:</strong><br>(หมายเลขอ้างอิงหีบห่อ)</div>
+              <div class="info-line" style="margin-bottom:0;"><strong>KA Number:</strong><br>(หมายเลข KA)</div>
             </td>
           </tr>
           <tr>
-            <td><strong>Tracking / Airwaybill No.:</strong> ...................................................................</td>
-            <td><strong>Date:</strong> ........../........../2026 &nbsp;|&nbsp; <strong>Currency (สกุลเงิน):</strong> EUR / USD</td>
+            <td class="sec-bar">RECEIVER <span style="font-weight:400;">(ผู้รับ)</span></td>
+            <td class="sec-bar">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="info-line"><strong>Company Name</strong> (ชื่อหน่วยงาน):</div>
+              <div class="info-line"><strong>Contact Name</strong> (ชื่อ - นามสกุล):</div>
+              <div class="info-line"><strong>Building Name</strong> (อาคาร):</div>
+              <div class="info-line" style="margin-bottom:8px;"><strong>Street Name &amp; Number</strong> (ที่อยู่):</div>
+              <div class="info-line"><strong>Postcode</strong> (รหัสไปรษณีย์):</div>
+              <div class="info-line"><strong>City</strong> (เมือง):</div>
+              <div class="info-line" style="margin-bottom:0;"><strong>Country</strong> (ประเทศปลายทาง):</div>
+            </td>
+            <td>
+              <div class="info-line" style="margin-bottom:12px;"><strong>Phone No.</strong> (โทร):</div>
+              <div class="info-line" style="margin-bottom:12px;"><strong>Email</strong> (อีเมล):</div>
+              <div class="info-line" style="margin-bottom:12px;"><strong>Tax ID/VAT No.:</strong><br>(หมายเลขผู้เสียภาษี)</div>
+              <div class="info-line" style="margin-bottom:0;"><strong>EORI / IOSS No.:</strong><br>(หมายเลข EORI / IOSS)</div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="sec-bar">OTHER REMARKS <span style="font-weight:400;">(หมายเหตุอื่น ๆ)</span></td>
+          </tr>
+          <tr>
+            <td colspan="2" style="font-style:italic; font-size:9.8px; height:36px;">
+              Please add below any additional critical information or specific country clearance requirements that might be applicable/relevant, e.g. bank details, special formalities, etc. (โปรดระบุข้อมูลเพิ่มเติมหรือข้อมูลสำคัญสำหรับผ่านการตรวจปล่อยสินค้าตามที่หน่วยงานที่มีอำนาจกำหนด)
+            </td>
           </tr>
         </table>
-        <table>
-          <thead>
-            <tr>
-              <th style="width:28px;">#</th>
-              <th>Full Description of Goods<br>(ระบุชื่อสิ่งของภาษาอังกฤษให้ชัดเจน ห้ามเขียน Gift/Sample)</th>
-              <th style="width:85px;">HS Code<br>(6-10 หลัก)</th>
-              <th style="width:115px;">M-PID (บังคับ)*<br>(รหัสร้านค้า/ชื่อสินค้า เช่น Lays)</th>
-              <th style="width:125px;">NS-PID (บังคับ)*<br>(รหัสผู้ผลิต/บาร์โค้ด 13 หลัก/Lays-Salt)</th>
-              <th style="width:90px;">S-PID<br>(ไม่บังคับ EAN/UPC)</th>
-              <th style="width:55px;">Origin<br>(เช่น TH)</th>
-              <th style="width:45px;">Qty</th>
-              <th style="width:65px;">Net Wt (kg)</th>
-              <th style="width:75px;">Total Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>1</td><td style="height:28px;"></td><td></td><td></td><td></td><td></td><td>TH</td><td></td><td></td><td></td></tr>
-            <tr><td>2</td><td style="height:28px;"></td><td></td><td></td><td></td><td></td><td>TH</td><td></td><td></td><td></td></tr>
-            <tr><td>3</td><td style="height:28px;"></td><td></td><td></td><td></td><td></td><td>TH</td><td></td><td></td><td></td></tr>
-            <tr><td>4</td><td style="height:28px;"></td><td></td><td></td><td></td><td></td><td>TH</td><td></td><td></td><td></td></tr>
-            <tr><td>5</td><td style="height:28px;"></td><td></td><td></td><td></td><td></td><td>TH</td><td></td><td></td><td></td></tr>
-            <tr><td>6</td><td style="height:28px;"></td><td></td><td></td><td></td><td></td><td>TH</td><td></td><td></td><td></td></tr>
-          </tbody>
-        </table>
-        <p style="font-size:12px;">*คำแนะนำการกรอก PID กรณีส่งให้ญาติ (C2C) หรือไม่มีรหัสบนสินค้า: ช่อง <strong>M-PID</strong> ให้ตั้งด้วยชื่อสินค้าภาษาอังกฤษ (เช่น <code>Lays</code> หรือ <code>MAMA</code>) | ช่อง <strong>NS-PID</strong> ให้ใช้เลขบาร์โค้ด 13 หลักบนซองสินค้า หรือตั้งด้วยชื่อสินค้า+รสชาติ/สี/ตัวเลข (เช่น <code>Lays-Salt</code> หรือ <code>Lays01</code>)</p>
-        <p>I/We hereby declare that the information on this invoice is true and correct and that the contents of this shipment are as stated above.<br><br>
-        <strong>Signature of Sender (ลายมือชื่อผู้ฝากส่ง):</strong> ....................................................................................... <strong>Date:</strong> ........../........../2026</p>
+
+        <div class="goods-wrap">
+          <div class="goods-wm" aria-hidden="true">
+            <div style="font-size:44px; font-weight:700; font-style:italic; color:#1E293B; line-height:1;">ไปรษณีย์ไทย</div>
+            <div style="font-size:32px; font-weight:700; font-style:italic; letter-spacing:2px; color:#1E293B; line-height:1.05;">THAILAND POST</div>
+          </div>
+          <table class="goods-tbl">
+            <thead>
+              <tr>
+                <th style="width:28px;">No<br><span style="font-weight:400;">(ลำดับ)</span></th>
+                <th>Full Description of Goods<br><span style="font-weight:400;">(รายละเอียดสิ่งบรรจุภายใน)</span></th>
+                <th style="width:66px;">HS CODE<br><span style="font-weight:400;">(พิกัดศุลกากร)</span></th>
+                <th style="width:62px;">Country of Origin<br><span style="font-weight:400;">(ถิ่นกำเนิดสินค้า)</span></th>
+                <th style="width:38px;">Qty<br><span style="font-weight:400;">(จำนวน)</span></th>
+                <th style="width:74px;">Unit Value &amp; Currency (usd)<br><span style="font-weight:400; font-size:8.8px;">(ราคาต่อชิ้น : หน่วย USD)</span></th>
+                <th style="width:74px;">Sub-Total Value &amp; Currency (usd)<br><span style="font-weight:400; font-size:8.8px;">(ราคารวม : หน่วย USD)</span></th>
+                <th style="width:60px;">Net Weight (kg)<br><span style="font-weight:400; font-size:8.8px;">(น้ำหนักสุทธิ : หน่วย กก.)</span></th>
+                <th style="width:62px;">Gross Weight (kg)<br><span style="font-weight:400; font-size:8.8px;">(น้ำหนักรวม : หน่วย กก.)</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              ${emptyRows}
+              <tr>
+                <td colspan="6" style="text-align:right; font-weight:700; padding-right:10px; border-left:none; border-bottom:none;">รวม</td>
+                <td style="text-align:center; font-weight:700; font-size:9.5px; line-height:1.2;">Total Value<br>&amp; Currency<br>(usd)</td>
+                <td style="text-align:center; font-weight:700; font-size:9.5px; line-height:1.2;">Total Net<br>Weight<br>(kg)</td>
+                <td style="text-align:center; font-weight:700; font-size:9.5px; line-height:1.2;">Total Gross<br>Weight(kg)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="origin-box">
+          The exporter of the products covered by this document (Exporter Reference No. (REX or GB EORI number)) declares that, except where otherwise clearly indicated, these products are of ........ preferential origin.<br>
+          (Place and date)<br>
+          (Name of the exporter)
+        </div>
+
+        <div class="cert-foot">
+          <strong>I/we certify the information on this invoice is true and correct and that the contents of this shipment are as stated above.</strong><br>
+          <span style="font-size:9.5px;">ข้าพเจ้าขอรับรองว่าข้อมูลทั้งหมดเป็นความจริงและถูกต้องตามที่กรอกในแบบฟอร์มนี้ทุกประการ</span><br><br>
+          Name (ชื่อผู้ส่ง): .......................................................................................................<br>
+          <div style="display:flex; justify-content:space-between; margin-top:4px;">
+            <span>Date (วันที่ฝากส่ง): ............................................</span>
+            <span>Signature (ลงนาม): ....................................................</span>
+            <span>Page ... / ...</span>
+          </div>
+        </div>
       </body></html>`;
     }
 
@@ -2633,285 +2794,240 @@
     }
 
     if (templateType === "DOM_ADMAIL_FORM") {
-      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>ใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail) เอกสารหมายเลข 1 และ 2</title>${baseStyle}</head><body>
-        <div class="no-print" style="background:#ECFDF5; padding:10px; border:1px solid #059669; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
-          <span><strong>พร้อมพิมพ์ A4 (2 ฉบับ):</strong> ใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (เอกสารหมายเลข 1) และตัวอย่างใบปะหน้าห่อ (เอกสารหมายเลข 2) ตามระเบียบ ปณท ฉบับที่ 215</span>
-          <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์ใบนำส่ง Admail (A4)</button>
+      let emptyAdRows = "";
+      for (let i = 0; i < 7; i++) {
+        emptyAdRows += `<tr><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>`;
+      }
+      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>เอกสารหมายเลข 1 — ใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า</title>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap');
+          @page { size: A4 portrait; margin: 12mm 16mm; }
+          * { box-sizing: border-box; }
+          body { font-family: 'Sarabun', 'TH Sarabun New', sans-serif; color: #0F172A; margin: 12mm auto; max-width: 185mm; font-size: 13.5px; line-height: 1.55; background: #FFFFFF; }
+          .no-print { background:#ECFDF5; padding:10px 12px; border:1px solid #059669; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:13px; }
+          .top-note { text-align: right; font-size: 13px; line-height: 1.35; }
+          .doc-title { text-align: center; font-size: 16.5px; font-weight: 700; margin: 4px 0 8px; }
+          table.ad-tbl { width: 100%; border-collapse: collapse; margin: 10px 0 12px; }
+          table.ad-tbl th, table.ad-tbl td { border: 1.1px solid #0F172A; padding: 4px 6px; font-size: 13px; text-align: center; vertical-align: middle; }
+          .chk-ind { margin-left: 44px; }
+          .sig-right { text-align: center; width: 48%; margin-left: auto; margin-top: 8px; }
+          .sig-left { text-align: center; width: 48%; margin-top: 8px; }
+          .stamp-corner { position: relative; width: 92px; height: 92px; display: flex; align-items: center; justify-content: center; font-size: 12.5px; }
+          .stamp-corner::before, .stamp-corner::after { content: ""; position: absolute; width: 14px; height: 14px; border-color: #0F172A; border-style: solid; }
+          .stamp-corner::before { top: 0; left: 0; border-width: 1.4px 0 0 1.4px; }
+          .stamp-corner::after { top: 0; right: 0; border-width: 1.4px 1.4px 0 0; }
+          .stamp-corner-bot { position: relative; width: 92px; height: 0; }
+          .stamp-corner-bot::before, .stamp-corner-bot::after { content: ""; position: absolute; bottom: 0; width: 14px; height: 14px; border-color: #0F172A; border-style: solid; }
+          .stamp-corner-bot::before { left: 0; border-width: 0 0 1.4px 1.4px; }
+          .stamp-corner-bot::after { right: 0; border-width: 0 1.4px 1.4px 0; }
+          .page-break { border-top: 1.5px dashed #94A3B8; margin: 24px 0 18px; page-break-before: always; }
+          .dot-hr { border-top: 1px dotted #475569; margin: 14px 0; }
+          @media print { .no-print { display: none !important; } body { margin: 0; max-width: none; } }
+        </style>
+      </head><body>
+        <div class="no-print">
+          <span><strong>ฉบับเหมือนต้นฉบับ ปณท (เอกสารหมายเลข 1 ท้ายระเบียบ ปณท ฉบับที่ 215 พ.ศ. 2557):</strong> หน้า 1–2</span>
+          <div style="display:flex; gap:8px;">
+            <a href="docs/domestic-admail-form.pdf#page=2" target="_blank" style="background:#1D4ED8; color:#fff; text-decoration:none; padding:7px 13px; border-radius:6px; font-weight:700;">📄 ดูไฟล์ PDF ต้นฉบับ</a>
+            <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:7px 15px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์หน้านี้ (A4)</button>
+          </div>
         </div>
-        <div style="text-align:right; font-weight:700; font-size:13px;">เอกสารหมายเลข 1 (จัดทำ 2 ฉบับ: ปณ.รับฝากเก็บ 1 ฉบับ / คืนผู้ฝากส่ง 1 ฉบับ)</div>
-        <h1>บริษัท ไปรษณีย์ไทย จำกัด — ใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า (Advertising Mail / Admail)</h1>
-        <h2>อ้างอิง: ระเบียบ ปณท ว่าด้วยบริการไปรษณียภัณฑ์ไม่มีจ่าหน้า (ฉบับที่ 215) พ.ศ. 2557 และอัตราค่าบริการใหม่ (เริ่ม 1 ม.ค. 2568)</h2>
-        <table>
-          <tr>
-            <td style="width:55%;">
-              <strong>ชื่อผู้ฝากส่ง / บริษัท / ผู้สมัครรับเลือกตั้ง:</strong> ........................................................................................<br>
-              <strong>ที่อยู่:</strong> ................................................................................................................................................<br>
-              <strong>โทรศัพท์:</strong> ........................................................ <strong>วันที่ฝากส่ง:</strong> ............ / ........................ / 2569
-            </td>
-            <td style="width:45%;">
-              <strong>ฝากส่ง ณ ที่ทำการไปรษณีย์:</strong> ....................................................................<br>
-              <strong>ประเภทสื่อที่ฝากส่ง:</strong> ☐ แผ่นพับ/ใบปลิวโฆษณา &nbsp; ☐ แค็ตตาล็อก/ตัวอย่างสินค้า<br>
-              ☐ <strong>สื่อรณรงค์หาเสียงเลือกตั้ง (≤50 กรัม อัตรา 2.50 บาท/ชิ้น ไม่มีขั้นต่ำ)</strong><br>
-              <strong>กำหนดวันที่ต้องการให้นำจ่ายถึงผู้รับ:</strong> ......................................................
-            </td>
-          </tr>
-        </table>
-        <table>
+
+        <div class="top-note">
+          เอกสารแนบท้ายระเบียบ ปณท ที่<br>
+          ว่าด้วย บริการไปรษณียภัณฑ์ไม่มีจ่าหน้า พ.ศ. 2557<br>
+          เอกสารหมายเลข 1
+        </div>
+        <div class="doc-title">ใบนำส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า</div>
+
+        <div style="text-align:center; margin-bottom:6px;">วันที่...............เดือน..........................พ.ศ................</div>
+        <div>เรื่อง &nbsp;&nbsp; ขอฝากส่งไปรษณียภัณฑ์ไม่มีจ่าหน้า</div>
+        <div>(๑) เรียน &nbsp; หัวหน้าที่ทำการ..........................................................................</div>
+        <div style="margin-left:56px;">ด้วย........................................................................ที่อยู่...................................................................................................</div>
+        <div>มีความประสงค์ขอฝากส่งไปรษณียภัณฑ์ไม่มีจ่าหน้าชนิด &nbsp; ☐ จดหมาย &nbsp; ☐ ไปรษณียบัตร &nbsp; ☐ ของตีพิมพ์</div>
+        <div>น้ำหนักต่อ/ชิ้น......................กรัม &nbsp; จำนวน......................ฉบับ/ชิ้น &nbsp; มัดรวมไว้......................ห่อ &nbsp; โดยขอชำระค่าบริการเป็น</div>
+        <div class="chk-ind">☐ &nbsp; เงินสด</div>
+        <div class="chk-ind">☐ &nbsp; เช็คเงินสด (แคชเชียร์เช็ค)/เช็คธนาคาร &nbsp; เลขที่ ........................................ ลงวันที่ ........................................</div>
+        <div class="chk-ind">☐ &nbsp; เงินเชื่อ &nbsp; โดยใบอนุญาตเลขที่ .................... / .................... ศป./ศฝ./ปณ. ........................................</div>
+        <div>เพื่อให้นำจ่ายแก่ ........................................................................................................................................ (ระบุกลุ่มเป้าหมาย)</div>
+        <div>ที่อยู่ในเขตจ่ายรับผิดชอบของที่ทำการปลายทาง ดังนี้</div>
+
+        <table class="ad-tbl">
           <thead>
             <tr>
-              <th style="width:32px;">ลำดับ</th>
-              <th>ที่ทำการไปรษณีย์ปลายทาง / รหัสไปรษณีย์</th>
-              <th>กลุ่มเป้าหมาย / โซนพื้นที่นำจ่าย<br>(เช่น บ้านพักอาศัย, อาคารชุด, สำนักงาน, หมู่บ้าน/ตำบล)</th>
-              <th style="width:85px;">น้ำหนัก/ชิ้น<br>(กรัม)</th>
-              <th style="width:95px;">จำนวนชิ้น<br>(ฉบับ)</th>
-              <th style="width:95px;">อัตรา/ชิ้น*<br>(บาท)</th>
-              <th style="width:110px;">จำนวนเงินรวม<br>(บาท)</th>
+              <th rowspan="2" style="width:46px;">ลำดับ</th>
+              <th rowspan="2" style="width:170px;">ที่ทำการปลายทาง</th>
+              <th rowspan="2" style="width:110px;">จำนวน<br>(ฉบับ/ชิ้น)</th>
+              <th colspan="2" style="width:130px;">ค่าไปรษณียากร</th>
+              <th rowspan="2">หมายเหตุ</th>
+            </tr>
+            <tr>
+              <th style="width:85px;">บาท</th>
+              <th style="width:45px;">สต.</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>1</td><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>2</td><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>3</td><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>4</td><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>5</td><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>6</td><td style="height:24px;"></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td colspan="4" style="text-align:right; font-weight:700;">รวมทั้งสิ้น (Total)</td><td></td><td></td><td></td></tr>
+            ${emptyAdRows}
+            <tr>
+              <td colspan="2" style="font-weight:700;">รวมทั้งสิ้น</td>
+              <td></td><td></td><td></td><td></td>
+            </tr>
           </tbody>
         </table>
-        <p style="font-size:11.5px; margin:4px 0;">
-          <strong>*ตารางอัตราค่าบริการเหมาจ่ายตั้งแต่ชิ้นแรก (ตามปริมาณฝากส่งรวมต่อครั้ง):</strong>
-          • <strong>≤3,000 ชิ้น:</strong> ≤50ก.=3.50บ. | ≤100ก.=4.50บ. | ≤250ก.=7.50บ. | ≤500ก.=10.50บ.
-          • <strong>3,001–10,000 ชิ้น:</strong> 3.40 / 4.40 / 7.40 / 10.40 บ.
-          • <strong>10,001–20,000 ชิ้น:</strong> 3.30 / 4.30 / 7.30 / 10.30 บ.
-          • <strong>20,001–30,000 ชิ้น:</strong> 3.15 / 4.15 / 7.15 / 10.15 บ.
-          • <strong>30,001–50,000 ชิ้น:</strong> 3.00 / 4.00 / 7.00 / 10.00 บ.
-          • <strong>50,001–100,000 ชิ้น:</strong> 2.85 / 3.85 / 6.85 / 9.85 บ.
-          • <strong>100,001–200,000 ชิ้น:</strong> 2.70 / 3.70 / 6.70 / 9.70 บ.
-          • <strong>≥200,001 ชิ้น:</strong> 2.50 / 3.50 / 6.50 / 9.50 บ.
-        </p>
-        <div class="sig-row" style="margin-top:12px;">
-          <div class="sig-box">
-            <strong>สำหรับผู้ฝากส่ง</strong><br>
-            ข้าพเจ้ารับรองว่าสิ่งของที่ฝากส่งไม่ขัดต่อกฎหมายและระเบียบ ปณท พร้อมได้มอบตัวอย่างจริงให้ ปณ.รับฝากแล้ว<br><br>
-            ลงชื่อผู้ฝากส่ง: ........................................................................
+
+        <div class="sig-right">
+          ลงชื่อ ...........................................................................<br>
+          (...........................................................................)<br>
+          ผู้ฝากส่ง
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:10px;">
+          <div style="width:68%;">
+            <div>ได้ตรวจสอบและรับฝากไว้แล้ว</div>
+            <div style="text-align:center; margin-top:18px; width:78%; margin-left:auto;">
+              ลงชื่อ ...........................................................................<br>
+              (...........................................................................)<br>
+              เจ้าหน้าที่รับฝาก<br>
+              ............ / ............ / ............
+            </div>
+            <div style="font-size:11px; color:#94A3B8; margin-top:14px;">บริเวณผนึกรอยประทับไปรษณียากร</div>
           </div>
-          <div class="sig-box">
-            <strong>สำหรับเจ้าหน้าที่รับฝาก ปณท</strong><br>
-            ☐ ตรวจสอบตัวอย่างจริงและจำนวนมัดครบถ้วนแล้ว<br>
-            ☐ รับชำระเงินตามใบเสร็จรับเงินเลขที่: ..........................................<br><br>
-            ลงชื่อเจ้าหน้าที่รับฝาก: ............................................................
+          <div>
+            <div class="stamp-corner">ตราประจำวัน</div>
+            <div class="stamp-corner-bot"></div>
           </div>
         </div>
-        <hr style="border:1px dashed #64748B; margin:16px 0;" />
-        <div style="font-weight:700; font-size:13.5px; color:#B91C1C; margin-bottom:6px;">✂️ ส่วนสำหรับตัดแปะหน้ามัด/ห่อ (เอกสารหมายเลข 2: มัดละ 50 หรือ 100 ชิ้น แยกตามรหัสไปรษณีย์ปลายทาง)</div>
-        <table>
-          <tr>
-            <td style="width:50%; padding:10px;">
-              <div style="font-size:15px; font-weight:700; color:#B91C1C;">ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail)</div>
-              <strong>ส่งถึง ปณ.ปลายทาง:</strong> ..................................................... <strong>รหัสไปรษณีย์:</strong> .........................<br>
-              <strong>กลุ่มเป้าหมาย/พื้นที่นำจ่าย:</strong> ...........................................................................................<br>
-              <strong>จำนวนในมัดนี้:</strong> ........................ ชิ้น (มัดที่ ........ / ........) | <strong>วันที่ต้องการให้นำจ่าย:</strong> .........................<br>
-              <strong>ชื่อผู้ฝากส่ง:</strong> ............................................................. <strong>ปณ.ต้นทาง:</strong> ....................................
-            </td>
-            <td style="width:50%; padding:10px;">
-              <div style="font-size:15px; font-weight:700; color:#B91C1C;">ไปรษณียภัณฑ์ไม่มีจ่าหน้า (Admail)</div>
-              <strong>ส่งถึง ปณ.ปลายทาง:</strong> ..................................................... <strong>รหัสไปรษณีย์:</strong> .........................<br>
-              <strong>กลุ่มเป้าหมาย/พื้นที่นำจ่าย:</strong> ...........................................................................................<br>
-              <strong>จำนวนในมัดนี้:</strong> ........................ ชิ้น (มัดที่ ........ / ........) | <strong>วันที่ต้องการให้นำจ่าย:</strong> .........................<br>
-              <strong>ชื่อผู้ฝากส่ง:</strong> ............................................................. <strong>ปณ.ต้นทาง:</strong> ....................................
-            </td>
-          </tr>
-        </table>
+
+        <div class="page-break"></div>
+        <div style="text-align:center; margin-bottom:10px;">-๒-</div>
+
+        <div>(๒) เรียน &nbsp; หปอ./................................................</div>
+        <div style="margin-left:90px; margin-bottom:26px;">เพื่อโปรดทราบการรับฝาก ตาม (๑) และตรวจสอบความถูกต้องต่อไปด้วย จักขอบคุณมาก</div>
+        <div style="text-align:center; width:50%; margin-left:auto;">
+          (.......................................................)<br>
+          หรฝ.<br>
+          .......... / .......... / ..........
+        </div>
+
+        <div class="dot-hr"></div>
+
+        <div>(๓) เรียน &nbsp; หน.ปณ. ................................................</div>
+        <div style="display:flex; gap:18px; align-items:flex-start; margin-top:6px;">
+          <div style="padding-top:24px; padding-left:44px;">ได้ตรวจสอบ</div>
+          <div>
+            <div>☐ &nbsp; จดหมาย</div>
+            <div>☐ &nbsp; ไปรษณียบัตร &nbsp; ไม่มีจ่าหน้า แล้วปรากฏว่า มีจำนวนถูกต้องตามที่รับฝากจริง</div>
+            <div>☐ &nbsp; ของตีพิมพ์</div>
+          </div>
+        </div>
+        <div style="text-align:center; width:50%; margin-left:auto; margin-top:18px;">
+          (.......................................................)<br>
+          หปอ./.........................................<br>
+          .......... / .......... / ..........
+        </div>
+
+        <div class="dot-hr"></div>
+
+        <div>(๔) เรียน &nbsp; หรฝ. / หปอ. / ................................................</div>
+        <div style="margin-left:80px; margin-bottom:26px;">ตาม (๑) – (๓) พิจารณาแล้ว อนุญาตให้ฝากส่ง</div>
+        <div style="text-align:center; width:50%; margin-left:auto; margin-bottom:24px;">
+          (.......................................................)<br>
+          หน.ปณ.........................................<br>
+          .......... / .......... / ..........
+        </div>
+
+        <div>เรียน &nbsp; ฝปน.(...........)/ฝปข........... &nbsp; ผ่าน &nbsp; หน.สพ.(...........)/ปจ..................................</div>
+        <div style="margin-left:70px; margin-bottom:26px;">เพื่อโปรดทราบต่อไปด้วย จักขอบคุณมาก</div>
+        <div style="text-align:center; width:50%; margin-left:auto;">
+          (.......................................................)<br>
+          หน.ปณ.........................................<br>
+          .......... / .......... / ..........
+        </div>
       </body></html>`;
     }
 
     if (templateType === "DOM_TRASIN_FORM") {
-      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>แบบคำขอฝากส่งหนังสือพิมพ์ตราสิน (ป.244) และตัวอย่างกรอบตรา 2x4 ซม.</title>${baseStyle}</head><body>
-        <div class="no-print" style="background:#EFF6FF; padding:10px; border:1px solid #2563EB; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
-          <span><strong>พร้อมพิมพ์ A4:</strong> แบบจำลองใบนำส่งหนังสือพิมพ์ตราสิน (ป.244 ตอนที่ 1–4) + ตัวอย่างกรอบตรา "หนังสือพิมพ์ตราสิน" ขนาด 2×4 ซม.</span>
-          <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์แบบ ป.244 & ตัวอย่างกรอบตรา</button>
-        </div>
-        <h1>แบบคำขอฝากส่งหนังสือพิมพ์ตราสิน (แบบ ป.244) & คู่มือตรวจสอบหน้าเคาน์เตอร์</h1>
-        <h2>อ้างอิง: ระเบียบ ปณท ว่าด้วยบริการหนังสือพิมพ์ตราสิน (ฉบับที่ 234) พ.ศ. 2558</h2>
-        <table>
-          <tr>
-            <td style="width:62%;">
-              <strong>ชื่อหนังสือพิมพ์/สิ่งพิมพ์ตราสิน:</strong> ........................................................................................................<br>
-              <strong>ใบอนุญาตเลขที่:</strong> ............................................... <strong>ออกให้ ณ วันที่:</strong> .....................................................<br>
-              <strong>วันหมดอายุใบอนุญาต:</strong> ....................................... <em>(ต้องต่ออายุล่วงหน้าอย่างน้อย 15 วัน ค่าธรรมเนียม 100 บ./ปี)</em><br>
-              <strong>ฝากส่ง ณ ที่ทำการไปรษณีย์ (ต้องตรงกับที่ระบุในใบอนุญาตเท่านั้น):</strong> ....................................................<br>
-              <strong>ประจำฉบับที่ / วัน-เดือน-ปีที่ออก:</strong> .....................................................................................................
-            </td>
-            <td style="width:38%; text-align:center; vertical-align:middle;">
-              <div style="font-size:12px; font-weight:700; margin-bottom:4px;">ตัวอย่างกรอบข้อความที่ต้องพิมพ์มุมขวาบนของซอง/ปก<br>(ขนาดไม่น้อยกว่า 2 × 4 ซม.)</div>
-              <div style="border:2.5px solid #0F172A; width:160px; height:76px; margin:0 auto; display:flex; flex-direction:column; justify-content:center; align-items:center; font-weight:700; font-size:13.5px; line-height:1.35;">
-                <span>หนังสือพิมพ์ตราสิน</span>
-                <span>ชำระค่าฝากส่งเป็นรายเดือน</span>
-                <span style="font-size:12px;">ใบอนุญาตที่ ........../..........</span>
-              </div>
-              <div style="font-size:11px; color:#B91C1C; margin-top:4px;">*แม้พิมพ์ว่า "ชำระค่าฝากส่งเป็นรายเดือน" แต่ต้องชำระเงินสดทุกครั้งที่ฝากส่ง!</div>
-            </td>
-          </tr>
-        </table>
-        <table>
-          <thead>
-            <tr>
-              <th>รายละเอียดการฝากส่งในครั้งนี้ (ต้องฝากส่งไม่ต่ำกว่า 100 ฉบับ/ครั้ง และขนาด/น้ำหนักเท่ากันทุกฉบับ)</th>
-              <th style="width:110px;">น้ำหนักต่อฉบับ (กรัม)</th>
-              <th style="width:110px;">จำนวนฉบับที่ส่ง</th>
-              <th style="width:130px;">อัตราค่าบริการ/ฉบับ (บาท)</th>
-              <th style="width:130px;">รวมเป็นเงินทั้งสิ้น (บาท)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="height:36px;">หนังสือพิมพ์ตราสิน (ลดสูงสุด 50% จากอัตราของตีพิมพ์ปกติ)</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td colspan="4" style="text-align:right; font-weight:700;">รวมเงินที่ต้องชำระ (ปัดเศษสตางค์ขึ้นเป็น .25 / .50 / .75 / 1.00 บาท)</td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="box-choice" style="background:#FFFBEB; border-color:#D97706; font-size:12.5px;">
-          <strong>🛡️ เช็คลิสต์บังคับสำหรับเจ้าหน้าที่รับฝาก (ตามระเบียบฉบับที่ 234):</strong><br>
-          ☐ 1. ตรวจสอบว่าเป็น ปณ.เดียวกับที่ระบุในใบอนุญาต (ห้ามรับฝากข้าม ปณ. เด็ดขาด) และใบอนุญาตยังไม่หมดอายุ<br>
-          ☐ 2. ผู้ฝากส่งส่งมอบ <strong>ตัวอย่างหนังสือพิมพ์ฉบับที่ฝากส่งจริง จำนวน 2 ฉบับ</strong> (เก็บไว้ที่ ปณ.รับฝาก 1 ฉบับ + ส่งไปส่วนบริการสื่อสารบริการธุรกิจ 1 ฉบับ)<br>
-          ☐ 3. จำนวนฝากส่งครบ <strong>100 ฉบับขึ้นไป</strong> และมัดแยกตามรหัสไปรษณีย์/จังหวัดปลายทางเรียบร้อยแล้ว<br>
-          ☐ 4. การแยกแบบ <strong>ป.244 ทั้ง 4 ตอน</strong> หลังรับชำระเงินสดและประทับตราประจำวันแล้ว:
-          <strong>ตอนที่ 1</strong> ส่งฝ่ายการเงินฯ | <strong>ตอนที่ 2</strong> แนบส่งไปกับถุงหนังสือพิมพ์ | <strong>ตอนที่ 3</strong> มอบให้ผู้ฝากส่งเป็นใบเสร็จรับเงิน | <strong>ตอนที่ 4</strong> เก็บไว้เป็นหลักฐานที่ ปณ.รับฝาก
-        </div>
-        <div class="sig-row">
-          <div class="sig-box">
-            <strong>ลงชื่อผู้ฝากส่ง / ผู้รับมอบอำนาจ</strong><br><br><br>
-            ลงชื่อ: .....................................................................................<br>
-            วันที่: ............ / ........................ / 2569
-          </div>
-          <div class="sig-box">
-            <strong>ลงชื่อเจ้าหน้าที่รับฝาก ปณท</strong><br><br>
-            ☐ ได้รับตัวอย่างหนังสือพิมพ์จริง 2 ฉบับ และรับชำระเงินสดครบถ้วนแล้ว<br><br>
-            ลงชื่อ: ......................................................... ปณ.: .................................
-          </div>
-        </div>
-      </body></html>`;
-    }
-
-    if (templateType === "DOM_BULK_DEPOSIT_FORM") {
-      let rows = "";
-      for (let i = 1; i <= 20; i++) {
-        rows += `<tr><td style="text-align:center;">${i}</td><td style="height:21px;"></td><td></td><td></td><td></td><td></td><td></td></tr>`;
+      let trRows = "";
+      for (let i = 0; i < 16; i++) {
+        trRows += `<tr><td style="height:26px;"></td><td></td><td></td><td></td><td></td></tr>`;
       }
-      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>ใบนำส่งสิ่งของฝากส่งทางไปรษณีย์เป็นจำนวนมาก (ในประเทศ 20 รายการ)</title>${baseStyle}</head><body>
-        <div class="no-print" style="background:#EFF6FF; padding:10px; border:1px solid #2563EB; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
-          <span><strong>พร้อมพิมพ์ A4:</strong> ใบนำส่งรับฝากรวมในประเทศ 20 รายการ (ใช้ได้ทั้ง ลงทะเบียน R, EMS ในประเทศ, eCo-Post และ พัสดุไปรษณีย์ P)</span>
-          <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์ใบนำส่ง 20 รายการ</button>
-        </div>
-        <h1>บริษัท ไปรษณีย์ไทย จำกัด — ใบนำส่งสิ่งของฝากส่งทางไปรษณีย์ในประเทศ</h1>
-        <h2>สำหรับ: ☐ ลงทะเบียนในประเทศ (R) &nbsp;&nbsp; ☐ EMS ในประเทศ (E) &nbsp;&nbsp; ☐ eCo-Post (O) &nbsp;&nbsp; ☐ พัสดุไปรษณีย์ (P) &nbsp;&nbsp; ☐ บริการรับประกัน</h2>
-        <p style="margin:4px 0;">
-          <strong>ชื่อผู้ฝากส่ง / หน่วยงาน:</strong> ................................................................................................. <strong>โทรศัพท์:</strong> .................................................<br>
-          <strong>ฝากส่ง ณ ปณ.:</strong> ......................................................................................... <strong>ประจำวันที่:</strong> ............ / ........................ / 2569 (แผ่นที่ ........ / ........)
-        </p>
-        <table>
-          <thead>
-            <tr>
-              <th style="width:34px; text-align:center;">ลำดับ</th>
-              <th>ชื่อผู้รับปลายทาง</th>
-              <th style="width:95px;">รหัสไปรษณีย์<br>/ ปลายทาง</th>
-              <th style="width:155px;">เลขที่บาร์โค้ด 13 หลัก<br>(R / E / O / P ... TH)</th>
-              <th style="width:70px;">น้ำหนัก<br>(กรัม)</th>
-              <th style="width:75px;">ค่าฝากส่ง<br>(บาท)</th>
-              <th style="width:95px;">บริการเสริม<br>(AR / รับประกัน)</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${rows}
-            <tr>
-              <td colspan="4" style="text-align:right; font-weight:700;">รวมทั้งสิ้น (Total)</td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="sig-row" style="margin-top:12px;">
-          <div class="sig-box">
-            <strong>ลงชื่อผู้ฝากส่ง:</strong> ..............................................................................<br>
-            จำนวนรวมทั้งสิ้น ......................... ชิ้น
-          </div>
-          <div class="sig-box">
-            <strong>ลงชื่อเจ้าหน้าที่รับฝาก:</strong> .....................................................................<br>
-            (ประทับตราประจำวัน ปณ.รับฝาก)
+      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>เอกสารแนบท้ายระเบียบ ปณท ฉบับที่ ๒๓๔ — หนังสือพิมพ์ตราสิน (หมายเลข ๕ และ ๔/๑)</title>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap');
+          @page { size: A4 portrait; margin: 12mm 16mm; }
+          * { box-sizing: border-box; }
+          body { font-family: 'Sarabun', 'TH Sarabun New', sans-serif; color: #0F172A; margin: 12mm auto; max-width: 185mm; font-size: 13.5px; line-height: 1.5; background: #FFFFFF; }
+          .no-print { background:#EFF6FF; padding:10px 12px; border:1px solid #2563EB; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:13px; }
+          .top-ref { text-align: right; font-size: 13px; line-height: 1.35; }
+          .main-title { text-align: center; font-size: 15.5px; font-weight: 700; margin: 10px 0 12px; }
+          table.tr-tbl { width: 100%; border-collapse: collapse; margin-top: 10px; }
+          table.tr-tbl th, table.tr-tbl td { border: 1.1px solid #0F172A; padding: 5px 6px; font-size: 13px; text-align: center; }
+          .page-break { border-top: 1.5px dashed #94A3B8; margin: 24px 0 18px; page-break-before: always; }
+          .env-wrap { position: relative; width: 155mm; margin: 26px auto 0; }
+          .env-box { border: 1.3px solid #0F172A; padding: 14px 18px; height: 74mm; position: relative; }
+          .stamp-4x2 { width: 40mm; height: 20mm; border: 1.3px solid #0F172A; position: absolute; top: 10px; right: 12px; padding: 3px 6px; text-align: center; font-size: 11px; line-height: 1.32; }
+          @media print { .no-print { display: none !important; } body { margin: 0; max-width: none; } }
+        </style>
+      </head><body>
+        <div class="no-print">
+          <span><strong>ฉบับเหมือนต้นฉบับ ปณท (เอกสารแนบท้ายระเบียบ ฉบับที่ ๒๓๔):</strong> หมายเลข ๕ (บัญชีฝากส่ง) &amp; หมายเลข ๔/๑ (ตัวอย่างจ่าหน้า ๔×๒ ซม.)</span>
+          <div style="display:flex; gap:8px;">
+            <a href="docs/domestic-trasin-regulation-234.pdf#page=16" target="_blank" style="background:#1D4ED8; color:#fff; text-decoration:none; padding:7px 13px; border-radius:6px; font-weight:700;">📄 ดูระเบียบ 234 ต้นฉบับ (PDF)</a>
+            <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:7px 15px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์หน้านี้ (A4)</button>
           </div>
         </div>
-      </body></html>`;
-    }
 
-    if (templateType === "DOM_MOTORCYCLE_CHECKLIST") {
-      return `<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8"><title>แบบตรวจสภาพรถจักรยานยนต์ EMS Jumbo (จัดทำ 3 ฉบับ) & ป้าย ป.309</title>${baseStyle}</head><body>
-        <div class="no-print" style="background:#FEF2F2; padding:10px; border:1px solid #DC2626; margin-bottom:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
-          <span><strong>พร้อมพิมพ์ A4 (จัดทำ 3 ฉบับ):</strong> (1) แนบตัวรถในซองพลาสติกใส (2) มอบให้ผู้ฝากคู่ใบเสร็จ (3) เก็บที่ ปณ.ต้นทาง</span>
-          <button onclick="window.print()" style="background:#D91920; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer;">🖨️ สั่งพิมพ์แบบตรวจสภาพรถ (A4)</button>
+        <div class="top-ref">
+          เอกสารแนบท้ายระเบียบ ปณท ฉบับที่ ๒๓๔ ว่าด้วย บริการหนังสือพิมพ์ตราสิน พ.ศ. ๒๕๕๘<br>
+          หมายเลข ๕
         </div>
-        <h1>บริษัท ไปรษณีย์ไทย จำกัด — แบบบันทึกตรวจสอบสภาพรถจักรยานยนต์ (บริการ EMS Jumbo)</h1>
-        <h2>อ้างอิงบันทึก ปณท รป.(รฝ.2)/363 และ รป.(รฝ.2)/718 (จัดทำ 3 ฉบับ: แนบรถ 1 / ให้ผู้ฝากส่ง 1 / เก็บที่ ปณ.ต้นทาง 1)</h2>
-        <div class="box">
-          <strong>ปณ.รับฝากต้นทาง:</strong> ........................................................ <strong>วันที่รับฝาก:</strong> ......../................/2569 <strong>เลขที่บาร์โค้ด EMS Jumbo:</strong> <code>E_______________________TH</code><br>
-          <strong>ชื่อผู้ฝากส่ง:</strong> ............................................................................... <strong>เบอร์โทรผู้ฝาก:</strong> ............................................... <strong>เลขบัตร ปชช.:</strong> .....................................................<br>
-          <strong>ชื่อผู้รับปลายทาง:</strong> ........................................................................ <strong>เบอร์โทรผู้รับ:</strong> ................................................ <strong>ปณ.ปลายทาง:</strong> .....................................................<br>
-          <strong>ที่อยู่ผู้รับโดยละเอียด (บังคับคีย์ลง CA POS):</strong> บ้านเลขที่ ................. หมู่ ........ ซอย/ถนน ....................................... ตำบล/แขวง ....................................... อำเภอ/เขต ....................................... จังหวัด ....................................... รหัสไปรษณีย์ .......................
+        <div class="main-title">บัญชีแสดงรายละเอียดรายการฝากส่งหนังสือพิมพ์ตราสิน</div>
+        <div>
+          ชื่อผู้ขออนุญาต................................................................. ชื่อหนังสือพิมพ์ตราสิน.................................................................<br>
+          ตั้งแต่วันที่......................................................................... ถึงวันที่.....................................................................................<br>
+          ใบอนุญาตตราสินเลขที่........................................................ ได้รับอนุญาตให้ฝากส่ง ณ ปณ. ...................................................
         </div>
-        <div class="box">
-          <strong>1. ข้อมูลรถจักรยานยนต์ & เอกสารประกอบการรับฝาก:</strong><br>
-          • ยี่ห้อ/รุ่น: ................................................................. สี: ................................. ป้ายทะเบียน: ......................................... ขนาดเครื่องยนต์: .............. CC (เรทโซน ........)<br>
-          • เลขตัวถัง/เลขเครื่อง: .................................................................................... เลขไมล์ขณะรับฝาก: ...................................... กม.<br>
-          • <strong>เอกสารที่ตรวจสอบแล้ว:</strong> ☐ สำเนาเล่มทะเบียนรถ (หรือใบซื้อขาย) &nbsp;&nbsp; ☐ สำเนาบัตรประชาชนผู้ฝากส่ง &nbsp;&nbsp; ☐ กุญแจรถจำนวน ........ ดอก (มัดติดตัวรถในซองกันกระแทก)<br>
-          • <strong>การเตรียมรถก่อนหุ้มห่อ (บังคับ):</strong> ☐ ถ่ายน้ำมันเชื้อเพลิงออกเหลือไม่เกิน 1/4 ถัง &nbsp;&nbsp; ☐ ถอดกระจกมองข้างทั้ง 2 ข้างออกแพ็คแยก &nbsp;&nbsp; ☐ ถอดขั้วแบตเตอรี่ (กรณีรถไฟฟ้า/Big Bike)<br>
-          • <strong>การหุ้มห่อตามมาตรฐาน ปณท:</strong> ☐ หุ้มด้วย <strong>โฟม EPE (EPE Foam)</strong> รอบคัน (หรือ Air Bubble หนา + กระดาษลูกฟูกทับ <em>*ห้ามนำกระดาษลูกฟูกสัมผัสสีรถโดยตรงเด็ดขาด!*</em>)
-        </div>
-        <table>
+
+        <table class="tr-tbl">
           <thead>
             <tr>
-              <th style="width:32%;">ตำแหน่งชิ้นส่วนรถจักรยานยนต์</th>
-              <th style="width:22%; text-align:center;">สภาพปกติ</th>
-              <th style="width:46%;">พบร่องรอยขีดข่วน / แตกหัก / ตำหนิเดิมก่อนฝากส่ง (ระบุละเอียด)</th>
+              <th style="width:16%;">ว.ด.ป.</th>
+              <th style="width:20%;">ฉบับประจำวันที่</th>
+              <th style="width:15%;">จำนวน</th>
+              <th style="width:20%;">ค่าไปรษณียากร</th>
+              <th style="width:29%;">หมายเหตุ</th>
             </tr>
           </thead>
-          <tbody>
-            <tr><td>1. ชุดไฟหน้า / หน้ากาก / บังลมหน้า</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
-            <tr><td>2. บังโคลนหน้า / โช้คอัพหน้า / ล้อแม็ก-ซี่ลวดหน้า</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
-            <tr><td>3. แฮนด์ซ้าย-ขวา / มือเบรก-คลัตช์ / เรือนไมล์</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
-            <tr><td>4. ถังน้ำมัน / ชุดสีแฟริ่งข้างซ้าย (Left Side)</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
-            <tr><td>5. ชุดสีแฟริ่งข้างขวา (Right Side) / ท่อไอเสีย</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
-            <tr><td>6. เบาะนั่ง / กล่องเก็บของใต้เบาะ / กันตกท้าย</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
-            <tr><td>7. ชุดไฟท้าย / ไฟเลี้ยวหน้า-หลัง / บังโคลนหลัง</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
-            <tr><td>8. ขาตั้งเดี่ยว / ขาตั้งคู่ / พักเท้าหน้า-หลัง / เครื่องยนต์</td><td style="text-align:center;">☐ ปกติ</td><td>☐ มีรอย: ................................................................................................</td></tr>
-          </tbody>
+          <tbody>${trRows}</tbody>
         </table>
-        <div class="box" style="background:#FFFBEB; font-size:12px;">
-          <strong>ข้อตกลงรับทราบเงื่อนไข:</strong> ผู้ฝากส่งและเจ้าหน้าที่รับฝากได้ร่วมกันตรวจสอบสภาพรถจักรยานยนต์และถ่ายภาพมุมรอบคันไว้เป็นหลักฐานถูกต้องตรงกันแล้ว ทั้งนี้ ไปรษณีย์ไทยรับผิดชอบชดใช้ค่าเสียหายตามจริงไม่เกิน 3,000 บาท (หรือตามวงเงินรับประกันภัยที่ซื้อเพิ่มสูงสุดไม่เกิน 200,000 บาท) และหากสิ่งของถึง ปณ.ปลายทางแล้วผู้รับไม่มารับภายใน 7 วัน จะมีค่าเก็บรักษาวันละ 25 บาท/ชิ้น
+
+        <div class="page-break"></div>
+        <div class="top-ref">
+          เอกสารแนบท้ายระเบียบ ปณท ฉบับที่ ๒๓๔ ว่าด้วย บริการหนังสือพิมพ์ตราสิน พ.ศ. ๒๕๕๘<br>
+          หมายเลข ๔/๑
         </div>
-        <div class="sig-row">
-          <div class="sig-box">
-            <strong>ลงชื่อผู้ฝากส่ง (ยืนยันสภาพรถก่อนส่ง):</strong><br><br>
-            ลงชื่อ .................................................................................<br>
-            (.........................................................................................)
+        <div class="main-title">ตัวอย่างการจ่าหน้าหนังสือพิมพ์ตราสิน</div>
+
+        <div class="env-wrap">
+          <div style="text-align:right; font-size:12px; margin-bottom:2px; padding-right:26mm;">|&larr;&mdash;&mdash; ๔ ซม. &mdash;&mdash;&rarr;|</div>
+          <div class="env-box">
+            <div style="text-align:center; font-weight:700; font-size:14px;">หนังสือพิมพ์ตราสิน</div>
+            <div class="stamp-4x2">
+              <strong>ชำระค่าบริการแล้ว</strong><br>
+              ใบอนุญาตตราสินเลขที่ .............<br>
+              ..................... บาท<br>
+              ปณ. ............................
+            </div>
+            <div style="margin-top:6px;">
+              ชื่อผู้ฝาก ......................................<br>
+              ที่อยู่ ..........................................
+            </div>
+            <div style="margin-top:26px; margin-left:42%;">
+              ชื่อผู้รับ ......................................<br>
+              ที่อยู่ ..........................................
+            </div>
           </div>
-          <div class="sig-box">
-            <strong>ลงชื่อเจ้าหน้าที่ ปณ.ต้นทาง (ผู้ตรวจสภาพ/รับฝาก):</strong><br><br>
-            ลงชื่อ .................................................................................<br>
-            ตำแหน่ง ................................................ ปณ. .......................
-          </div>
-        </div>
-        <div class="sig-row" style="margin-top:8px;">
-          <div class="sig-box" style="grid-column: 1 / -1; background:#F8FAFC;">
-            <strong>ส่วนสำหรับผู้รับปลายทาง (เมื่อรับมอบรถ ณ ปณ.ปลายทาง หรือนำส่งถึงบ้าน):</strong> ข้าพเจ้าได้รับมอบรถจักรยานยนต์หมายเลขบาร์โค้ดข้างต้นในสภาพเรียบร้อยถูกต้องแล้ว<br>
-            ลงชื่อผู้รับ: ........................................................................... วันที่รับ: ......../............/2569 เวลา .............. น. | เจ้าหน้าที่นำจ่าย: .........................................................
-          </div>
+          <div style="position:absolute; right:-36px; top:32px; font-size:12px;">๒ ซม.</div>
         </div>
       </body></html>`;
     }
